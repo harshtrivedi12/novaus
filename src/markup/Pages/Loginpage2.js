@@ -7,7 +7,7 @@ import { loadingToggleAction,loginAction,
 // image
 //import logo from "../../images/logo-full-white.png";
 import loginbg from "./../../images/bg6.jpg";
-import logo2 from './../../images/logo-white2.png';
+// import logo2 from './../../images/logo-white2.png';
 
 function Login (props) {
   const [email, setEmail] = useState('demo@example.com');
@@ -48,7 +48,8 @@ function Login (props) {
 							<div className="col-lg-6 col-md-6 d-flex">
 								<div className="text-white max-w400 align-self-center">
 									<div className="logo">
-										<Link to={"/"}><img src={logo2} alt="" /></Link>
+										{/* <Link to={"/"}><img src={logo2} alt="" /></Link> */}
+										<Link to={"/"}><img src={require("./../../images/logo/NovaUS.png")} alt="" /></Link>
 									</div>
 									<h2 className="m-b10">Login To You Now</h2>
 									<p className="m-b30">Lorem Ipsum is simply dummy text of the printing and typesetting industry has been the industry.</p>

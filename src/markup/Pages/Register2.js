@@ -42,7 +42,8 @@ function Register2(props) {
 						<div className="col-xl-4 col-lg-5 col-md-6 col-sm-12 bg-white z-index2 relative p-a0 content-scroll skew-section left-bottom">
 							<div className="login-form style-2">
 								<div className="logo-header text-center p-tb30">
-									<Link to={"./"}><img src={require("./../../images/logo.png")} alt="" /></Link>
+									{/* <Link to={"./"}><img src={require("./../../images/logo.png")} alt="" /></Link> */}
+									<Link to={"./"}><img src={require('./../../images/logo/NovaUS.png')} className="logo" alt="" /></Link>
 								</div>
 								<div className="clearfix"></div>
 								<div className="tab-content nav p-b30 tab">

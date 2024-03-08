@@ -54,7 +54,8 @@ class Header2 extends Component{
 						<div className="container clearfix">
 							
 							<div className="logo-header mostion">
-								<Link to={"./"}><img src={require('./../../images/logo.png')} className="logo" alt="" /></Link>
+								{/* <Link to={"./"}><img src={require('./../../images/logo.png')} className="logo" alt="" /></Link> */}
+								<Link to={"./"}><img src={require('./../../images/logo/NovaUS.png')} className="logo" alt="" /></Link> 
 							</div>
 							
 							<button className="navbar-toggler collapsed navicon justify-content-end" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

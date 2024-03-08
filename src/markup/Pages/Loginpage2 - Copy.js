@@ -13,7 +13,8 @@ function Loginpage2(){
 							<div className="col-lg-6 col-md-6 d-flex">
 								<div className="text-white max-w400 align-self-center">
 									<div className="logo">
-										<Link to={"/"}><img src={require("./../../images/logo-white2.png")} alt="" /></Link>
+										{/* <Link to={"/"}><img src={require("./../../images/logo-white2.png")} alt="" /></Link> */}
+										<Link to={"/"}><img src={require("./../../images/logo/NovaUS.png")} alt="" /></Link>
 									</div>
 									<h2 className="m-b10">Login To You Now</h2>
 									<p className="m-b30">Lorem Ipsum is simply dummy text of the printing and typesetting industry has been the industry.</p>
