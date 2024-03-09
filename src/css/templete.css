@@ -11,7 +11,7 @@
 }
 .fullwidth .header-nav .nav > li.active > a,
 .fullwidth .header-nav .nav > li:hover > a{
-	background-color:#2e55fa;
+	background-color:#1c2957;
 	color:#fff;
 }
 .extra-nav{
@@ -125,7 +125,8 @@
 .job-categories .icon-bx-wraper{
 	padding: 40px 10px;
 	margin-bottom: 20px;
-	background: #2e55fa;
+	/* background: #2e55fa; */
+	background: #d2293a;
 	border-radius: 10px;
 	text-align:center;
 	-moz-transition:all 0.5s;
@@ -178,7 +179,8 @@
 	height: 0;
 }
 .job-categories .icon-bx-wraper:hover{
-	background-color:#2e55fa;
+	/* background-color:#2e55fa; */
+	background-color: #d2293a;
 	transform: scale(1.05);
 	-moz-transform: scale(1.05);
 	-webkit-transform: scale(1.05);
@@ -557,7 +559,8 @@
 .slick-slide.slick-active.slick-current + .slick-active .testimonial-text:after{
 	border-left: 15px solid transparent;
     border-right: 15px solid transparent;
-    border-top: 15px solid #2e55fa;
+    /* border-top: 15px solid #2e55fa; */
+	border-top: 15px solid #d2293a;
 }
 
 /* browse-job */
@@ -648,7 +651,8 @@
 	border-radius:0;
 	background-color: transparent;
 	border-width: 0 0 2px 0;
-	border-color:#2e55fa;
+	/* border-color:#2e55fa; */
+	border-color: #1c2957;
 }
 .find-job-bx .form-control{
 	padding:0;
@@ -690,7 +694,8 @@
 .find-job-bx .bootstrap-select .dropdown-toggle:focus, 
 .find-job-bx .bootstrap-select .dropdown-toggle:hover{
 	border-width: 0 0 2px 0 !important;
-	border-color: #2e55fa !important;
+	/* border-color: #2e55fa !important; */
+	 border-color: #1c2957 !important; 
 	background-color: transparent !important;
 	border-radius: 0;
 	height: 50px;
@@ -880,7 +885,7 @@
 	content:"";
 	width:100%;
 	height:100%;
-	background-color:#000930;
+	background-color:#8b94c4;
 	opacity:0.8;
 	position:absolute;
 	top:0;
@@ -931,7 +936,7 @@
 	-o-transition:all 0.5s;
 }
 .city-bx:hover:after{
-	background-color:#2e55fa;
+	background-color:#8b94c4;
 	opacity:0.95;
 }
 .city-info{
@@ -1123,7 +1128,7 @@
 	width: 30px;
 	height: 30px;
 	border-radius: 30px;
-	border: 1px solid #2e55fa;
+	border: 1px solid #1c2957;
 	line-height: 30px;
 	text-align: center;
 	margin-left: 5px;
@@ -1135,7 +1140,7 @@
 .canditate-des  {
 	position: relative;
 	display: inline-block;
-	border: 2px solid #2E55FA;
+	border: 2px solid #1c2957;
 	outline-offset: 3px;
 	border-radius: 100%;
 	width: 150px;
@@ -1151,7 +1156,7 @@
 	right: 0;
 	box-shadow: 0 0 10px 0 rgba(0,24,128,0.1);
 	border-radius: 100%;
-	color: #2E55FA;
+	color: #1c2957;
 	overflow: hidden;
 }
 .candidate-info img {
@@ -1181,7 +1186,7 @@
 .candidate-info ul li a:hover,
 .candidate-info ul li a.active{
     background: #e1e7ff;
-	border-left-color: #2e55fa;
+	border-left-color: #1c2957;
 }
 .candidate-info ul li a span{
 	transition: all 0.5s;
@@ -1218,7 +1223,7 @@
 .canditate-des::before {
     content: "";
     position: absolute;
-    background-color: #2e55fa;
+    background-color: #1c2957;
     height: 115%;
     width: 2px;
     left: 50%;
@@ -1235,7 +1240,7 @@
     left: -15px;
     top: 50%;
     width: 120%;
-    background-color: #2e55fa;
+    background-color: #1c2957;
     height: 2px;
     z-index: -1;
 }
@@ -1333,7 +1338,7 @@
 /* Jobs Link */
 .job-links .fa-download,
 .job-links .fa-eye{
-    background-color: #2e55fa;
+    background-color: #1c2957;
     color: #fff;
     border: 0;
     border-radius: 5px;
@@ -1348,7 +1353,7 @@
     padding: 7px;
 }
 .pencil .fa-pencil {
-    background-color: #2e55fa;
+    background-color: #1c2957;
     color: #fff;
     border: 0;
     border-radius: 5px;
@@ -1737,7 +1742,7 @@
     position: absolute;
     font-size: 16px;
     font-weight: normal;
-    color: #2e55fa;
+    color: #1c2957;
 }
 .comment-reply-link:hover {
     color: #333 !important;
@@ -2069,7 +2074,7 @@
 }
 
 .site-header.border-bottom .main-bar-wraper{
-	border-bottom: 2px solid #2e55fa;
+	border-bottom: 2px solid #1c2957;
 }
 
 /* Company logo wg  */
@@ -2302,10 +2307,10 @@
 	border-radius: 0;
 	background-color: transparent;
 	border-width: 0 0 2px 0;
-	border-color: #2e55fa;
+	border-color: #1c2957;
 }
 
 .site-filters.style1 .nav-item .nav-link.active{
 	background-color: transparent;
-	color: #2e55fa;
+	color: #1c2957;
 }

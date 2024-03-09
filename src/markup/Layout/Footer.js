@@ -34,7 +34,7 @@ function Footer(){
 						</div>
 						<div className="col-xl-5 col-lg-5 col-md-8 col-sm-8 col-12">
 							<div className="widget border-0">
-								<h5 className="m-b30 text-white">Frequently Asked Questions</h5>
+								<h5 className="m-b30 F-heading">Frequently Asked Questions</h5>
 								<ul className="list-2 list-line">
 									<li><Link to={''}>Privacy & Seurty</Link></li>
 									<li><Link to={''}>Terms of Serice</Link></li>
@@ -53,7 +53,7 @@ function Footer(){
 						</div>
 						<div className="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-12">
 							<div className="widget border-0">
-								<h5 className="m-b30 text-white">Find Jobs</h5>
+								<h5 className="m-b30 F-heading">Find Jobs</h5>
 								<ul className="list-2 w10 list-line">
 									<li><Link to={''}>US Jobs</Link></li>
 									<li><Link to={''}>Canada Jobs</Link></li>
@@ -73,7 +73,7 @@ function Footer(){
 					<div className="row">
 						<div className="col-lg-12 text-center">
 							<span> © Copyright by <i className="fa fa-heart m-lr5 text-red heart"></i>
-							<Link to={''}>DexignZone </Link> All rights reserved.</span> 
+							<Link to={''} className="NovaUs">NovaUs Jobs </Link> All rights reserved.</span> 
 						</div>
 					</div>
 				</div>

@@ -5780,7 +5780,7 @@ ol.comment-list li.comment .comment-respond .comment-form p {
 	position: absolute;
 	width: 12px;
 	height: 1px;
-	background: #c6cffa;
+	background: #1c2957;
 	top: 15px;
 }
 .list-2 li:hover:before{
@@ -9991,11 +9991,12 @@ ul[class*="list-"]{
 .overlay-black-dark:after {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#192665+0,09123f+49,222845+100 */
 	background: rgb(25,38,101); /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover, rgba(25,38,101,1) 0%, rgba(9,18,63,1) 49%, rgba(34,40,69,1) 100%); /* FF3.6-15 */
+	background: -moz-radial-gradient(center, ellipse cover, rgba(25,38,101,1) 0%,rgba(9,18,63,1) 49%,rgba(34,40,69,1) 100%); /* FF3.6-15 */
 	background: -webkit-radial-gradient(center, ellipse cover, rgba(25,38,101,1) 0%,rgba(9,18,63,1) 49%,rgba(34,40,69,1) 100%); /* Chrome10-25,Safari5.1-6 */
 	background: radial-gradient(ellipse at center, rgba(25,38,101,1) 0%,rgba(9,18,63,1) 49%,rgba(34,40,69,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#192665', endColorstr='#222845',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
+ 
 .overlay-gradient-light:after,
 .overlay-gradient-middle:after,
 .overlay-gradient-dark:after {
@@ -10896,13 +10897,14 @@ footer h3 a,
 footer h4 a,
 footer h5 a,
 footer h6 a {
-    color: #c6cffa;
+    color: #1c2957;
+   
 }
 footer p,
 footer strong,
 footer b,
 footer {
-    color: #c6cffa;
+    color: #1c2957;
 }
 footer h1 a,
 footer h2 a,
@@ -10911,20 +10913,20 @@ footer h4 a,
 footer h5 a,
 footer h6 a,
 footer p a {
-    color: #c6cffa;
+    color: #1c2957;
 }
 
 footer a,
 footer a:visited {
-    color: #c6cffa;
+    color: #1c2957;
 }
 footer p a {
-    color: #c6cffa;
+    color: #1c2957;
 }
 footer a:active,
 footer a:focus,
 footer a:hover {
-    color: #c6cffa;
+    color: #1c2957;
 }
 /* widget color */
 footer .widget_categories ul li a,
@@ -10935,7 +10937,7 @@ footer .widget_recent_comments ul li a,
 footer .widget_nav_menu li a,
 footer .widget_recent_entries ul li a,
 footer .widget_services ul li a {
-    color: #c6cffa;
+    color: #1c2957;
 }
 footer.text-white .widget_categories ul li a, 
 footer.text-white .widget_archive ul li a, 
@@ -10990,7 +10992,8 @@ footer .widget_services ul li {
 /*widget Getintuch*/
 .footer-top {
     padding: 80px 0 20px;
-	background-color:#222845;
+	/* background-color:#222845; */
+    background-color: #ece7e9;
 }
 .footer-top.overlay-black-dark:after {
     opacity: 0.85;
@@ -10998,10 +11001,16 @@ footer .widget_services ul li {
 .footer-bottom {
     background-color:#171d36;
     padding: 25px 0;
-    color: #c6cffa;
+    color:#c6cffa;
     font-size: 14px;
 	border-top:1px solid rgba(255,255,255,0.05);
 	text-transform:capitalize !important;
+}
+.F-heading{
+   color: #1c2957; 
+}
+.NovaUs{
+    color:#c6cffa !important;
 }
 .footer-bottom ul {
     margin: 0;
@@ -11040,7 +11049,7 @@ footer .widget_services ul li {
 /* Subscribe Form */
 .subscribe-form input{
 	background-color:rgba(0,0,0,0);
-	border:2px solid #c6cffa;
+	border:2px solid #1c2957;
 	border-radius:30px !important;
 	height:50px;
 	padding:10px 20px;
@@ -11050,7 +11059,7 @@ footer .widget_services ul li {
 	
 }
 .subscribe-form input::-moz-placeholder{
-	color:#c6cffa;
+	color:#1c2957;
 }
 .subscribe-form input.radius-no{
 	border-radius:0 !important;
