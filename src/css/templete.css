@@ -1707,7 +1707,7 @@
 	left: 0;
 	height: 30px;
 	width: 30px;
-	border: 1px solid #2e55fa;
+	border: 1px solid #1c2957;
 	border-radius: 20px;
 }
 .like-btn input:checked ~ .checkmark {
@@ -1721,7 +1721,7 @@
 .like-btn input:checked ~ .checkmark:before {
 	width: 100%;
 	height: 100%;
-	background-color:#2e55fa;
+	background-color:#1c2957;
 	left: 0;
 	top: 0;
 	border-radius: 20px;
