@@ -75,7 +75,8 @@ class Header extends Component{
 								 
 								<div className="header-nav navbar-collapse collapse myNavbar justify-content-start" id="navbarNavDropdown"> 
 									<div className="logo-header mostion d-md-block d-lg-none">
-										<Link to={'/'} className="dez-page"><img src={logo2} alt="" /></Link>
+										{/* <Link to={'/'} className="dez-page"><img src={logo2} alt="" /></Link> */}
+										<Link to={"/"}><img src={require("./../../images/logo/NovaUS.png")} className="logo" alt="img" /></Link>
 									</div>
 									<ul className="nav navbar-nav">
 										<li className=""> 
