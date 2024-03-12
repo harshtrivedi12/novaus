@@ -30,8 +30,10 @@
     "yup": "^0.32.8"
   },
   "scripts": {
+    "vercels": "export SET NODE_OPTIONS=--openssl-legacy-provider &&  react-scripts start",
+    "vercelb": "export SET NODE_OPTIONS=--openssl-legacy-provider &&  react-scripts build",
     "start": "SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
-    "build": "SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+    "build": "SET NODE_OPTIONS=--openssl-legacy-provider &&  react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
