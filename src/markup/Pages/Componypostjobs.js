@@ -5,6 +5,9 @@ import Footer from "./../Layout/Footer";
 import { Form, Button } from "react-bootstrap";
 import { FaX } from "react-icons/fa6";
 import TextEditor from "../Element/Editor";
+import AddSkills from "../Element/AddSkills";
+import AddScreening from "../Element/AddScreening";
+import { FaCircleQuestion } from "react-icons/fa6";
 function Componypostjobs() {
   const [suggestions, setSuggestions] = useState(true);
   const handleSuggestions = () => {
@@ -327,6 +330,30 @@ function Componypostjobs() {
                     </p>
                     <div>
                       <h4>Description</h4>
+                      <TextEditor />
+                    </div>
+                    <div >
+                      <h4 >Skills</h4>
+                      <p className="mb-2">Add Skill Keywords (max 10) to make your job more visible to the right candidates.</p>
+                      <AddSkills />
+                    </div>
+                    <div className="mt-4">
+                      <h4>Screening Questions</h4>
+                      <AddScreening />
+                    </div>
+                    <div className="mt-4">
+                      <h4>Qualification setting</h4>
+                      <Form.Check
+                        type="checkbox"
+                        id="sendRejectionsCheckbox"
+                       label={
+                          <span  style={{  color:  "#9d9d9d", }}>
+                            Filter out and send rejections to applicants who don't meet any must-have qualifications. <FaCircleQuestion />
+                          </span>
+                        }
+                      />
+                      
+                      <p className="mb-0 mt-2">Preview*</p>
                       <TextEditor />
                     </div>
                   </div>

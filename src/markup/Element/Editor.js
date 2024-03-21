@@ -10,7 +10,7 @@ export default function TextEditor() {
         theme="snow"
         value={data}
         onChange={setData}
-        style={{ height: "200px", width: "100%", marginBottom: "50px" }}
+        style={{ height: "200px", width: "100%", marginBottom: "70px" }}
       />
     </div>
   );
