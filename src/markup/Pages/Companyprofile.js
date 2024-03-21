@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import { Form } from "react-bootstrap";
-import GoogleMaps from "simple-react-google-maps";
+// import GoogleMaps from "simple-react-google-maps";
 
 function Companyprofile() {
   return (
@@ -29,8 +29,7 @@ function Companyprofile() {
                             className="upload-link"
                             title="update"
                             data-toggle="tooltip"
-                            data-placement="right"
-                          >
+                            data-placement="right">
                             <input type="file" className="update-flie" />
                             <i className="fa fa-pencil"></i>
                           </div>
@@ -52,8 +51,7 @@ function Companyprofile() {
                           <Link to={"/company-post-jobs"}>
                             <i
                               className="fa fa-file-text-o"
-                              aria-hidden="true"
-                            ></i>
+                              aria-hidden="true"></i>
                             <span>Post A Job</span>
                           </Link>
                         </li>
@@ -67,8 +65,7 @@ function Companyprofile() {
                           <Link to={"/company-manage-job"}>
                             <i
                               className="fa fa-briefcase"
-                              aria-hidden="true"
-                            ></i>
+                              aria-hidden="true"></i>
                             <span>Manage jobs</span>
                           </Link>
                         </li>
@@ -76,8 +73,7 @@ function Companyprofile() {
                           <Link to={"/company-resume"}>
                             <i
                               className="fa fa-id-card-o"
-                              aria-hidden="true"
-                            ></i>
+                              aria-hidden="true"></i>
                             <span>Resume</span>
                           </Link>
                         </li>
@@ -91,8 +87,7 @@ function Companyprofile() {
                           <Link to={"./"}>
                             <i
                               className="fa fa-sign-out"
-                              aria-hidden="true"
-                            ></i>
+                              aria-hidden="true"></i>
                             <span>Log Out</span>
                           </Link>
                         </li>
@@ -108,8 +103,7 @@ function Companyprofile() {
                       </h5>
                       <Link
                         to={"/company-profile"}
-                        className="site-button right-arrow button-sm float-right"
-                      >
+                        className="site-button right-arrow button-sm float-right">
                         Back
                       </Link>
                     </div>
@@ -161,8 +155,7 @@ function Companyprofile() {
                             <Form.Control
                               as="select"
                               custom
-                              className="custom-select"
-                            >
+                              className="custom-select">
                               <option>Web Designer</option>
                               <option>Web Developer1</option>
                             </Form.Control>
@@ -253,7 +246,7 @@ function Companyprofile() {
                           </div>
                         </div>
                         <div className="col-lg-12">
-                          <GoogleMaps
+                          {/* <GoogleMaps
                             apiKey={"AIzaSyBPDjB2qkV4Yxn9h0tGSk2X5uH6NKmssXw"}
                             style={{
                               height: "300px",
@@ -263,7 +256,7 @@ function Companyprofile() {
                             zoom={6}
                             center={{ lat: 37.4224764, lng: -122.0842499 }}
                             markers={{ lat: 37.4224764, lng: -122.0842499 }} //optional
-                          />
+                          /> */}
                         </div>
                       </div>
 
