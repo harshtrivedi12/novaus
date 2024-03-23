@@ -8,11 +8,23 @@ import TextEditor from "../Element/Editor";
 import AddSkills from "../Element/AddSkills";
 import AddScreening from "../Element/AddScreening";
 import { FaCircleQuestion } from "react-icons/fa6";
+import { useDispatch, useSelector } from "react-redux";
+import { setPostAJobData } from "../../store/reducers/postAJobSlice";
+import ReactQuill from "react-quill";
+import QualificationSetting from "../Element/qualificationSettingsEditor";
 function Componypostjobs() {
   const [suggestions, setSuggestions] = useState(true);
   const handleSuggestions = () => {
     setSuggestions(false);
   };
+  const postAJobData = useSelector((state) => state.postAJobSlice.postAJobData);
+
+  const dispatch = useDispatch();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(setPostAJobData({ ...postAJobData, [name]: value }));
+  };
+
   return (
     <>
       <Header2 />
@@ -124,21 +136,27 @@ function Componypostjobs() {
                       <div className="row">
                         <div className="col-12 ">
                           <div className="form-group">
-                            <label>Job Title</label>
+                            <label htmlFor="jobTitle">Job Title</label>
                             <input
                               type="text"
                               className="form-control"
                               placeholder="Enter Job Title"
+                              id="jobTitle"
+                              name="jobTitle"
+                              onChange={handleChange}
                             />
                           </div>
                         </div>
                         <div className="col-12 ">
                           <div className="form-group">
-                            <label>Company</label>
+                            <label htmlFor="company">Company</label>
                             <input
                               type="text"
                               className="form-control"
                               placeholder="Conscious foundation"
+                              id="company"
+                              name="company"
+                              onChange={handleChange}
                             />
                           </div>
                         </div>
@@ -163,11 +181,16 @@ function Componypostjobs() {
                         </div> */}
                         <div className="col-12">
                           <div className="form-group">
-                            <label>Workplace type</label>
+                            <label htmlFor="workplaceType">
+                              Workplace type
+                            </label>
                             <Form.Control
                               as="select"
                               custom
                               className="custom-select"
+                              onChange={handleChange}
+                              name="workplaceType"
+                              id="workplaceType"
                             >
                               <option>On-site</option>
                               <option>Hybrid</option>
@@ -177,21 +200,27 @@ function Componypostjobs() {
                         </div>
                         <div className="col-12">
                           <div className="form-group">
-                            <label>Location</label>
+                            <label htmlFor="location">Location</label>
                             <input
                               type="text"
                               className="form-control"
                               placeholder="Jaipur, Rajasthan, India"
+                              id="location"
+                              name="location"
+                              onChange={handleChange}
                             />
                           </div>
                         </div>
                         <div className="col-12">
                           <div className="form-group">
-                            <label>Job Type</label>
+                            <label htmlFor="jobType">Job Type</label>
                             <Form.Control
                               as="select"
                               custom
                               className="custom-select"
+                              name="jobType"
+                              id="jobType"
+                              onChange={handleChange}
                             >
                               <option>Full Time</option>
                               <option>Part Time</option>
@@ -332,9 +361,12 @@ function Componypostjobs() {
                       <h4>Description</h4>
                       <TextEditor />
                     </div>
-                    <div >
-                      <h4 >Skills</h4>
-                      <p className="mb-2">Add Skill Keywords (max 10) to make your job more visible to the right candidates.</p>
+                    <div>
+                      <h4>Skills</h4>
+                      <p className="mb-2">
+                        Add Skill Keywords (max 10) to make your job more
+                        visible to the right candidates.
+                      </p>
                       <AddSkills />
                     </div>
                     <div className="mt-4">
@@ -343,18 +375,27 @@ function Componypostjobs() {
                     </div>
                     <div className="mt-4">
                       <h4>Qualification setting</h4>
-                      <Form.Check
-                        type="checkbox"
-                        id="sendRejectionsCheckbox"
-                       label={
-                          <span  style={{  color:  "#9d9d9d", }}>
-                            Filter out and send rejections to applicants who don't meet any must-have qualifications. <FaCircleQuestion />
-                          </span>
-                        }
-                      />
-                      
+                      <div className="d-flex justify-content-start align-items-center">
+                        <div class="custom-control custom-checkbox">
+                          <input
+                            type="checkbox"
+                            id="check1"
+                            class="custom-control-input selectAllCheckBox"
+                            name="example1"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="check1"
+                          ></label>
+                        </div>
+                        <div style={{ color: "#9d9d9d" }}>
+                          Filter out and send rejections to applicants who don't
+                          meet any must-have qualifications.{" "}
+                          <FaCircleQuestion />
+                        </div>
+                      </div>
                       <p className="mb-0 mt-2">Preview*</p>
-                      <TextEditor />
+                      <QualificationSetting />
                     </div>
                   </div>
                 </div>
