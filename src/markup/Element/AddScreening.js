@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { FaCheck, FaPlus } from "react-icons/fa";
 import { Form } from 'react-bootstrap';
@@ -61,11 +60,14 @@ const AddScreening = () => {
               <div>
                 {category.questions.map((question, qIndex) => (
                   <div key={qIndex}>
-                    <p className='mt-4'>{question.question}</p>
+                    <label className='mt-4'>{question.question}</label>
                     {question.type === 'input' ? (
-                      <Form.Control type="text" style={{ marginTop: '-10px' }}/>
+                      <Form.Control type="text"/>
                     ) : question.type === 'checkbox' ? (
-                      <Form.Check type="checkbox" style={{ marginTop: '-10px' }} />
+                      <div className="custom-control custom-checkbox">
+                        <input type="checkbox" id={`${category.name}-${qIndex}`} className="custom-control-input selectAllCheckBox" name="example1" />
+                        <label className="custom-control-label" htmlFor={`${category.name}-${qIndex}`}></label>
+                      </div>
                     ) : null}
                   </div>
                 ))}
@@ -78,13 +80,14 @@ const AddScreening = () => {
         {screeningQuestions.map((category, index) => (
           <div key={index} style={{ display: 'inline-block', marginRight: '10px' }}>
             <button
+              className='d-flex justify-content-center align-items-center'
               onClick={() => toggleExpansion(category.name)}
               style={{
                 borderRadius: "10px",
-                padding: "5px 15px",
+                padding: "8px 15px",
                 margin: "5px",
-                backgroundColor: expanded[category.name] ? "#e8e8e8" : "transparent",
-                color: expanded[category.name] ? "#b0b0b0" : "#9d9d9d",
+                backgroundColor: expanded[category.name] ? "#1c2957" : "transparent",
+                color: expanded[category.name] ? "#ffffff" : "#9d9d9d",
                 border: "1px solid",
                 borderColor: "#9d9d9d",
                 cursor: "pointer",
@@ -101,3 +104,5 @@ const AddScreening = () => {
 };
 
 export default AddScreening;
+
+

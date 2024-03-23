@@ -25,8 +25,8 @@ const AddSkills = () => {
         {skills.map((skill, index) => (
           <React.Fragment key={index}>
             <ListGroup.Item
-              style={{ backgroundColor: '#01754f', color: 'white', display: 'inline-block', margin: '5px', padding: '5px 15px', borderRadius: '10px' }}>
-              <span>{skill} <FaTimes onClick={() => handleDeleteSkill(index)}  style={{  cursor: 'pointer', marginLeft: '5px' }}/></span>
+              style={{ backgroundColor: '#e1e7ff', color: '#1c2957', display: 'inline-block', margin: '5px', padding: '5px 15px', borderRadius: '10px' }}>
+              <span className='d-flex justify-content-center align-items-center'>{skill} <FaTimes onClick={() => handleDeleteSkill(index)}  style={{  cursor: 'pointer', marginLeft: '5px' }}/></span>
             </ListGroup.Item>
           </React.Fragment>
         ))}
@@ -40,7 +40,7 @@ const AddSkills = () => {
           style={{ marginTop: '15px' }}
         />
       </Form.Group>
-      <button onClick={handleAddSkill} style={{backgroundColor:'#e8e8e8', color:'#b0b0b0' , padding: '5px 15px', border:'none', borderRadius: '10px', marginTop: '-10px', outline:'none' }}>Add Skill < FaPlus className='ml-2' /></button>
+      <button onClick={handleAddSkill} className='site-button d-flex justify-content-center align-items-center'>Add Skill < FaPlus className='ml-2' /></button>
     </div>
   );
 };

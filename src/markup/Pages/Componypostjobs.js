@@ -343,16 +343,15 @@ function Componypostjobs() {
                     </div>
                     <div className="mt-4">
                       <h4>Qualification setting</h4>
-                      <Form.Check
-                        type="checkbox"
-                        id="sendRejectionsCheckbox"
-                       label={
-                          <span  style={{  color:  "#9d9d9d", }}>
+                     <div className="d-flex justify-content-start align-items-center">
+                     <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="check1" class="custom-control-input selectAllCheckBox" name="example1" />
+                      <label class="custom-control-label" for="check1" ></label>
+                      </div>
+                          <div  style={{  color:  "#9d9d9d", }} >
                             Filter out and send rejections to applicants who don't meet any must-have qualifications. <FaCircleQuestion />
-                          </span>
-                        }
-                      />
-                      
+                          </div>
+                     </div>
                       <p className="mb-0 mt-2">Preview*</p>
                       <TextEditor />
                     </div>
