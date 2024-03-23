@@ -31,6 +31,7 @@ function App(props) {
   let routes = (
     <Switch>
       <Route path="/login" component={Login} />
+      <Route path="/upload-cv" component={Login} />
       <Route path="/register-2" component={SignUp} />
     </Switch>
   );
