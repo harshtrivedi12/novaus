@@ -51,15 +51,15 @@ const AddSkills = () => {
           <React.Fragment key={index}>
             <ListGroup.Item
               style={{
-                backgroundColor: "#01754f",
-                color: "white",
+                backgroundColor: "#e1e7ff",
+                color: "#1c2957",
                 display: "inline-block",
                 margin: "5px",
                 padding: "5px 15px",
                 borderRadius: "10px",
               }}
             >
-              <span>
+              <span className="d-flex justify-content-center align-items-center">
                 {skill}{" "}
                 <FaTimes
                   onClick={() => handleDeleteSkill(index)}
@@ -81,15 +81,7 @@ const AddSkills = () => {
       </Form.Group>
       <button
         onClick={handleAddSkill}
-        style={{
-          backgroundColor: "#e8e8e8",
-          color: "#b0b0b0",
-          padding: "5px 15px",
-          border: "none",
-          borderRadius: "10px",
-          marginTop: "-10px",
-          outline: "none",
-        }}
+        className="site-button d-flex justify-content-center align-items-center"
       >
         Add Skill <FaPlus className="ml-2" />
       </button>
