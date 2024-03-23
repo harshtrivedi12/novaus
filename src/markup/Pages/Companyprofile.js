@@ -4,6 +4,7 @@ import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import { Form } from "react-bootstrap";
 // import GoogleMaps from "simple-react-google-maps";
+import axios from "axios";
 
 function Companyprofile() {
   return (
