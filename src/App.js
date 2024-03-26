@@ -13,6 +13,8 @@ import "./plugins/slick/slick-theme.min.css";
 
 import Login from "./markup/Pages/Loginpage2";
 import SignUp from "./markup/Pages/Register2";
+import companyRegister from "./markup/Pages/companyRegister";
+import companyLogin from "./markup/Pages/companyLogin";
 
 //const SignUp = lazy(() => import('./markup/Pages/Register2'));
 //const ForgotPassword = lazy(() => import('./markup/pages/ForgotPassword'));
@@ -24,16 +26,17 @@ import SignUp from "./markup/Pages/Register2";
 
 function App(props) {
   const dispatch = useDispatch();
-  useEffect(() => {
-    checkAutoLogin(dispatch, props.history);
-  }, [dispatch, props.history]);
+  // useEffect(() => {
+  //   checkAutoLogin(dispatch, props.history);
+  // }, [dispatch, props.history]);
 
   let routes = (
     <Switch>
-     
       <Route path="/login" component={Login} />
       <Route path="/upload-cv" component={Login} />
       <Route path="/register-2" component={SignUp} />
+      <Route path="/company-register" component={companyRegister} />
+      <Route path="/company-login" component={companyLogin} />
     </Switch>
   );
   if (props.isAuthenticated) {
@@ -48,7 +51,8 @@ function App(props) {
                 <div className="sk-child sk-bounce3"></div>
               </div>
             </div>
-          }>
+          }
+        >
           <Index />
         </Suspense>
       </>
@@ -65,7 +69,8 @@ function App(props) {
                 <div className="sk-child sk-bounce3"></div>
               </div>
             </div>
-          }>
+          }
+        >
           {routes}
         </Suspense>
       </div>

@@ -31,7 +31,7 @@ function ApplicantsJobPage() {
         });
     };
     jobData();
-  }, []);
+  }, [jobsData]);
   const id = jobsData[0].jobskkers_detail?.id;
 
   console.log(id, "lavi");
