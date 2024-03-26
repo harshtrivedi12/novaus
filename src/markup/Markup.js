@@ -57,6 +57,7 @@ import Blogleftimg from './Pages/Blogleftimg';
 import Blogdetail from './Pages/Blogdetail';
 import ScrollToTop from './Element/ScrollToTop';
 import JobPage from './Pages/JobPage';
+import ApplicantsJobPage from './Pages/ApplicantsJobPage';
 
 const Markup= () => {
 	return(
@@ -75,7 +76,8 @@ const Markup= () => {
 					<Route path='/jobs-cv-manager' exact component={Jobcvmanager} />
 					<Route path='/jobs-change-password' exact component={Changepasswordpage} />
 					<Route path="/JobPage"  exact component={JobPage} />
-						
+					<Route path="/ApplicantsJobPage"  exact component={ApplicantsJobPage} />
+
 					<Route path='/company-profile' exact component={Companyprofile} />
 					<Route path='/company-resume' exact component={Companyresume} />
 					<Route path='/company-post-jobs' exact component={Componypostjobs} />
