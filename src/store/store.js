@@ -7,6 +7,7 @@ import { reducer as reduxFormReducer } from "redux-form";
 import skillSlice from "./reducers/skillSlice";
 import postAJobSlice from "./reducers/postAJobSlice";
 import manageJobSlice from "./reducers/manageJobSlice";
+import companyDataSlice from "./reducers/companyDataSlice";
 const middleware = applyMiddleware(thunk);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -19,6 +20,7 @@ const reducers = combineReducers({
   postAJobSlice: postAJobSlice,
   manageJobSlice: manageJobSlice,
   form: reduxFormReducer,
+  companyDataSlice: companyDataSlice,
 });
 
 //const store = createStore(rootReducers);
