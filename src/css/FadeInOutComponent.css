@@ -1,0 +1,14 @@
+.fade-element {
+    transition: opacity 1s ease-in-out;
+    /* Adjust time to control speed of fade */
+    opacity: 1;
+    /* Start visible */
+}
+
+.fade-element.hide {
+    opacity: 0;
+}
+
+.fade-element.show {
+    opacity: 1;
+}

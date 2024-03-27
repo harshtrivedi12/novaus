@@ -115,7 +115,7 @@ function App() {
         <Route path="login" element={<Loginpage2 />} />
         <Route path="register" element={<Register1 />} />
         <Route path="register-2" element={<Register2 />} />
-
+        <Route path="jobs-profile" element={<Jobprofile />} />
         <Route
           path="jobs-profile"
           element={

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
 import {
   loadingToggleAction,
   signupAction,
 } from "../../store/actions/AuthActions";
 import axios from "axios";
+import processVid from "../../gif process.mp4";
 var bnr = require("./../../images/background/bg6.jpg");
 
 function Register2(props) {
@@ -16,10 +17,16 @@ function Register2(props) {
   const [firstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
-  const [showUpload, setShowUpload] = useState(false);
+  const [showUpload, setShowUpload] = useState(true);
   const [file, setFile] = useState();
   const [jobSeekerId, setJobSeekerId] = useState("");
-
+  const token = localStorage.getItem("jobSeekerLoginToken");
+  const [AiBtn, setAiBtn] = useState(true);
+  const [showVideo, setShowVideo] = useState(true);
+  const [showPercentage, setShowPercentage] = useState(false);
+  const [percentage, setPercentage] = useState();
+  const navigate = useNavigate();
+  const [resumeUrl, setResumeUrl] = useState("");
   function handleChange(event) {
     setFile(event.target.files[0]);
   }
@@ -44,14 +51,15 @@ function Register2(props) {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJqb3lAZ21haWRsLmNvbSIsImV4cCI6MTcxMTU1MDE2MX0.fnqz2Kzfeuk29AhBaRPeKEczK7a0fORI9pP3U23UP6I",
+            Authorization: token,
           },
         }
       )
-      .then((response) => {
+      .then((res) => {
         alert("uploaded");
-        console.log(response.data);
+        setResumeUrl(res.data.data[0].file_path);
+        setAiBtn(false);
+        console.log(resumeUrl, res, res.data.data[0].file_path);
       })
       .catch((error) => {
         alert("error");
@@ -73,7 +81,7 @@ function Register2(props) {
     console.log(body);
     try {
       axios({
-        url: "http://93.188.167.106:3001/api/jobseeker/auth/signup",
+        url: "http://93.188.167.106:3001/api/jobseeker/auth/signup/",
         headers: {
           "Content-Type": "application/json",
         },
@@ -82,6 +90,8 @@ function Register2(props) {
       })
         .then((res) => {
           console.log(res);
+          localStorage.setItem("jobSeekerLoginToken", res.data.data.token);
+
           setShowUpload(false);
         })
         .catch((err) => {
@@ -91,6 +101,33 @@ function Register2(props) {
       console.log(error);
     }
   }
+
+  const runAi = async (e) => {
+    setShowVideo(true);
+    e.preventDefault();
+    console.log(resumeUrl);
+    await axios({
+      method: "post",
+      url: "http://93.188.167.106:3001/api/jobseeker/file-based-ai",
+      data: {
+        keyword: "Rate this resume content in percentage ?",
+        file_location: resumeUrl,
+      },
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        console.log(res.data.data.content_acuracy_percentage);
+        setShowPercentage(true);
+        setPercentage(
+          `Your Ai Resume score is ${res.data.data.content_acuracy_percentage}`
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="page-wraper">
       <div className="browse-job login-style3">
@@ -99,8 +136,7 @@ function Register2(props) {
           style={{
             backgroundImage: `url(${bnr})`,
             height: "100vh",
-          }}
-        >
+          }}>
           <div className="row">
             <div className="col-xl-4 col-lg-5 col-md-6 col-sm-12 bg-white z-index2 relative p-a0 content-scroll skew-section left-bottom">
               <div className="login-form style-2">
@@ -125,13 +161,10 @@ function Register2(props) {
                         <div className="">{props.successMessage}</div>
                       )}
                       <form className=" dez-form p-b30" onSubmit={onSignUp}>
-                        <h3 className="form-title m-t0">
-                          Personal Information
-                        </h3>
                         <div className="dez-separator-outer m-b5">
                           <div className="dez-separator bg-primary style-liner"></div>
                         </div>
-                        <p>Enter your e-mail address and your password. </p>
+
                         <div className="form-group">
                           <input
                             value={firstName}
@@ -192,8 +225,7 @@ function Register2(props) {
                         <div className="form-group text-left">
                           <button
                             type="submit"
-                            className="site-button dz-xs-flex m-r5"
-                          >
+                            className="site-button dz-xs-flex m-r5">
                             Sign me up
                           </button>
                           <span className="custom-control custom-checkbox">
@@ -205,16 +237,14 @@ function Register2(props) {
                             />
                             <label
                               className="custom-control-label"
-                              htmlFor="check1"
-                            >
+                              htmlFor="check1">
                               Remember me
                             </label>
                           </span>
                           <Link
                             data-toggle="tab"
                             to="#forgot-password"
-                            className="forget-pass m-l5"
-                          >
+                            className="forget-pass m-l5">
                             <i className="fa fa-unlock-alt"></i> Forgot Password
                           </Link>
                         </div>
@@ -227,29 +257,25 @@ function Register2(props) {
                               <Link
                                 to={""}
                                 className="fa fa-facebook  fb-btn mr-1"
-                                target="bank"
-                              ></Link>
+                                target="bank"></Link>
                             </li>
                             <li>
                               <Link
                                 to={""}
                                 className="fa fa-twitter  tw-btn mr-1"
-                                target="bank"
-                              ></Link>
+                                target="bank"></Link>
                             </li>
                             <li>
                               <Link
                                 to={""}
                                 className="fa fa-linkedin link-btn mr-1"
-                                target="bank"
-                              ></Link>
+                                target="bank"></Link>
                             </li>
                             <li>
                               <Link
                                 to={""}
                                 className="fa fa-google-plus  gplus-btn"
-                                target="bank"
-                              ></Link>
+                                target="bank"></Link>
                             </li>
                           </ul>
                         </div>
@@ -257,39 +283,74 @@ function Register2(props) {
                       <div className="text-center bottom">
                         <Link
                           to="/login"
-                          className="site-button button-md btn-block text-white"
-                        >
+                          className="site-button button-md btn-block text-white">
                           Sign In
                         </Link>
                       </div>
                     </div>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        value={jobSeekerId}
-                        className="form-control"
-                        onChange={handleIdChange}
-                        placeholder="Job Seeker ID"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="file"
-                        onChange={handleChange}
-                        className="form-control"
-                      />
-                    </div>
+                  <div>
+                    {AiBtn ? (
+                      <form onSubmit={handleSubmit}>
+                        <div>
+                          <div className="form-group">
+                            <input
+                              type="text"
+                              value={jobSeekerId}
+                              className="form-control"
+                              onChange={handleIdChange}
+                              placeholder="Job Seeker ID"
+                            />
+                          </div>
+                          <div className="form-group">
+                            <input
+                              type="file"
+                              onChange={handleChange}
+                              className="form-control"
+                            />
+                          </div>
+                          <p>{percentage}</p>
+                        </div>
 
-                    <button
-                      type="submit"
-                      className="site-button dz-xs-flex m-r5"
-                    >
-                      Upload Resume
-                    </button>
-                  </form>
+                        <button
+                          type="submit"
+                          className="site-button dz-xs-flex m-r5">
+                          Upload Resume
+                        </button>
+                      </form>
+                    ) : (
+                      <div>
+                        <div>
+                          <video
+                            width="200px"
+                            loop={showVideo}
+                            autoPlay={showVideo}>
+                            <source src={processVid} type="video/mp4" />
+                          </video>
+                        </div>
+                        {showPercentage ? (
+                          <div>
+                            <p>{percentage}</p>
+                            <button
+                              onClick={(e) => {
+                                navigate("/");
+                              }}>
+                              Go To Dashboard
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={(e) => {
+                              runAi(e);
+                            }}
+                            className="site-button dz-xs-flex m-r5">
+                            Run Ai
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 )}
                 <div className="bottom-footer clearfix m-t10 m-b20 row text-center">
                   <div className="col-lg-12 text-center">
