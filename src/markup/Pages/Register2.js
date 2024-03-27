@@ -77,7 +77,7 @@ function Register2(props) {
     console.log(body);
     try {
       axios({
-        url: "https://jobsbooklet.in/api/jobseeker/auth/signup/",
+        url: "https://jobsbooklet.in/api/jobseeker/auth/signup",
         headers: {
           "Content-Type": "application/json",
         },
