@@ -54,7 +54,7 @@ function ApplicantsJobPage() {
                           </h4>
                         </div>
                       </div>
-                      <ul className="job-list-container">
+                      <ul className="job-list-container" style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
                         {jobData.map(job => (
                           <li key={job.id}>
                             <Link to={"#"} onClick={() => handleSelectJob(job)}>
