@@ -117,13 +117,6 @@ function EmployeeRegister2(props) {
   };
   return (
     <div className="page-wraper">
-      <div style={styles.cardStack}>
-        {cards.map((card, index) => (
-          <div key={card.id} style={styles.card(index)}>
-            Card {card.id}
-          </div>
-        ))}
-      </div>
       <div className="browse-job login-style3">
         <div
           className="bg-img-fix"

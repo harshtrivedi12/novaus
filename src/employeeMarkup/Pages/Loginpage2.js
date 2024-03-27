@@ -49,7 +49,7 @@ function EmployeeLogin(props) {
     };
     await axios({
       method: "POST",
-      url: "http://93.188.167.106:3002/api/employeer/auth/login",
+      url: "https://jobsbooklet.in/api/employeer/auth/login",
       headers: {
         "Content-Type": "Application/json",
       },
@@ -71,8 +71,7 @@ function EmployeeLogin(props) {
         style={{
           backgroundImage: "url(" + loginbg + ")",
           backgroundSize: "cover",
-        }}
-      >
+        }}>
         <div className="section-full">
           <div className="container">
             <div className="row">
@@ -175,14 +174,12 @@ function EmployeeLogin(props) {
                       <div className="text-center">
                         <button
                           onClick={handlePostRequest}
-                          className="site-button float-left"
-                        >
+                          className="site-button float-left">
                           login
                         </button>
                         <Link
                           to="/employee/register-2"
-                          className="site-button-link forget-pass m-t15 float-right"
-                        >
+                          className="site-button-link forget-pass m-t15 float-right">
                           <i className="fa fa-unlock-alt"></i> Sign up
                         </Link>
                       </div>
