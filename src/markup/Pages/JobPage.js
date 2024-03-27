@@ -4,9 +4,16 @@ import { Link } from "react-router-dom";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import { FaTimes } from "react-icons/fa";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { Tab, Nav } from 'react-bootstrap';
 
 function JobPage() {
   const [selectedJob, setSelectedJob] = useState(null);
+  const [show, setShow] = useState(false);
+
+  const handlClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [jobData, setJobData] = useState([
     { id: 1, title: "Software Engineer", company: "ABC Corp", location: "New York", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
     { id: 2, title: "Web Developer", company: "XYZ Inc", location: "San Francisco", description: "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas." },
@@ -36,6 +43,37 @@ function JobPage() {
     }
   };
 
+  const [activeTab, setActiveTab] = useState("contact-info"); // Initial active tab
+
+
+
+  // const handleNext = () => {
+  //   // Toggle between "contact-info" and "additional-info" tabs
+  //   setActiveTab(activeTab === "contact-info" ? "additional-info" : "contact-info");
+  //   setActiveTab(activeTab === "additional-info" ? "resume-info" : "additional-info");
+  //   setActiveTab(activeTab === "resume-info" ? "immediate-info" : "resume-info");
+  // };
+  const handleNext = () => {
+    // Update activeTab state based on the current active tab
+    if (activeTab === "contact-info") {
+      setActiveTab("additional-info");
+    } else if (activeTab === "additional-info") {
+      setActiveTab("resume-info");
+    } else if (activeTab === "resume-info") {
+      setActiveTab("immediate-info");
+    }
+  };
+
+  const handlePrev = () => {
+    // Update activeTab state based on the current active tab
+    if (activeTab === "immediate-info") {
+      setActiveTab("resume-info");
+    } else if (activeTab === "resume-info") {
+      setActiveTab("additional-info");
+    } else if (activeTab === "additional-info") {
+      setActiveTab("contact-info");
+    }
+  };
   return (
     <>
       <Header2 />
@@ -52,9 +90,10 @@ function JobPage() {
                           <h4 className="m-b5">
                             <Link to={"#"}>Job List</Link>
                           </h4>
+
                         </div>
                       </div>
-                      <ul className="job-list-container"  style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+                      <ul className="job-list-container" style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
                         {jobData.map(job => (
                           <li key={job.id}>
                             <Link to={"#"} onClick={() => handleSelectJob(job)}>
@@ -64,8 +103,8 @@ function JobPage() {
                                   <FaTimes className="close-btn" onClick={handleClose} />
                                 )}</span>
                               </h6>
-                               <p className="mb-0" style={{ color: "#1c2957"}}>{job.company}</p>
-                             <p className="mb-2" style={{ color: "#1c2957"}}> {job.location}</p> 
+                              <p className="mb-0" style={{ color: "#1c2957" }}>{job.company}</p>
+                              <p className="mb-2" style={{ color: "#1c2957" }}> {job.location}</p>
                               <p className="mb-3">Actively recruiting</p>
                               <p className="mb-0">Promoted</p>
                             </Link>
@@ -94,10 +133,141 @@ function JobPage() {
                         <p>See recent hiring trends for GENPACT. Try Premium for ₹0</p>
                       </div>
                       <div className='d-flex justify-content-start align-items-center'>
-                        <button className="radius-xl site-button"
+                        <button className="radius-xl site-button" onClick={handleShow}
                         >
                           Apply
                         </button>
+                        <Modal
+                          show={show}
+                          onHide={handlClose}
+                          backdrop="static"
+                          keyboard={false}
+                        >
+                          <Modal.Header closeButton style={{ backgroundColor: "#ffff" }} className="mt-4">
+                            <Modal.Title style={{ color: "#000" }}>
+                              <p> Apply to {selectedJob.company}</p>
+                            </Modal.Title>
+                          </Modal.Header>
+                          <Modal.Body>
+                            <Tab.Container id="tabs-example" activeKey={activeTab}>
+                              <Tab.Content>
+                                <Tab.Pane eventKey="contact-info">
+                                  <form className="col-12 p-a0">
+                                    <h6 className="font-weight-600">Contact info</h6>
+                                    <div>
+                                      <h6 className="mb-0">
+                                        <span> <i className="fa fa-user-o" aria-hidden="true"></i> Abc name</span></h6>
+                                      <p className="mb-0 ml-2">Jaipur, Rajasthan, India</p>
+                                    </div>
+                                    <div class="form-group mt-4">
+                                      <label>E-Mail Address*</label>
+                                      <div class="input-group">
+                                        <input type="email" class="form-control" placeholder="Type Your Email Address" value="demo@example.com" />
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <label>Password *</label>
+                                      <div class="input-group">
+                                        <input type="password" class="form-control" placeholder="Type Your Password" value="123456" />
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <label>Phone No.</label>
+                                      <div class="input-group">
+                                        <input type="Phonenumber" class="form-control" placeholder="Type Your Phone number" />
+                                      </div>
+                                    </div>
+                                    <p>Submitting this application won’t change your LinkedIn profile.
+                                      Application powered by LinkedIn | Help Center</p>
+                                  </form>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="additional-info">
+                                  {/* Additional Info Form */}
+                                  <form className="col-12 p-a0">
+                                    <h6 className="font-weight-600">Additional info</h6>
+                                    <div class="form-group">
+                                      <label for="englishProficiency">What is your level of proficiency in English?</label>
+                                      <select class="form-control" id="englishProficiency" required>
+                                        <option value="">Select an option</option>
+                                        <option>Beginner</option>
+                                        <option>Intermediate</option>
+                                        <option>Advanced</option>
+                                        <option>Fluent</option>
+                                      </select>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="salaryRange">Are you okay with the salary range between 30k - 35K?</label>
+                                      <select class="form-control" id="salaryRange" required>
+                                        <option value="">Select an option</option>
+                                        <option>Yes</option>
+                                        <option>No</option>
+                                      </select>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="customerServiceExperience">How many years of Customer Service experience do you currently have?</label>
+                                      <input type="number" class="form-control" id="customerServiceExperience" placeholder="Enter years of experience" min="0" max="99" required />
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="workLocation">Are you comfortable to work on both Gurgaon and Delhi branches?</label>
+                                      <select class="form-control" id="workLocation" required>
+                                        <option value="">Select an option</option>
+                                        <option>Yes</option>
+                                        <option>No</option>
+                                      </select>
+                                    </div>
+
+                                  </form>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="resume-info">
+                                  {/* Additional Info Form */}
+                                  <form className="col-12 p-a0">
+                                    <h6 className="font-weight-600">Resume info</h6>
+                                    <div class="form-group">
+                                      <label for="resume">Upload resume (DOC, DOCX, PDF, up to 2 MB)</label>
+                                      <input type="file" class="form-control-file" id="resume" name="resume" accept=".doc, .docx, .pdf" required />
+                                      <small class="form-text text-muted">Accepted file types: DOC, DOCX, PDF. Maximum file size: 2 MB.</small>
+                                    </div>
+
+                                  </form>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="immediate-info">
+
+                                  <form className="col-12 p-a0">
+                                    <h6 className="font-weight-600">immediate info</h6>
+
+                                    <div class="form-group">
+                                      <label for="immediateStart">We must fill this position urgently. Can you start immediately?</label>
+                                      <select class="form-control" id="immediateStart" required>
+                                        <option value="">Select an option</option>
+                                        <option>Yes</option>
+                                        <option>No</option>
+                                      </select>
+                                    </div>
+                                  </form>
+                                </Tab.Pane>
+                              </Tab.Content>
+                            </Tab.Container>
+                          </Modal.Body>
+                         
+                          <Modal.Footer>
+                            {activeTab !== "contact-info" && (
+                              <button className="site-button mr-2" onClick={handlePrev}>
+                                Previous
+                              </button>
+                            )}
+                            {activeTab !== "immediate-info" && (
+                              <button className="site-button" onClick={handleNext}>
+                                Next
+                              </button>
+                            )}
+                            {activeTab === "immediate-info" && (
+                              <button className="site-button" onClick={handlClose}>
+                                Submit
+                              </button>
+                            )}
+                          </Modal.Footer>
+                        </Modal>
+
                         <button className="radius-xl  ml-2"
                           style={{
 
@@ -119,14 +289,14 @@ function JobPage() {
                         <p>{selectedJob.description}</p>
                       </div>
                       <div>
-                      <h6>Responsibilities</h6>
+                        <h6>Responsibilities</h6>
                         <ul className="ml-5">
                           <li>
                             Making collection calls to the customers, emailing/faxing invoices or getting hard copies mailed out to customers as per their requests.</li>
-                            <li>  Identify and resolve unidentified cash and manage end to end process of Cash applications.</li>
-                            <li>  Process cash application functions to invoices at assigned sites ensuring the DRR (Daily Receipt Reconciliation) is completed in a timely, accurate, and confidential manner.</li>
-                            <li> Follow up on customer/internal disputes, customer questions and working between departments to get a resolution.</li>
-                            <li> Reconcile orders to match customer books, including validating credits or debits and sending them to customer for collection or refund
+                          <li>  Identify and resolve unidentified cash and manage end to end process of Cash applications.</li>
+                          <li>  Process cash application functions to invoices at assigned sites ensuring the DRR (Daily Receipt Reconciliation) is completed in a timely, accurate, and confidential manner.</li>
+                          <li> Follow up on customer/internal disputes, customer questions and working between departments to get a resolution.</li>
+                          <li> Reconcile orders to match customer books, including validating credits or debits and sending them to customer for collection or refund
                           </li>
                         </ul>
                       </div>
@@ -144,4 +314,6 @@ function JobPage() {
 }
 
 export default JobPage;
+
+
 
