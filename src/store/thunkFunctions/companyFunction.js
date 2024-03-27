@@ -9,7 +9,7 @@ export const fetchCompanyInfo = createAsyncThunk(
         method: "get",
         url: "http://93.188.167.106:3002/api/employeer/company/1",
         headers: {
-          Authorization: `Bearer `,
+          Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21AZ21haWwuY29tIiwiZXhwIjoxNzExNTQ5MjgwfQ._Kh75DvFoVSs8ReceAFMoKWl7pumhOKGZff8ClunUVU`,
         },
       });
       console.log(response.data.data, "fulfilled");

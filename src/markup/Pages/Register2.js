@@ -16,7 +16,7 @@ function Register2(props) {
   const [firstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
-  const [showUpload, setShowUpload] = useState(true);
+  const [showUpload, setShowUpload] = useState(false);
   const [file, setFile] = useState();
   const [jobSeekerId, setJobSeekerId] = useState("");
 
@@ -44,11 +44,13 @@ function Register2(props) {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJqb3lAZ21haWRsLmNvbSIsImV4cCI6MTcxMTU1MDE2MX0.fnqz2Kzfeuk29AhBaRPeKEczK7a0fORI9pP3U23UP6I",
           },
         }
       )
       .then((response) => {
-        alert("response");
+        alert("uploaded");
         console.log(response.data);
       })
       .catch((error) => {
