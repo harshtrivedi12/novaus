@@ -76,8 +76,7 @@ class EmployeeHeader extends Component {
                   data-target="#navbarNavDropdown"
                   aria-controls="navbarNavDropdown"
                   aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
+                  aria-label="Toggle navigation">
                   <span></span>
                   <span></span>
                   <span></span>
@@ -95,8 +94,7 @@ class EmployeeHeader extends Component {
 
                 <div
                   className="header-nav navbar-collapse collapse myNavbar justify-content-start"
-                  id="navbarNavDropdown"
-                >
+                  id="navbarNavDropdown">
                   <div className="logo-header mostion d-md-block d-lg-none">
                     <Link to={"/"} className="dez-page">
                       <img src={logo2} alt="" />
@@ -105,6 +103,11 @@ class EmployeeHeader extends Component {
                   <ul className="nav navbar-nav">
                     <li className="">
                       <Link to={"/user"}>Home </Link>
+                      </li>
+                      <li className="">
+                      <Link to={"/user"}>Home </Link>
+                      </li>
+
                       {/* <ul className="sub-menu">
                         <li>
                           <Link to={"./"} className="dez-page">
@@ -117,7 +120,7 @@ class EmployeeHeader extends Component {
                           </Link>
                         </li>
                       </ul> */}
-                    </li>
+                   
                     {/* <li>
                       <Link to={"#"}>
                         For Candidates <i className="fa fa-chevron-down"></i>
@@ -184,8 +187,7 @@ class EmployeeHeader extends Component {
                         <li>
                           <Link
                             to={"/user/company-profile"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Company Profile{" "}
                             <span className="new-page">New</span>
                           </Link>
@@ -193,8 +195,7 @@ class EmployeeHeader extends Component {
                         <li>
                           <Link
                             to={"/user/company-resume"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Employer Resume{" "}
                             <span className="new-page">New</span>
                           </Link>
@@ -202,32 +203,28 @@ class EmployeeHeader extends Component {
                         <li>
                           <Link
                             to={"/user/company-post-jobs"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Post A Jobs <span className="new-page">New</span>
                           </Link>
                         </li>
                         <li>
                           <Link
                             to={"/user/company-manage-job"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Manage jobs <span className="new-page">New</span>
                           </Link>
                         </li>
                         <li>
                           <Link
                             to={"/user/company-transactions"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Transactions <span className="new-page">New</span>
                           </Link>
                         </li>
                         <li>
                           <Link
                             to={"/user/browse-candidates"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Browse Candidates
                           </Link>
                         </li>
@@ -256,8 +253,7 @@ class EmployeeHeader extends Component {
                         <li>
                           <Link
                             to={"/user/free-job-alerts"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             free job alerts{" "}
                             <span className="new-page">New</span>
                           </Link>
@@ -270,16 +266,14 @@ class EmployeeHeader extends Component {
                             <li>
                               <Link
                                 to={"/user/browse-job-list"}
-                                className="dez-page"
-                              >
+                                className="dez-page">
                                 browse job list
                               </Link>
                             </li>
                             <li>
                               <Link
                                 to={"/user/browse-job-grid"}
-                                className="dez-page"
-                              >
+                                className="dez-page">
                                 browse job grid{" "}
                                 <span className="new-page">New</span>
                               </Link>
@@ -287,8 +281,7 @@ class EmployeeHeader extends Component {
                             <li>
                               <Link
                                 to={"/user/browse-job-filter-list"}
-                                className="dez-page"
-                              >
+                                className="dez-page">
                                 browse filter list{" "}
                                 <span className="new-page">New</span>
                               </Link>
@@ -296,8 +289,7 @@ class EmployeeHeader extends Component {
                             <li>
                               <Link
                                 to={"/user/browse-job-filter-grid"}
-                                className="dez-page"
-                              >
+                                className="dez-page">
                                 browse filter grid{" "}
                                 <span className="new-page">New</span>
                               </Link>
@@ -312,16 +304,14 @@ class EmployeeHeader extends Component {
                             <li>
                               <Link
                                 to={"/user/category-all-jobs"}
-                                className="dez-page"
-                              >
+                                className="dez-page">
                                 all jobs <span className="new-page">New</span>
                               </Link>
                             </li>
                             <li>
                               <Link
                                 to={"/user/category-company-jobs"}
-                                className="dez-page"
-                              >
+                                className="dez-page">
                                 company jobs{" "}
                                 <span className="new-page">New</span>
                               </Link>
@@ -329,8 +319,7 @@ class EmployeeHeader extends Component {
                             <li>
                               <Link
                                 to={"/user/category-designations-jobs"}
-                                className="dez-page"
-                              >
+                                className="dez-page">
                                 designations jobs{" "}
                                 <span className="new-page">New</span>
                               </Link>
@@ -338,8 +327,7 @@ class EmployeeHeader extends Component {
                             <li>
                               <Link
                                 to={"/user/category-jobs"}
-                                className="dez-page"
-                              >
+                                className="dez-page">
                                 category jobs{" "}
                                 <span className="new-page">New</span>
                               </Link>
@@ -347,8 +335,7 @@ class EmployeeHeader extends Component {
                             <li>
                               <Link
                                 to={"/user/category-location-jobs"}
-                                className="dez-page"
-                              >
+                                className="dez-page">
                                 location jobs{" "}
                                 <span className="new-page">New</span>
                               </Link>
@@ -356,8 +343,7 @@ class EmployeeHeader extends Component {
                             <li>
                               <Link
                                 to={"/user/category-skill-jobs"}
-                                className="dez-page"
-                              >
+                                className="dez-page">
                                 skill jobs <span className="new-page">New</span>
                               </Link>
                             </li>
@@ -371,8 +357,7 @@ class EmployeeHeader extends Component {
                             <li>
                               <Link
                                 to={"/user/portfolio-grid-2"}
-                                className="dez-page"
-                              >
+                                className="dez-page">
                                 Portfolio Grid 2{" "}
                               </Link>
                             </li>
@@ -398,8 +383,7 @@ class EmployeeHeader extends Component {
                             <li>
                               <Link
                                 to={"/user/register-2"}
-                                className="dez-page"
-                              >
+                                className="dez-page">
                                 register 2 <span className="new-page">New</span>
                               </Link>
                             </li>
@@ -431,24 +415,21 @@ class EmployeeHeader extends Component {
                         <li>
                           <Link
                             to={"/user/blog-classic-sidebar"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Classic Sidebar
                           </Link>
                         </li>
                         <li>
                           <Link
                             to={"/user/blog-detailed-grid"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Detailed Grid
                           </Link>
                         </li>
                         <li>
                           <Link
                             to={"/user/blog-detailed-grid-sidebar"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Detailed Grid Sidebar
                           </Link>
                         </li>
@@ -475,15 +456,13 @@ class EmployeeHeader extends Component {
           className=" lead-form-modal"
           show={this.state.show}
           onHide={this.handleClose}
-          centered
-        >
+          centered>
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <button
                 type="button"
                 className="close"
-                onClick={this.handleClose}
-              >
+                onClick={this.handleClose}>
                 <span aria-hidden="true">&times;</span>
               </button>
               <div className="modal-body row m-a0 clearfix">
@@ -493,8 +472,7 @@ class EmployeeHeader extends Component {
                     backgroundImage: "url(" + bnr3 + ")",
                     backgroundPosition: "center",
                     backgroundSize: "cover",
-                  }}
-                >
+                  }}>
                   <div className="form-info text-white align-self-center">
                     <h3 className="m-b15">Login To You Now</h3>
                     <p className="m-b15">
@@ -546,8 +524,7 @@ class EmployeeHeader extends Component {
                       <div className="clearfix">
                         <button
                           type="button"
-                          className="btn-primary site-button btn-block"
-                        >
+                          className="btn-primary site-button btn-block">
                           Submit{" "}
                         </button>
                       </div>

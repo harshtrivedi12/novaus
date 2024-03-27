@@ -113,7 +113,6 @@ function App() {
             </UserPrivateRoute>
           }
         />
-        <Route path="job-page" element={<JobPage />} />
         <Route path="login" element={<Loginpage2 />} />
         <Route path="register" element={<Register1 />} />
         <Route path="register-2" element={<Register2 />} />
@@ -123,6 +122,14 @@ function App() {
           element={
             <UserPrivateRoute>
               <Jobprofile />
+            </UserPrivateRoute>
+          }
+        />
+        <Route
+          path="job-application"
+          element={
+            <UserPrivateRoute>
+              <JobPage />
             </UserPrivateRoute>
           }
         />
@@ -714,6 +721,15 @@ function App() {
             </EmployeePrivateRoute>
           }
         />
+
+        <Route
+          path="job-page"
+          element={
+            <EmployeePrivateRoute>
+              <JobPage />
+            </EmployeePrivateRoute>
+          }
+        />
         <Route
           path="blog-left-img"
           element={
@@ -722,14 +738,7 @@ function App() {
             </EmployeePrivateRoute>
           }
         />
-        <Route
-          path="job-application"
-          element={
-            <EmployeePrivateRoute>
-              <JobPage />
-            </EmployeePrivateRoute>
-          }
-        />
+
         <Route
           path="blog-details"
           element={
