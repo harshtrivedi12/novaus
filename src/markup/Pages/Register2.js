@@ -329,6 +329,7 @@ function Register2(props) {
                           <div>
                             <p>{percentage}</p>
                             <button
+                              className="site-button dz-xs-flex m-r5"
                               onClick={(e) => {
                                 navigate("/");
                               }}>
