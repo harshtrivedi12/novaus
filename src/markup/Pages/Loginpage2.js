@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useNavigate } from "react-router-dom";
 import {
   loadingToggleAction,
   loginAction,
@@ -10,6 +10,7 @@ import {
 //import logo from "../../images/logo-full-white.png";
 import loginbg from "./../../images/bg6.jpg";
 import axios from "axios";
+// import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // import logo2 from './../../images/logo-white2.png';
 
 function Login(props) {
@@ -17,9 +18,8 @@ function Login(props) {
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
   const [password, setPassword] = useState("123456");
-
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   //   function onLogin(e) {
   //     e.preventDefault();
   //     let error = false;
@@ -39,6 +39,8 @@ function Login(props) {
   //     dispatch(loadingToggleAction(true));
   //     dispatch(loginAction(email, password, props.history));
   //   }
+
+  // const history = useHistory();
   const handlePostRequest = async (e) => {
     e.preventDefault();
     const reqBody = {
@@ -59,7 +61,7 @@ function Login(props) {
           "jobSeekerLoginToken",
           response?.data?.data?.token
         );
-        window.location.href = "/home";
+        navigate("/user");
       })
       .catch((err) => {
         console.log(err);
@@ -181,7 +183,7 @@ function Login(props) {
                           login
                         </button>
                         <Link
-                          to="register-2"
+                          to="/user/register-2"
                           className="site-button-link forget-pass m-t15 float-right"
                         >
                           <i className="fa fa-unlock-alt"></i> Sign up
@@ -201,7 +203,7 @@ function Login(props) {
                 <span className="float-left">
                   © Copyright by{" "}
                   <i className="fa fa-heart m-lr5 text-red heart"></i>
-                  <Link to={"#"}>DexignZone </Link>{" "}
+                  <Link to={"#"}>Nova Jobs </Link>{" "}
                 </span>
                 <span className="float-right">All rights reserved.</span>
               </div>

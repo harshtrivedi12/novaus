@@ -295,7 +295,7 @@ function Register2(props) {
                       {" "}
                       © Copyright by{" "}
                       <i className="fa fa-heart m-lr5 text-red heart"></i>
-                      <Link to={""}>DexignZone </Link> All rights reserved.
+                      <Link to={""}>Nova Jobs </Link> All rights reserved.
                     </span>
                   </div>
                 </div>

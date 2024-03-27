@@ -196,7 +196,7 @@ function CompanyLogin(props) {
                 <span className="float-left">
                   © Copyright by{" "}
                   <i className="fa fa-heart m-lr5 text-red heart"></i>
-                  <Link to={"#"}>DexignZone </Link>{" "}
+                  <Link to={"#"}>Nova Jobs </Link>{" "}
                 </span>
                 <span className="float-right">All rights reserved.</span>
               </div>
