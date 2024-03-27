@@ -47,7 +47,7 @@ function CompanyLogin(props) {
     };
     await axios({
       method: "POST",
-      url: "http://93.188.167.106:3001/api/jobseeker/auth/login",
+      url: "https://jobsbooklet.in/api/jobseeker/auth/login",
       headers: {
         "Content-Type": "Application/json",
       },

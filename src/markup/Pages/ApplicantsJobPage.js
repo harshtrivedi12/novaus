@@ -147,25 +147,6 @@ function ApplicantsJobPage() {
                           </h4>
                         </div>
                       </div>
-<<<<<<< HEAD
-                      <ul className="job-list-container" style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
-                        {jobData.map(job => (
-                          <li key={job.id}>
-                            <Link to={"#"} onClick={() => handleSelectJob(job)}>
-                              <h6 className="mb-0 d-flex justify-content-between align-items-center">
-                                <span> <i className="fa fa-user-o" aria-hidden="true"></i> {job.title}</span>
-                                <span> {selectedJob && selectedJob.id === job.id && (
-                                  <FaTimes className="close-btn" onClick={handleClose} />
-                                )}</span>
-                              </h6>
-                              <p className="mb-0" style={{ color: "#1c2957" }}>{job.company}</p>
-                              <p className="mb-2" style={{ color: "#1c2957" }}> {job.location}</p>
-                              <p className="mb-3">Actively recruiting</p>
-                              <p className="mb-0">Promoted</p>
-                            </Link>
-                          </li>
-                        ))}
-=======
                       <ul className="job-list-container">
                         {jobsData.map((job) => {
                           const createdAt = job?.job_applied_detail?.created_at;
@@ -175,8 +156,7 @@ function ApplicantsJobPage() {
                             <li key={job.id}>
                               <Link
                                 to={"#"}
-                                onClick={() => handleSelectJob(job)}
-                              >
+                                onClick={() => handleSelectJob(job)}>
                                 <h6 className="mb-0 d-flex justify-content-between align-items-center">
                                   <div>
                                     {job?.jobskkers_detail?.photo ? (
@@ -206,8 +186,7 @@ function ApplicantsJobPage() {
                                 job?.jobskkers_detail?.last_name ? (
                                   <p
                                     className="mb-0"
-                                    style={{ color: "#1c2957" }}
-                                  >
+                                    style={{ color: "#1c2957" }}>
                                     {job?.jobskkers_detail?.first_name}{" "}
                                     {job?.jobskkers_detail?.last_name}{" "}
                                   </p>
@@ -215,16 +194,14 @@ function ApplicantsJobPage() {
                                 {job?.jobskkers_detail?.phone ? (
                                   <p
                                     className="mb-0"
-                                    style={{ color: "#1c2957" }}
-                                  >
+                                    style={{ color: "#1c2957" }}>
                                     {job?.jobskkers_detail?.phone}
                                   </p>
                                 ) : null}
                                 {job?.jobskkers_detail?.email ? (
                                   <p
                                     className="mb-2"
-                                    style={{ color: "#1c2957" }}
-                                  >
+                                    style={{ color: "#1c2957" }}>
                                     {" "}
                                     {job?.jobskkers_detail?.email}
                                   </p>
@@ -236,7 +213,6 @@ function ApplicantsJobPage() {
                             </li>
                           );
                         })}
->>>>>>> 62ed254d6ee4b518e47530088d79b7d9ef37c0fd
                       </ul>
                     </div>
                   </div>

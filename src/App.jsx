@@ -94,6 +94,7 @@ import EmployeeBlogdetailgrid from "./employeeMarkup/Pages/Blogdetailgrid";
 import EmployeeBlogdetailgridsidebar from "./employeeMarkup/Pages/Blogdetailgridsidebar";
 import EmployeeBlogleftimg from "./employeeMarkup/Pages/Blogleftimg";
 import EmployeeBlogdetail from "./employeeMarkup/Pages/Blogdetail";
+import JobPage from "./markup/Pages/JobPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -115,7 +116,7 @@ function App() {
         <Route path="login" element={<Loginpage2 />} />
         <Route path="register" element={<Register1 />} />
         <Route path="register-2" element={<Register2 />} />
-        <Route path="jobs-profile" element={<Jobprofile />} />
+
         <Route
           path="jobs-profile"
           element={
@@ -717,6 +718,14 @@ function App() {
           element={
             <EmployeePrivateRoute>
               <EmployeeBlogleftimg />
+            </EmployeePrivateRoute>
+          }
+        />
+        <Route
+          path="job-application"
+          element={
+            <EmployeePrivateRoute>
+              <JobPage />
             </EmployeePrivateRoute>
           }
         />

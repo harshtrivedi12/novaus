@@ -38,15 +38,11 @@ function CompanyRegister(props) {
     }
 
     axios
-      .post(
-        "http://93.188.167.106:3001/api/jobseeker/resume-upload",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
+      .post("https://jobsbooklet.in/api/jobseeker/resume-upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((response) => {
         alert("response");
         console.log(response.data);
@@ -71,7 +67,7 @@ function CompanyRegister(props) {
     console.log(body);
     try {
       axios({
-        url: "http://93.188.167.106:3001/api/jobseeker/auth/signup",
+        url: "https://jobsbooklet.in/api/jobseeker/auth/signup",
         headers: {
           "Content-Type": "application/json",
         },

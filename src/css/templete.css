@@ -1370,7 +1370,7 @@
 	z-index: 999999;
 }
 .modal-backdrop{
-	z-index: 99999;
+	z-index: ;
 }
 .modal-bx-info .modal-header .close {
     opacity: 1;
