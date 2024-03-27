@@ -11,15 +11,14 @@ import moment from "moment";
 function ApplicantsJobPage() {
   const jobsData = useSelector((state) => state.jobDataSlice.jobsData);
   const dispatch = useDispatch();
-  console.log(jobsData, "hey");
+  const token = localStorage.getItem("jobSeekerLoginToken");
   useEffect(() => {
     const jobData = async () => {
       await axios({
         method: "get",
         url: "http://93.188.167.106:3002/api/employeer/jobs-applicants",
         headers: {
-          Authorization:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21AZ21haWwuY29tIiwiZXhwIjoxNzExNTI5NzQ3fQ.ViZRFpEzu60E-YWWDCV-ue37gDaiS1VsonrGl7YKbeE",
+          Authorization: token,
         },
       })
         .then((response) => {
@@ -34,7 +33,6 @@ function ApplicantsJobPage() {
   }, []);
   const id = jobsData[0].jobskkers_detail?.id;
 
-  console.log(id, "lavi");
   const [selectedJob, setSelectedJob] = useState(null);
   const [jobData, setJobData] = useState([
     {

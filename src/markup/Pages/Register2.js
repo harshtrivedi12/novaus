@@ -96,7 +96,11 @@ function Register2(props) {
       <div className="browse-job login-style3">
         <div
           className="bg-img-fix"
-          style={{ backgroundImage: `url(${bnr})`, height: "100vh" }}>
+          style={{
+            backgroundImage: `url(${bnr})`,
+            height: "100vh",
+          }}
+        >
           <div className="row">
             <div className="col-xl-4 col-lg-5 col-md-6 col-sm-12 bg-white z-index2 relative p-a0 content-scroll skew-section left-bottom">
               <div className="login-form style-2">
@@ -110,7 +114,6 @@ function Register2(props) {
                     />
                   </Link>
                 </div>
-                <div className="clearfix"></div>
 
                 {showUpload ? (
                   <div className="tab-content nav p-b30 tab">
@@ -189,7 +192,8 @@ function Register2(props) {
                         <div className="form-group text-left">
                           <button
                             type="submit"
-                            className="site-button dz-xs-flex m-r5">
+                            className="site-button dz-xs-flex m-r5"
+                          >
                             Sign me up
                           </button>
                           <span className="custom-control custom-checkbox">
@@ -201,14 +205,16 @@ function Register2(props) {
                             />
                             <label
                               className="custom-control-label"
-                              htmlFor="check1">
+                              htmlFor="check1"
+                            >
                               Remember me
                             </label>
                           </span>
                           <Link
                             data-toggle="tab"
                             to="#forgot-password"
-                            className="forget-pass m-l5">
+                            className="forget-pass m-l5"
+                          >
                             <i className="fa fa-unlock-alt"></i> Forgot Password
                           </Link>
                         </div>
@@ -221,25 +227,29 @@ function Register2(props) {
                               <Link
                                 to={""}
                                 className="fa fa-facebook  fb-btn mr-1"
-                                target="bank"></Link>
+                                target="bank"
+                              ></Link>
                             </li>
                             <li>
                               <Link
                                 to={""}
                                 className="fa fa-twitter  tw-btn mr-1"
-                                target="bank"></Link>
+                                target="bank"
+                              ></Link>
                             </li>
                             <li>
                               <Link
                                 to={""}
                                 className="fa fa-linkedin link-btn mr-1"
-                                target="bank"></Link>
+                                target="bank"
+                              ></Link>
                             </li>
                             <li>
                               <Link
                                 to={""}
                                 className="fa fa-google-plus  gplus-btn"
-                                target="bank"></Link>
+                                target="bank"
+                              ></Link>
                             </li>
                           </ul>
                         </div>
@@ -247,7 +257,8 @@ function Register2(props) {
                       <div className="text-center bottom">
                         <Link
                           to="/login"
-                          className="site-button button-md btn-block text-white">
+                          className="site-button button-md btn-block text-white"
+                        >
                           Sign In
                         </Link>
                       </div>
@@ -274,7 +285,8 @@ function Register2(props) {
 
                     <button
                       type="submit"
-                      className="site-button dz-xs-flex m-r5">
+                      className="site-button dz-xs-flex m-r5"
+                    >
                       Upload Resume
                     </button>
                   </form>
@@ -285,7 +297,7 @@ function Register2(props) {
                       {" "}
                       © Copyright by{" "}
                       <i className="fa fa-heart m-lr5 text-red heart"></i>
-                      <Link to={""}>DexignZone </Link> All rights reserved.
+                      <Link to={""}>Nova Jobs </Link> All rights reserved.
                     </span>
                   </div>
                 </div>
