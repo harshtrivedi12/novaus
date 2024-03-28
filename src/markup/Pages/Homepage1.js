@@ -98,7 +98,7 @@ function Homepage() {
                         </p>
                         <div className="m-t20">
                           <Link
-                            to={"/register"}
+                            to={"/user/register"}
                             className="site-button radius-xl"
                           >
                             <span className="p-lr30">Sign Up</span>
@@ -126,7 +126,7 @@ function Homepage() {
                         </p>
                         <div className="m-t20">
                           <Link
-                            to={"/register"}
+                            to={"/user/register"}
                             className="site-button white radius-xl"
                           >
                             <span className="text-primary p-lr30">Sign Up</span>
@@ -154,7 +154,7 @@ function Homepage() {
                         </p>
                         <div className="m-t20">
                           <Link
-                            to={"/register"}
+                            to={"/user/register"}
                             className="site-button radius-xl"
                           >
                             <span className="p-lr30">Sign Up</span>
