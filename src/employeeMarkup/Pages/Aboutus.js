@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Header from "./../Layout/Header";
-import Footer from "./../Layout/Footer";
+import Header from "../Layout/Header";
+import Footer from "../Layout/Footer";
 import Latestblogowl from "./../Element/Owlblog2";
 
 var bnr1 = require("./../../images/banner/bnr1.jpg");
 var bnr2 = require("./../../images/background/bg4.jpg");
 
-function EmployeeAboutUs() {
+function EmployeeAboutus() {
   return (
     <div className="page-wraper">
       <Header />
@@ -167,4 +167,4 @@ function EmployeeAboutUs() {
     </div>
   );
 }
-export default EmployeeAboutUs;
+export default EmployeeAboutus;

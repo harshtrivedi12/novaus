@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { Link, Redirect, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   loadingToggleAction,
   loginAction,
@@ -9,8 +9,6 @@ import {
 // image
 //import logo from "../../images/logo-full-white.png";
 import loginbg from "./../../images/bg6.jpg";
-import axios from "axios";
-// import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // import logo2 from './../../images/logo-white2.png';
 
 function EmployeeLogin(props) {
@@ -18,52 +16,29 @@ function EmployeeLogin(props) {
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
   const [password, setPassword] = useState("123456");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  //   function onLogin(e) {
-  //     e.preventDefault();
-  //     let error = false;
-  //     const errorObj = { ...errorsObj };
-  //     if (email === "") {
-  //       errorObj.email = "Email is Required";
-  //       error = true;
-  //     }
-  //     if (password === "") {
-  //       errorObj.password = "Password is Required";
-  //       error = true;
-  //     }
-  //     setErrors(errorObj);
-  //     if (error) {
-  //       return;
-  //     }
-  //     dispatch(loadingToggleAction(true));
-  //     dispatch(loginAction(email, password, props.history));
-  //   }
 
-  // const history = useHistory();
-  const handlePostRequest = async (e) => {
+  const dispatch = useDispatch();
+
+  function onLogin(e) {
     e.preventDefault();
-    const reqBody = {
-      email: email,
-      password: password,
-    };
-    await axios({
-      method: "POST",
-      url: "http://93.188.167.106:3002/api/employeer/auth/login",
-      headers: {
-        "Content-Type": "Application/json",
-      },
-      data: reqBody,
-    })
-      .then((response) => {
-        console.log(response, "login");
-        localStorage.setItem("employeeLoginToken", response?.data?.data?.token);
-        navigate("/employee");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    let error = false;
+    const errorObj = { ...errorsObj };
+    if (email === "") {
+      errorObj.email = "Email is Required";
+      error = true;
+    }
+    if (password === "") {
+      errorObj.password = "Password is Required";
+      error = true;
+    }
+    setErrors(errorObj);
+    if (error) {
+      return;
+    }
+    dispatch(loadingToggleAction(true));
+    dispatch(loginAction(email, password, props.history));
+  }
+
   return (
     <div className="page-wraper">
       <div
@@ -124,7 +99,7 @@ function EmployeeLogin(props) {
               <div className="col-lg-6 col-md-6">
                 <div className="login-2 submit-resume p-a30 seth">
                   <div className="nav">
-                    <form className="col-12 p-a0 ">
+                    <form onSubmit={onLogin} className="col-12 p-a0 ">
                       <p className="font-weight-600">
                         If you have an account with us, please log in.
                       </p>
@@ -173,14 +148,11 @@ function EmployeeLogin(props) {
                         </div>
                       </div>
                       <div className="text-center">
-                        <button
-                          onClick={handlePostRequest}
-                          className="site-button float-left"
-                        >
+                        <button className="site-button float-left">
                           login
                         </button>
                         <Link
-                          to="/user/register-2"
+                          to="register-2"
                           className="site-button-link forget-pass m-t15 float-right"
                         >
                           <i className="fa fa-unlock-alt"></i> Sign up

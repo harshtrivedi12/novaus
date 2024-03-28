@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import Header from "./../Layout/Header";
 import Footer from "./../Layout/Footer";
 import PageTitle from "./../Layout/PageTitle";
-import bnr from "./../../images/banner/bnr2.jpg";
+
+var bnr = require("./../../images/banner/bnr2.jpg");
 
 function EmployeeLoginpage1() {
   return (

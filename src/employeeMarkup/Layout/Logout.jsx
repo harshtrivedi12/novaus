@@ -1,33 +1,33 @@
 import { connect, useDispatch } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { Link, useNavigate, withRouter } from "react-router-dom";
 import React from "react";
 import { logout } from "../../store/actions/AuthActions";
 import { isAuthenticated } from "../../store/selectors/AuthSelectors";
 
 function LogoutPage(props) {
   const dispatch = useDispatch();
-
-  function onLogout() {
-    dispatch(logout(props.history));
-    // window.location.reload();
-  }
+  const navigate = useNavigate();
+  const onLogout = () => {
+    localStorage.removeItem("employeeLoginToken");
+    navigate("/employee/login");
+  };
   return (
     <>
-      <Link
+      <button
         to={"#"}
         title="READ MORE"
         className="site-button"
         onClick={onLogout}
       >
         <i className="fa fa-lock"></i> Logout
-      </Link>
+      </button>
     </>
   );
 }
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: isAuthenticated(state),
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     isAuthenticated: isAuthenticated(state),
+//   };
+// };
 
 export default LogoutPage;

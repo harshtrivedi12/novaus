@@ -95,6 +95,7 @@ import EmployeeBlogdetailgridsidebar from "./employeeMarkup/Pages/Blogdetailgrid
 import EmployeeBlogleftimg from "./employeeMarkup/Pages/Blogleftimg";
 import EmployeeBlogdetail from "./employeeMarkup/Pages/Blogdetail";
 import JobPage from "./markup/Pages/JobPage";
+import EmployeeCategorycompanyjob from "./employeeMarkup/Pages/Categorycompanyjob";
 
 function App() {
   const dispatch = useDispatch();
@@ -116,7 +117,6 @@ function App() {
         <Route path="login" element={<Loginpage2 />} />
         <Route path="register" element={<Register1 />} />
         <Route path="register-2" element={<Register2 />} />
-
         <Route
           path="jobs-profile"
           element={
@@ -138,6 +138,14 @@ function App() {
           element={
             <UserPrivateRoute>
               <ApplicantsJobPage />
+            </UserPrivateRoute>
+          }
+        />{" "}
+        <Route
+          path="category-company-jobs"
+          element={
+            <UserPrivateRoute>
+              <Categorycompanyjob />
             </UserPrivateRoute>
           }
         />
@@ -165,7 +173,6 @@ function App() {
             </UserPrivateRoute>
           }
         />
-
         <Route
           path="jobs-saved-jobs"
           element={
@@ -262,7 +269,6 @@ function App() {
             </UserPrivateRoute>
           }
         />
-
         <Route
           path="free-job-alerts"
           element={
@@ -271,7 +277,6 @@ function App() {
             </UserPrivateRoute>
           }
         />
-
         <Route
           path="browse-job-list"
           element={
@@ -280,7 +285,6 @@ function App() {
             </UserPrivateRoute>
           }
         />
-
         <Route
           path="browse-job-grid"
           element={
@@ -289,7 +293,6 @@ function App() {
             </UserPrivateRoute>
           }
         />
-
         <Route
           path="browse-job-filter-list"
           element={
@@ -298,7 +301,6 @@ function App() {
             </UserPrivateRoute>
           }
         />
-
         <Route
           path="browse-job-filter-grid"
           element={
@@ -307,7 +309,6 @@ function App() {
             </UserPrivateRoute>
           }
         />
-
         <Route
           path="category-all-jobs"
           element={
@@ -340,7 +341,6 @@ function App() {
             </UserPrivateRoute>
           }
         />
-
         <Route
           path="category-skill-jobs"
           element={
@@ -365,7 +365,6 @@ function App() {
             </UserPrivateRoute>
           }
         />
-
         <Route
           path="contact"
           element={
@@ -445,6 +444,14 @@ function App() {
           element={
             <EmployeePrivateRoute>
               <EmployeeJobProfile />
+            </EmployeePrivateRoute>
+          }
+        />
+        <Route
+          path="category-company-jobs"
+          element={
+            <EmployeePrivateRoute>
+              <EmployeeCategorycompanyjob />
             </EmployeePrivateRoute>
           }
         />

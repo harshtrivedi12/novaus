@@ -103,7 +103,7 @@ class EmployeeHeader extends Component {
                   id="navbarNavDropdown"
                 >
                   <div className="logo-header mostion d-md-block d-lg-none">
-                    <Link to={"/"} className="dez-page">
+                    <Link to={"/user"} className="dez-page">
                       <img src={logo2} alt="" />
                     </Link>
                   </div>
@@ -122,6 +122,9 @@ class EmployeeHeader extends Component {
                           </Link>
                         </li>
                       </ul> */}
+                    </li>
+                    <li className="">
+                      <Link to={"/user/job-application"}>Job Page</Link>
                     </li>
                     <li>
                       <Link to={"#"}>
