@@ -70,6 +70,12 @@ function Profilesidebar() {
               </Link>
             </li>
             <li>
+              <Link to={"/user/skill-test"}>
+                <i className="fa fa-id-card-o" aria-hidden="true"></i>
+                <span>Skill Test</span>
+              </Link>
+            </li>
+            <li>
               <Link to={"/user/jobs-change-password"}>
                 <i className="fa fa-key" aria-hidden="true"></i>
                 <span>Change Password</span>

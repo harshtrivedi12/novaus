@@ -95,6 +95,10 @@ import EmployeeBlogdetailgridsidebar from "./employeeMarkup/Pages/Blogdetailgrid
 import EmployeeBlogleftimg from "./employeeMarkup/Pages/Blogleftimg";
 import EmployeeBlogdetail from "./employeeMarkup/Pages/Blogdetail";
 import JobPage from "./markup/Pages/JobPage";
+import ProfilePage from "./markup/Pages/ProfilePage";
+import Chatbot from "./markup/Pages/Chatbot";
+import SkillTest from "./markup/Pages/SkillTest";
+import EducationPage from "./markup/Pages/EducationPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -122,6 +126,22 @@ function App() {
           element={
             <UserPrivateRoute>
               <Jobprofile />
+            </UserPrivateRoute>
+          }
+        />
+         <Route
+          path="skill-test"
+          element={
+            <UserPrivateRoute>
+              <SkillTest />
+            </UserPrivateRoute>
+          }
+        />
+         <Route
+          path="education-page"
+          element={
+            <UserPrivateRoute>
+              <EducationPage />
             </UserPrivateRoute>
           }
         />
@@ -157,6 +177,7 @@ function App() {
             </UserPrivateRoute>
           }
         />
+        
         <Route
           path="jobs-alerts"
           element={
@@ -472,6 +493,7 @@ function App() {
             </EmployeePrivateRoute>
           }
         />
+          
         <Route
           path="jobs-alerts"
           element={
@@ -730,6 +752,24 @@ function App() {
             </EmployeePrivateRoute>
           }
         />
+        <Route
+          path="profilepage"
+          element={
+            <EmployeePrivateRoute>
+              <ProfilePage />
+            </EmployeePrivateRoute>
+          }
+        />
+
+          <Route
+          path="chatbot"
+          element={
+            <EmployeePrivateRoute>
+              <Chatbot />
+            </EmployeePrivateRoute>
+          }
+        />
+
         <Route
           path="blog-left-img"
           element={
