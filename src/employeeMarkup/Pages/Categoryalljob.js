@@ -45,24 +45,26 @@ function EmployeeCategoryalljob() {
                 <div className="nav">
                   <ul>
                     <li className="active">
-                      <Link to={"/user/category-all-jobs"}>All Jobs</Link>
+                      <Link to={"/employee/category-all-jobs"}>All Jobs</Link>
                     </li>
 
                     <li>
-                      <Link to={"/user/category-jobs"}>Jobs by Category</Link>
+                      <Link to={"/employee/category-jobs"}>
+                        Jobs by Category
+                      </Link>
                     </li>
                     <li>
-                      <Link to={"/user/category-location-jobs"}>
+                      <Link to={"/employee/category-location-jobs"}>
                         Jobs by Location
                       </Link>
                     </li>
                     <li>
-                      <Link to={"/user/category-designations-jobs"}>
+                      <Link to={"/employee/category-designations-jobs"}>
                         Jobs by Designation
                       </Link>
                     </li>
                     <li>
-                      <Link to={"/user/category-skill-jobs"}>
+                      <Link to={"/employee/category-skill-jobs"}>
                         Jobs by Skill
                       </Link>
                     </li>

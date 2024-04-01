@@ -43,13 +43,13 @@ function EmployeeCompanymanage() {
                       </div>
                       <ul>
                         <li>
-                          <Link to={"/ompany-profile"}>
+                          <Link to={"/employee/company-profile"}>
                             <i className="fa fa-user-o" aria-hidden="true"></i>
                             <span>Company Profile</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/company-post-jobs"}>
+                          <Link to={"/employee/company-post-jobs"}>
                             <i
                               className="fa fa-file-text-o"
                               aria-hidden="true"
@@ -58,13 +58,16 @@ function EmployeeCompanymanage() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/company-transactions"}>
+                          <Link to={"/employee/company-transactions"}>
                             <i className="fa fa-random" aria-hidden="true"></i>
                             <span>Transactions</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/company-manage-job"} className="active">
+                          <Link
+                            to={"/employee/company-manage-job"}
+                            className="active"
+                          >
                             <i
                               className="fa fa-briefcase"
                               aria-hidden="true"
@@ -73,7 +76,7 @@ function EmployeeCompanymanage() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/company-resume"}>
+                          <Link to={"/employee/company-resume"}>
                             <i
                               className="fa fa-id-card-o"
                               aria-hidden="true"
@@ -82,7 +85,7 @@ function EmployeeCompanymanage() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-change-password"}>
+                          <Link to={"/employee/jobs-change-password"}>
                             <i className="fa fa-key" aria-hidden="true"></i>
                             <span>Change Password</span>
                           </Link>
@@ -118,462 +121,312 @@ function EmployeeCompanymanage() {
                         </select>
                       </div>
                     </div>
-                    <table className="table-job-bx cv-manager company-manage-job">
-                      <thead>
-                        <tr>
-                          <th className="feature">
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                id="check12"
-                                className="custom-control-input selectAllCheckBox"
-                                name="example1"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="check12"
-                              ></label>
-                            </div>
-                          </th>
-                          <th>Job Title</th>
-                          <th>Applications</th>
-                          <th>Date</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="feature">
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="check1"
-                                name="example1"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="check1"
-                              ></label>
-                            </div>
-                          </td>
-                          <td className="job-name">
-                            <Link to={"#"}>Social Media Expert</Link>
-                            <ul className="job-post-info">
-                              <li>
-                                <i className="fa fa-map-marker"></i> Sacramento,
-                                California
-                              </li>
-                              <li>
-                                <i className="fa fa-bookmark-o"></i> Full Time
-                              </li>
-                              <li>
-                                <i className="fa fa-filter"></i> Web Designer
-                              </li>
-                            </ul>
-                          </td>
-                          <td className="application text-primary">
-                            (5) Applications
-                          </td>
-                          <td className="expired pending">Pending </td>
-                          <td className="job-links">
-                            <Link to={"#"} onClick={() => setCompany(true)}>
-                              <i className="fa fa-eye"></i>
-                            </Link>
-                            <Link to={"#"}>
-                              <i className="ti-trash"></i>
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="feature">
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="check2"
-                                name="example1"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="check2"
-                              ></label>
-                            </div>
-                          </td>
-                          <td className="job-name">
-                            <Link to={"#"}>Web Designer</Link>
-                            <ul className="job-post-info">
-                              <li>
-                                <i className="fa fa-map-marker"></i> Sacramento,
-                                California
-                              </li>
-                              <li>
-                                <i className="fa fa-bookmark-o"></i> Full Time
-                              </li>
-                              <li>
-                                <i className="fa fa-filter"></i> Web Designer
-                              </li>
-                            </ul>
-                          </td>
-                          <td className="application text-primary">
-                            (8) Applications
-                          </td>
-                          <td className="expired text-red">Expired</td>
-                          <td className="job-links">
-                            <Link to={"#"} onClick={() => setCompany(true)}>
-                              <i className="fa fa-eye"></i>
-                            </Link>
-                            <Link to={"#"}>
-                              <i className="ti-trash"></i>
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="feature">
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="check3"
-                                name="example1"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="check3"
-                              ></label>
-                            </div>
-                          </td>
-                          <td className="job-name">
-                            <Link to={"#"}>Finance Accountant</Link>
-                            <ul className="job-post-info">
-                              <li>
-                                <i className="fa fa-map-marker"></i> Sacramento,
-                                California
-                              </li>
-                              <li>
-                                <i className="fa fa-bookmark-o"></i> Full Time
-                              </li>
-                              <li>
-                                <i className="fa fa-filter"></i> Web Designer
-                              </li>
-                            </ul>
-                          </td>
-                          <td className="application text-primary">
-                            (9) Applications
-                          </td>
-                          <td className="expired pending">Pending </td>
-                          <td className="job-links">
-                            <Link to={"#"} onClick={() => setCompany(true)}>
-                              <i className="fa fa-eye"></i>
-                            </Link>
-                            <Link to={"#"}>
-                              <i className="ti-trash"></i>
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="feature">
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="check4"
-                                name="example1"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="check4"
-                              ></label>
-                            </div>
-                          </td>
-                          <td className="job-name">
-                            <Link to={"#"}>Social Media Expert</Link>
-                            <ul className="job-post-info">
-                              <li>
-                                <i className="fa fa-map-marker"></i> Sacramento,
-                                California
-                              </li>
-                              <li>
-                                <i className="fa fa-bookmark-o"></i> Full Time
-                              </li>
-                              <li>
-                                <i className="fa fa-filter"></i> Web Designer
-                              </li>
-                            </ul>
-                          </td>
-                          <td className="application text-primary">
-                            (7) Applications
-                          </td>
-                          <td className="expired success">Active </td>
-                          <td className="job-links">
-                            <Link to={"#"} onClick={() => setCompany(true)}>
-                              <i className="fa fa-eye"></i>
-                            </Link>
-                            <Link to={"#"}>
-                              <i className="ti-trash"></i>
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="feature">
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="check5"
-                                name="example1"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="check5"
-                              ></label>
-                            </div>
-                          </td>
-                          <td className="job-name">
-                            <Link to={"#"}>Web Designer</Link>
-                            <ul className="job-post-info">
-                              <li>
-                                <i className="fa fa-map-marker"></i> Sacramento,
-                                California
-                              </li>
-                              <li>
-                                <i className="fa fa-bookmark-o"></i> Full Time
-                              </li>
-                              <li>
-                                <i className="fa fa-filter"></i> Web Designer
-                              </li>
-                            </ul>
-                          </td>
-                          <td className="application text-primary">
-                            (6) Applications
-                          </td>
-                          <td className="expired pending">Pending </td>
-                          <td className="job-links">
-                            <Link to={"#"} onClick={() => setCompany(true)}>
-                              <i className="fa fa-eye"></i>
-                            </Link>
-                            <Link to={"#"}>
-                              <i className="ti-trash"></i>
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="feature">
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="check6"
-                                name="example1"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="check6"
-                              ></label>
-                            </div>
-                          </td>
-                          <td className="job-name">
-                            <Link to={"#"}>Finance Accountant</Link>
-                            <ul className="job-post-info">
-                              <li>
-                                <i className="fa fa-map-marker"></i> Sacramento,
-                                California
-                              </li>
-                              <li>
-                                <i className="fa fa-bookmark-o"></i> Full Time
-                              </li>
-                              <li>
-                                <i className="fa fa-filter"></i> Web Designer
-                              </li>
-                            </ul>
-                          </td>
-                          <td className="application text-primary">
-                            (3) Applications
-                          </td>
-                          <td className="expired text-red">Expired</td>
-                          <td className="job-links">
-                            <Link to={"#"} onClick={() => setCompany(true)}>
-                              <i className="fa fa-eye"></i>
-                            </Link>
-                            <Link to={"#"}>
-                              <i className="ti-trash"></i>
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="feature">
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="check7"
-                                name="example1"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="check7"
-                              ></label>
-                            </div>
-                          </td>
-                          <td className="job-name">
-                            <Link to={"#"}>Social Media Expert</Link>
-                            <ul className="job-post-info">
-                              <li>
-                                <i className="fa fa-map-marker"></i> Sacramento,
-                                California
-                              </li>
-                              <li>
-                                <i className="fa fa-bookmark-o"></i> Full Time
-                              </li>
-                              <li>
-                                <i className="fa fa-filter"></i> Web Designer
-                              </li>
-                            </ul>
-                          </td>
-                          <td className="application text-primary">
-                            (2) Applications
-                          </td>
-                          <td className="expired success">Active </td>
-                          <td className="job-links">
-                            <Link to={"#"} onClick={() => setCompany(true)}>
-                              <i className="fa fa-eye"></i>
-                            </Link>
-                            <Link to={"#"}>
-                              <i className="ti-trash"></i>
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="feature">
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="check8"
-                                name="example1"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="check8"
-                              ></label>
-                            </div>
-                          </td>
-                          <td className="job-name">
-                            <Link to={"#"}>Web Designer</Link>
-                            <ul className="job-post-info">
-                              <li>
-                                <i className="fa fa-map-marker"></i> Sacramento,
-                                California
-                              </li>
-                              <li>
-                                <i className="fa fa-bookmark-o"></i> Full Time
-                              </li>
-                              <li>
-                                <i className="fa fa-filter"></i> Web Designer
-                              </li>
-                            </ul>
-                          </td>
-                          <td className="application text-primary">
-                            (4) Applications
-                          </td>
-                          <td className="expired success">Active </td>
-                          <td className="job-links">
-                            <Link to={"#"} onClick={() => setCompany(true)}>
-                              <i className="fa fa-eye"></i>
-                            </Link>
-                            <Link to={"#"}>
-                              <i className="ti-trash"></i>
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="feature">
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="check9"
-                                name="example1"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="check9"
-                              ></label>
-                            </div>
-                          </td>
-                          <td className="job-name">
-                            <Link to={"#"}>Finance Accountant</Link>
-                            <ul className="job-post-info">
-                              <li>
-                                <i className="fa fa-map-marker"></i> Sacramento,
-                                California
-                              </li>
-                              <li>
-                                <i className="fa fa-bookmark-o"></i> Full Time
-                              </li>
-                              <li>
-                                <i className="fa fa-filter"></i> Web Designer
-                              </li>
-                            </ul>
-                          </td>
-                          <td className="application text-primary">
-                            (1) Applications
-                          </td>
-                          <td className="expired text-red">Expired</td>
-                          <td className="job-links">
-                            <Link to={"#"} onClick={() => setCompany(true)}>
-                              <i className="fa fa-eye"></i>
-                            </Link>
-                            <Link to={"#"}>
-                              <i className="ti-trash"></i>
-                            </Link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="feature">
-                            <div className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="check10"
-                                name="example1"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="check10"
-                              ></label>
-                            </div>
-                          </td>
-                          <td className="job-name">
-                            <Link to={"#"}>Web Designer</Link>
-                            <ul className="job-post-info">
-                              <li>
-                                <i className="fa fa-map-marker"></i> Sacramento,
-                                California
-                              </li>
-                              <li>
-                                <i className="fa fa-bookmark-o"></i> Full Time
-                              </li>
-                              <li>
-                                <i className="fa fa-filter"></i> Web Designer
-                              </li>
-                            </ul>
-                          </td>
-                          <td className="application text-primary">
-                            (1) Applications
-                          </td>
-                          <td className="expired success">Active </td>
-                          <td className="job-links">
-                            <Link to={"#"} onClick={() => setCompany(true)}>
-                              <i className="fa fa-eye"></i>
-                            </Link>
-                            <Link to={"#"}>
-                              <i className="ti-trash"></i>
-                            </Link>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <ul className="post-job-bx browse-job">
+                      <li>
+                        <div className="post-bx">
+                          <div className="job-post-info m-a0">
+                            <h4 className="mb-0">
+                              <a href="/react/demo/job-detail">
+                                Social Media Expert
+                              </a>
+                            </h4>
+                            <h6 className="mb-0">
+                              {" "}
+                              <a href="/react/demo/company-profile">
+                                @company-name
+                              </a>
+                            </h6>
+                            <p style={{ color: "#232323" }} className="mb-2">
+                              {" "}
+                              <i className="fa fa-map-marker"></i> Sacramento,
+                              California
+                            </p>
+
+                            <p className="mb-0">
+                              {" "}
+                              <span className="text-black ">Draft *</span>
+                              Created 7mo ago
+                            </p>
+                            <p style={{ color: "#007bff" }} className="">
+                              Complete draft
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="post-bx">
+                          <div className="job-post-info m-a0">
+                            <h4 className="mb-0">
+                              <a href="/react/demo/job-detail">Web Designer</a>
+                            </h4>
+                            <h6 className="mb-0">
+                              {" "}
+                              <a href="/react/demo/company-profile">
+                                @company-name
+                              </a>
+                            </h6>
+                            <p style={{ color: "#232323" }} className="mb-2">
+                              {" "}
+                              <i className="fa fa-map-marker"></i> Sacramento,
+                              California
+                            </p>
+
+                            <p className="mb-0">
+                              {" "}
+                              <span className="text-black ">Draft *</span>
+                              Created 7mo ago
+                            </p>
+                            <p style={{ color: "#007bff" }} className="">
+                              Complete draft
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="post-bx">
+                          <div className="job-post-info m-a0">
+                            <h4 className="mb-0">
+                              <a href="/react/demo/job-detail">
+                                Finance Accountant
+                              </a>
+                            </h4>
+                            <h6 className="mb-0">
+                              {" "}
+                              <a href="/react/demo/company-profile">
+                                @company-name
+                              </a>
+                            </h6>
+                            <p style={{ color: "#232323" }} className="mb-2">
+                              {" "}
+                              <i className="fa fa-map-marker"></i> Sacramento,
+                              California
+                            </p>
+
+                            <p className="mb-0">
+                              {" "}
+                              <span className="text-black ">Draft *</span>
+                              Created 7mo ago
+                            </p>
+                            <p style={{ color: "#007bff" }} className="">
+                              Complete draft
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="post-bx">
+                          <div className="job-post-info m-a0">
+                            <h4 className="mb-0">
+                              <a href="/react/demo/job-detail">
+                                Social Media Expert
+                              </a>
+                            </h4>
+                            <h6 className="mb-0">
+                              {" "}
+                              <a href="/react/demo/company-profile">
+                                @company-name
+                              </a>
+                            </h6>
+                            <p style={{ color: "#232323" }} className="mb-2">
+                              {" "}
+                              <i className="fa fa-map-marker"></i> Sacramento,
+                              California
+                            </p>
+
+                            <p className="mb-0">
+                              {" "}
+                              <span className="text-black ">Draft *</span>
+                              Created 7mo ago
+                            </p>
+                            <p style={{ color: "#007bff" }} className="">
+                              Complete draft
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="post-bx">
+                          <div className="job-post-info m-a0">
+                            <h4 className="mb-0">
+                              <a href="/react/demo/job-detail">Web Designer</a>
+                            </h4>
+                            <h6 className="mb-0">
+                              {" "}
+                              <a href="/react/demo/company-profile">
+                                @company-name
+                              </a>
+                            </h6>
+                            <p style={{ color: "#232323" }} className="mb-2">
+                              {" "}
+                              <i className="fa fa-map-marker"></i> Sacramento,
+                              California
+                            </p>
+
+                            <p className="mb-0">
+                              {" "}
+                              <span className="text-black ">Draft *</span>
+                              Created 7mo ago
+                            </p>
+                            <p style={{ color: "#007bff" }} className="">
+                              Complete draft
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="post-bx">
+                          <div className="job-post-info m-a0">
+                            <h4 className="mb-0">
+                              <a href="/react/demo/job-detail">
+                                Finance Accountant
+                              </a>
+                            </h4>
+                            <h6 className="mb-0">
+                              {" "}
+                              <a href="/react/demo/company-profile">
+                                @company-name
+                              </a>
+                            </h6>
+                            <p style={{ color: "#232323" }} className="mb-2">
+                              {" "}
+                              <i className="fa fa-map-marker"></i> Sacramento,
+                              California
+                            </p>
+
+                            <p className="mb-0">
+                              {" "}
+                              <span className="text-black ">Draft *</span>
+                              Created 7mo ago
+                            </p>
+                            <p style={{ color: "#007bff" }} className="">
+                              Complete draft
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="post-bx">
+                          <div className="job-post-info m-a0">
+                            <h4 className="mb-0">
+                              <a href="/react/demo/job-detail">
+                                Social Media Expert
+                              </a>
+                            </h4>
+                            <h6 className="mb-0">
+                              {" "}
+                              <a href="/react/demo/company-profile">
+                                @company-name
+                              </a>
+                            </h6>
+                            <p style={{ color: "#232323" }} className="mb-2">
+                              {" "}
+                              <i className="fa fa-map-marker"></i> Sacramento,
+                              California
+                            </p>
+
+                            <p className="mb-0">
+                              {" "}
+                              <span className="text-black ">Draft *</span>
+                              Created 7mo ago
+                            </p>
+                            <p style={{ color: "#007bff" }} className="">
+                              Complete draft
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="post-bx">
+                          <div className="job-post-info m-a0">
+                            <h4 className="mb-0">
+                              <a href="/react/demo/job-detail">Web Designer</a>
+                            </h4>
+                            <h6 className="mb-0">
+                              {" "}
+                              <a href="/react/demo/company-profile">
+                                @company-name
+                              </a>
+                            </h6>
+                            <p style={{ color: "#232323" }} className="mb-2">
+                              {" "}
+                              <i className="fa fa-map-marker"></i> Sacramento,
+                              California
+                            </p>
+
+                            <p className="mb-0">
+                              {" "}
+                              <span className="text-black ">Draft *</span>
+                              Created 7mo ago
+                            </p>
+                            <p style={{ color: "#007bff" }} className="">
+                              Complete draft
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="post-bx">
+                          <div className="job-post-info m-a0">
+                            <h4 className="mb-0">
+                              <a href="/react/demo/job-detail">
+                                Finance Accountant
+                              </a>
+                            </h4>
+                            <h6 className="mb-0">
+                              {" "}
+                              <a href="/react/demo/company-profile">
+                                @company-name
+                              </a>
+                            </h6>
+                            <p style={{ color: "#232323" }} className="mb-2">
+                              {" "}
+                              <i className="fa fa-map-marker"></i> Sacramento,
+                              California
+                            </p>
+
+                            <p className="mb-0">
+                              {" "}
+                              <span className="text-black ">Draft *</span>
+                              Created 7mo ago
+                            </p>
+                            <p style={{ color: "#007bff" }} className="">
+                              Complete draft
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="post-bx">
+                          <div className="job-post-info m-a0">
+                            <h4 className="mb-0">
+                              <a href="/react/demo/job-detail">
+                                Social Media Expert
+                              </a>
+                            </h4>
+                            <h6 className="mb-0">
+                              {" "}
+                              <a href="/react/demo/company-profile">
+                                @company-name
+                              </a>
+                            </h6>
+                            <p style={{ color: "#232323" }} className="mb-2">
+                              {" "}
+                              <i className="fa fa-map-marker"></i> Sacramento,
+                              California
+                            </p>
+
+                            <p className="mb-0">
+                              {" "}
+                              <span className="text-black ">Draft *</span>
+                              Created 7mo ago
+                            </p>
+                            <p style={{ color: "#007bff" }} className="">
+                              Complete draft
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
                     <div className="pagination-bx m-t30 float-right">
                       <ul className="pagination">
                         <li className="previous">

@@ -196,12 +196,12 @@ function EmployeeContact() {
               </div>
               <div className="col-lg-4 col-md-12 d-lg-flex m-b30">
                 {/* <GoogleMaps
-                  apiKey={"AIzaSyBPDjB2qkV4Yxn9h0tGSk2X5uH6NKmssXw"}
-                  style={{ height: "500px", width: "100%", border: "0" }}
-                  zoom={6}
-                  center={{ lat: 37.4224764, lng: -122.0842499 }}
-                  markers={{ lat: 37.4224764, lng: -122.0842499 }} //optional
-                /> */}
+									apiKey={"AIzaSyBPDjB2qkV4Yxn9h0tGSk2X5uH6NKmssXw"}
+									style={{ height: "500px", width: "100%", border:"0" }}
+									zoom={6}
+									center={{ lat: 37.4224764, lng: -122.0842499 }}
+									markers={{ lat: 37.4224764, lng: -122.0842499 }} //optional
+								/> */}
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { Link, Redirect, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   loadingToggleAction,
   loginAction,
@@ -10,37 +10,35 @@ import {
 //import logo from "../../images/logo-full-white.png";
 import loginbg from "./../../images/bg6.jpg";
 import axios from "axios";
-// import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // import logo2 from './../../images/logo-white2.png';
 
-function EmployeeLogin(props) {
+function EmployeesCompanyLogin(props) {
   const [email, setEmail] = useState("demo@example.com");
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
   const [password, setPassword] = useState("123456");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  //   function onLogin(e) {
-  //     e.preventDefault();
-  //     let error = false;
-  //     const errorObj = { ...errorsObj };
-  //     if (email === "") {
-  //       errorObj.email = "Email is Required";
-  //       error = true;
-  //     }
-  //     if (password === "") {
-  //       errorObj.password = "Password is Required";
-  //       error = true;
-  //     }
-  //     setErrors(errorObj);
-  //     if (error) {
-  //       return;
-  //     }
-  //     dispatch(loadingToggleAction(true));
-  //     dispatch(loginAction(email, password, props.history));
-  //   }
 
-  // const history = useHistory();
+  const dispatch = useDispatch();
+
+  function onLogin(e) {
+    e.preventDefault();
+    let error = false;
+    const errorObj = { ...errorsObj };
+    if (email === "") {
+      errorObj.email = "Email is Required";
+      error = true;
+    }
+    if (password === "") {
+      errorObj.password = "Password is Required";
+      error = true;
+    }
+    setErrors(errorObj);
+    if (error) {
+      return;
+    }
+    dispatch(loadingToggleAction(true));
+    dispatch(loginAction(email, password, props.history));
+  }
   const handlePostRequest = async (e) => {
     e.preventDefault();
     const reqBody = {
@@ -49,7 +47,7 @@ function EmployeeLogin(props) {
     };
     await axios({
       method: "POST",
-      url: "http://93.188.167.106:3002/api/employeer/auth/login",
+      url: "https://jobsbooklet.in/api/jobseeker/auth/login",
       headers: {
         "Content-Type": "Application/json",
       },
@@ -57,8 +55,6 @@ function EmployeeLogin(props) {
     })
       .then((response) => {
         console.log(response, "login");
-        localStorage.setItem("employeeLoginToken", response?.data?.data?.token);
-        navigate("/employee");
       })
       .catch((err) => {
         console.log(err);
@@ -180,7 +176,7 @@ function EmployeeLogin(props) {
                           login
                         </button>
                         <Link
-                          to="/user/register-2"
+                          to="register-2"
                           className="site-button-link forget-pass m-t15 float-right"
                         >
                           <i className="fa fa-unlock-alt"></i> Sign up
@@ -219,4 +215,4 @@ const mapStateToProps = (state) => {
     showLoading: state.auth.showLoading,
   };
 };
-export default connect(mapStateToProps)(EmployeeLogin);
+export default connect(mapStateToProps)(EmployeesCompanyLogin);

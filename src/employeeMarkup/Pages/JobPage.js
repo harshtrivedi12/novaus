@@ -6,10 +6,8 @@ import { FaTimes } from "react-icons/fa";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Tab, Nav } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import axios from "axios";
 
-function JobPage() {
+function EmployeeJobPage() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [show, setShow] = useState(false);
 
@@ -133,30 +131,6 @@ function JobPage() {
       setActiveTab("contact-info");
     }
   };
-
-  // redux value
-  const jobApplicationData = useSelector(
-    (state) => state.jobApplicationSlice.jobApplicationData
-  );
-  const token = localStorage.getItem("jobSeekerLoginToken");
-  useEffect(() => {
-    const fetchJobApplicationData = async () => {
-      await axios({
-        method: "GET",
-        url: "",
-        headers: {
-          Authorization: token,
-        },
-      })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    fetchJobApplicationData();
-  }, []);
   return (
     <>
       <Header />
@@ -570,4 +544,4 @@ function JobPage() {
   );
 }
 
-export default JobPage;
+export default EmployeeJobPage;

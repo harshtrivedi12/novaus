@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
+import axios from "axios";
 
 const postBlog = [
   { title: "PHP Web Developer" },
@@ -52,13 +53,13 @@ function EmployeeJobsappliedjob() {
                       </div>
                       <ul>
                         <li>
-                          <Link to={"/jobs-profile"}>
+                          <Link to={"/employee/jobs-profile"}>
                             <i className="fa fa-user-o" aria-hidden="true"></i>
                             <span>Profile</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-my-resume"}>
+                          <Link to={"/employee/jobs-my-resume"}>
                             <i
                               className="fa fa-file-text-o"
                               aria-hidden="true"
@@ -67,13 +68,16 @@ function EmployeeJobsappliedjob() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-saved-jobs"}>
+                          <Link to={"/employee/jobs-saved-jobs"}>
                             <i className="fa fa-heart-o" aria-hidden="true"></i>
                             <span>Saved Jobs</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-applied-job"} className="active">
+                          <Link
+                            to={"/employee/jobs-applied-job"}
+                            className="active"
+                          >
                             <i
                               className="fa fa-briefcase"
                               aria-hidden="true"
@@ -82,13 +86,13 @@ function EmployeeJobsappliedjob() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-alerts"}>
+                          <Link to={"/employee/jobs-alerts"}>
                             <i className="fa fa-bell-o" aria-hidden="true"></i>
                             <span>Job Alerts</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-cv-manager"}>
+                          <Link to={"/employee/jobs-cv-manager"}>
                             <i
                               className="fa fa-id-card-o"
                               aria-hidden="true"
@@ -97,7 +101,7 @@ function EmployeeJobsappliedjob() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-change-password"}>
+                          <Link to={"/employee/jobs-change-password"}>
                             <i className="fa fa-key" aria-hidden="true"></i>
                             <span>Change Password</span>
                           </Link>
@@ -136,11 +140,13 @@ function EmployeeJobsappliedjob() {
                         <div className="post-bx">
                           <div className="job-post-info m-a0">
                             <h4>
-                              <Link to={"/job-detail"}>{item.title}</Link>
+                              <Link to={"/employee/job-detail"}>
+                                {item.title}
+                              </Link>
                             </h4>
                             <ul>
                               <li>
-                                <Link to={"/company-profile"}>
+                                <Link to={"/employee/company-profile"}>
                                   @company-name
                                 </Link>
                               </li>
@@ -174,7 +180,7 @@ function EmployeeJobsappliedjob() {
                                 2 day ago
                               </p>
                               <Link
-                                to={"/jobs-my-resume"}
+                                to={"/employee/jobs-my-resume"}
                                 className="site-button button-sm float-right"
                               >
                                 Apply Job

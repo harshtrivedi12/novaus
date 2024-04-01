@@ -53,13 +53,13 @@ function Jobsappliedjob() {
                       </div>
                       <ul>
                         <li>
-                          <Link to={"/jobs-profile"}>
+                          <Link to={"/user/jobs-profile"}>
                             <i className="fa fa-user-o" aria-hidden="true"></i>
                             <span>Profile</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-my-resume"}>
+                          <Link to={"/user/jobs-my-resume"}>
                             <i
                               className="fa fa-file-text-o"
                               aria-hidden="true"
@@ -68,13 +68,16 @@ function Jobsappliedjob() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-saved-jobs"}>
+                          <Link to={"/user/jobs-saved-jobs"}>
                             <i className="fa fa-heart-o" aria-hidden="true"></i>
                             <span>Saved Jobs</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-applied-job"} className="active">
+                          <Link
+                            to={"/user/jobs-applied-job"}
+                            className="active"
+                          >
                             <i
                               className="fa fa-briefcase"
                               aria-hidden="true"
@@ -83,13 +86,13 @@ function Jobsappliedjob() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-alerts"}>
+                          <Link to={"/user/jobs-alerts"}>
                             <i className="fa fa-bell-o" aria-hidden="true"></i>
                             <span>Job Alerts</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-cv-manager"}>
+                          <Link to={"/user/jobs-cv-manager"}>
                             <i
                               className="fa fa-id-card-o"
                               aria-hidden="true"
@@ -98,7 +101,7 @@ function Jobsappliedjob() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-change-password"}>
+                          <Link to={"/user/jobs-change-password"}>
                             <i className="fa fa-key" aria-hidden="true"></i>
                             <span>Change Password</span>
                           </Link>
@@ -137,11 +140,11 @@ function Jobsappliedjob() {
                         <div className="post-bx">
                           <div className="job-post-info m-a0">
                             <h4>
-                              <Link to={"/job-detail"}>{item.title}</Link>
+                              <Link to={"/user/job-detail"}>{item.title}</Link>
                             </h4>
                             <ul>
                               <li>
-                                <Link to={"/company-profile"}>
+                                <Link to={"/user/company-profile"}>
                                   @company-name
                                 </Link>
                               </li>

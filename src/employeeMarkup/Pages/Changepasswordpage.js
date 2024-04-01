@@ -46,13 +46,13 @@ function EmployeeChangepasswordpage() {
                       </div>
                       <ul>
                         <li>
-                          <Link to={"/jobs-profile"}>
+                          <Link to={"/employee/jobs-profile"}>
                             <i className="fa fa-user-o" aria-hidden="true"></i>
                             <span>Profile</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-my-resume"}>
+                          <Link to={"/employee/jobs-my-resume"}>
                             <i
                               className="fa fa-file-text-o"
                               aria-hidden="true"
@@ -61,31 +61,34 @@ function EmployeeChangepasswordpage() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-saved-jobs"}>
+                          <Link to={"/employee/jobs-saved-jobs"}>
                             <i className="fa fa-heart-o"></i>
                             <span>Saved Jobs</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-applied-job"}>
+                          <Link to={"/employee/jobs-applied-job"}>
                             <i className="fa fa-briefcase"></i>
                             <span>Applied Jobs</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-alerts"}>
+                          <Link to={"/employee/jobs-alerts"}>
                             <i className="fa fa-bell-o"></i>
                             <span>Job Alerts</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-cv-manager"}>
+                          <Link to={"/employee/jobs-cv-manager"}>
                             <i className="fa fa-id-card-o"></i>
                             <span>CV Manager</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-change-password"} className="active">
+                          <Link
+                            to={"/employee/jobs-change-password"}
+                            className="active"
+                          >
                             <i className="fa fa-key"></i>
                             <span>Change Password</span>
                           </Link>
@@ -107,7 +110,7 @@ function EmployeeChangepasswordpage() {
                         Change Password
                       </h5>
                       <Link
-                        to={"/jobs-cv-manager"}
+                        to={"/employee/jobs-cv-manager"}
                         className="site-button right-arrow button-sm float-right"
                       >
                         Back

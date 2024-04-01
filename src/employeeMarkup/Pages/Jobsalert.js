@@ -69,13 +69,13 @@ function EmployeeJobsalert() {
                       </div>
                       <ul>
                         <li>
-                          <Link to={"/jobs-profile"}>
+                          <Link to={"/employee/jobs-profile"}>
                             <i className="fa fa-user-o" aria-hidden="true"></i>
                             <span>Profile</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-my-resume"}>
+                          <Link to={"/employee/jobs-my-resume"}>
                             <i
                               className="fa fa-file-text-o"
                               aria-hidden="true"
@@ -84,13 +84,13 @@ function EmployeeJobsalert() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-saved-jobs"}>
+                          <Link to={"/employee/jobs-saved-jobs"}>
                             <i className="fa fa-heart-o" aria-hidden="true"></i>
                             <span>Saved Jobs</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-applied-job"}>
+                          <Link to={"/employee/jobs-applied-job"}>
                             <i
                               className="fa fa-briefcase"
                               aria-hidden="true"
@@ -99,13 +99,13 @@ function EmployeeJobsalert() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-alerts"} className="active">
+                          <Link to={"/employee/jobs-alerts"} className="active">
                             <i className="fa fa-bell-o" aria-hidden="true"></i>
                             <span>Job Alerts</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-cv-manager"}>
+                          <Link to={"/employee/jobs-cv-manager"}>
                             <i
                               className="fa fa-id-card-o"
                               aria-hidden="true"
@@ -114,7 +114,7 @@ function EmployeeJobsalert() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-change-password"}>
+                          <Link to={"/employee/jobs-change-password"}>
                             <i className="fa fa-key" aria-hidden="true"></i>
                             <span>Change Password</span>
                           </Link>
@@ -161,7 +161,9 @@ function EmployeeJobsalert() {
                         {contacts.map((contact, index) => (
                           <tr key={index}>
                             <td className="job-name">
-                              <Link to={"/job-detail"}>{contact.title}</Link>
+                              <Link to={"/employee/job-detail"}>
+                                {contact.title}
+                              </Link>
                             </td>
                             <td className="criterias">
                               Lorem Ipsum is simply dummy text.

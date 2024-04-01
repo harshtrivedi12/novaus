@@ -24,7 +24,7 @@ function Featureblog(){
 						<Link to={''}>
 							<div className="city-bx align-items-end d-flex" style={{backgroundImage:"url(" + img1 + ")" }}>
 								<div className="city-info">
-									<h5>Iraq</h5>
+									<h5>Alabama</h5>
 									<span>765 Jobs</span>
 								</div>
 							</div>
@@ -34,7 +34,7 @@ function Featureblog(){
 						<Link to={''}>
 							<div className="city-bx align-items-end  d-flex" style={{backgroundImage:"url(" + img2 + ")" }}>
 								<div className="city-info">
-									<h5>Argentina</h5>
+									<h5>California</h5>
 									<span>352 Jobs</span>
 								</div>
 							</div>
@@ -44,7 +44,7 @@ function Featureblog(){
 						<Link to={''}>
 							<div className="city-bx align-items-end  d-flex" style={{backgroundImage:"url(" + img3 + ")" }}>
 								<div className="city-info">
-									<h5>Indonesia</h5>
+									<h5>Hawali</h5>
 									<span>893 Jobs</span>
 								</div>
 							</div>
@@ -54,7 +54,7 @@ function Featureblog(){
 						<Link to={''}>
 							<div className="city-bx align-items-end  d-flex" style={{backgroundImage:"url(" + img4 + ")" }}>
 								<div className="city-info">
-									<h5>Gambia</h5>
+									<h5>Ohio</h5>
 									<span>502 Jobs</span>
 								</div>
 							</div>
@@ -64,7 +64,7 @@ function Featureblog(){
 						<Link to={''}>
 							<div className="city-bx align-items-end  d-flex" style={{backgroundImage:"url(" + img5 + ")" }}>
 								<div className="city-info">
-									<h5>India</h5>
+									<h5>Virginia</h5>
 									<span>765 Jobs</span>
 								</div>
 							</div>
@@ -74,7 +74,7 @@ function Featureblog(){
 						<Link to={''}>
 							<div className="city-bx align-items-end  d-flex" style={{backgroundImage:"url(" + img6 + ")" }}>
 								<div className="city-info">
-									<h5>Thailand</h5>
+									<h5>Indiana</h5>
 									<span>352 Jobs</span>
 								</div>
 							</div>
@@ -84,7 +84,7 @@ function Featureblog(){
 						<Link to={''}>
 							<div className="city-bx align-items-end  d-flex" style={{backgroundImage:"url(" + img7 + ")" }}>
 								<div className="city-info">
-									<h5>Banjul</h5>
+									<h5>Georgia</h5>
 									<span>893 Jobs</span>
 								</div>
 							</div>
@@ -94,7 +94,7 @@ function Featureblog(){
 						<Link to={''}>
 							<div className="city-bx align-items-end  d-flex" style={{backgroundImage:"url(" + img8 + ")" }}>
 								<div className="city-info">
-									<h5>Spain</h5>
+									<h5>Colorado</h5>
 									<span>502 Jobs</span>
 								</div>
 							</div>

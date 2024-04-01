@@ -66,7 +66,7 @@ function Sidebar() {
               <div className="dez-post-info">
                 <div className="dez-post-header">
                   <h6 className="post-title">
-                    <Link to={"/blog-details"}></Link>
+                    <Link to={"/employee/blog-details"}></Link>
                     {item.title}
                   </h6>
                 </div>

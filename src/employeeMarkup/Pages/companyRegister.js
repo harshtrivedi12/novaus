@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
 import {
   loadingToggleAction,
   signupAction,
 } from "../../store/actions/AuthActions";
 import axios from "axios";
-import processVid from "../../gif process.mp4";
 var bnr = require("./../../images/background/bg6.jpg");
 
-function EmployeeRegister2(props) {
+function EmployeeCompanyRegister(props) {
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
   const [email, setEmail] = useState("");
@@ -20,13 +19,7 @@ function EmployeeRegister2(props) {
   const [showUpload, setShowUpload] = useState(true);
   const [file, setFile] = useState();
   const [jobSeekerId, setJobSeekerId] = useState("");
-  const token = localStorage.getItem("jobSeekerLoginToken");
-  const [AiBtn, setAiBtn] = useState(true);
-  const [showVideo, setShowVideo] = useState(true);
-  const [showPercentage, setShowPercentage] = useState(false);
-  const [percentage, setPercentage] = useState();
-  const navigate = useNavigate();
-  const [resumeUrl, setResumeUrl] = useState("");
+
   function handleChange(event) {
     setFile(event.target.files[0]);
   }
@@ -45,17 +38,14 @@ function EmployeeRegister2(props) {
     }
 
     axios
-      .post("https://jobsbooklet.in/api/employeer/resume-upload", formData, {
+      .post("https://jobsbooklet.in/api/jobseeker/resume-upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: token,
         },
       })
-      .then((res) => {
-        alert("uploaded");
-        setResumeUrl(res.data.data[0].file_path);
-        setAiBtn(false);
-        console.log(resumeUrl, res, res.data.data[0].file_path);
+      .then((response) => {
+        alert("response");
+        console.log(response.data);
       })
       .catch((error) => {
         alert("error");
@@ -77,7 +67,7 @@ function EmployeeRegister2(props) {
     console.log(body);
     try {
       axios({
-        url: "http://93.188.167.106:3002/api/employeer/auth/signup",
+        url: "https://jobsbooklet.in/api/jobseeker/auth/signup",
         headers: {
           "Content-Type": "application/json",
         },
@@ -86,8 +76,6 @@ function EmployeeRegister2(props) {
       })
         .then((res) => {
           console.log(res);
-          localStorage.setItem("employeeLoginToken", res.data.data.token);
-
           setShowUpload(false);
         })
         .catch((err) => {
@@ -97,33 +85,6 @@ function EmployeeRegister2(props) {
       console.log(error);
     }
   }
-
-  const runAi = async (e) => {
-    setShowVideo(true);
-    e.preventDefault();
-    console.log(resumeUrl);
-    await axios({
-      method: "post",
-      url: "https://jobsbooklet.in/api/jobseeker/file-based-ai",
-      data: {
-        keyword: "Rate this resume content in percentage ?",
-        file_location: resumeUrl,
-      },
-      headers: {
-        Authorization: token,
-      },
-    })
-      .then((res) => {
-        console.log(res.data.data.content_acuracy_percentage);
-        setShowPercentage(true);
-        setPercentage(
-          `Your Ai Resume score is ${res.data.data.content_acuracy_percentage}`
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   return (
     <div className="page-wraper">
       <div className="browse-job login-style3">
@@ -158,10 +119,13 @@ function EmployeeRegister2(props) {
                         <div className="">{props.successMessage}</div>
                       )}
                       <form className=" dez-form p-b30" onSubmit={onSignUp}>
+                        <h3 className="form-title m-t0">
+                          Personal Information
+                        </h3>
                         <div className="dez-separator-outer m-b5">
                           <div className="dez-separator bg-primary style-liner"></div>
                         </div>
-
+                        <p>Enter your e-mail address and your password. </p>
                         <div className="form-group">
                           <input
                             value={firstName}
@@ -295,72 +259,31 @@ function EmployeeRegister2(props) {
                     </div>
                   </div>
                 ) : (
-                  <div>
-                    {AiBtn ? (
-                      <form onSubmit={handleSubmit}>
-                        <div>
-                          <div className="form-group">
-                            <input
-                              type="text"
-                              value={jobSeekerId}
-                              className="form-control"
-                              onChange={handleIdChange}
-                              placeholder="Job Seeker ID"
-                            />
-                          </div>
-                          <div className="form-group">
-                            <input
-                              type="file"
-                              onChange={handleChange}
-                              className="form-control"
-                            />
-                          </div>
-                          <p>{percentage}</p>
-                        </div>
+                  <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        value={jobSeekerId}
+                        className="form-control"
+                        onChange={handleIdChange}
+                        placeholder="Job Seeker ID"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <input
+                        type="file"
+                        onChange={handleChange}
+                        className="form-control"
+                      />
+                    </div>
 
-                        <button
-                          type="submit"
-                          className="site-button dz-xs-flex m-r5"
-                        >
-                          Upload Resume
-                        </button>
-                      </form>
-                    ) : (
-                      <div>
-                        <div>
-                          <video
-                            width="200px"
-                            loop={showVideo}
-                            autoPlay={showVideo}
-                          >
-                            <source src={processVid} type="video/mp4" />
-                          </video>
-                        </div>
-                        {showPercentage ? (
-                          <div>
-                            <p>{percentage}</p>
-                            <button
-                              className="site-button dz-xs-flex m-r5"
-                              onClick={(e) => {
-                                navigate("/");
-                              }}
-                            >
-                              Go To Dashboard
-                            </button>
-                          </div>
-                        ) : (
-                          <button
-                            onClick={(e) => {
-                              runAi(e);
-                            }}
-                            className="site-button dz-xs-flex m-r5"
-                          >
-                            Run Ai
-                          </button>
-                        )}
-                      </div>
-                    )}
-                  </div>
+                    <button
+                      type="submit"
+                      className="site-button dz-xs-flex m-r5"
+                    >
+                      Upload Resume
+                    </button>
+                  </form>
                 )}
                 <div className="bottom-footer clearfix m-t10 m-b20 row text-center">
                   <div className="col-lg-12 text-center">
@@ -387,4 +310,4 @@ const mapStateToProps = (state) => {
     showLoading: state.auth.showLoading,
   };
 };
-export default connect(mapStateToProps)(EmployeeRegister2);
+export default connect(mapStateToProps)(EmployeeCompanyRegister);

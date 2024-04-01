@@ -6,7 +6,7 @@ import Tab2 from "./../Element/Tab2";
 
 var bnr = require("./../../images/banner/bnr1.jpg");
 
-function EmployeeCompanies() {
+function EmployeesCompanies() {
   return (
     <>
       <Header />
@@ -29,4 +29,4 @@ function EmployeeCompanies() {
     </>
   );
 }
-export default EmployeeCompanies;
+export default EmployeesCompanies;

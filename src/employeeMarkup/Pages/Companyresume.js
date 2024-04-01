@@ -52,13 +52,13 @@ function EmployeeCompanyresume() {
                       </div>
                       <ul>
                         <li>
-                          <Link to={"/company-profile"}>
+                          <Link to={"/employee/company-profile"}>
                             <i className="fa fa-user-o" aria-hidden="true"></i>
                             <span>Company Profile</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/company-post-jobs"}>
+                          <Link to={"/employee/company-post-jobs"}>
                             <i
                               className="fa fa-file-text-o"
                               aria-hidden="true"
@@ -67,13 +67,13 @@ function EmployeeCompanyresume() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/company-transactions"}>
+                          <Link to={"/employee/company-transactions"}>
                             <i className="fa fa-random" aria-hidden="true"></i>
                             <span>Transactions</span>
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/company-manage-job"}>
+                          <Link to={"/employee/company-manage-job"}>
                             <i
                               className="fa fa-briefcase"
                               aria-hidden="true"
@@ -82,7 +82,10 @@ function EmployeeCompanyresume() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/company-resume"} className="active">
+                          <Link
+                            to={"/employee/company-resume"}
+                            className="active"
+                          >
                             <i
                               className="fa fa-id-card-o"
                               aria-hidden="true"
@@ -91,7 +94,7 @@ function EmployeeCompanyresume() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/jobs-change-password"}>
+                          <Link to={"/employee/jobs-change-password"}>
                             <i className="fa fa-key" aria-hidden="true"></i>
                             <span>Change Password</span>
                           </Link>
@@ -129,7 +132,9 @@ function EmployeeCompanyresume() {
                             <div className="d-flex m-b20">
                               <div className="job-post-info">
                                 <h5 className="m-b0">
-                                  <Link to={"/jobs-profile"}>{item.title}</Link>
+                                  <Link to={"/employee/jobs-profile"}>
+                                    {item.title}
+                                  </Link>
                                 </h5>
                                 <p className="m-b5 font-13">
                                   <Link to={"#"} className="text-primary">

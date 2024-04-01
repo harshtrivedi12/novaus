@@ -9,6 +9,8 @@ import postAJobSlice from "./reducers/postAJobSlice";
 import manageJobSlice from "./reducers/manageJobSlice";
 import companyDataSlice from "./reducers/companyDataSlice";
 import jobDataSlice from "./reducers/jobDataSlice";
+import jobApplicationSlice from "./reducers/jobApplicationSlice";
+import userMessageSlice from "./reducers/userMessageSlice";
 const middleware = applyMiddleware(thunk);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -23,6 +25,8 @@ const reducers = combineReducers({
   form: reduxFormReducer,
   companyDataSlice: companyDataSlice,
   jobDataSlice: jobDataSlice,
+  jobApplicationSlice: jobApplicationSlice,
+  userMessageSlice: userMessageSlice,
 });
 
 //const store = createStore(rootReducers);
