@@ -95,14 +95,11 @@ import EmployeeBlogdetailgridsidebar from "./employeeMarkup/Pages/Blogdetailgrid
 import EmployeeBlogleftimg from "./employeeMarkup/Pages/Blogleftimg";
 import EmployeeBlogdetail from "./employeeMarkup/Pages/Blogdetail";
 import JobPage from "./markup/Pages/JobPage";
-<<<<<<< HEAD
 import ProfilePage from "./markup/Pages/ProfilePage";
 import Chatbot from "./markup/Pages/Chatbot";
 import SkillTest from "./markup/Pages/SkillTest";
 import EducationPage from "./markup/Pages/EducationPage";
-=======
 import EmployeeCategorycompanyjob from "./employeeMarkup/Pages/Categorycompanyjob";
->>>>>>> 049d93657616f15e1be305dd31f3fdd8878af070
 
 function App() {
   const dispatch = useDispatch();
