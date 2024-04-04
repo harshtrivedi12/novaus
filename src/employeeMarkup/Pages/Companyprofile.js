@@ -50,7 +50,7 @@ function EmployeeCompanyprofile() {
   const getCountry = async () => {
     axios({
       method: "get",
-      url: "http://93.188.167.106:3002/api/employeer/countries",
+      url: "ttps://jobsbooklet.in/api/employeer/countries",
       headers: {
         Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21AZ21haWwuY29tIiwiZXhwIjoxNzExNTQ5MjgwfQ._Kh75DvFoVSs8ReceAFMoKWl7pumhOKGZff8ClunUVU`,
       },
@@ -67,7 +67,7 @@ function EmployeeCompanyprofile() {
   const getState = async () => {
     axios({
       method: "get",
-      url: `http://93.188.167.106:3002/api/employeer/stats/${selectedCountry}`,
+      url: `ttps://jobsbooklet.in/api/employeer/stats/${selectedCountry}`,
       headers: {
         Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21AZ21haWwuY29tIiwiZXhwIjoxNzExNTQ5MjgwfQ._Kh75DvFoVSs8ReceAFMoKWl7pumhOKGZff8ClunUVU`,
       },
@@ -83,7 +83,7 @@ function EmployeeCompanyprofile() {
   const getCities = async () => {
     axios({
       method: "get",
-      url: `http://93.188.167.106:3002/api/employeer/cities/${selectedStates}`,
+      url: `ttps://jobsbooklet.in/api/employeer/cities/${selectedStates}`,
       headers: {
         Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21AZ21haWwuY29tIiwiZXhwIjoxNzExNTQ5MjgwfQ._Kh75DvFoVSs8ReceAFMoKWl7pumhOKGZff8ClunUVU`,
       },
@@ -101,7 +101,7 @@ function EmployeeCompanyprofile() {
   const updateCompanyData = async (e) => {
     axios({
       method: "put",
-      url: `http://93.188.167.106:3002/api/employeer/company/1`,
+      url: `ttps://jobsbooklet.in/api/employeer/company/1`,
       headers: {
         Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21AZ21haWwuY29tIiwiZXhwIjoxNzExNTQ5MjgwfQ._Kh75DvFoVSs8ReceAFMoKWl7pumhOKGZff8ClunUVU`,
       },

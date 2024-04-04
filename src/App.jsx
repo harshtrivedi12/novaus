@@ -129,7 +129,7 @@ function App() {
             </UserPrivateRoute>
           }
         />
-         <Route
+        <Route
           path="skill-test"
           element={
             <UserPrivateRoute>
@@ -137,7 +137,7 @@ function App() {
             </UserPrivateRoute>
           }
         />
-         <Route
+        <Route
           path="education-page"
           element={
             <UserPrivateRoute>
@@ -185,7 +185,6 @@ function App() {
             </UserPrivateRoute>
           }
         />
-        
         <Route
           path="jobs-alerts"
           element={
@@ -500,7 +499,7 @@ function App() {
             </EmployeePrivateRoute>
           }
         />
-          
+
         <Route
           path="jobs-alerts"
           element={
@@ -768,7 +767,7 @@ function App() {
           }
         />
 
-          <Route
+        <Route
           path="chatbot"
           element={
             <EmployeePrivateRoute>

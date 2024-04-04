@@ -7,7 +7,7 @@ export const fetchCompanyInfo = createAsyncThunk(
     try {
       const response = await axios({
         method: "get",
-        url: "http://93.188.167.106:3002/api/employeer/company/1",
+        url: "ttps://jobsbooklet.in/api/employeer/company/1",
         headers: {
           Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21AZ21haWwuY29tIiwiZXhwIjoxNzExNTQ5MjgwfQ._Kh75DvFoVSs8ReceAFMoKWl7pumhOKGZff8ClunUVU`,
         },

@@ -1,5 +1,5 @@
 import axios from "axios";
-export const baseUrl = "http://93.188.167.106:3002/api";
+export const baseUrl = "ttps://jobsbooklet.in/api";
 export const postRequest = async (url, body, token) => {
   console.log(url);
   console.log(body, "body");

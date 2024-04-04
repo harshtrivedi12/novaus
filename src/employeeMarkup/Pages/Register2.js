@@ -77,7 +77,7 @@ function EmployeeRegister2(props) {
     console.log(body);
     try {
       axios({
-        url: "http://93.188.167.106:3002/api/employeer/auth/signup",
+        url: "ttps://jobsbooklet.in/api/employeer/auth/signup",
         headers: {
           "Content-Type": "application/json",
         },
