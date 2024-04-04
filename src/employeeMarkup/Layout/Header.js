@@ -242,6 +242,14 @@ class EmployeeHeader extends Component {
                             Browse Candidates
                           </Link>
                         </li>
+                        <li>
+                          <Link
+                            to={"/employee/messages"}
+                            className="dez-page"
+                          >
+                           Messages
+                          </Link>
+                        </li>
                       </ul>
                     </li>
                     <li>

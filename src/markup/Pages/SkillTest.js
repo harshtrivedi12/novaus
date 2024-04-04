@@ -174,9 +174,11 @@ function SkillTest() {
                               <h5 className="card-title">{card.title}</h5>
                               <p className="card-text">{card.text}</p>
                               <div className="d-flex justify-content-center align-items-center">
-                                <button className="btn site-button">
+                           <Link to={"/user/education-page"} >
+                           <button className="btn site-button">
                                   ReTake Test
                                 </button>
+                           </Link>  
                                 <button
                                   className="btn site-button ml-2"
                                   onClick={() => handleViewDetails(card)}>

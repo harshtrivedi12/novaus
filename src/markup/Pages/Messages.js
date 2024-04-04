@@ -4,7 +4,7 @@ import Footer from '../Layout/Footer';
 import '../../css/Profile.css'
 import { Link } from "react-router-dom";
 
-function Chatbot() {
+function Messages() {
     const [conversations, setConversations] = useState([
 
         {
@@ -111,7 +111,7 @@ function Chatbot() {
                                             </div>
                                         </div>
                                         <div className="col-xl-8 col-lg-7 m-b30">
-                                            <div className="chatbox">
+                                            <div className="chatbox" style={{padding:'138px 20px'}}>
 
                                                 <div className="chatbox-header">
                                                     <h5>{currentConversationName}</h5>
@@ -177,4 +177,4 @@ function Chatbot() {
     );
 }
 
-export default Chatbot;
+export default Messages;

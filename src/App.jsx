@@ -96,10 +96,10 @@ import EmployeeBlogleftimg from "./employeeMarkup/Pages/Blogleftimg";
 import EmployeeBlogdetail from "./employeeMarkup/Pages/Blogdetail";
 import JobPage from "./markup/Pages/JobPage";
 import ProfilePage from "./markup/Pages/ProfilePage";
-import Chatbot from "./markup/Pages/Chatbot";
 import SkillTest from "./markup/Pages/SkillTest";
 import EducationPage from "./markup/Pages/EducationPage";
 import EmployeeCategorycompanyjob from "./employeeMarkup/Pages/Categorycompanyjob";
+import Messages from "./markup/Pages/Messages";
 
 function App() {
   const dispatch = useDispatch();
@@ -191,6 +191,14 @@ function App() {
           element={
             <UserPrivateRoute>
               <Jobsalert />
+            </UserPrivateRoute>
+          }
+        />
+         <Route
+          path="messages"
+          element={
+            <UserPrivateRoute>
+              <Messages />
             </UserPrivateRoute>
           }
         />
@@ -559,7 +567,7 @@ function App() {
           }
         />
         <Route
-          path="company-manage-job"
+          path="company-manage-job/:id"
           element={
             <EmployeePrivateRoute>
               <EmployeeCompanymanage />
@@ -769,10 +777,10 @@ function App() {
         />
 
           <Route
-          path="chatbot"
+          path="messages"
           element={
             <EmployeePrivateRoute>
-              <Chatbot />
+              <Messages />
             </EmployeePrivateRoute>
           }
         />

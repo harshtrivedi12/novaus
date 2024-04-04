@@ -182,6 +182,15 @@ class EmployeeHeader extends Component {
                             <span className="new-page">New</span>
                           </Link>
                         </li>
+                        <li>
+                          <Link
+                            to={"/user/messages"}
+                            className="dez-page"
+                          >
+                            Messages{" "}
+                            <span className="new-page">New</span>
+                          </Link>
+                        </li>
                       </ul>
                     </li>
                     {/* <li>
