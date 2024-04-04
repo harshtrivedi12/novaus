@@ -49,7 +49,7 @@ function EmployeeLogin(props) {
     };
     await axios({
       method: "POST",
-      url: "ttps://jobsbooklet.in/api/employeer/auth/login",
+      url: "https://jobsbooklet.in/api/employeer/auth/login",
       headers: {
         "Content-Type": "Application/json",
       },

@@ -16,7 +16,7 @@ function ApplicantsJobPage() {
     const jobData = async () => {
       await axios({
         method: "get",
-        url: "ttps://jobsbooklet.in/api/employeer/jobs-applicants",
+        url: "https://jobsbooklet.in/api/employeer/jobs-applicants",
         headers: {
           Authorization: token,
         },
