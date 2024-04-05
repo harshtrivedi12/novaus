@@ -38,7 +38,7 @@ function EmployeeCompanyRegister(props) {
     }
 
     axios
-      .post("hhttps://jobsbooklet.in/api/jobseeker/resume-upload", formData, {
+      .post("https://jobsbooklet.in/api/jobseeker/resume-upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -67,7 +67,7 @@ function EmployeeCompanyRegister(props) {
     console.log(body);
     try {
       axios({
-        url: "hhttps://jobsbooklet.in/api/jobseeker/auth/signup",
+        url: "https://jobsbooklet.in/api/jobseeker/auth/signup",
         headers: {
           "Content-Type": "application/json",
         },

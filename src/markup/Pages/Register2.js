@@ -45,7 +45,7 @@ function Register2(props) {
     }
 
     axios
-      .post("hhttps://jobsbooklet.in/api/jobseeker/resume-upload", formData, {
+      .post("https://jobsbooklet.in/api/jobseeker/resume-upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: token,
@@ -77,7 +77,7 @@ function Register2(props) {
     console.log(body);
     try {
       axios({
-        url: "hhttps://jobsbooklet.in/api/jobseeker/auth/signup",
+        url: "https://jobsbooklet.in/api/jobseeker/auth/signup",
         headers: {
           "Content-Type": "application/json",
         },
@@ -104,7 +104,7 @@ function Register2(props) {
     console.log(resumeUrl);
     await axios({
       method: "post",
-      url: "hhttps://jobsbooklet.in/api/jobseeker/file-based-ai",
+      url: "https://jobsbooklet.in/api/jobseeker/file-based-ai",
       data: {
         keyword: "Rate this resume content in percentage ?",
         file_location: resumeUrl,
