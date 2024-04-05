@@ -3,6 +3,7 @@ import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import Profilesidebar from "./../Element/Profilesidebar";
 import { Link } from "react-router-dom";
+import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
 
 const cardData = [
   {
@@ -50,6 +51,8 @@ function SkillTest() {
   return (
     <>
       <Header2 />
+    <FixedHeader />
+
       <div className="page-content bg-white">
         <div className="content-block">
           <div className="section-full bg-white browse-job p-t50 p-b20">

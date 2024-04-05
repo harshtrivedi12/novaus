@@ -86,7 +86,7 @@ function EmployeeComponypostjobs() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/employee/company-manage-job"}>
+                          <Link to={"/employee/company-manage-job/jobs"}>
                             <i
                               className="fa fa-briefcase"
                               aria-hidden="true"

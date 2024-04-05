@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
+import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
 
 const managerBlog = [
   {
@@ -48,6 +49,8 @@ function Jobcvmanager() {
   return (
     <>
       <Header2 />
+    <FixedHeader />
+
       <div className="page-content bg-white">
         <div className="content-block">
           <div className="section-full bg-white p-t50 p-b20">
@@ -56,35 +59,6 @@ function Jobcvmanager() {
                 <div className="col-xl-3 col-lg-4 m-b30">
                   <div className="sticky-top">
                     <div className="candidate-info">
-                      <div className="candidate-detail text-center">
-                        <div className="canditate-des">
-                          <Link to={"#"}>
-                            <img
-                              alt=""
-                              src={require("./../../images/team/pic1.jpg")}
-                            />
-                          </Link>
-                          <div
-                            className="upload-link"
-                            title="update"
-                            data-toggle="tooltip"
-                            data-placement="right"
-                          >
-                            <input type="file" className="update-flie" />
-                            <i className="fa fa-camera"></i>
-                          </div>
-                        </div>
-                        <div className="candidate-title">
-                          <div className="">
-                            <h4 className="m-b5">
-                              <Link to={"#"}>David Matin</Link>
-                            </h4>
-                            <p className="m-b0">
-                              <Link to={"#"}>Web developer</Link>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
                       <ul>
                         <li>
                           <Link to={"/user/jobs-profile"}>

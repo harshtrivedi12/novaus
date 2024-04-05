@@ -6,32 +6,7 @@ function Profilesidebar() {
     <div className="col-xl-3 col-lg-4 m-b30">
       <div className="sticky-top">
         <div className="candidate-info">
-          <div className="candidate-detail text-center">
-            <div className="canditate-des">
-              <Link to={""}>
-                <img alt="" src={require("./../../images/team/pic1.jpg")} />
-              </Link>
-              <div
-                className="upload-link"
-                title="update"
-                data-toggle="tooltip"
-                data-placement="right"
-              >
-                <input type="file" className="update-flie" />
-                <i className="fa fa-camera"></i>
-              </div>
-            </div>
-            <div className="candidate-title">
-              <div className="">
-                <h4 className="m-b5">
-                  <Link to={"#"}>David Matin</Link>
-                </h4>
-                <p className="m-b0">
-                  <Link to={"#"}>Web developer</Link>
-                </p>
-              </div>
-            </div>
-          </div>
+
           <ul>
             <li>
               <Link to={"/employee/jobs-profile"} className="active">

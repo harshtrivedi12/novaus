@@ -65,7 +65,7 @@ function EmployeeCompanymanage() {
                         </li>
                         <li>
                           <Link
-                            to={"/employee/company-manage-job"}
+                            to={"/employee/company-manage-job/jobs"}
                             className="active"
                           >
                             <i

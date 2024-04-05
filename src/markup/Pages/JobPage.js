@@ -8,6 +8,7 @@ import Modal from "react-bootstrap/Modal";
 import { Tab, Nav } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
 
 function JobPage() {
   const [selectedJob, setSelectedJob] = useState(null);
@@ -160,6 +161,7 @@ function JobPage() {
   return (
     <>
       <Header />
+      <FixedHeader />
 
       <div className="page-content bg-white">
         <div className="content-block">

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setJobsData } from "../../store/reducers/jobDataSlice";
 import moment from "moment";
+import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
 
 function ApplicantsJobPage() {
   const jobsData = useSelector((state) => state.jobDataSlice.jobsData);
@@ -132,6 +133,8 @@ function ApplicantsJobPage() {
   return (
     <>
       <Header2 />
+
+
       <div className="page-content bg-white">
         <div className="content-block">
           <div className="section-full bg-white p-t50 p-b20">
