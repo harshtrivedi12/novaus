@@ -111,8 +111,8 @@ function Messages() {
                                             </div>
                                         </div>
                                         <div className="col-xl-8 col-lg-7 m-b30">
-                                            <div className="chatbox" style={{padding:'138px 20px'}}>
-
+                                            <div className="chatbox" style={{paddingTop:"240px"}}>
+<div>
                                                 <div className="chatbox-header">
                                                     <h5>{currentConversationName}</h5>
                                                 </div>
@@ -141,7 +141,7 @@ function Messages() {
                                                     </div>
 
                                                 ))}
-
+</div>
                                             </div>
                                         </div>
                                     </div>
