@@ -100,6 +100,24 @@ import SkillTest from "./markup/Pages/SkillTest";
 import EducationPage from "./markup/Pages/EducationPage";
 import EmployeeCategorycompanyjob from "./employeeMarkup/Pages/Categorycompanyjob";
 import Messages from "./markup/Pages/Messages";
+import TermOfUse from "./markup/Pages/TermOfUse";
+import DataPrivacyFramework from "./markup/Pages/DataPrivacyFramework";
+import CookingAdvertising from "./markup/Pages/Cooking&Advertising";
+import DataSharingHelps from "./markup/Pages/DataSharingHelps";
+import ScopePrivacyNotice from "./markup/Pages/ScopePrivacyNotice";
+import InformationNovaUsJobs from "./markup/Pages/InformationNovaUsJobs";
+import RetentionPeriod from "./markup/Pages/RetentionPeriod";
+import CookiesDigitalAdvertising from "./markup/Pages/Cookies&DigitalAdvertising";
+import PrivacyRights from "./markup/Pages/PrivacyRights";
+import InternationalTransfer from "./markup/Pages/InternationalTransfer";
+import GeneralContactInformation from "./markup/Pages/GeneralContactInformation";
+import SecurityCenterAccountManagement from "./markup/Pages/SecurityCenterAccountManagement";
+import EmailScams from "./markup/Pages/EmailScams";
+import OnlineInterviewScams from "./markup/Pages/OnlineInterviewScams";
+import SecurityBugReporting from "./markup/Pages/SecurityBugReporting";
+import AccessibilityCenter from "./markup/Pages/AccessibilityCenter";
+import HowItWorksEmployee from "./markup/Pages/HowItWorksEmployee";
+import HowItWorksCandidates from "./markup/Pages/HowItWorksCandidates";
 
 function App() {
   const dispatch = useDispatch();
@@ -193,7 +211,7 @@ function App() {
             </UserPrivateRoute>
           }
         />
-         <Route
+        <Route
           path="messages"
           element={
             <UserPrivateRoute>
@@ -766,6 +784,155 @@ function App() {
             </EmployeePrivateRoute>
           }
         />
+
+        <Route
+          path="term-of-use-nova-jobs"
+          element={
+            <EmployeePrivateRoute>
+              <TermOfUse />
+            </EmployeePrivateRoute>
+          }
+        />
+        <Route
+          path="data-privacy-framework"
+          element={
+            <EmployeePrivateRoute>
+              <DataPrivacyFramework />
+            </EmployeePrivateRoute>
+          }
+        />
+
+        <Route
+          path="cooking-advertising-overview"
+          element={
+            <EmployeePrivateRoute>
+              <CookingAdvertising />
+            </EmployeePrivateRoute>
+          }
+        />
+        <Route
+          path="data-sharing-helps-you"
+          element={
+            <EmployeePrivateRoute>
+              <DataSharingHelps />
+            </EmployeePrivateRoute>
+          }
+        />
+
+        <Route
+          path="scope-privacy-notice"
+          element={
+            <EmployeePrivateRoute>
+              <ScopePrivacyNotice />
+            </EmployeePrivateRoute>
+          }
+        />
+        <Route
+          path="information-novaus-jobs"
+          element={
+            <EmployeePrivateRoute>
+              <InformationNovaUsJobs />
+            </EmployeePrivateRoute>
+          }
+        />
+
+        <Route
+          path="retention-period-resume-visibility"
+          element={
+            <EmployeePrivateRoute>
+              <RetentionPeriod />
+            </EmployeePrivateRoute>
+          }
+        />
+        <Route
+          path="cookies-digital-advertising"
+          element={
+            <EmployeePrivateRoute>
+              <CookiesDigitalAdvertising />
+            </EmployeePrivateRoute>
+          }
+        />
+        <Route
+          path="privacy-rights"
+          element={
+            <EmployeePrivateRoute>
+              <PrivacyRights />
+            </EmployeePrivateRoute>
+          }
+        />
+
+        <Route
+          path="international-transfer-of-personal-information"
+          element={
+            <EmployeePrivateRoute>
+              <InternationalTransfer />
+            </EmployeePrivateRoute>
+          }
+        />
+        <Route
+          path="general-contact-information"
+          element={
+            <EmployeePrivateRoute>
+              <GeneralContactInformation />
+            </EmployeePrivateRoute>
+          }
+        />
+        <Route
+          path="security-center-account-management"
+          element={
+            <EmployeePrivateRoute>
+              <SecurityCenterAccountManagement />
+            </EmployeePrivateRoute>
+          }
+        />
+        <Route
+          path="safeguard-from-email-scams"
+          element={
+            <EmployeePrivateRoute>
+              <EmailScams />
+            </EmployeePrivateRoute>
+          }
+        />
+        <Route
+          path="online-interview-scams"
+          element={
+            <EmployeePrivateRoute>
+              <OnlineInterviewScams />
+            </EmployeePrivateRoute>
+          }
+        />
+        <Route
+          path="security-bug-reporting"
+          element={
+            <EmployeePrivateRoute>
+              <SecurityBugReporting />
+            </EmployeePrivateRoute>
+          }
+        />
+        <Route
+          path="accessibility-center"
+          element={
+            <EmployeePrivateRoute>
+              <AccessibilityCenter />
+            </EmployeePrivateRoute>
+          }
+        />
+        <Route
+          path="howitworks-for-employee"
+          element={
+            <EmployeePrivateRoute>
+              <HowItWorksEmployee />
+            </EmployeePrivateRoute>
+          }
+        />
+         <Route
+          path="howitworks-for-candidates"
+          element={
+            <EmployeePrivateRoute>
+              <HowItWorksCandidates />
+            </EmployeePrivateRoute>
+          }
+        />
         <Route
           path="profilepage"
           element={
@@ -775,7 +942,7 @@ function App() {
           }
         />
 
-          <Route
+        <Route
           path="messages"
           element={
             <EmployeePrivateRoute>
