@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import axios from "axios";
 import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
+import moment from "moment";
 
 const postBlog = [
   { title: "PHP Web Developer" },
@@ -12,6 +13,22 @@ const postBlog = [
 ];
 
 function Jobsappliedjob() {
+  const [data,setData] = useState([])
+const token = localStorage.getItem("jobSeekerLoginToken")
+  useEffect(()=>{
+    axios({
+      method : "GET",
+      url : "http://93.188.167.106:3001/api/jobseeker/job-lists",
+      headers : {
+        Authorization : token,
+        "Content-Type" : "application/json"
+      }
+    }).then((response)=>{
+      console.log(response.data.data);
+      setData(response.data.data)
+    }).catch((err)=>console.log(err))
+  },[])
+
   return (
     <>
       <Header2 />
@@ -110,59 +127,67 @@ function Jobsappliedjob() {
                     </div>
                   </div>
                   <ul className="post-job-bx browse-job">
-                    {postBlog.map((item, index) => (
-                      <li key={index}>
-                        <div className="post-bx">
-                          <div className="job-post-info m-a0">
-                            <h4>
-                              <Link to={"/user/job-detail"}>{item.title}</Link>
-                            </h4>
-                            <ul>
-                              <li>
-                                <Link to={"/user/company-profile"}>
-                                  @company-name
-                                </Link>
-                              </li>
-                              <li>
-                                <i className="fa fa-map-marker"></i> Sacramento,
-                                California
-                              </li>
-                              <li>
-                                <i className="fa fa-money"></i> 25,000
-                              </li>
-                            </ul>
-                            <div className="job-time m-t15 m-b10">
-                              <Link to={""} className="mr-1">
-                                <span>PHP</span>
-                              </Link>
-                              <Link to={""} className="mr-1">
-                                <span>Angular</span>
-                              </Link>
-                              <Link to={""} className="mr-1">
-                                <span>Bootstrap</span>
-                              </Link>
-                              <Link to={""} className="mr-1">
-                                <span>Wordpress</span>
-                              </Link>
-                            </div>
-                            <div className="posted-info clearfix">
-                              <p className="m-tb0 text-primary float-left">
-                                <span className="text-black m-r10">
-                                  Posted:
-                                </span>{" "}
-                                2 day ago
-                              </p>
-                              <Link
-                                to={"/jobs-my-resume"}
-                                className="site-button button-sm float-right"
-                              >
-                                Apply Job
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    ))}
+                    {data.map((item, index) =>{
+                      
+                      const formattedCreatedDate = moment(item.job_detail.created_at).format('YYYY-MM-DD')
+return   <li key={index}>
+<div className="post-bx">
+  <div className="job-post-info m-a0">
+    <h4>
+      <Link to={"/user/job-detail"}>{item.job_detail.job_title}</Link>
+    </h4>
+    <ul>
+      <li>
+       {item.job_category.name}
+      </li>
+      <li>
+{item.job_type.name}
+      </li>
+      <li>
+       {item.job_workplace_types.name}
+      </li>
+    </ul>
+    <p>{item.job_detail.job_description}</p>
+    {/* <ul>
+      <li>
+        <Link to={"/user/company-profile"}>
+          @company-name
+        </Link>
+      </li>
+      <li>
+        <i className="fa fa-map-marker"></i> Sacramento,
+        California
+      </li>
+      <li>
+        <i className="fa fa-money"></i> 25,000
+      </li>
+    </ul> */}
+    <div className="job-time m-t15 m-b10">
+    {item.job_detail.skills_arr.map((item,index)=>{
+      return (
+        <span key={index}>{item}</span>
+      )
+    })}
+    </div>
+    <div className="posted-info clearfix">
+      <p className="m-tb0 text-primary float-left">
+        <span className="text-black m-r10">
+          Posted:
+        </span>{" "}
+        {formattedCreatedDate}
+      </p>
+      <Link
+        to={"/jobs-my-resume"}
+        className="site-button button-sm float-right"
+      >
+        Apply Job
+      </Link>
+    </div>
+  </div>
+</div>
+</li>
+                    }
+                    )}
                   </ul>
                   <div className="pagination-bx m-t30">
                     <ul className="pagination">

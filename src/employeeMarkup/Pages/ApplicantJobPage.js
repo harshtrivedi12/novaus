@@ -22,7 +22,7 @@ function EmployeeApplicantsJobPage() {
         },
       })
         .then((response) => {
-          console.log(response.data.data);
+          console.log(response);
           dispatch(setJobsData(response.data.data));
         })
         .catch((err) => {

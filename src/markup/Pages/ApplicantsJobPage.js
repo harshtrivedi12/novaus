@@ -13,31 +13,45 @@ function ApplicantsJobPage() {
   const jobsData = useSelector((state) => state.jobDataSlice.jobsData);
   const dispatch = useDispatch();
   const token = localStorage.getItem("jobSeekerLoginToken");
-  useEffect(() => {
-    const jobData = async () => {
-      await axios({
-        method: "get",
-        url: "https://jobsbooklet.in/api/employeer/jobs-applicants",
-        headers: {
-          Authorization: token,
-        },
-      })
-        .then((response) => {
-          console.log(response.data.data);
-          dispatch(setJobsData(response.data.data));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    jobData();
-  }, []);
-  const id = jobsData[0].jobskkers_detail?.id;
+  // useEffect(() => {
+  //   const jobData = async () => {
+  //     await axios({
+  //       method: "get",
+  //       url: "https://jobsbooklet.in/api/employeer/jobs-applicants",
+  //       headers: {
+  //         Authorization: token,
+  //       },
+  //     })
+  //       .then((response) => {
+  //         console.log(response.data.data);
+  //         dispatch(setJobsData(response.data.data));
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   };
+  //   jobData();
+  // }, []);
+  useEffect(()=>{
+    axios({
+      method : "GET",
+      url : "http://93.188.167.106:3001/api/jobseeker/job-lists",
+      headers : {
+        Authorization : token,
+        "Content-Type" : "application/json"
+      }
+    }).then((response)=>{
+      console.log(response.data.data);
+      // setData(response.data.data)
+      dispatch(setJobsData(response.data.data))
+    }).catch((err)=>console.log(err))
+  },[])
+  // const id = jobsData[0].jobskkers_detail?.id;
 
   const [selectedJob, setSelectedJob] = useState(null);
   const [jobData, setJobData] = useState([
     {
-      id: id,
+      id: 1,
       title: "Ajay Kumar Balwa",
       company: "Workforce Managment Analyst at Jumko India pvt ltd",
       location: "New York",
@@ -123,7 +137,7 @@ function ApplicantsJobPage() {
   };
 
   const handleClose = () => {
-    const index = jobData.findIndex((job) => job.id === selectedJob.id);
+    const index = jobData.findIndex((job) => job.s_no === selectedJob.s_no);
     if (index !== -1) {
       setJobData((prevData) => prevData.filter((_, i) => i !== index));
       setSelectedJob(null);
@@ -152,16 +166,17 @@ function ApplicantsJobPage() {
                       </div>
                       <ul className="job-list-container">
                         {jobsData.map((job) => {
-                          const createdAt = job?.job_applied_detail?.created_at;
+                      
                           const formattedCreatedDate =
-                            moment(createdAt).format("YYYY-MM-DD");
+                            moment(job.job_detail.created_at).format("YYYY-MM-DD");
                           return (
-                            <li key={job.id}>
+                            <li key={job.s_no}>
                               <Link
                                 to={"#"}
-                                onClick={() => handleSelectJob(job)}>
+                                onClick={() => handleSelectJob(job.s_no)}>
                                 <h6 className="mb-0 d-flex justify-content-between align-items-center">
-                                  <div>
+                                
+                                  {/* <div>
                                     {job?.jobskkers_detail?.photo ? (
                                       <img
                                         src={job?.jobskkers_detail?.photo}
@@ -172,8 +187,10 @@ function ApplicantsJobPage() {
                                         }}
                                       />
                                     ) : null}
-                                  </div>
-
+                                  </div> */}
+<p className="m-0 ">
+                                  {job.s_no}
+                                </p>
                                   <span>
                                     {" "}
                                     <FaTimes
@@ -182,35 +199,51 @@ function ApplicantsJobPage() {
                                     />
                                   </span>
                                 </h6>
-                                <p className="m-0 ">
-                                  {job?.jobskkers_detail?.id}
-                                </p>
-                                {job?.jobskkers_detail?.first_name ||
-                                job?.jobskkers_detail?.last_name ? (
+                                
+                                {job.job_detail.job_title  ? (
                                   <p
                                     className="mb-0"
                                     style={{ color: "#1c2957" }}>
-                                    {job?.jobskkers_detail?.first_name}{" "}
-                                    {job?.jobskkers_detail?.last_name}{" "}
+                                    {job.job_detail.job_title}{" "}
                                   </p>
                                 ) : null}
-                                {job?.jobskkers_detail?.phone ? (
+                                {job.job_detail.job_description ? (
                                   <p
                                     className="mb-0"
                                     style={{ color: "#1c2957" }}>
-                                    {job?.jobskkers_detail?.phone}
+                                    {job.job_detail.job_description}
                                   </p>
                                 ) : null}
-                                {job?.jobskkers_detail?.email ? (
+                                <div className="d-flex flex-row mb-0 " style={{gap:"7px"}}>
+
+{job.job_detail.skills_arr.map((item,index)=>{
+  return (
+    <p className="mb-0 " key={index}>{item}</p>
+  )
+})}
+</div>
+  <div className="d-flex flex-row gap-2 align-items-center " style={{gap: "7px"}}>
+    {job.job_category ?
+    <p>{job.job_category.name}</p>
+    : null} {" "}
+    {job.job_type ?
+    <p>{job.job_type.name}</p> 
+    : null} {" "}
+    {job.job_workplace_types.name ?
+    <p>{job.job_workplace_types.name}</p> 
+    : null} {" "}
+    </div> 
+
+                                {/* {job?.jobskkers_detail?.email ? (
                                   <p
                                     className="mb-2"
                                     style={{ color: "#1c2957" }}>
                                     {" "}
                                     {job?.jobskkers_detail?.email}
                                   </p>
-                                ) : null}
-                                {job?.job_applied_detail?.created_at ? (
-                                  <p>Applied {formattedCreatedDate} ago</p>
+                                ) : null} */}
+                                {formattedCreatedDate ? (
+                                  <p>Posted {formattedCreatedDate} ago</p>
                                 ) : null}
                               </Link>
                             </li>
@@ -227,18 +260,20 @@ function ApplicantsJobPage() {
                       <FaTimes className="close-btn" onClick={handleClose} />
                     </h4>
                     {jobsData.map((item, index) => {
+                       const formattedCreatedDate =
+                       moment(item.job_detail.created_at).format("YYYY-MM-DD");
                       return (
                         <div key={index}>
                           <div className="d-flex flex-column align-items-start justify-content-between align-align-items-md-center  gap-2 flex-md-row ">
-                            {item?.jobskkers_detail?.photo ? (
+                            {/* {item?.jobskkers_detail?.photo ? (
                               <img
                                 src={item?.jobskkers_detail?.photo}
                                 alt="image"
                                 style={{ width: "150px", height: "150px" }}
                               />
-                            ) : null}
+                            ) : null} */}
                             <div className="candidate-title">
-                              {item?.jobskkers_detail?.first_name ||
+                              {/* {item?.jobskkers_detail?.first_name ||
                               item?.jobskkers_detail?.last_name ? (
                                 <Link to={"#"}>
                                   <h3 className="mb-1">
@@ -246,23 +281,15 @@ function ApplicantsJobPage() {
                                     {item?.jobskkers_detail?.last_name}{" "}
                                   </h3>
                                 </Link>
-                              ) : null}
-                              {item?.jobskkers_detail?.phone ? (
-                                <p className="mb-1">
-                                  {item?.jobskkers_detail?.phone}
-                                </p>
-                              ) : null}
-                              {item?.jobskkers_detail?.email ? (
+                              ) : null} */}
+                        
+                              {/* {item?.jobskkers_detail?.email ? (
                                 <p className="mb-1">
                                   {" "}
                                   {item?.jobskkers_detail?.email}
                                 </p>
-                              ) : null}
-                              <Link to={"#"}>
-                                <p className="mb-0">
-                                  {/* <strong>Company:</strong> {selectedJob.company} */}
-                                </p>
-                              </Link>
+                              ) : null} */}
+                        
                             </div>
                           </div>
 
@@ -282,31 +309,25 @@ function ApplicantsJobPage() {
                                 {item?.job_detail?.job_description}
                               </p>
                             ) : null}
-                            <Link to={"#"}>
-                              <p className="mb-0">
-                                {/* <strong>Company:</strong> {selectedJob.company} */}
-                              </p>
-                            </Link>
-                            {item?.job_detail?.location ? (
-                              <Link to={"#"}>
-                                <p>
-                                  <strong>Location:</strong>{" "}
-                                  {item?.job_detail?.location}
-                                </p>
-                              </Link>
-                            ) : null}
+                        
+                        
                           </div>
                           <div className="job-details-content">
                             {item?.job_workplace_types?.name ||
                             item?.job_type?.name ||
                             item?.job_category?.name ? (
-                              <p>
+                              <p className="mb-0">
                                 {item?.job_workplace_types?.name}
                                 {" | "}
                                 {item?.job_type?.name} {" | "}{" "}
                                 {item?.job_category?.name}
                               </p>
                             ) : null}
+                                <div className="d-flex" style={{gap:"7px"}}>
+                              {item.job_detail.skills_arr.map((item,index)=>{
+                                return <p key={index} className="mb-5">{item}</p>
+                              })}
+                            </div>
                             {/* <p>
                               10,001+ employees · Business Consulting and
                               Services
@@ -314,6 +335,9 @@ function ApplicantsJobPage() {
                             {item?.job_detail?.skills ? (
                               <p>Skills: {item?.job_detail?.skills}</p>
                             ) : null}
+                             {formattedCreatedDate ? (
+                                  <p>Posted {formattedCreatedDate} ago</p>
+                                ) : null}
                           </div>
                           <div className="d-flex justify-content-start align-items-center">
                             <button className="radius-xl site-button">

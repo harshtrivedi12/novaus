@@ -47,12 +47,15 @@ function EmployeeCompanyprofile() {
     getCities();
   }, [selectedStates]);
 
+
+const token = localStorage.getItem("employeeLoginToken")
+
   const getCountry = async () => {
     axios({
       method: "get",
       url: "https://jobsbooklet.in/api/employeer/countries",
       headers: {
-        Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21AZ21haWwuY29tIiwiZXhwIjoxNzExNTQ5MjgwfQ._Kh75DvFoVSs8ReceAFMoKWl7pumhOKGZff8ClunUVU`,
+        Authorization: token,
       },
     })
       .then((res) => {
@@ -69,7 +72,7 @@ function EmployeeCompanyprofile() {
       method: "get",
       url: `https://jobsbooklet.in/api/employeer/stats/${selectedCountry}`,
       headers: {
-        Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21AZ21haWwuY29tIiwiZXhwIjoxNzExNTQ5MjgwfQ._Kh75DvFoVSs8ReceAFMoKWl7pumhOKGZff8ClunUVU`,
+        Authorization: token,
       },
     })
       .then((res) => {
@@ -85,7 +88,7 @@ function EmployeeCompanyprofile() {
       method: "get",
       url: `https://jobsbooklet.in/api/employeer/cities/${selectedStates}`,
       headers: {
-        Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21AZ21haWwuY29tIiwiZXhwIjoxNzExNTQ5MjgwfQ._Kh75DvFoVSs8ReceAFMoKWl7pumhOKGZff8ClunUVU`,
+        Authorization: token,
       },
     })
       .then((res) => {
@@ -103,7 +106,7 @@ function EmployeeCompanyprofile() {
       method: "put",
       url: `https://jobsbooklet.in/api/employeer/company/1`,
       headers: {
-        Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21AZ21haWwuY29tIiwiZXhwIjoxNzExNTQ5MjgwfQ._Kh75DvFoVSs8ReceAFMoKWl7pumhOKGZff8ClunUVU`,
+        Authorization: token,
       },
       data: {
         company_name: companyName,

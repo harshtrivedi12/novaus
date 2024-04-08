@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import Profilesidebar from "./../Element/Profilesidebar";
 import { Link } from "react-router-dom";
 import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
-
+import axios from "axios"
 const cardData = [
   {
     title: "HTML",
@@ -42,7 +42,21 @@ const cardData = [
 
 function SkillTest() {
   const [selectedCard, setSelectedCard] = useState(null);
-
+const [cardData,setCardData] = useState([])
+const token = localStorage.getItem("jobSeekerLoginToken")
+useEffect(()=>{
+  axios({
+    method : "GET",
+    url : "http://93.188.167.106:3001/api/jobseeker/user-skills",
+    headers : {
+      Authorization : token,
+      "Content-type" : "application/json"
+    },
+  }).then((response)=>{
+    console.log(response.data.data);
+    setCardData(response.data.data)
+  }).catch((err)=> console.log(err))
+},[])
   const handleViewDetails = (card) => {
     setSelectedCard(card);
     // Open modal here or perform any other action
@@ -174,7 +188,7 @@ function SkillTest() {
                             <div
                               className="card-body text-center"
                               style={{ transition: "box-shadow 0.3s" }}>
-                              <h5 className="card-title">{card.title}</h5>
+                              <h5 className="card-title">{card.name}</h5>
                               <p className="card-text">{card.text}</p>
                               <div className="d-flex justify-content-center align-items-center">
                            <Link to={"/user/education-page"} >

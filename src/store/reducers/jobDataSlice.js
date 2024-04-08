@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  jobsData: [{}],
+  jobsData: [],
 };
 
 const jobDataSlice = createSlice({

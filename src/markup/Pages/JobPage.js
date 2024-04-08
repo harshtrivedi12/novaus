@@ -6,13 +6,15 @@ import { FaTimes } from "react-icons/fa";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Tab, Nav } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
-
+import { setJobApplicationData } from "../../store/reducers/jobApplicationSlice";
+import moment from "moment";
 function JobPage() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [show, setShow] = useState(false);
+const dispatch = useDispatch()
 
   const handlClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -144,13 +146,14 @@ function JobPage() {
     const fetchJobApplicationData = async () => {
       await axios({
         method: "GET",
-        url: "",
+        url: "http://93.188.167.106:3001/api/jobseeker/job-lists",
         headers: {
           Authorization: token,
         },
       })
         .then((response) => {
-          console.log(response);
+          console.log(response.data.data);
+          dispatch(setJobApplicationData(response.data.data))
         })
         .catch((err) => {
           console.log(err);
@@ -185,81 +188,154 @@ function JobPage() {
                           overflowY: "auto",
                         }}
                       >
-                        {jobData.map((job) => (
-                          <li key={job.id}>
-                            <Link to={"#"} onClick={() => handleSelectJob(job)}>
-                              <h6 className="mb-0 d-flex justify-content-between align-items-center">
-                                <span>
-                                  {" "}
-                                  <i
-                                    className="fa fa-user-o"
-                                    aria-hidden="true"
-                                  ></i>{" "}
-                                  {job.title}
-                                </span>
-                                <span>
-                                  {" "}
-                                  {selectedJob && selectedJob.id === job.id && (
-                                    <FaTimes
-                                      className="close-btn"
-                                      onClick={handleClose}
-                                    />
-                                  )}
-                                </span>
-                              </h6>
-                              <p className="mb-0" style={{ color: "#1c2957" }}>
-                                {job.company}
-                              </p>
-                              <p className="mb-2" style={{ color: "#1c2957" }}>
+                         {jobApplicationData.map((job) => {
+                      
+                      const formattedCreatedDate =
+                        moment(job.job_detail.created_at).format("YYYY-MM-DD");
+                      return (
+                        <li key={job.s_no}>
+                          <Link
+                            to={"#"}
+                            onClick={() => handleSelectJob(job.s_no)}>
+                            <h6 className="mb-0 d-flex justify-content-between align-items-center">
+                            
+                              {/* <div>
+                                {job?.jobskkers_detail?.photo ? (
+                                  <img
+                                    src={job?.jobskkers_detail?.photo}
+                                    alt="image"
+                                    style={{
+                                      width: "70px",
+                                      height: "70px",
+                                    }}
+                                  />
+                                ) : null}
+                              </div> */}
+<p className="m-0 ">
+                              {job.s_no}
+                            </p>
+                              <span>
                                 {" "}
-                                {job.location}
+                                <FaTimes
+                                  className="close-btn"
+                                  onClick={handleClose}
+                                />
+                              </span>
+                            </h6>
+                            
+                            {job.job_detail.job_title  ? (
+                              <p
+                                className="mb-0"
+                                style={{ color: "#1c2957" }}>
+                                {job.job_detail.job_title}{" "}
                               </p>
-                              <p className="mb-3">Actively recruiting</p>
-                              <p className="mb-0">Promoted</p>
-                            </Link>
-                          </li>
-                        ))}
+                            ) : null}
+                            {job.job_detail.job_description ? (
+                              <p
+                                className="mb-0"
+                                style={{ color: "#1c2957" }}>
+                                {job.job_detail.job_description}
+                              </p>
+                            ) : null}
+                            <div className="d-flex flex-row mb-0 " style={{gap:"7px"}}>
+
+{job.job_detail.skills_arr.map((item,index)=>{
+return (
+<p className="mb-0 " key={index}>{item}</p>
+)
+})}
+</div>
+<div className="d-flex flex-row gap-2 align-items-center " style={{gap: "7px"}}>
+{job.job_category ?
+<p>{job.job_category.name}</p>
+: null} {" "}
+{job.job_type ?
+<p>{job.job_type.name}</p> 
+: null} {" "}
+{job.job_workplace_types.name ?
+<p>{job.job_workplace_types.name}</p> 
+: null} {" "}
+</div> 
+
+                            {/* {job?.jobskkers_detail?.email ? (
+                              <p
+                                className="mb-2"
+                                style={{ color: "#1c2957" }}>
+                                {" "}
+                                {job?.jobskkers_detail?.email}
+                              </p>
+                            ) : null} */}
+                            {formattedCreatedDate ? (
+                              <p>Posted {formattedCreatedDate} ago</p>
+                            ) : null}
+                          </Link>
+                        </li>
+                      );
+                    })}
                       </ul>
                     </div>
                   </div>
                 </div>
                 <div className="col-xl-8 col-lg-7 m-b30">
+                
+
+
                   {selectedJob && (
-                    <div className="job-bx submit-resume">
-                      <h4 className="m-b5 d-flex justify-content-between align-items-center">
-                        Job Details
-                        <FaTimes className="close-btn" onClick={handleClose} />
-                      </h4>
-                      <div className="candidate-title">
-                        <Link to={"#"}>
-                          <h3 className="mb-0">{selectedJob.title}</h3>
-                        </Link>
-                        <Link to={"#"}>
-                          <p className="mb-0">
-                            <strong>Company:</strong> {selectedJob.company}
-                          </p>
-                        </Link>
-                        <Link to={"#"}>
-                          <p>
-                            <strong>Location:</strong> {selectedJob.location}
-                          </p>
-                        </Link>
-                      </div>
-                      <div className="job-details-content">
-                        <p>On-site Full-time Entry level</p>
-                        <p>
-                          10,001+ employees · Business Consulting and Services
-                        </p>
-                        <p>
-                          Skills: Order to Cash, Accounts Receivable (AR), +8
-                          more{" "}
-                        </p>
-                        <p>
-                          See recent hiring trends for GENPACT. Try Premium for
-                          ₹0
-                        </p>
-                      </div>
-                      <div className="d-flex justify-content-start align-items-center">
+                    <div>
+                        {jobApplicationData.map((item, index) => {
+                       const formattedCreatedDate =
+                       moment(item.job_detail.created_at).format("YYYY-MM-DD");
+                      return (
+                        <div key={index}>
+                        
+
+                          <div className="candidate-title">
+                            {item?.job_detail?.id ||
+                            item?.job_detail?.job_title ? (
+                              <Link to={"#"}>
+                                <h3 className="mb-1">
+                                  {item?.job_detail?.id}
+                                  {". "}
+                                  {item?.job_detail?.job_title}
+                                </h3>
+                              </Link>
+                            ) : null}
+                            {item?.job_detail?.job_description ? (
+                              <p className="mb-1">
+                                {item?.job_detail?.job_description}
+                              </p>
+                            ) : null}
+                        
+                        
+                          </div>
+                          <div className="job-details-content">
+                            {item?.job_workplace_types?.name ||
+                            item?.job_type?.name ||
+                            item?.job_category?.name ? (
+                              <p className="mb-0">
+                                {item?.job_workplace_types?.name}
+                                {" | "}
+                                {item?.job_type?.name} {" | "}{" "}
+                                {item?.job_category?.name}
+                              </p>
+                            ) : null}
+                                <div className="d-flex" style={{gap:"7px"}}>
+                              {item.job_detail.skills_arr.map((item,index)=>{
+                                return <p key={index} className="mb-5">{item}</p>
+                              })}
+                            </div>
+                            {/* <p>
+                              10,001+ employees · Business Consulting and
+                              Services
+                            </p> */}
+                            {item?.job_detail?.skills ? (
+                              <p>Skills: {item?.job_detail?.skills}</p>
+                            ) : null}
+                             {formattedCreatedDate ? (
+                                  <p>Posted {formattedCreatedDate} ago</p>
+                                ) : null}
+                          </div>
+                          <div className="d-flex justify-content-start align-items-center">
                         <button
                           className="radius-xl site-button"
                           onClick={handleShow}
@@ -521,44 +597,9 @@ function JobPage() {
                           Save
                         </button>
                       </div>
-                      <div>
-                        <h6>About the job</h6>
-                        <p>{selectedJob.description}</p>
-                      </div>
-                      <div>
-                        <h6>Responsibilities</h6>
-                        <ul className="ml-5">
-                          <li>
-                            Making collection calls to the customers,
-                            emailing/faxing invoices or getting hard copies
-                            mailed out to customers as per their requests.
-                          </li>
-                          <li>
-                            {" "}
-                            Identify and resolve unidentified cash and manage
-                            end to end process of Cash applications.
-                          </li>
-                          <li>
-                            {" "}
-                            Process cash application functions to invoices at
-                            assigned sites ensuring the DRR (Daily Receipt
-                            Reconciliation) is completed in a timely, accurate,
-                            and confidential manner.
-                          </li>
-                          <li>
-                            {" "}
-                            Follow up on customer/internal disputes, customer
-                            questions and working between departments to get a
-                            resolution.
-                          </li>
-                          <li>
-                            {" "}
-                            Reconcile orders to match customer books, including
-                            validating credits or debits and sending them to
-                            customer for collection or refund
-                          </li>
-                        </ul>
-                      </div>
+                        </div>
+                      );
+                    })}
                     </div>
                   )}
                 </div>

@@ -121,6 +121,9 @@ class EmployeeHeader extends Component {
                         </li>
                       </ul> */}
                     </li>
+                    <li className="">
+                      <Link to={"/user/job-application"}>Job Page</Link>
+                    </li>
                     <li>
                       <Link to={"#"}>
                         For Candidates <i className="fa fa-chevron-down"></i>
