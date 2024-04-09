@@ -118,6 +118,7 @@ import SecurityBugReporting from "./markup/Pages/SecurityBugReporting";
 import AccessibilityCenter from "./markup/Pages/AccessibilityCenter";
 import HowItWorksEmployee from "./markup/Pages/HowItWorksEmployee";
 import HowItWorksCandidates from "./markup/Pages/HowItWorksCandidates";
+import ResumeSecurity from "./markup/Pages/ResumeSecurity";
 
 function App() {
   const dispatch = useDispatch();
@@ -906,6 +907,14 @@ function App() {
           element={
             <EmployeePrivateRoute>
               <SecurityBugReporting />
+            </EmployeePrivateRoute>
+          }
+        />
+          <Route
+          path="resume-security"
+          element={
+            <EmployeePrivateRoute>
+              <ResumeSecurity />
             </EmployeePrivateRoute>
           }
         />

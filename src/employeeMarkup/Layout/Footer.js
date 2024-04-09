@@ -93,7 +93,7 @@ function EmployeeFooter() {
             <div className="col-xl-5 col-lg-5 col-md-8 col-sm-8 col-12">
               <div className="widget border-0">
                 <h5 className="m-b30 text-white">Frequently Asked Questions</h5>
-                <ul className="list-2 list-line">
+                {/* <ul className="list-2 list-line">
                   <li>
                     <Link to={""}>Privacy & Seurty</Link>
                   </li>
@@ -130,7 +130,29 @@ function EmployeeFooter() {
                   <li>
                     <Link to={""}>Support</Link>
                   </li>
-                </ul>
+                </ul> */}
+                <ul className="list-2 list-line">
+									<li><Link to={'/employee/privacy-rights'}>Privacy Rights</Link></li>
+									<li><Link to={'/employee/term-of-use-nova-jobs'}>Terms of Use</Link></li>
+									<li><Link to={'/employee/accessibility-center'}>Accessibility Center</Link></li>
+									<li><Link to={'/employee/cookies-digital-advertising'}>Cookies & Digital Advertising</Link></li>
+									<li><Link to={'/employee/cooking-advertising-overview'}>Cookies & Advertising</Link></li>
+									<li><Link to={'/employee/data-privacy-framework'}>Data Privacy Framework</Link></li>
+									<li><Link to={'/employee/data-sharing-helps-you'}>Data Sharing Helps</Link></li>
+									<li><Link to={'/employee/safeguard-from-email-scams'}>Email Scams</Link></li>
+									<li><Link to={'/employee/general-contact-information'}>General Contact Information</Link></li>
+									<li><Link to={'/employee/howitworks-for-candidates'}>How It Works For Candidates</Link></li>
+									<li><Link to={'/employee/howitworks-for-employee'}>How It Works For Employee</Link></li>
+									<li><Link to={'/employee/information-novaus-jobs'}>Information of NovaUs Jobs</Link></li>
+									<li><Link to={'/employee/international-transfer-of-personal-information'}>International Transfer</Link></li>
+									<li><Link to={'/employee/online-interview-scams'}>Online Interview Scams</Link></li>
+									<li><Link to={'/employee/resume-security'}>Resume Security</Link></li>
+									<li><Link to={'/employee/retention-period-resume-visibility'}>Retention Period</Link></li>
+									<li><Link to={'/employee/scope-privacy-notice'}>Scope Privacy Notice</Link></li>
+									<li><Link to={'/employee/security-bug-reporting'}>Security Bug Reporting</Link></li>
+									<li><Link to={'/employee/security-center-account-management'}>Security Center Account Management</Link></li>
+								
+								</ul>
               </div>
             </div>
             <div className="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-12">
