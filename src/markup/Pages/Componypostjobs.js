@@ -22,6 +22,7 @@ function Componypostjobs() {
   const dispatch = useDispatch();
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value, "hshhas");
     dispatch(setPostAJobData({ ...postAJobData, [name]: value }));
   };
 
@@ -220,6 +221,7 @@ function Componypostjobs() {
                               className="custom-select"
                               name="jobType"
                               id="jobType"
+                              value={postAJobData.jobTitle}
                               onChange={handleChange}
                             >
                               <option>Full Time</option>

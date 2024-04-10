@@ -20,7 +20,7 @@ const initialState = {
     workplaceType: "",
     location: "",
     jobType: "",
-    description: "",
+    description: "fdffd",
     education: "",
     qualificationSetting: "",
   },

@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header2 from "./../Layout/Header2";
-import { Modal } from "react-bootstrap";
-import { Form } from "react-bootstrap";
+
 import Footer from "./../Layout/Footer";
 import Profilesidebar from "./../Element/Profilesidebar";
 import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
-var bnr = require("./../../images/banner/bnr1.jpg");
 
 function Jobprofile() {
   const [basicdetails, setBasicDetails] = useState(false);

@@ -2,48 +2,37 @@ import React, { useEffect, useState } from "react";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import Profilesidebar from "./../Element/Profilesidebar";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
 import axios from "axios"
-const cardData = [
-  {
-    title: "HTML",
-    text: "  Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text",
-  },
-  {
-    title: "CSS",
-    text: "  Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text",
-  },
-  {
-    title: "JAVASCRIPT",
-    text: "  Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text",
-  },
-  {
-    title: "REACTJS",
-    text: "  Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text",
-  },
-  {
-    title: "NODEJS",
-    text: "  Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text",
-  },
-  {
-    title: "VUEJS",
-    text: "  Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text",
-  },
-  {
-    title: "NEXTJS",
-    text: "  Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text",
-  },
-  {
-    title: "MONGODB",
-    text: "  Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text Your paragraph text",
-  },
-];
+
+import {
+  setSkillTestQuestions
+} from "../../store/reducers/skillTestQuestionsSlice";
+
+import { useDispatch } from "react-redux";
 
 function SkillTest() {
-  const [selectedCard, setSelectedCard] = useState(null);
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const token = localStorage.getItem("jobSeekerLoginToken")
+const getSkillTestQuestion = async (id, name) => {
+await axios({
+  method : "get",
+  url : `http://93.188.167.106:3001/api/jobseeker/skill-assessment?skill_id=${id}&skill_name=${name}`,
+  headers : {
+    Authorization : token,
+    "Content-type" : "application/json"
+  },
+ }).then((response)=>{
+  console.log(response.data.data.questions);
+  navigate("/user/education-page")
+dispatch(setSkillTestQuestions(response.data.data))
+}).catch((err)=> console.log(err))
+}
+
+const [selectedCard, setSelectedCard] = useState(null);
 const [cardData,setCardData] = useState([])
-const token = localStorage.getItem("jobSeekerLoginToken")
 useEffect(()=>{
   axios({
     method : "GET",
@@ -184,6 +173,11 @@ useEffect(()=>{
                             style={{
                               background: "#e1e7ff",
                               boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                              height: "200px" ,
+                              display : "flex",
+                              justifyContent: "center",
+                              flexDirection : "row",
+                              alignItem : "centre"
                             }}>
                             <div
                               className="card-body text-center"
@@ -191,16 +185,18 @@ useEffect(()=>{
                               <h5 className="card-title">{card.name}</h5>
                               <p className="card-text">{card.text}</p>
                               <div className="d-flex justify-content-center align-items-center">
-                           <Link to={"/user/education-page"} >
-                           <button className="btn site-button">
+                  
+                           <button 
+                           onClick={()=>(getSkillTestQuestion(card.id, card.name))}
+                           className="btn site-button">
                                   ReTake Test
                                 </button>
-                           </Link>  
-                                <button
+                       
+                                {/* <button
                                   className="btn site-button ml-2"
                                   onClick={() => handleViewDetails(card)}>
                                   View Details
-                                </button>
+                                </button> */}
                               </div>
                             </div>
                           </div>

@@ -22,6 +22,8 @@ function EmployeeComponypostjobs() {
   const dispatch = useDispatch();
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+
     dispatch(setPostAJobData({ ...postAJobData, [name]: value }));
   };
 
@@ -146,6 +148,7 @@ function EmployeeComponypostjobs() {
                               placeholder="Enter Job Title"
                               id="jobTitle"
                               name="jobTitle"
+                              value={postAJobData.jobTitle}
                               onChange={handleChange}
                             />
                           </div>
@@ -159,6 +162,8 @@ function EmployeeComponypostjobs() {
                               placeholder="Conscious foundation"
                               id="company"
                               name="company"
+                              value={postAJobData.company}
+
                               onChange={handleChange}
                             />
                           </div>
@@ -194,6 +199,7 @@ function EmployeeComponypostjobs() {
                               onChange={handleChange}
                               name="workplaceType"
                               id="workplaceType"
+                              value={postAJobData.workplaceType}
                             >
                               <option>On-site</option>
                               <option>Hybrid</option>
@@ -211,6 +217,8 @@ function EmployeeComponypostjobs() {
                               id="location"
                               name="location"
                               onChange={handleChange}
+                              value={postAJobData.location}
+
                             />
                           </div>
                         </div>
@@ -223,6 +231,8 @@ function EmployeeComponypostjobs() {
                               className="custom-select"
                               name="jobType"
                               id="jobType"
+                              value={postAJobData.jobType}
+
                               onChange={handleChange}
                             >
                               <option>Full Time</option>
@@ -362,7 +372,8 @@ function EmployeeComponypostjobs() {
                     </p>
                     <div>
                       <h4>Description</h4>
-                      <TextEditor />
+                      <TextEditor                               value={postAJobData.description}
+ />
                     </div>
                     <div>
                       <h4>Skills</h4>
