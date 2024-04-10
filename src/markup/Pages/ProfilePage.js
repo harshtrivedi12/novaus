@@ -13,7 +13,7 @@ const ProfilePage = () => {
                     <div className="section-full bg-white p-t50 p-b20">
                         <div className="container">
                             <div className='row'>
-                                <div className='col-xl-9 col-lg-8 col-md-8 col-sm-12'>
+                                <div className='col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12'>
                                     <div className="profile-summary">
                                         <div className='p-content' >
                                             <div className='profile-card'>
@@ -78,7 +78,7 @@ const ProfilePage = () => {
 
 
                                 </div>
-                                <div className='col-xl-3 col-lg-4 col-md-4 col-sm-12 '>
+                                <div className='col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12 '>
                                 <div className=' profile-summary' style={{ padding: '10px 30px' }}>
                                         <div className="candidate-info company-info">
                                             

@@ -118,6 +118,8 @@ import SecurityBugReporting from "./markup/Pages/SecurityBugReporting";
 import AccessibilityCenter from "./markup/Pages/AccessibilityCenter";
 import HowItWorksEmployee from "./markup/Pages/HowItWorksEmployee";
 import HowItWorksCandidates from "./markup/Pages/HowItWorksCandidates";
+import ResumeSecurity from "./markup/Pages/ResumeSecurity";
+import CompanyPage from "./markup/Pages/CompanyPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -909,6 +911,14 @@ function App() {
             </EmployeePrivateRoute>
           }
         />
+          <Route
+          path="resume-security"
+          element={
+            <EmployeePrivateRoute>
+              <ResumeSecurity />
+            </EmployeePrivateRoute>
+          }
+        />
         <Route
           path="accessibility-center"
           element={
@@ -941,7 +951,14 @@ function App() {
             </EmployeePrivateRoute>
           }
         />
-
+<Route
+          path="company-profilepage"
+          element={
+            <EmployeePrivateRoute>
+              <CompanyPage />
+            </EmployeePrivateRoute>
+          }
+        />
         <Route
           path="messages"
           element={

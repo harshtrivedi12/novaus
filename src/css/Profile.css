@@ -106,4 +106,28 @@
   .message-input button {
     padding: 8px 20px;
   }
-  
+  .tab-buttons {
+   
+    border: none !important;
+}
+
+.tab-buttons button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 8px 16px;
+    border: none !important;
+    margin-right: 10px;
+}
+
+.tab-buttons button.active {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  vertical-align: middle;
+  font-family: roboto;
+  background-color: #1c2957;
+  color: #fff;
+  border: none !important;
+}
+
