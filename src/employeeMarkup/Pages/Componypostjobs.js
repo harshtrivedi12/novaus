@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import { Form, Button } from "react-bootstrap";
@@ -9,20 +9,239 @@ import AddSkills from "../Element/AddSkills";
 import AddScreening from "../Element/AddScreening";
 import { FaCircleQuestion } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import { setPostAJobData } from "../../store/reducers/postAJobSlice";
+
+import {
+  setPostAJobData,
+  setSkillsData,
+} from "../../store/reducers/postAJobSlice";
 import ReactQuill from "react-quill";
 import QualificationSetting from "../Element/qualificationSettingsEditor";
+import axios from "axios";
+import { useEffect } from "react";
+import CompanySideBar from "../Layout/companySideBar";
 function EmployeeComponypostjobs() {
+  const postAJobData = useSelector((state) => state.postAJobSlice.postAJobData);
+  const postAJobSkills = useSelector((state) => state.postAJobSlice.skillsData);
+
+  const selelctedQuestions = useSelector(
+    (state) => state.postAJobSlice.setSelectedScreeningQuestion
+  );
   const [suggestions, setSuggestions] = useState(true);
   const handleSuggestions = () => {
     setSuggestions(false);
   };
-  const postAJobData = useSelector((state) => state.postAJobSlice.postAJobData);
+  const [countries, setCountries] = useState([
+    {
+      id: 0,
+      name: "",
+    },
+  ]);
+  const [states, setStates] = useState([
+    {
+      id: 0,
+      name: "",
+    },
+  ]);
+  const [cities, setCities] = useState([
+    {
+      id: 0,
+      name: "",
+    },
+  ]);
+  const token = localStorage.getItem("employeeLoginToken");
+  const [jobType, setJobType] = useState([]);
+  const [workplaceType, setWorkplaceType] = useState([]);
+  const { id } = useParams();
+
+  const getJob = async () => {
+    await axios({
+      url: `https://jobsbooklet.in/api/employeer/job-lists/${id}`,
+      method: "get",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        console.log(res.data.data.job_detail, "jijadsjklkadslj");
+        dispatch(
+          setPostAJobData({
+            ...postAJobData,
+            jobTitle: res.data.data.job_detail.job_title,
+            company: res.data.data.job_detail.country_id,
+            workplaceType: res.data.data.job_detail.workplace_type_id,
+            jobType: res.data.data.job_detail.job_type_id,
+            description: res.data.data.job_detail.job_description,
+            selectedCity: res.data.data.job_detail.city_id,
+            selectedState: res.data.data.job_detail.state_id,
+            selectedCountry: res.data.data.job_detail.country_id,
+          })
+        );
+        dispatch(setSkillsData(res.data.data.job_detail.skills_arr));
+      })
+      .catch((err) => {
+        console.log(err, "joy");
+      });
+  };
+
+  const postCompleted = async () => {
+    await axios({
+      url: `https://jobsbooklet.in/api/employeer/job-post/${id}`,
+      method: "PUT",
+      headers: {
+        Authorization: token,
+      },
+      data: {
+        job_title: postAJobData.jobTitle,
+        job_description: postAJobData.description,
+        workplace_type_id: Number(postAJobData.workplaceType),
+        country_id: Number(postAJobData.selectedCountry),
+        state_id: Number(postAJobData.selectedState),
+        city_id: Number(postAJobData.selectedCity),
+        is_publish: 1,
+        screen_questions: { screen_question_keywords: selelctedQuestions },
+        skills: postAJobSkills,
+      },
+    }).then((res) => {
+      console.log(res);
+    });
+  };
+
+  const getJobTyes = async () => {
+    await axios({
+      url: "https://jobsbooklet.in/api/employeer/job-types",
+
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        alert("res");
+        console.log(res.data.data);
+        setJobType(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err, "joy");
+      });
+  };
+
+  const getWorkplaceType = async () => {
+    await axios({
+      url: "https://jobsbooklet.in/api/employeer/workplace-types",
+
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        alert("res");
+        console.log(res.data.data);
+        setWorkplaceType(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err, "joy");
+      });
+  };
+
+  const getCountry = async () => {
+    await axios({
+      method: "get",
+      url: "https://jobsbooklet.in/api/employeer/countries",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        setCountries(res.data.data);
+        console.log(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        setCities([]);
+      });
+  };
+
+  const getState = async () => {
+    await axios({
+      method: "get",
+      url: `https://jobsbooklet.in/api/employeer/stats/${postAJobData.selectedCountry}`,
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        if (!res.data.data) {
+          setStates([]);
+
+          setCities([]);
+          return;
+        }
+        setStates(res.data.data);
+        console.log(res.data.data);
+      })
+
+      .catch((error) => {
+        console.log(error);
+        setStates([]);
+        setCities([]);
+      });
+  };
+  const getCities = async () => {
+    await axios({
+      method: "get",
+      url: `https://jobsbooklet.in/api/employeer/cities/${postAJobData.selectedState}`,
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        if (!res.data.data) {
+          setStates([]);
+
+          setCities([]);
+          return;
+        }
+        setCities(res.data.data);
+        console.log(res.data.data);
+      })
+      .catch((error) => {
+        setCities([]);
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getJob();
+    getJobTyes();
+    getWorkplaceType();
+    getCountry();
+  }, []);
+
+  useEffect(() => {
+    // console.log(selectedCountry);
+    dispatch(
+      setPostAJobData({
+        ...postAJobData,
+        selectedCity: 0,
+        selectedState: 0,
+      })
+    );
+
+    getState();
+  }, [postAJobData.selectedCountry]);
+
+  useEffect(() => {
+    dispatch(
+      setPostAJobData({
+        ...postAJobData,
+        selectedCity: 0,
+      })
+    );
+    getCities();
+  }, [postAJobData.selectedState]);
 
   const dispatch = useDispatch();
   const handleChange = (e) => {
     const { name, value } = e.target;
-
 
     dispatch(setPostAJobData({ ...postAJobData, [name]: value }));
   };
@@ -35,95 +254,7 @@ function EmployeeComponypostjobs() {
           <div className="section-full bg-white p-t50 p-b20">
             <div className="container">
               <div className="row">
-                <div className="col-xl-3 col-lg-4 m-b30">
-                  <div className="sticky-top">
-                    <div className="candidate-info company-info">
-                      <div className="candidate-detail text-center">
-                        <div className="canditate-des">
-                          <Link to={"#"}>
-                            <img
-                              alt=""
-                              src={require("./../../images/logo/icon3.jpg")}
-                            />
-                          </Link>
-                          <div
-                            className="upload-link"
-                            title="update"
-                            data-toggle="tooltip"
-                            data-placement="right"
-                          >
-                            <input type="file" className="update-flie" />
-                            <i className="fa fa-pencil"></i>
-                          </div>
-                        </div>
-                        <div className="candidate-title">
-                          <h4 className="m-b5">
-                            <Link to={"#"}>@COMPANY</Link>
-                          </h4>
-                        </div>
-                      </div>
-                      <ul>
-                        <li>
-                          <Link to={"/employee/company-profile"}>
-                            <i className="fa fa-user-o" aria-hidden="true"></i>
-                            <span>Company Profile</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            to={"/employee/company-post-jobs"}
-                            className="active"
-                          >
-                            <i
-                              className="fa fa-file-text-o"
-                              aria-hidden="true"
-                            ></i>
-                            <span>Post A Job</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={"/employee/company-transactions"}>
-                            <i className="fa fa-random" aria-hidden="true"></i>
-                            <span>Transactions</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={"/employee/company-manage-job/jobs"}>
-                            <i
-                              className="fa fa-briefcase"
-                              aria-hidden="true"
-                            ></i>
-                            <span>Manage jobs</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={"/employee/company-resume"}>
-                            <i
-                              className="fa fa-id-card-o"
-                              aria-hidden="true"
-                            ></i>
-                            <span>Resume</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={"/employee/jobs-change-password"}>
-                            <i className="fa fa-key" aria-hidden="true"></i>
-                            <span>Change Password</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={"./"}>
-                            <i
-                              className="fa fa-sign-out"
-                              aria-hidden="true"
-                            ></i>
-                            <span>Log Out</span>
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+                <CompanySideBar active="postJob" />
                 <div className="col-xl-9 col-lg-8 m-b30">
                   <div className="job-bx submit-resume">
                     <div className="job-bx-title clearfix">
@@ -132,8 +263,7 @@ function EmployeeComponypostjobs() {
                       </h5>
                       <Link
                         to={"/employee/company-profile"}
-                        className="site-button right-arrow button-sm float-right"
-                      >
+                        className="site-button right-arrow button-sm float-right">
                         Back
                       </Link>
                     </div>
@@ -163,7 +293,6 @@ function EmployeeComponypostjobs() {
                               id="company"
                               name="company"
                               value={postAJobData.company}
-
                               onChange={handleChange}
                             />
                           </div>
@@ -199,30 +328,72 @@ function EmployeeComponypostjobs() {
                               onChange={handleChange}
                               name="workplaceType"
                               id="workplaceType"
-                              value={postAJobData.workplaceType}
-                            >
-                              <option>On-site</option>
-                              <option>Hybrid</option>
-                              <option>Remote</option>
+                              value={postAJobData.workplaceType}>
+                              {workplaceType.map(
+                                (item) => (
+                                  console.log(item),
+                                  (<option value={item.id}>{item.name}</option>)
+                                )
+                              )}
                             </Form.Control>
                           </div>
                         </div>
-                        <div className="col-12">
-                          <div className="form-group">
-                            <label htmlFor="location">Location</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Jaipur, Rajasthan, India"
-                              id="location"
-                              name="location"
-                              onChange={handleChange}
-                              value={postAJobData.location}
 
-                            />
+                        <div className="col-lg-6 col-md-6">
+                          <div className="form-group">
+                            <label>Country</label>
+                            <Form.Control
+                              as="select"
+                              custom
+                              className="custom-select"
+                              name="selectedCountry"
+                              value={postAJobData.selectedCountry}
+                              onChange={handleChange}>
+                              {countries.map((item) => (
+                                <option value={item.id}>{item.name}</option>
+                              ))}
+                            </Form.Control>
                           </div>
                         </div>
-                        <div className="col-12">
+
+                        <div className="col-lg-6 col-md-6">
+                          <div className="form-group">
+                            <label>State</label>
+                            <Form.Control
+                              as="select"
+                              custom
+                              className="custom-select"
+                              name="selectedState"
+                              value={postAJobData.selectedState}
+                              onChange={handleChange}>
+                              {/* <option value=""></option> */}
+                              {states.map((item) => (
+                                <option value={item.id}>{item.name}</option>
+                              ))}
+                            </Form.Control>
+                          </div>
+                        </div>
+
+                        <div className="col-lg-6 col-md-6">
+                          <div className="form-group">
+                            <label>City</label>
+                            <Form.Control
+                              as="select"
+                              custom
+                              name="selectedCity"
+                              className="custom-select"
+                              value={postAJobData.selectedCity}
+                              onChange={handleChange}>
+                              {/* <option value=""></option> */}
+
+                              {cities.map((item) => (
+                                <option value={item.id}>{item.name}</option>
+                              ))}
+                            </Form.Control>
+                          </div>
+                        </div>
+
+                        <div className="col-6">
                           <div className="form-group">
                             <label htmlFor="jobType">Job Type</label>
                             <Form.Control
@@ -232,16 +403,13 @@ function EmployeeComponypostjobs() {
                               name="jobType"
                               id="jobType"
                               value={postAJobData.jobType}
-
-                              onChange={handleChange}
-                            >
-                              <option>Full Time</option>
-                              <option>Part Time</option>
-                              <option>Contract</option>
-                              <option>Temporary</option>
-                              <option>Other</option>
-                              <option>Volunteer</option>
-                              <option>Internship</option>
+                              onChange={handleChange}>
+                              {jobType.map(
+                                (item) => (
+                                  console.log(item),
+                                  (<option value={item.id}>{item.name}</option>)
+                                )
+                              )}
                             </Form.Control>
                           </div>
                         </div>
@@ -323,8 +491,7 @@ function EmployeeComponypostjobs() {
                         style={{
                           backgroundColor: "#edf3f8",
                           borderRadius: "7px",
-                        }}
-                      >
+                        }}>
                         <div className="d-flex justify-content-end ">
                           <FaX
                             className="outline-none p-0 border-0 f"
@@ -342,8 +509,7 @@ function EmployeeComponypostjobs() {
                     <div className="d-flex my-3 flex-column gap-3 ">
                       <Button
                         className="py-3 "
-                        style={{ borderRadius: "50px", fontWeight: "600" }}
-                      >
+                        style={{ borderRadius: "50px", fontWeight: "600" }}>
                         Write With AI
                       </Button>
                       <Button
@@ -352,8 +518,7 @@ function EmployeeComponypostjobs() {
                           borderRadius: "50px",
                           color: "#0a66c2",
                           fontWeight: "600",
-                        }}
-                      >
+                        }}>
                         Write On My Own
                       </Button>
                     </div>
@@ -372,8 +537,7 @@ function EmployeeComponypostjobs() {
                     </p>
                     <div>
                       <h4>Description</h4>
-                      <TextEditor                               value={postAJobData.description}
- />
+                      <TextEditor value={postAJobData.description} />
                     </div>
                     <div>
                       <h4>Skills</h4>
@@ -399,8 +563,7 @@ function EmployeeComponypostjobs() {
                           />
                           <label
                             class="custom-control-label"
-                            for="check1"
-                          ></label>
+                            for="check1"></label>
                         </div>
                         <div style={{ color: "#9d9d9d" }}>
                           Filter out and send rejections to applicants who don't
@@ -410,6 +573,22 @@ function EmployeeComponypostjobs() {
                       </div>
                       <p className="mb-0 mt-2">Preview*</p>
                       <QualificationSetting />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: 10,
+                      }}>
+                      <button
+                        onClick={postCompleted}
+                        className="site-button d-flex justify-content-center align-items-center">
+                        Pending
+                      </button>
+                      <button
+                        // onClick={handleAddSkill}
+                        className="site-button d-flex justify-content-center align-items-center">
+                        Pending
+                      </button>
                     </div>
                   </div>
                 </div>

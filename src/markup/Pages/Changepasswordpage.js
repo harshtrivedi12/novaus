@@ -23,16 +23,18 @@ const requestBody = {
  const handleSubmit = (e)=>{
   e.preventDefault()
   axios({
-    method : "POST",
-    url : "http://93.188.167.106:3001/api/jobseeker/change-password",
-    headers : {
-      Authorization : token,
-      "Content-type" : "application/json"
+    method: "POST",
+    url: "https://jobsbooklet.in/api/jobseeker/change-password",
+    headers: {
+      Authorization: token,
+      "Content-type": "application/json",
     },
-    data : requestBody
-  }).then((response)=>{
-    console.log(response);
-  }).catch((err)=>console.log(err))
+    data: requestBody,
+  })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((err) => console.log(err));
  }
 
 

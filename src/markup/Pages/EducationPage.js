@@ -39,18 +39,20 @@ function EducationPage() {
     const submitTest = async() => {
        
         await axios({
-            url : `http://93.188.167.106:3001/api/jobseeker/skill-assessment/${skill_assessment_id}`,
-            method : "PUT",
-            headers : {
-                Authorization : token,
-                "Content-type" : "application/json"
-              },
-            data : body
-            }).then((res) => {
-                console.log(res);
-            }).catch((err) => {
-                console.log(err);
-            })
+          url: `https://jobsbooklet.in/api/jobseeker/skill-assessment/${skill_assessment_id}`,
+          method: "PUT",
+          headers: {
+            Authorization: token,
+            "Content-type": "application/json",
+          },
+          data: body,
+        })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
     }
     // const [conversations, setConversations] = useState([
     //     {

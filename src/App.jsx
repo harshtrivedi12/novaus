@@ -578,7 +578,7 @@ function App() {
           }
         />
         <Route
-          path="company-post-jobs"
+          path="company-post-jobs/:id"
           element={
             <EmployeePrivateRoute>
               <EmployeeComponypostjobs />

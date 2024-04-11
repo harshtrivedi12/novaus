@@ -146,7 +146,7 @@
 //     const fetchJobApplicationData = async () => {
 //       await axios({
 //         method: "GET",
-//         url: "http://93.188.167.106:3001/api/jobseeker/job-lists",
+//         url: "https://jobsbooklet.in/api/jobseeker/job-lists",
 //         headers: {
 //           Authorization: token,
 //         },
@@ -679,7 +679,7 @@ function JobPage() {
     const fetchJobApplicationData = async () => {
       try {
         const response = await axios.get(
-          "http://93.188.167.106:3001/api/jobseeker/job-lists",
+          "https://jobsbooklet.in/api/jobseeker/job-lists",
           {
             headers: {
               Authorization: token,

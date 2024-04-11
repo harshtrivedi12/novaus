@@ -35,7 +35,7 @@
 //   useEffect(() => {
 //     axios({
 //       method: "GET",
-//       url: "http://93.188.167.106:3001/api/jobseeker/job-lists",
+//       url: "https://jobsbooklet.in/api/jobseeker/job-lists",
 //       headers: {
 //         Authorization: token,
 //         "Content-Type": "application/json"
@@ -436,15 +436,17 @@ function ApplicantsJobPage() {
   useEffect(() => {
     axios({
       method: "GET",
-      url: "http://93.188.167.106:3001/api/jobseeker/job-lists",
+      url: "https://jobsbooklet.in/api/jobseeker/job-lists",
       headers: {
         Authorization: token,
-        "Content-Type": "application/json"
-      }
-    }).then((response) => {
-      console.log(response.data.data);
-      dispatch(setJobsData(response.data.data));
-    }).catch((err) => console.log(err));
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log(response.data.data);
+        dispatch(setJobsData(response.data.data));
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   // Initialize selectedJob state with the first job from jobsData array

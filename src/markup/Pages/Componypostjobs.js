@@ -193,9 +193,9 @@ function Componypostjobs() {
                               name="workplaceType"
                               id="workplaceType"
                             >
-                              <option>On-site</option>
-                              <option>Hybrid</option>
-                              <option>Remote</option>
+                            
+                       
+
                             </Form.Control>
                           </div>
                         </div>

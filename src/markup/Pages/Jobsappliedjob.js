@@ -17,16 +17,18 @@ function Jobsappliedjob() {
 const token = localStorage.getItem("jobSeekerLoginToken")
   useEffect(()=>{
     axios({
-      method : "GET",
-      url : "http://93.188.167.106:3001/api/jobseeker/job-lists",
-      headers : {
-        Authorization : token,
-        "Content-Type" : "application/json"
-      }
-    }).then((response)=>{
-      console.log(response.data.data);
-      setData(response.data.data)
-    }).catch((err)=>console.log(err))
+      method: "GET",
+      url: "https://jobsbooklet.in/api/jobseeker/job-lists",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log(response.data.data);
+        setData(response.data.data);
+      })
+      .catch((err) => console.log(err));
   },[])
 
   return (

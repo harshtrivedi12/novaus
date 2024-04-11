@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   skillsValues: "",
-  skillsData: ["skill1", "skill2", "skill3"],
+  skillsData: ["skill2", "skill2", "skill3"],
   employmentData: {
     currentJobTitle: "",
     previousEmployers: "",
@@ -14,6 +14,8 @@ const initialState = {
   personalInformation: {
     dateOfBirth: "",
   },
+  screeningQuestion: {},
+  setSelectedScreeningQuestion: [],
   postAJobData: {
     jobTitle: "",
     company: "",
@@ -23,6 +25,9 @@ const initialState = {
     description: "fdffd",
     education: "",
     qualificationSetting: "",
+    selectedCity: "",
+    selectedState: "",
+    selectedCountry: "",
   },
 };
 
@@ -31,6 +36,7 @@ const postAJobSlice = createSlice({
   initialState,
   reducers: {
     setPostAJobData: (state, action) => {
+      console.log(action.payload);
       state.postAJobData = action.payload;
     },
     setSkillsValues: (state, action) => {
@@ -48,6 +54,14 @@ const postAJobSlice = createSlice({
     setPersonalInformation: (state, action) => {
       state.personalInformation = action.payload;
     },
+    setScreeningQuestion: (state, action) => {
+      state.screeningQuestion = action.payload;
+    },
+    setSelctedScreeningQuestion: (state, action) => {
+      const { index } = action.payload;
+      console.log(state.screeningQuestion[index]);
+      state.setSelectedScreeningQuestion.push(state.screeningQuestion[index]);
+    },
   },
 });
 
@@ -58,6 +72,8 @@ export const {
   setEmploymentData,
   setReferences,
   setPersonalInformation,
+  setScreeningQuestion,
+  setSelctedScreeningQuestion,
 } = postAJobSlice.actions;
 
 export default postAJobSlice.reducer;

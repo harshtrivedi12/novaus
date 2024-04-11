@@ -1,5 +1,6 @@
 {
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "modificationsIfAvailable",
-  "diffEditor.wordWrap": "on"
+  "diffEditor.wordWrap": "on",
+  "json.format.keepLines": true
 }

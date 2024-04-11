@@ -1,6 +1,6 @@
+import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setPostAJobData } from "../../store/reducers/postAJobSlice";
 
