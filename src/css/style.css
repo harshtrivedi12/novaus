@@ -14721,6 +14721,10 @@ ol.commentlist li .star-rating {
   overflow: hidden;
 }
 
+.d-flex.flex-row.gap-0.align-items-center.joblist p {
+  margin-bottom: 0;
+
+}
 .add-box {
   align-items: center;
   display: flex;
@@ -14733,6 +14737,24 @@ ol.commentlist li .star-rating {
   width: 100%;
 }
 
+.ql-editor h2 {
+  font-size: 15px;
+  line-height: 1.3;
+  padding-bottom: 5px;
+
+}
+
+.ql-editor p {
+  font-size: 13px;
+  line-height: 1.3;
+  padding-bottom: 5px;
+}
+
+.ql-editor ul li {
+  font-size: 13px;
+  line-height: 1.3;
+  padding-bottom: 5px;
+}
 .add-box h2 {
   font-size: 50px;
   line-height: 50px;

@@ -9,9 +9,11 @@ import AddSkills from "../Element/AddSkills";
 import AddScreening from "../Element/AddScreening";
 import { FaCircleQuestion } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import {
   setPostAJobData,
+  setSelctedScreeningQuestionGet,
   setSkillsData,
 } from "../../store/reducers/postAJobSlice";
 import ReactQuill from "react-quill";
@@ -22,14 +24,80 @@ import CompanySideBar from "../Layout/companySideBar";
 function EmployeeComponypostjobs() {
   const postAJobData = useSelector((state) => state.postAJobSlice.postAJobData);
   const postAJobSkills = useSelector((state) => state.postAJobSlice.skillsData);
-
+  const [description, setDescription] = useState(false);
   const selelctedQuestions = useSelector(
-    (state) => state.postAJobSlice.setSelectedScreeningQuestion
+    (state) =>
+      state.postAJobSlice.selectedScreeningQuestions.screen_question_keywords
   );
   const [suggestions, setSuggestions] = useState(true);
+  const [showAiButton, setShowAiButton] = useState(true);
   const handleSuggestions = () => {
     setSuggestions(false);
   };
+
+  function renderSection(text) {
+    const htmlText = text
+      .split("\n\n")
+      .map((paragraph) => {
+        if (paragraph.startsWith("**")) {
+          const parts = paragraph.replace(/\*\*/g, "").split(":");
+          const title = parts[0].trim();
+          const content = parts.slice(1).join(":").trim();
+          return `<h2>${title}</h2><p>${content}</p>`;
+        } else if (paragraph.startsWith("*")) {
+          const items = paragraph
+            .split("\n")
+            .map((item) => `<li>${item.replace("*", "").trim()}</li>`);
+          return `<ul>${items.join("")}</ul>`;
+        }
+        return `<p>${paragraph.trim()}</p>`;
+      })
+      .join("");
+    dispatch(
+      setPostAJobData({
+        ...postAJobData,
+
+        description: htmlText,
+      })
+    );
+    setDescription(false);
+  }
+
+  // const renderSection = (section) => {
+  //   if (section.startsWith("**")) {
+  //     if (section.includes(":")) {
+  //       const [title, content] = section
+  //         .split(":")
+  //         .map((part) => part.trim().replace(/\*\*/g, ""));
+  //       return (
+  //         <div>
+  //           <h2>{title}</h2>
+  //           <p>{content}</p>
+  //         </div>
+  //       );
+  //     }
+  //     return <h2>{section.replace(/\*\*/g, "").trim()}</h2>;
+  //   } else if (section.startsWith("*")) {
+  //     const listItems = section
+  //       .split("\n")
+  //       .map((item) => item.replace("*", "").trim());
+  //     return (
+  //       <ul>
+  //         {listItems.map((item) => (
+  //           <li key={item}>{item}</li>
+  //         ))}
+  //       </ul>
+  //     );
+  //   }
+  //   dispatch(
+  //     setPostAJobData({
+  //       ...postAJobData,
+
+  //       description: `<p>${section.trim()}</p>`,
+  //     })
+  //   );
+  // };
+
   const [countries, setCountries] = useState([
     {
       id: 0,
@@ -62,7 +130,7 @@ function EmployeeComponypostjobs() {
       },
     })
       .then((res) => {
-        console.log(res.data.data.job_detail, "jijadsjklkadslj");
+        console.log(res.data.data.screen_questions, "jijadsjklkadslj");
         dispatch(
           setPostAJobData({
             ...postAJobData,
@@ -74,13 +142,41 @@ function EmployeeComponypostjobs() {
             selectedCity: res.data.data.job_detail.city_id,
             selectedState: res.data.data.job_detail.state_id,
             selectedCountry: res.data.data.job_detail.country_id,
+            job_title: res.data.data.job_detail.job_title,
           })
         );
         dispatch(setSkillsData(res.data.data.job_detail.skills_arr));
+        if (res.data.data.screen_questions !== null) {
+          dispatch(
+            setSelctedScreeningQuestionGet(res.data.data.screen_questions)
+          );
+        }
       })
       .catch((err) => {
         console.log(err, "joy");
       });
+  };
+
+  const aiJobDescription = async () => {
+    setDescription(true);
+    await axios({
+      url: `http://93.188.167.106:3002/api/employeer/ai-job-description`,
+      method: "post",
+      headers: {
+        Authorization: token,
+      },
+      data: {
+        keyword: "Job Description",
+        title: "PHP Developer",
+        workplace_type: "Remote",
+        job_type: "Full-Time",
+        company: "SVAP Infotech",
+        location: "Jaipur, Rajasthan",
+      },
+    }).then((res) => {
+      console.log(res.data.data.description);
+      renderSection(res.data.data.description);
+    });
   };
 
   const postCompleted = async () => {
@@ -98,7 +194,9 @@ function EmployeeComponypostjobs() {
         state_id: Number(postAJobData.selectedState),
         city_id: Number(postAJobData.selectedCity),
         is_publish: 1,
-        screen_questions: { screen_question_keywords: selelctedQuestions },
+        screen_questions: {
+          screen_question_keywords: selelctedQuestions,
+        },
         skills: postAJobSkills,
       },
     }).then((res) => {
@@ -238,6 +336,12 @@ function EmployeeComponypostjobs() {
     );
     getCities();
   }, [postAJobData.selectedState]);
+
+  useEffect(() => {
+    if (postAJobData.jobTitle !== "") {
+      setShowAiButton(false);
+    }
+  }, [postAJobData]);
 
   const dispatch = useDispatch();
   const handleChange = (e) => {
@@ -506,38 +610,46 @@ function EmployeeComponypostjobs() {
                         </p>
                       </div>
                     )}
-                    <div className="d-flex my-3 flex-column gap-3 ">
-                      <Button
-                        className="py-3 "
-                        style={{ borderRadius: "50px", fontWeight: "600" }}>
-                        Write With AI
-                      </Button>
-                      <Button
-                        className="py-3 mt-2 border-1 bg-transparent"
-                        style={{
-                          borderRadius: "50px",
-                          color: "#0a66c2",
-                          fontWeight: "600",
-                        }}>
-                        Write On My Own
-                      </Button>
-                    </div>
-                    <p className="text-center ">
-                      If You want help with your job description, we will use
-                      the information above and AI to suggest One. <br />{" "}
-                      <span style={{ color: "#0a66c2", fontWeight: "600" }}>
-                        Learn More
-                      </span>
-                    </p>
-                    <p className="text-center ">
-                      Limits may apply to free job posts.
-                      <span style={{ color: "#0a66c2", fontWeight: "600" }}>
-                        View Our Policy
-                      </span>
-                    </p>
+                    {showAiButton ? null : (
+                      <div>
+                        <div className="d-flex my-3 flex-column gap-3 ">
+                          <Button
+                            onClick={() => {
+                              aiJobDescription();
+                            }}
+                            className="py-3 "
+                            style={{ borderRadius: "50px", fontWeight: "600" }}>
+                            Write With AI
+                          </Button>
+                        </div>
+                        <p className="text-center ">
+                          If You want help with your job description, we will
+                          use the information above and AI to suggest One.{" "}
+                          <br />{" "}
+                          <span style={{ color: "#0a66c2", fontWeight: "600" }}>
+                            Learn More
+                          </span>
+                        </p>
+                        <p className="text-center ">
+                          Limits may apply to free job posts.
+                          <span style={{ color: "#0a66c2", fontWeight: "600" }}>
+                            View Our Policy
+                          </span>
+                        </p>
+                      </div>
+                    )}
                     <div>
                       <h4>Description</h4>
-                      <TextEditor value={postAJobData.description} />
+                      {description ? (
+                        <div>
+                          <Skeleton width={718} />
+                          <Skeleton width={726} />
+                          <Skeleton width={732} />
+                          <Skeleton width={740} />
+                        </div>
+                      ) : (
+                        <TextEditor value={postAJobData.description} />
+                      )}
                     </div>
                     <div>
                       <h4>Skills</h4>

@@ -13,12 +13,12 @@ const postBlog = [
 ];
 
 function Jobsappliedjob() {
-  const [data,setData] = useState([])
-const token = localStorage.getItem("jobSeekerLoginToken")
-  useEffect(()=>{
+  const [data, setData] = useState([]);
+  const token = localStorage.getItem("jobSeekerLoginToken");
+  useEffect(() => {
     axios({
       method: "GET",
-      url: "https://jobsbooklet.in/api/jobseeker/job-lists",
+      url: "https://jobsbooklet.in/api/jobseeker/jobs-applied",
       headers: {
         Authorization: token,
         "Content-Type": "application/json",
@@ -29,12 +29,12 @@ const token = localStorage.getItem("jobSeekerLoginToken")
         setData(response.data.data);
       })
       .catch((err) => console.log(err));
-  },[])
+  }, []);
 
   return (
     <>
       <Header2 />
-    <FixedHeader />
+      <FixedHeader />
 
       <div className="page-content bg-white">
         <div className="content-block">
@@ -44,7 +44,6 @@ const token = localStorage.getItem("jobSeekerLoginToken")
                 <div className="col-xl-3 col-lg-4 m-b30">
                   <div className="sticky-top">
                     <div className="candidate-info">
-                      
                       <ul>
                         <li>
                           <Link to={"/user/jobs-profile"}>
@@ -56,8 +55,7 @@ const token = localStorage.getItem("jobSeekerLoginToken")
                           <Link to={"/user/jobs-my-resume"}>
                             <i
                               className="fa fa-file-text-o"
-                              aria-hidden="true"
-                            ></i>
+                              aria-hidden="true"></i>
                             <span>My Resume</span>
                           </Link>
                         </li>
@@ -70,12 +68,10 @@ const token = localStorage.getItem("jobSeekerLoginToken")
                         <li>
                           <Link
                             to={"/user/jobs-applied-job"}
-                            className="active"
-                          >
+                            className="active">
                             <i
                               className="fa fa-briefcase"
-                              aria-hidden="true"
-                            ></i>
+                              aria-hidden="true"></i>
                             <span>Applied Jobs</span>
                           </Link>
                         </li>
@@ -89,8 +85,7 @@ const token = localStorage.getItem("jobSeekerLoginToken")
                           <Link to={"/user/jobs-cv-manager"}>
                             <i
                               className="fa fa-id-card-o"
-                              aria-hidden="true"
-                            ></i>
+                              aria-hidden="true"></i>
                             <span>CV Manager</span>
                           </Link>
                         </li>
@@ -104,8 +99,7 @@ const token = localStorage.getItem("jobSeekerLoginToken")
                           <Link to={"./"}>
                             <i
                               className="fa fa-sign-out"
-                              aria-hidden="true"
-                            ></i>
+                              aria-hidden="true"></i>
                             <span>Log Out</span>
                           </Link>
                         </li>
@@ -129,28 +123,37 @@ const token = localStorage.getItem("jobSeekerLoginToken")
                     </div>
                   </div>
                   <ul className="post-job-bx browse-job">
-                    {data.map((item, index) =>{
-                      
-                      const formattedCreatedDate = moment(item.job_detail.created_at).format('YYYY-MM-DD')
-return   <li key={index}>
-<div className="post-bx">
-  <div className="job-post-info m-a0">
-    <h4>
-      <Link to={"/user/job-detail"}>{item.job_detail.job_title}</Link>
-    </h4>
-    <ul>
-      <li>
-       {item.job_category.name}
-      </li>
-      <li>
-{item.job_type.name}
-      </li>
-      <li>
-       {item.job_workplace_types.name}
-      </li>
-    </ul>
-    <p>{item.job_detail.job_description}</p>
-    {/* <ul>
+                    {data.map((item, index) => {
+                      const formattedCreatedDate = moment(
+                        item.job_detail.created_at
+                      ).fromNow();
+
+                      return (
+                        <li key={index}>
+                          <div className="post-bx">
+                            <div className="job-post-info m-a0">
+                              <h4>
+                                <Link to={"/user/job-detail"}>
+                                  {item.job_detail.job_title}
+                                </Link>
+                              </h4>
+                              <ul>
+                                {item.countries.name ? (
+                                  <li>
+                                    <i className="fa fa-map-marker"></i>{" "}
+                                    {item.countries.name}, {item.states.name},
+                                    {item.cities.name}
+                                  </li>
+                                ) : null}
+                                <li>
+                                  <i className="fa fa-bookmark-o"></i>{" "}
+                                  {item.job_category.name}
+                                </li>
+                                <li>{item.job_type.name}</li>
+                                <li>{item.job_workplace_types.name}</li>
+                              </ul>
+                              {/* <p>{item.job_detail.job_description}</p> */}
+                              {/* <ul>
       <li>
         <Link to={"/user/company-profile"}>
           @company-name
@@ -164,32 +167,35 @@ return   <li key={index}>
         <i className="fa fa-money"></i> 25,000
       </li>
     </ul> */}
-    <div className="job-time m-t15 m-b10">
-    {item.job_detail.skills_arr.map((item,index)=>{
-      return (
-        <span key={index}>{item}</span>
-      )
-    })}
-    </div>
-    <div className="posted-info clearfix">
-      <p className="m-tb0 text-primary float-left">
-        <span className="text-black m-r10">
-          Posted:
-        </span>{" "}
-        {formattedCreatedDate}
-      </p>
-      <Link
-        to={"/jobs-my-resume"}
-        className="site-button button-sm float-right"
-      >
-        Apply Job
-      </Link>
-    </div>
-  </div>
-</div>
-</li>
-                    }
-                    )}
+                              <div className="job-time m-t15 m-b10">
+                                {item.job_detail.skills_arr ? (
+                                  <div>
+                                    {item.job_detail.skills_arr.map(
+                                      (item, index) => {
+                                        return <span key={index}>{item}</span>;
+                                      }
+                                    )}
+                                  </div>
+                                ) : null}
+                              </div>
+                              <div className="posted-info clearfix">
+                                <p className="m-tb0 text-primary float-left">
+                                  <span className="text-black m-r10">
+                                    Posted:
+                                  </span>{" "}
+                                  {formattedCreatedDate}
+                                </p>
+                                <Link
+                                  to={"/jobs-my-resume"}
+                                  className="site-button button-sm float-right">
+                                  Job Details
+                                </Link>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
                   </ul>
                   <div className="pagination-bx m-t30">
                     <ul className="pagination">

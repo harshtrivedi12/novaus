@@ -1,357 +1,161 @@
-import React,{useState} from 'react';
-import {Link} from 'react-router-dom';
-import {Modal} from 'react-bootstrap';
-import swal from "sweetalert";
-import {nanoid} from 'nanoid';
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { setJobApplicationData } from "../../store/reducers/jobApplicationSlice";
+import moment from "moment";
 
+const postBlog = [
+  {
+    image: require("./../../images/logo/icon1.png"),
+  },
+  {
+    image: require("./../../images/logo/icon1.png"),
+  },
+  {
+    image: require("./../../images/logo/icon1.png"),
+  },
+  {
+    image: require("./../../images/logo/icon1.png"),
+  },
+  {
+    image: require("./../../images/logo/icon1.png"),
+  },
+  {
+    image: require("./../../images/logo/icon1.png"),
+  },
+];
 
-const jobAlert=[
-	{ id:1, title: 'Social Media Expert', company:"@company-name", date:'December 15,2018', },
-	{ id:2, title: 'Web Designer',		company:"@company-name", date:'November 10,2018', },
-	{ id:3, title: 'Finance Accountant', 	company:"@company-name", date:'October 5,2018', },
-	{ id:4, title: 'Social Media Expert', company:"@company-name", date:'December 15,2018', },
-	{ id:5, title: 'Web Designer', 		company:"@company-name", date:'November 10,2018', },
-	{ id:6, title: 'Finance Accountant',	company:"@company-name", date:'October 5,2018', },
-	{ id:7, title: 'Social Media Expert', company:"@company-name", date:'December 15,2018', },
-	{ id:8, title: 'Web Designer', 		company:"@company-name", date:'November 10,2018', },
-	{ id:9, title: 'Finance Accountant',	company:"@company-name", date:'October 5,2018', },
-	{ id:10, title: 'Social Media Expert', company:"@company-name", date:'December 15,2018', },	
-]
-
-
-const SavedJobs = () =>{	
-
-    const [postModal, setPostModal] = useState(false);
-    const [contacts, setContacts] = useState(jobAlert);
-    // delete data  
-    const handleDeleteClick = (contactId) => {
-        const newContacts = [...contacts];    
-        const index = contacts.findIndex((contact)=> contact.id === contactId);
-        newContacts.splice(index, 1);
-        setContacts(newContacts);
+const SavedJobs = () => {
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("jobSeekerLoginToken");
+  const jobApplicationData = useSelector(
+    (state) => state.jobApplicationSlice.jobApplicationData
+  );
+  const fetchJobApplicationData = async () => {
+    try {
+      const response = await axios.get(
+        "https://jobsbooklet.in/api/jobseeker/job-lists?is_job_favorite=1",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      dispatch(setJobApplicationData(response.data.data));
+    } catch (error) {
+      console.log(error);
     }
-    
-    //Add data 
-    const [addFormData, setAddFormData ] = useState({
-        title:'',
-        company:'',
-        date:'', 
-		image:''
-    }); 
-    
-    // Add contact function
-    const handleAddFormChange = (event) => {
-        event.preventDefault();    
-        const fieldName = event.target.getAttribute('name');
-        const fieldValue = event.target.value;
-        const newFormData = {...addFormData};
-        newFormData[fieldName] = fieldValue;
-        setAddFormData(newFormData);
-    };
-    
-     //Add Submit data
-    const handleAddFormSubmit = (event)=> {
-        event.preventDefault();
-        var error = false;
-		var errorMsg = '';
-        if(addFormData.title === ""){
-            error = true;
-			errorMsg = 'Please fill title';
-        }else if(addFormData.company === ""){
-            error = true;
-			errorMsg = 'Please fill Company name.';
-        }
-        else if(addFormData.date === ""){
-            error = true;
-			errorMsg = 'Please fill Date';
-        }
-        if(!error){
-            const newContact = {
-                id: nanoid(),
-                title: addFormData.title,
-                company:  addFormData.company,
-                date:  addFormData.date ,
-				image: addFormData.image,
-            };
-            const newContacts = [...contacts, newContact];
-            setContacts(newContacts);
-            setPostModal(false);
-            swal('Good job!', 'Successfully Added', "success");
-            addFormData.title = addFormData.company = addFormData.date = '';         
-            
-        }else{
-			swal('Oops', errorMsg, "error");
-		}
-    }; 
-    
-    
-    const [editModal, setEditModal] = useState(false);
-    
-    // Edit function editable page loop
-    const [editContactId, setEditContactId] = useState(null);
-   
-    // Edit function button click to edit
-    const handleEditClick = ( event, contact) => {
-        event.preventDefault();
-        setEditContactId(contact.id);
-        const formValues = {
-            title: contact.title,
-            company: contact.company,
-            date: contact.date,
-			image: contact.image,
-        }
-        setEditFormData(formValues);
-        setEditModal(true);
-    };
-    
-    
-    // edit  data  
-    const [editFormData, setEditFormData] = useState({
-        title:'',
-        company:'',
-        date:'',
-		image:'',
-    })
-    
-    //update data function
-    const handleEditFormChange = (event) => {
-        event.preventDefault();   
-        const fieldName = event.target.getAttribute('name');
-        const fieldValue = event.target.value;
-        const newFormData = {...editFormData};
-        newFormData[fieldName] = fieldValue;
-        setEditFormData(newFormData);
-    };
-    
-    // edit form data submit
-    const handleEditFormSubmit = (event) => {
-        event.preventDefault();
-        const editedContact = {
-            id: editContactId,
-            title: editFormData.title,
-            company: editFormData.company,
-            date: editFormData.date,
-			image: editFormData.image,
-        }
-        const newContacts = [...contacts];
-        const index = contacts.findIndex((contact)=> contact.id === editContactId);
-        newContacts[index] = editedContact;
-        setContacts(newContacts);
-        setEditContactId(null);
-        setEditModal(false);    
+  };
+
+  useEffect(() => {
+    fetchJobApplicationData();
+  }, []);
+
+  const toggleFabJobs = async (id) => {
+    try {
+      await axios({
+        url: "http://93.188.167.106:3001/api/jobseeker/job-favorites",
+        method: "POST",
+        headers: { Authorization: token },
+        data: {
+          job_id: id,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+      console.log(error);
     }
-    
-	//For Image upload in ListBlog
-	/* const [file, setFile] = React.useState(null)
-    const fileHandler = (e) => {
-        setFile(e.target.files[0]);
-		setTimeout(function(){
-			var src = document.getElementById("saveImageFile").getAttribute("src");
-			addFormData.image = src; 
-		}, 200);
-    } */
-	
-	
-	return(
-		<>
-			
-			<div className="job-bx save-job browse-job table-job-bx clearfix">
-				<div className="job-bx-title clearfix">
-					<h5 className="font-weight-700 pull-left text-uppercase">269 Saved Jobs</h5>
-					<div className="float-right">
-						<span className="select-title">Sort by freshness</span>
-						{/* <select className="custom-btn">
-							<option>Last 2 Months</option>
-							<option>Last Months</option>
-							<option>Last Weeks</option>
-							<option>Last 3 Days</option>
-						</select> */}
-						<Link to={"#"} className="btn site-button" onClick={()=> setPostModal(true)}>+ Add Job</Link>
-					</div>
-				</div>
-				<table>
-					<thead>
-						<tr>
-							<th></th>
-							<th>Premium jobs</th>
-							<th>Company</th>
-							<th>Date</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						 {contacts.map((contact, index)=>(
-							<tr key={index}>
-								<td className="job-post-company">
-									<Link to={"#"}><span>
-										<img alt="" src={require("./../../images/logo/icon2.png")} />
-									</span></Link>
-								</td>
-								<td className="job-name"><Link to={"/job-detail"}>{contact.title}</Link></td>
-								<td className="criterias text-primary"><Link to={"/company-profile"}>{contact.company}</Link></td>
-								<td className="date">{contact.date}</td>
-								<td className="job-links pencil">
-									<Link to={"#"} 
-										onClick={(event) => handleEditClick(event, contact)}
-									>
-										<i className="fa fa-pencil"></i>
-									</Link>
-									<Link to={"#"}
-										onClick={()=>handleDeleteClick(contact.id)}
-									>
-										<i className="ti-trash"></i>
-									</Link>
-								</td>
-							</tr>
-						))}
-						
-					</tbody>
-				</table>
-				<div className="pagination-bx float-right">
-					<ul className="pagination">
-						<li className="previous"><Link to={"#"}><i className="ti-arrow-left"></i> Prev</Link></li>
-						<li className="active"><Link to={"#"}>1</Link></li>
-						<li><Link to={"#"}>2</Link></li>
-						<li><Link to={"#"}>3</Link></li>
-						<li className="next"><Link to={"#"}>Next <i className="ti-arrow-right"></i></Link></li>
-					</ul>
-				</div>
-			</div>
-			
-			<Modal className="modal modal-bx-info fade"  show={postModal} onHide={setPostModal} >
-				<div className="">
-					<div className="">
-						<form >
-							<div className="modal-header">
-								<h4 className="modal-title fs-20">Add Task</h4>
-								<button type="button" className="close" onClick={()=> setPostModal(false)}>
-									<span>×</span>
-								</button>
-							</div>
-							<div className="modal-body">
-								<i className="flaticon-cancel-12 close"></i>
-								<div className="add-contact-box">
-									<div className="add-contact-content">
-										{/* <div className="image-placeholder">	
-											<div className="avatar-edit">
-												<input type="file" onChange={fileHandler} id="imageUpload" 
-													onClick={(event) => setFile(event.target.value)}
-												/> 					
-												<label htmlFor="imageUpload" name=''  ></label>
-											</div>
-											<div className="avatar-preview">
-												<div id="imagePreview">
-													<img id="saveImageFile" src={file? URL.createObjectURL(file) : user} 
-														alt={file? file.name : null}
-													/>
-												</div>
-											</div>
-										</div>  */}
-										 <div className="form-group">
-											<label className="text-black font-w500">Job Title</label>
-											<div className="contact-name">
-												<input type="text"  className="form-control"  autocomplete="off"
-													name="title" required="required"
-													onChange={handleAddFormChange}
-													placeholder="title"
-												/>
-												
-											</div>
-										</div>
-										<div className="form-group ">
-											<label className="text-black font-w500">Company Name</label>
-											<div className="contact-name">
-												<input type="text"  className="form-control"  autocomplete="off"
-													name="company" required="required"
-													onChange={handleAddFormChange}
-													placeholder="Company Name"
-												/>
-												
-											</div>
-										</div>
-										<div className="form-group ">
-											<label className="text-black font-w500">Date</label>
-											<div className="contact-occupation">
-												<input type="text"   autocomplete="off"
-													onChange={handleAddFormChange}
-													name="date" required="required"
-													className="form-control" placeholder="date" 
-												/>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="modal-footer">
-								<button type="submit" className="btn btn-primary" onClick={handleAddFormSubmit}>Add</button>  
-								<button type="button" onClick={()=> setPostModal(false)} className="btn btn-danger"> <i className="flaticon-delete-1"></i> Discard</button>      
-							</div>
-						</form>
-						
-					</div>
-				</div>
-			</Modal>
-			<Modal className="modal modal-bx-info"  show={editModal} onHide={setEditModal} >
-				<div className="" >
-					<div className="">
-						<form >
-							<div className="modal-header">
-								<h4 className="modal-title fs-20">Edit Task</h4>
-								<button type="button" className="close" onClick={()=> setEditModal(false)}>
-									<span>×</span>
-								</button>
-							</div>
-							<div className="modal-body">
-								<i className="flaticon-cancel-12 close" ></i>
-								<div className="add-contact-box">
-									<div className="add-contact-content">
-										<div className="form-group ">
-											<label className="text-black font-w500">Job Title</label>
-											<div className="contact-name">
-												<input type="text"  className="form-control"  autocomplete="off"
-													name="title" required="required"
-													value={editFormData.title}
-													onChange={handleEditFormChange}
-												/>
-											</div>
-										</div>
-										<div className="form-group ">
-											<label className="text-black font-w500">Company Name</label>
-											<div className="contact-name">
-												<input type="text"  className="form-control"  autocomplete="off"
-													name="company" required="required"
-													value={editFormData.company}
-													onChange={handleEditFormChange}
-												/>
-												<span className="validation-text"></span>
-											</div>
-										</div>
-										<div className="form-group ">
-											<label className="text-black font-w500">Client</label>
-											<div className="contact-occupation">
-												<input type="text"   autocomplete="off"
-													value={editFormData.date}
-													onChange={handleEditFormChange}
-													name="date" required="required"
-													className="form-control" placeholder="name" 
-												/>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="modal-footer">
-								<button type="submit" className="btn btn-primary" onClick={handleEditFormSubmit}>Save</button>  
-								<button type="button" onClick={()=> setEditModal(false)} className="btn btn-danger">
-									<i className="flaticon-delete-1"></i> Discard
-								</button>      
-							</div>
-						</form>
-						
-					</div>
-				</div>
-			</Modal>
-		</>
-	)
-}
+  };
+
+  return (
+    <div className="section-full bg-white content-inner-2">
+      <div className="container">
+        <div className="d-flex job-title-bx section-head">
+          <div className="mr-auto">
+            <h2 className="m-b5">Recent Jobs</h2>
+            <h6 className="fw4 m-b0">20+ Recently Added Jobs</h6>
+          </div>
+          <div className="align-self-end">
+            <Link to={"/browse-job-list"} className="site-button button-sm">
+              Browse All Jobs <i className="fa fa-long-arrow-right"></i>
+            </Link>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-12">
+            <ul className="post-job-bx browse-job">
+              {jobApplicationData.map((item, index) => (
+                <li key={index}>
+                  <div className="post-bx">
+                    <div className="d-flex m-b30">
+                      <div className="job-post-company">
+                        <span>
+                          <img alt="" src={postBlog[0].image} />
+                        </span>
+                      </div>
+                      <div className="job-post-info">
+                        <h4>
+                          <Link to={"/job-detail"}>
+                            {item.job_detail.job_title}
+                          </Link>
+                        </h4>
+                        <ul>
+                          <li>
+                            <i className="fa fa-map-marker"></i>{" "}
+                            {item.countries.name}, {item.states.name},
+                            {item.cities.name}
+                          </li>
+                          {item.job_category.name ? (
+                            <li>
+                              <i className="fa fa-bookmark-o"></i>{" "}
+                              {item.job_category.name}
+                            </li>
+                          ) : null}
+                          <li>
+                            <i className="fa fa-clock-o"></i>{" "}
+                            {moment(item.job_detail.created_at).fromNow()}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="d-flex">
+                      <div className="job-time mr-auto">
+                        <Link to={"#"}>
+                          <span>{item.job_type.name}</span>
+                        </Link>
+                      </div>
+                      <div className="salary-bx">
+                        <span> {item.job_workplace_types.name}</span>
+                      </div>
+                    </div>
+                    <label
+                      className="like-btn"
+                      labl
+                      onClick={() => {
+                        toggleFabJobs(item.job_detail.id);
+                      }}>
+                      <input
+                        type="checkbox"
+                        defaultChecked={item.job_detail.is_job_favorite}
+                        name={item.job_detail.id}
+                      />
+                      <span className="checkmark"></span>
+                    </label>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="col-lg-3"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
 export default SavedJobs;
