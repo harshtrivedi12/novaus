@@ -620,14 +620,17 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "./../Layout/Header";
 import Footer from "./../Layout/Footer";
-import { FaTimes } from "react-icons/fa";
+import { FaSave, FaTimes } from "react-icons/fa";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Tab, Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
-import { setJobApplicationData } from "../../store/reducers/jobApplicationSlice";
+import {
+  setJobApplicationData,
+  setJobApplicationValues,
+} from "../../store/reducers/jobApplicationSlice";
 import moment from "moment";
 
 function JobPage() {
@@ -694,6 +697,166 @@ function JobPage() {
     fetchJobApplicationData();
   }, [dispatch, token]);
 
+  const jobApplicationValues = useSelector(
+    (state) => state.jobApplicationSlice.jobApplicationValues
+  );
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(
+      setJobApplicationValues({ ...jobApplicationValues, [name]: value })
+    );
+  };
+  const [countries, setCountries] = useState([
+    {
+      id: 0,
+      name: "",
+    },
+  ]);
+
+  const [states, setStates] = useState([
+    {
+      id: 0,
+      name: "",
+    },
+  ]);
+
+  const [cities, setCities] = useState([
+    {
+      id: 0,
+      name: "",
+    },
+  ]);
+
+  const [workplace_type, setWorkplace_type] = useState([
+    {
+      id: 0,
+      name: "",
+    },
+  ]);
+
+  const [experience, setExperience] = useState([
+    {
+      id: 0,
+      name: "",
+    },
+  ]);
+
+  const getWorkplaceType = () => {
+    axios({
+      method: "GET",
+      url: "http://93.188.167.106:3001/api/jobseeker/workplace-types",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        console.log(response.data.data);
+        setWorkplace_type(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getCountry = () => {
+    axios({
+      method: "GET",
+      url: "http://93.188.167.106:3001/api/jobseeker/countries",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        let country = response.data.data;
+        setCountries(country);
+      })
+      .catch((err) => {
+        console.log(err);
+        setCities([]);
+      });
+  };
+
+  const getState = () => {
+    axios({
+      method: "GET",
+      url: `http://93.188.167.106:3001/api/jobseeker/stats/${jobApplicationValues.country_id}`,
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        console.log(response.data.data, "STATE");
+        setStates(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err, "STATE");
+        setStates([]);
+        setCities([]);
+      });
+  };
+
+  const getCities = () => {
+    axios({
+      method: "GET",
+      url: `http://93.188.167.106:3001/api/jobseeker/cities/${jobApplicationValues.state_id}`,
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        console.log(response, "CITY");
+        setCities(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err, "CITY");
+        setCities([]);
+      });
+  };
+
+  const getExperience = () => {
+    axios({
+      method: "GET",
+      url: "http://93.188.167.106:3001/api/jobseeker/experience-level",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        console.log(response.data.data);
+        setExperience(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getExperience();
+    getWorkplaceType();
+    getCountry();
+  }, []);
+
+  useEffect(() => {
+    dispatch(
+      setJobApplicationValues({
+        ...jobApplicationValues,
+        state_id: 0,
+        city_id: 0,
+      })
+    );
+    getState();
+  }, [jobApplicationValues.country_id]);
+
+  useEffect(() => {
+    dispatch(
+      setJobApplicationValues({
+        ...jobApplicationValues,
+        city_id: 0,
+      })
+    );
+    getCities();
+  }, [jobApplicationValues.state_id]);
+
   return (
     <>
       <Header />
@@ -702,6 +865,142 @@ function JobPage() {
       <div className="page-content bg-white">
         <div className="content-block">
           <div className="section-full bg-white p-t50 p-b20">
+            <div className="container">
+              <div className="row justify-content-center align-items-center  ">
+                <div className="col-lg-2  col-md-5 col-12  ">
+                  <div className="form-group">
+                    <label htmlFor="country_id">Country:</label>
+                    <select
+                      type="text"
+                      className="form-control"
+                      id="country_id"
+                      name="country_id"
+                      onChange={handleChange}
+                      value={jobApplicationValues.country_id}
+                    >
+                      <option value="">Select a country</option>
+                      {countries.map((item, index) => {
+                        return (
+                          <option key={index} value={item.id}>
+                            {item.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-lg-2  col-md-5 col-12 ">
+                  <div className="form-group">
+                    <label htmlFor="state_id">State:</label>
+                    <select
+                      type="text"
+                      className="form-control"
+                      id="state_id"
+                      name="state_id"
+                      onChange={handleChange}
+                      value={jobApplicationValues.state_id}
+                    >
+                      <option value="">Select a State</option>
+                      {states.map((item, index) => {
+                        return (
+                          <option key={index} value={item.id}>
+                            {item.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-lg-2  col-md-5 col-12  ">
+                  <div className="form-group">
+                    <label htmlFor="city_id">City:</label>
+                    {cities ? (
+                      <select
+                        type="text"
+                        className="form-control"
+                        // placeholder="London"
+                        id="city_id"
+                        name="city_id"
+                        onChange={handleChange}
+                        value={jobApplicationValues.city_id}
+                      >
+                        <option value="">Select A City</option>
+
+                        {cities.map((item, index) => {
+                          return (
+                            <option key={index} value={item.id}>
+                              {item.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    ) : null}
+                  </div>
+                </div>
+
+                <div className="col-lg-2  col-md-5 col-12 ">
+                  <div className="form-group">
+                    <label htmlFor="workplace_type">WorkPlace Type:</label>
+                    {cities ? (
+                      <select
+                        type="text"
+                        className="form-control"
+                        // placeholder="London"
+                        id="workplace_type"
+                        name="workplace_type"
+                        onChange={handleChange}
+                        value={jobApplicationValues.workplace_type}
+                      >
+                        <option value="">Select WorkPlace Type</option>
+                        {workplace_type.map((item, index) => {
+                          return (
+                            <option key={index} value={item.id}>
+                              {item.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    ) : null}
+                  </div>
+                </div>
+
+                <div className="col-lg-2  col-md-5 col-12  ">
+                  <div className="form-group">
+                    <label htmlFor="experience_level">Experience Level:</label>
+                    {experience ? (
+                      <select
+                        type="text"
+                        className="form-control"
+                        // placeholder="London"
+                        id="experience_level"
+                        name="experience_level"
+                        onChange={handleChange}
+                        value={jobApplicationValues.experience_level}
+                      >
+                        <option value="">Select Experience Level</option>
+                        {experience.map((item, index) => {
+                          return (
+                            <option key={index} value={item.id}>
+                              {item.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    ) : null}
+                  </div>
+                </div>
+
+                <button
+                  className="px-3 py-2 site-button d-flex align-items-center "
+                  style={{ gap: "7px" }}
+                >
+                  <FaSave />
+                  Save
+                </button>
+              </div>
+            </div>
             <div className="container">
               <div className="row">
                 <div className="col-xl-4 col-lg-5 m-b30">
@@ -734,28 +1033,52 @@ function JobPage() {
                                 </span>
                               </h6>
                               {job.job_detail.job_title && (
-                                <p className="mb-0" style={{ color: "#1c2957" }}>
+                                <p
+                                  className="mb-0"
+                                  style={{ color: "#1c2957" }}
+                                >
                                   {job.job_detail.job_title}
                                 </p>
                               )}
                               {job.job_detail.job_description && (
-                                <p className="mb-0" style={{ color: "#1c2957" }}>
+                                <p
+                                  className="mb-0"
+                                  style={{ color: "#1c2957" }}
+                                >
                                   {job.job_detail.job_description}
                                 </p>
                               )}
-                              <div className="d-flex flex-row mb-0 " style={{gap:"7px"}}>
-                                {job.job_detail.skills_arr.map((item,index)=>(
-                                  <p className="mb-0 " key={index}>{item}</p>
-                                ))}
+                              <div
+                                className="d-flex flex-row mb-0 "
+                                style={{ gap: "7px" }}
+                              >
+                                {job.job_detail.skills_arr.map(
+                                  (item, index) => (
+                                    <p className="mb-0 " key={index}>
+                                      {item}
+                                    </p>
+                                  )
+                                )}
                               </div>
-                              <div className="d-flex flex-row gap-2 align-items-center " style={{gap: "7px"}}>
-                                {job.job_category && <p>{job.job_category.name}</p>}
+                              <div
+                                className="d-flex flex-row gap-2 align-items-center "
+                                style={{ gap: "7px" }}
+                              >
+                                {job.job_category && (
+                                  <p>{job.job_category.name}</p>
+                                )}
                                 {job.job_type && <p>{job.job_type.name}</p>}
-                                {job.job_workplace_types.name && <p>{job.job_workplace_types.name}</p>}
+                                {job.job_workplace_types.name && (
+                                  <p>{job.job_workplace_types.name}</p>
+                                )}
                               </div>
                               {job.job_detail.created_at && (
                                 <p>
-                                  Posted {moment(job.job_detail.created_at).format("YYYY-MM-DD")} ago
+                                  Posted{" "}
+                                  {moment(job.job_detail.created_at).format(
+                                    "YYYY-MM-DD"
+                                  )}{" "}
+                                  ago
                                 </p>
                               )}
                             </Link>
@@ -771,7 +1094,8 @@ function JobPage() {
                       <div className="candidate-title">
                         <Link to="#">
                           <h3 className="mb-1">
-                            {selectedJob.s_no}. {selectedJob.job_detail.job_title}
+                            {selectedJob.s_no}.{" "}
+                            {selectedJob.job_detail.job_title}
                           </h3>
                         </Link>
                         {selectedJob.job_detail.job_description && (
@@ -781,25 +1105,42 @@ function JobPage() {
                         )}
                       </div>
                       <div className="job-details-content">
-                        {selectedJob.job_workplace_types.name && selectedJob.job_type.name && selectedJob.job_category.name && (
-                          <p className="mb-0">
-                            {selectedJob.job_workplace_types.name} | {selectedJob.job_type.name} | {selectedJob.job_category.name}
-                          </p>
-                        )}
-                        <div className="d-flex" style={{gap:"7px"}}>
-                          {selectedJob.job_detail.skills_arr.map((item,index) => (
-                            <p key={index} className="mb-5">{item}</p>
-                          ))}
+                        {selectedJob.job_workplace_types.name &&
+                          selectedJob.job_type.name &&
+                          selectedJob.job_category.name && (
+                            <p className="mb-0">
+                              {selectedJob.job_workplace_types.name} |{" "}
+                              {selectedJob.job_type.name} |{" "}
+                              {selectedJob.job_category.name}
+                            </p>
+                          )}
+                        <div className="d-flex" style={{ gap: "7px" }}>
+                          {selectedJob.job_detail.skills_arr.map(
+                            (item, index) => (
+                              <p key={index} className="mb-5">
+                                {item}
+                              </p>
+                            )
+                          )}
                         </div>
                         {selectedJob.job_detail.skills && (
                           <p>Skills: {selectedJob.job_detail.skills}</p>
                         )}
                         {selectedJob.job_detail.created_at && (
-                          <p>Posted {moment(selectedJob.job_detail.created_at).format("YYYY-MM-DD")} ago</p>
+                          <p>
+                            Posted{" "}
+                            {moment(selectedJob.job_detail.created_at).format(
+                              "YYYY-MM-DD"
+                            )}{" "}
+                            ago
+                          </p>
                         )}
                       </div>
                       <div className="d-flex justify-content-start align-items-center">
-                        <button className="radius-xl site-button" onClick={handleShow}>
+                        <button
+                          className="radius-xl site-button"
+                          onClick={handleShow}
+                        >
                           Apply
                         </button>
                         <Modal
@@ -808,26 +1149,33 @@ function JobPage() {
                           backdrop="static"
                           keyboard={false}
                         >
-                          <Modal.Header closeButton style={{ backgroundColor: "#ffff" }} className="mt-4">
+                          <Modal.Header
+                            closeButton
+                            style={{ backgroundColor: "#ffff" }}
+                            className="mt-4"
+                          >
                             <Modal.Title style={{ color: "#000" }}>
                               <p> Apply to {selectedJob.company}</p>
                             </Modal.Title>
                           </Modal.Header>
                           <Modal.Body>
-                            <Tab.Container id="tabs-example" activeKey={activeTab}>
+                            <Tab.Container
+                              id="tabs-example"
+                              activeKey={activeTab}
+                            >
                               {/* Tab Content */}
-       
-                               <Tab.Content>
-                                 <Tab.Pane eventKey="contact-info">
-                                   <form className="col-12 p-a0">
-                                     <h6 className="font-weight-600">
-                                       Contact info
-                                     </h6>
-                                     <div>
-                                       <h6 className="mb-0">
-                                         <span>
-                                           {" "}
-                                           <i
+
+                              <Tab.Content>
+                                <Tab.Pane eventKey="contact-info">
+                                  <form className="col-12 p-a0">
+                                    <h6 className="font-weight-600">
+                                      Contact info
+                                    </h6>
+                                    <div>
+                                      <h6 className="mb-0">
+                                        <span>
+                                          {" "}
+                                          <i
                                             className="fa fa-user-o"
                                             aria-hidden="true"
                                           ></i>{" "}
@@ -1005,22 +1353,30 @@ function JobPage() {
                                   </form>
                                 </Tab.Pane>
                               </Tab.Content>
-
                             </Tab.Container>
                           </Modal.Body>
                           <Modal.Footer>
                             {activeTab !== "contact-info" && (
-                              <button className="site-button mr-2" onClick={handlePrev}>
+                              <button
+                                className="site-button mr-2"
+                                onClick={handlePrev}
+                              >
                                 Previous
                               </button>
                             )}
                             {activeTab !== "immediate-info" && (
-                              <button className="site-button" onClick={handleNext}>
+                              <button
+                                className="site-button"
+                                onClick={handleNext}
+                              >
                                 Next
                               </button>
                             )}
                             {activeTab === "immediate-info" && (
-                              <button className="site-button" onClick={handleClose}>
+                              <button
+                                className="site-button"
+                                onClick={handleClose}
+                              >
                                 Submit
                               </button>
                             )}

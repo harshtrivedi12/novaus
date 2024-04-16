@@ -36,7 +36,7 @@ function EmployeeCompanymanage() {
                     </div>
                     <ul className="post-job-bx browse-job">
                       <li>
-                        <div className="post-bx">
+                        <div className="post-bx d-flex w-100 justify-content-between ">
                           <div className="job-post-info m-a0">
                             <h4 className="mb-0">
                               <a href="/react/demo/job-detail">
@@ -63,6 +63,31 @@ function EmployeeCompanymanage() {
                             <p style={{ color: "#007bff" }} className="">
                               Complete draft
                             </p>
+                          </div>
+                          <div
+                            className="d-flex flex-row justify-content-center align-items-center "
+                            style={{ gap: "12px" }}
+                          >
+                            <button
+                              className="px-3 py-2 site-button text-white border-0"
+                              style={{
+                                backgroundColor: "#3053e3",
+                                borderRadius: "7px",
+                                cursor: "pointer",
+                              }}
+                            >
+                              Publish
+                            </button>
+                            <button
+                              className="px-3 site-button py-2  text-white border-0"
+                              style={{
+                                borderRadius: "7px",
+                                cursor: "pointer",
+                                backgroundColor: "red",
+                              }}
+                            >
+                              Draft
+                            </button>
                           </div>
                         </div>
                       </li>

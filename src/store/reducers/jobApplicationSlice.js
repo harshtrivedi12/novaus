@@ -1,6 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  jobApplicationData: []
+  jobApplicationData: [],
+  jobApplicationValues: {
+    country_id: "",
+    city_id: "",
+    state_id: "",
+    workplace_type: "",
+    experience_level: "",
+  },
 };
 
 const jobApplicationSlice = createSlice({
@@ -10,8 +17,12 @@ const jobApplicationSlice = createSlice({
     setJobApplicationData: (state, action) => {
       state.jobApplicationData = action.payload;
     },
+    setJobApplicationValues: (state, action) => {
+      state.jobApplicationValues = action.payload;
+    },
   },
 });
 
-export const { setJobApplicationData } = jobApplicationSlice.actions;
+export const { setJobApplicationData, setJobApplicationValues } =
+  jobApplicationSlice.actions;
 export default jobApplicationSlice.reducer;
