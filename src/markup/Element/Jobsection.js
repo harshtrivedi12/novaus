@@ -101,7 +101,7 @@ function Jobsection() {
                       </div>
                       <div className="job-post-info">
                         <h4>
-                          <Link to={"/job-detail"}>
+                          <Link to={`/user/job-detail/${item.job_detail.id}`}>
                             {item.job_detail.job_title}
                           </Link>
                         </h4>

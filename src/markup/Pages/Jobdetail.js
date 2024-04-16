@@ -210,11 +210,6 @@ function Jobdetail() {
 
                       <div className="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
 
-                      <button
-                        className="radius-xl site-button"
-                        onClick={handleShow}>
-                        Apply
-                      </button>
                       {jobData.job_detail.is_job_applied ? (
                         <button
                           className="radius-xl site-button"

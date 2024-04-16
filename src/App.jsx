@@ -118,6 +118,7 @@ import SecurityBugReporting from "./markup/Pages/SecurityBugReporting";
 import AccessibilityCenter from "./markup/Pages/AccessibilityCenter";
 import HowItWorksEmployee from "./markup/Pages/HowItWorksEmployee";
 import HowItWorksCandidates from "./markup/Pages/HowItWorksCandidates";
+import CompanyPage from "./markup/Pages/CompanyPageView";
 
 function App() {
   const dispatch = useDispatch();
@@ -208,6 +209,14 @@ function App() {
           element={
             <UserPrivateRoute>
               <Jobsalert />
+            </UserPrivateRoute>
+          }
+        />
+        <Route
+          path="company/:id"
+          element={
+            <UserPrivateRoute>
+              <CompanyPage />
             </UserPrivateRoute>
           }
         />
