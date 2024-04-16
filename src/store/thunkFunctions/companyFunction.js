@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+const token = localStorage.getItem("employeeLoginToken");
 
 export const fetchCompanyInfo = createAsyncThunk(
   "company/fetchCompanyInfo",
@@ -7,9 +8,9 @@ export const fetchCompanyInfo = createAsyncThunk(
     try {
       const response = await axios({
         method: "get",
-        url: "https://jobsbooklet.in/api/employeer/company/1",
+        url: "https://jobsbooklet.in/api/employeer/employeer-profile",
         headers: {
-          Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21AZ21haWwuY29tIiwiZXhwIjoxNzExNTQ5MjgwfQ._Kh75DvFoVSs8ReceAFMoKWl7pumhOKGZff8ClunUVU`,
+          Authorization: token,
         },
       });
       console.log(response.data.data, "fulfilled");

@@ -160,7 +160,7 @@ function EmployeeComponypostjobs() {
   const aiJobDescription = async () => {
     setDescription(true);
     await axios({
-      url: `http://93.188.167.106:3002/api/employeer/ai-job-description`,
+      url: `https://jobsbooklet.in/api/employeer/ai-job-description`,
       method: "post",
       headers: {
         Authorization: token,

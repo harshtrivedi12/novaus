@@ -36,7 +36,7 @@ const FixedHeader = () => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: "http://93.188.167.106:3001/api/jobseeker/user-profile",
+      url: "https://jobsbooklet.in/api/jobseeker/user-profile",
       headers: {
         Authorization: token,
       },
@@ -78,7 +78,7 @@ const FixedHeader = () => {
   const getCountry = () => {
     axios({
       method: "GET",
-      url: "http://93.188.167.106:3001/api/jobseeker/countries",
+      url: "https://jobsbooklet.in/api/jobseeker/countries",
       headers: {
         Authorization: token,
       },
@@ -95,7 +95,7 @@ const FixedHeader = () => {
   const getState = () => {
     axios({
       method: "GET",
-      url: `http://93.188.167.106:3001/api/jobseeker/stats/${fixedHeaderValues.country_id}`,
+      url: `https://jobsbooklet.in/api/jobseeker/stats/${fixedHeaderValues.country_id}`,
       headers: {
         Authorization: token,
       },

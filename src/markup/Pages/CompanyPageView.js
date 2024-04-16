@@ -20,7 +20,7 @@ const CompanyPage = () => {
   const handleGetRequest = () => {
     axios({
       method: "GET",
-      url: `http://93.188.167.106:3001/api/jobseeker/companies/${id}`,
+      url: `https://jobsbooklet.in/api/jobseeker/companies/${id}`,
 
       headers: {
         Authorization: token,
@@ -38,7 +38,7 @@ const CompanyPage = () => {
   const handleGetJobRequest = () => {
     axios({
       method: "GET",
-      url: "http://93.188.167.106:3001/api/jobseeker/job-lists?company_id=1",
+      url: "https://jobsbooklet.in/api/jobseeker/job-lists?company_id=1",
 
       headers: {
         Authorization: token,
@@ -102,7 +102,7 @@ const CompanyPage = () => {
                             </p>
 
                             <div>
-                              <div className="tab-buttons mt-3">
+                              <div className="tab-buttons">
                                 <button
                                   className={
                                     activeTab === "home" ? "active" : ""

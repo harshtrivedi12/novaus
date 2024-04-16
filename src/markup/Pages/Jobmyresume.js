@@ -20,7 +20,7 @@ function Jobmyresume() {
   const dispatch = useDispatch();
   const getResumeData = async () => {
     axios({
-      url: "http://93.188.167.106:3001/api/jobseeker/user-profile",
+      url: "https://jobsbooklet.in/api/jobseeker/user-profile",
       method: "Get",
       headers: {
         Authorization: token,

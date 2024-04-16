@@ -13,7 +13,7 @@ function EmployeeCompanymanage() {
   useEffect(() => {
     axios({
       method: "GET",
-      url: "http://93.188.167.106:3002/api/employeer/job-lists?is_publish=0",
+      url: "https://jobsbooklet.in/api/employeer/job-lists?is_publish=0",
       headers: {
         Authorization: token,
       },
@@ -31,7 +31,7 @@ function EmployeeCompanymanage() {
     console.log(id, "id");
     axios({
       method: "PUT",
-      url: `http://93.188.167.106:3002/api/employeer/job-post/${id}`,
+      url: `https://jobsbooklet.in/api/employeer/job-post/${id}`,
       headers: {
         Authorization: token,
       },

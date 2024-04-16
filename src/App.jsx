@@ -942,7 +942,7 @@ function App() {
           }
         />
         <Route
-          path="profilepage"
+          path="profilepage/:id"
           element={
             <EmployeePrivateRoute>
               <ProfilePage />

@@ -48,8 +48,7 @@ function EmployeeCompanyprofile() {
     getCities();
   }, [selectedStates]);
 
-
-const token = localStorage.getItem("employeeLoginToken")
+  const token = localStorage.getItem("employeeLoginToken");
 
   const getCountry = async () => {
     axios({
@@ -147,9 +146,23 @@ const token = localStorage.getItem("employeeLoginToken")
   }, [dispatch]);
 
   useEffect(() => {
-    setSelectedCountry(companyData.country.id);
-    setSelectedState(companyData.state.id);
-    setSelectedCities(companyData.city.id);
+    if (companyData.country.id) {
+      setSelectedCountry(companyData.country.id);
+    } else {
+      setSelectedCountry(1);
+    }
+    if (companyData.state.id) {
+      setSelectedState(companyData.state.id);
+    } else {
+      setSelectedCountry(1);
+    }
+
+    if (companyData.city.id) {
+      setSelectedCities(companyData.city.id);
+    } else {
+      setSelectedCountry(1);
+    }
+
     setCompanyName(companyData.company_name);
     setTagline(companyData.tagline);
     setEmail(companyData.email);
@@ -174,7 +187,7 @@ const token = localStorage.getItem("employeeLoginToken")
           <div className="section-full bg-white p-t50 p-b20">
             <div className="container">
               <div className="row">
-                <CompanySideBar active="company"/>
+                <CompanySideBar active="company" />
                 <div className="col-xl-9 col-lg-8 m-b30">
                   <div className="job-bx submit-resume">
                     <div className="job-bx-title clearfix">
@@ -183,8 +196,7 @@ const token = localStorage.getItem("employeeLoginToken")
                       </h5>
                       <Link
                         to={"/employee/company-profile"}
-                        className="site-button right-arrow button-sm float-right"
-                      >
+                        className="site-button right-arrow button-sm float-right">
                         Back
                       </Link>
                     </div>
@@ -270,8 +282,7 @@ const token = localStorage.getItem("employeeLoginToken")
                               onChange={(e) => {
                                 setIndustry(e.target.value);
                               }}
-                              value={industry}
-                            >
+                              value={industry}>
                               <option>Web Designer</option>
                               <option>Web Developer1</option>
                             </Form.Control>
@@ -286,8 +297,7 @@ const token = localStorage.getItem("employeeLoginToken")
                               onChange={(e) => {
                                 setDescription(e.target.value);
                               }}
-                              value={description}
-                            ></textarea>
+                              value={description}></textarea>
                           </div>
                         </div>
                       </div>
@@ -320,8 +330,7 @@ const token = localStorage.getItem("employeeLoginToken")
                               value={selectedCountry}
                               onChange={(e) =>
                                 setSelectedCountry(e.target.value)
-                              }
-                            >
+                              }>
                               <option value=""></option>
                               {countries.map((item) => (
                                 <option value={item.id}>{item.name}</option>
@@ -336,8 +345,9 @@ const token = localStorage.getItem("employeeLoginToken")
                             <select
                               className="form-control"
                               value={selectedStates}
-                              onChange={(e) => setSelectedState(e.target.value)}
-                            >
+                              onChange={(e) =>
+                                setSelectedState(e.target.value)
+                              }>
                               <option value=""></option>
                               {states.map((item) => (
                                 <option value={item.id}>{item.name}</option>
@@ -354,8 +364,7 @@ const token = localStorage.getItem("employeeLoginToken")
                               value={selectedCities}
                               onChange={(e) => {
                                 setSelectedCities(e.target.value);
-                              }}
-                            >
+                              }}>
                               <option value=""></option>
 
                               {cities.map((item) => (
@@ -493,8 +502,7 @@ const token = localStorage.getItem("employeeLoginToken")
                           e.preventDefault();
 
                           updateCompanyData();
-                        }}
-                      >
+                        }}>
                         Update Setting
                       </button>
                     </form>

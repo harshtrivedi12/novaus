@@ -9,6 +9,9 @@ const initialState = {
     experience_level: "",
     job_type: "",
     search_input: "",
+    country: "",
+    state: "",
+    city: "",
   },
 };
 

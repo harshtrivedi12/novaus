@@ -17,25 +17,25 @@ function SkillTest() {
   const dispatch = useDispatch()
   const token = localStorage.getItem("jobSeekerLoginToken")
 const getSkillTestQuestion = async (id, name) => {
-await axios({
-  method: "get",
-  url: `https://jobsbooklet.in/api/jobseeker/skill-assessment?skill_id=${id}&skill_name=${name}`,
-  headers: {
-    Authorization: token,
-    "Content-type": "application/json",
-  },
-})
-  .then((response) => {
-    console.log(response.data.data);
-    navigate("/user/education-page");
-    dispatch(setSkillTestQuestions(response.data.data));
+  await axios({
+    method: "get",
+    url: `https://jobsbooklet.in/api/jobseeker/skill-assessment?skill_id=${id}&skill_name=${name}`,
+    headers: {
+      Authorization: token,
+      "Content-type": "application/json",
+    },
   })
-  .catch((err) => console.log(err));
-}
+    .then((response) => {
+      console.log(response.data.data);
+      navigate("/user/education-page");
+      dispatch(setSkillTestQuestions(response.data.data));
+    })
+    .catch((err) => console.log(err));
+};
 
 const [selectedCard, setSelectedCard] = useState(null);
-const [cardData,setCardData] = useState([])
-useEffect(()=>{
+const [cardData, setCardData] = useState([]);
+useEffect(() => {
   axios({
     method: "GET",
     url: "https://jobsbooklet.in/api/jobseeker/user-skills",
@@ -49,7 +49,7 @@ useEffect(()=>{
       setCardData(response.data.data);
     })
     .catch((err) => console.log(err));
-},[])
+}, []);
   const handleViewDetails = (card) => {
     setSelectedCard(card);
     // Open modal here or perform any other action

@@ -134,16 +134,14 @@ function Jobsection() {
                         <span> {item.job_workplace_types.name}</span>
                       </div>
                     </div>
-                    <label
-                      className="like-btn"
-                      labl
-                      onClick={() => {
-                        toggleFabJobs(item.job_detail.id);
-                      }}>
+                    <label className="like-btn" labl>
                       <input
                         type="checkbox"
                         defaultChecked={item.job_detail.is_job_favorite}
                         name={item.job_detail.id}
+                        onClick={() => {
+                          toggleFabJobs(item.job_detail.id);
+                        }}
                       />
                       <span className="checkmark"></span>
                     </label>

@@ -15,9 +15,24 @@ function Companyprofile() {
     (state) => state.companyDataSlice.companyData
   );
   console.log(companyData, "hey");
-  const [countries, setCountries] = useState([]);
-  const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
+  const [countries, setCountries] = useState([
+    {
+      id: "",
+      name: "",
+    },
+  ]);
+  const [states, setStates] = useState([
+    {
+      id: "",
+      name: "",
+    },
+  ]);
+  const [cities, setCities] = useState([
+    {
+      id: "",
+      name: "",
+    },
+  ]);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedStates, setSelectedState] = useState(null);
   const [selectedCities, setSelectedCities] = useState(null);
@@ -34,7 +49,7 @@ function Companyprofile() {
   const [twitter, setTwitter] = useState("");
   const [googleBusiness, setGoogleBusiness] = useState("");
   const [glassdoor, setGlassdor] = useState("");
-
+  const token = localStorage.getItem("employeeLoginToken");
   useEffect(() => {
     console.log(selectedCountry);
     setSelectedState("");
@@ -52,7 +67,7 @@ function Companyprofile() {
       method: "get",
       url: "https://jobsbooklet.in/api/employeer/countries",
       headers: {
-        Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21AZ21haWwuY29tIiwiZXhwIjoxNzExNTQ5MjgwfQ._Kh75DvFoVSs8ReceAFMoKWl7pumhOKGZff8ClunUVU`,
+        Authorization: token,
       },
     })
       .then((res) => {
@@ -69,7 +84,7 @@ function Companyprofile() {
       method: "get",
       url: `https://jobsbooklet.in/api/employeer/stats/${selectedCountry}`,
       headers: {
-        Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21AZ21haWwuY29tIiwiZXhwIjoxNzExNTQ5MjgwfQ._Kh75DvFoVSs8ReceAFMoKWl7pumhOKGZff8ClunUVU`,
+        Authorization: token,
       },
     })
       .then((res) => {
@@ -85,7 +100,7 @@ function Companyprofile() {
       method: "get",
       url: `https://jobsbooklet.in/api/employeer/cities/${selectedStates}`,
       headers: {
-        Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21AZ21haWwuY29tIiwiZXhwIjoxNzExNTQ5MjgwfQ._Kh75DvFoVSs8ReceAFMoKWl7pumhOKGZff8ClunUVU`,
+        Authorization: token,
       },
     })
       .then((res) => {
@@ -103,7 +118,7 @@ function Companyprofile() {
       method: "put",
       url: `https://jobsbooklet.in/api/employeer/company/1`,
       headers: {
-        Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21AZ21haWwuY29tIiwiZXhwIjoxNzExNTQ5MjgwfQ._Kh75DvFoVSs8ReceAFMoKWl7pumhOKGZff8ClunUVU`,
+        Authorization: token,
       },
       data: {
         company_name: companyName,
@@ -143,9 +158,7 @@ function Companyprofile() {
   }, [dispatch]);
 
   useEffect(() => {
-    setSelectedCountry(companyData.country.id);
-    setSelectedState(companyData.state.id);
-    setSelectedCities(companyData.city.id);
+
     setCompanyName(companyData.company_name);
     setTagline(companyData.tagline);
     setEmail(companyData.email);

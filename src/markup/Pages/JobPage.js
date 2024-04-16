@@ -22,6 +22,7 @@ import {
   setUserAnswer,
 } from "../../store/reducers/jobApplicationScreeningQues";
 import { submit } from "redux-form";
+
 function JobPage() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [show, setShow] = useState(false);
@@ -39,7 +40,7 @@ function JobPage() {
   const toggleFabJobs = async () => {
     try {
       await axios({
-        url: "http://93.188.167.106:3001/api/jobseeker/job-favorites",
+        url: "https://jobsbooklet.in/api/jobseeker/job-favorites",
         method: "POST",
         headers: { Authorization: token },
         data: {
@@ -146,6 +147,47 @@ function JobPage() {
   console.table(jobApplicationValues, "values");
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === "country_id") {
+      const selectedIndex = e.target.selectedIndex;
+      const text = e.target.options[selectedIndex].text;
+      console.log(text);
+      dispatch(
+        setJobApplicationValues({
+          ...jobApplicationValues,
+          country: text,
+          [name]: value,
+        })
+      );
+      return;
+    }
+
+    if (name === "city_id") {
+      const selectedIndex = e.target.selectedIndex;
+      const text = e.target.options[selectedIndex].text;
+      console.log(text);
+      dispatch(
+        setJobApplicationValues({
+          ...jobApplicationValues,
+          city: text,
+          [name]: value,
+        })
+      );
+      return;
+    }
+
+    if (name === "state_id") {
+      const selectedIndex = e.target.selectedIndex;
+      const text = e.target.options[selectedIndex].text;
+      console.log(text);
+      dispatch(
+        setJobApplicationValues({
+          ...jobApplicationValues,
+          state: text,
+          [name]: value,
+        })
+      );
+      return;
+    }
     dispatch(
       setJobApplicationValues({ ...jobApplicationValues, [name]: value })
     );
@@ -195,7 +237,7 @@ function JobPage() {
   const getJobTyes = async () => {
     await axios({
       method: "GET",
-      url: "http://93.188.167.106:3001/api/jobseeker/job-types",
+      url: "https://jobsbooklet.in/api/jobseeker/job-types",
 
       headers: {
         Authorization: token,
@@ -213,7 +255,7 @@ function JobPage() {
   const getWorkplaceType = () => {
     axios({
       method: "GET",
-      url: "http://93.188.167.106:3001/api/jobseeker/workplace-types",
+      url: "https://jobsbooklet.in/api/jobseeker/workplace-types",
       headers: {
         Authorization: token,
       },
@@ -230,7 +272,7 @@ function JobPage() {
   const getCountry = () => {
     axios({
       method: "GET",
-      url: "http://93.188.167.106:3001/api/jobseeker/countries",
+      url: "https://jobsbooklet.in/api/jobseeker/countries",
       headers: {
         Authorization: token,
       },
@@ -248,7 +290,7 @@ function JobPage() {
   const getState = () => {
     axios({
       method: "GET",
-      url: `http://93.188.167.106:3001/api/jobseeker/stats/${jobApplicationValues.country_id}`,
+      url: `https://jobsbooklet.in/api/jobseeker/stats/${jobApplicationValues.country_id}`,
       headers: {
         Authorization: token,
       },
@@ -267,7 +309,7 @@ function JobPage() {
   const getCities = () => {
     axios({
       method: "GET",
-      url: `http://93.188.167.106:3001/api/jobseeker/cities/${jobApplicationValues.state_id}`,
+      url: `https://jobsbooklet.in/api/jobseeker/cities/${jobApplicationValues.state_id}`,
       headers: {
         Authorization: token,
       },
@@ -285,7 +327,7 @@ function JobPage() {
   const getExperience = () => {
     axios({
       method: "GET",
-      url: "http://93.188.167.106:3001/api/jobseeker/experience-level",
+      url: "https://jobsbooklet.in/api/jobseeker/experience-level",
       headers: {
         Authorization: token,
       },
@@ -329,7 +371,7 @@ function JobPage() {
 
   const submitApplication = async () => {
     await axios({
-      url: "http://93.188.167.106:3001/api/jobseeker/jobs-applied",
+      url: "https://jobsbooklet.in/api/jobseeker/jobs-applied",
       method: "POST",
       headers: {
         Authorization: token,
@@ -349,7 +391,7 @@ function JobPage() {
   };
   // /api/jobseeker/job-lists?title_keywords=software developer&location=Jaipur&workplace_type=1+2+3&job_type=1+2+3&experience_level=1+2+3
 
-  // const url = `http://93.188.167.106:3001/api/jobseeker/job-lists?title_keyword=${
+  // const url = `https://jobsbooklet.in/api/jobseeker/job-lists?title_keyword=${
   //   jobApplicationValues.search_input
   // }&location=Jaipur,${
   //   jobApplicationValues.country_id === ""
@@ -359,19 +401,19 @@ function JobPage() {
   //   jobApplicationValues.job_type
   // }&experience_level=${jobApplicationValues.experience_level}`;
 
-  const baseUrl = "http://93.188.167.106:3001/api/jobseeker/job-lists";
+  const baseUrl = "https://jobsbooklet.in/api/jobseeker/job-lists";
 
   const params = new URLSearchParams();
 
   if (jobApplicationValues.search_input) {
-    params.append("title_keyword", jobApplicationValues.search_input);
+    params.append("title_keywords", jobApplicationValues.search_input);
   }
 
   const location =
     jobApplicationValues.country_id === "101"
       ? "India"
-      : jobApplicationValues.country_id;
-  params.append("location", `Jaipur,${location}`);
+      : jobApplicationValues.country;
+  params.append("location", `${location}`);
 
   if (jobApplicationValues.workplace_type) {
     params.append("workplace_type", jobApplicationValues.workplace_type);
@@ -395,6 +437,8 @@ function JobPage() {
       },
     })
       .then((response) => {
+        dispatch(setJobApplicationData(response.data.data));
+
         console.log(response);
       })
       .catch((err) => {
@@ -419,13 +463,17 @@ function JobPage() {
                       className="form-control"
                       id="country_id"
                       name="country_id"
-                      onChange={handleChange}
-                      value={jobApplicationValues.country_id}
-                    >
+                      onChange={(e) => {
+                        handleChange(e);
+                      }}
+                      value={jobApplicationValues.country_id}>
                       <option value="">Select a country</option>
                       {countries.map((item, index) => {
                         return (
-                          <option key={index} value={item.id}>
+                          <option
+                            key={index}
+                            value={item.id}
+                            country={item.name}>
                             {item.name}
                           </option>
                         );
@@ -443,8 +491,7 @@ function JobPage() {
                       id="state_id"
                       name="state_id"
                       onChange={handleChange}
-                      value={jobApplicationValues.state_id}
-                    >
+                      value={jobApplicationValues.state_id}>
                       <option value="">Select a State</option>
                       {states.map((item, index) => {
                         return (
@@ -468,8 +515,7 @@ function JobPage() {
                         id="city_id"
                         name="city_id"
                         onChange={handleChange}
-                        value={jobApplicationValues.city_id}
-                      >
+                        value={jobApplicationValues.city_id}>
                         <option value="">Select A City</option>
 
                         {cities.map((item, index) => {
@@ -495,8 +541,7 @@ function JobPage() {
                         id="workplace_type"
                         name="workplace_type"
                         onChange={handleChange}
-                        value={jobApplicationValues.workplace_type}
-                      >
+                        value={jobApplicationValues.workplace_type}>
                         <option value="">Select WorkPlace Type</option>
                         {workplace_type.map((item, index) => {
                           return (
@@ -520,8 +565,7 @@ function JobPage() {
                         id="job_type"
                         name="job_type"
                         onChange={handleChange}
-                        value={jobApplicationValues.job_type}
-                      >
+                        value={jobApplicationValues.job_type}>
                         <option value="">Select Job Type</option>
                         {job_type.map((item, index) => {
                           return (
@@ -545,8 +589,7 @@ function JobPage() {
                         id="experience_level"
                         name="experience_level"
                         onChange={handleChange}
-                        value={jobApplicationValues.experience_level}
-                      >
+                        value={jobApplicationValues.experience_level}>
                         <option value="">Select Experience Level</option>
                         {experience.map((item, index) => {
                           return (
@@ -564,12 +607,10 @@ function JobPage() {
             <div className="container">
               <div
                 className="row d-flex justify-content-center "
-                style={{ gap: "12px" }}
-              >
+                style={{ gap: "12px" }}>
                 <div
                   className=" w-75 d-flex flex-column   p-2 "
-                  style={{ backgroundColor: "#f5f5f5", alignItems: "center" }}
-                >
+                  style={{ backgroundColor: "#f5f5f5", alignItems: "center" }}>
                   <input
                     type="text"
                     name="search_input"
@@ -585,8 +626,7 @@ function JobPage() {
                 <button
                   onClick={handleGetReq}
                   className="border-0 site-button d-flex align-items-center "
-                  style={{ cursor: "pointer", outline: "none", gap: "7px" }}
-                >
+                  style={{ cursor: "pointer", outline: "none", gap: "7px" }}>
                   <FaSearch />
                   Search
                 </button>
@@ -597,21 +637,13 @@ function JobPage() {
                 <div className="col-xl-4 col-lg-5 m-b30">
                   <div className="sticky-top">
                     <div className="candidate-info company-info">
-                      <div className="candidate-detail text-center">
-                        <div className="candidate-title">
-                          <h4 className="m-b5">
-                            <Link to="#">Job List</Link>
-                          </h4>
-                        </div>
-                      </div>
                       <ul
                         className="job-list-container"
                         style={{
                           maxHeight: "calc(100vh - 200px)",
                           overflowY: "auto",
                           boxShadow: "0 0 10px 0 rgba(0, 24, 128, 0.1)",
-                        }}
-                      >
+                        }}>
                         {jobApplicationData.map((job) => (
                           <div>
                             <li key={job.s_no}>
@@ -621,13 +653,11 @@ function JobPage() {
                                     display: "flex",
                                     width: "100%",
                                     position: "relative",
-                                  }}
-                                >
+                                  }}>
                                   <div
                                     style={{
                                       width: "30%",
-                                    }}
-                                  >
+                                    }}>
                                     <img
                                       src={testImg}
                                       alt=""
@@ -641,24 +671,21 @@ function JobPage() {
                                     style={{
                                       width: "80%",
                                       overflow: "hidden",
-                                    }}
-                                  >
+                                    }}>
                                     {job.job_detail.job_title && (
                                       <p
                                         className="mb-0"
                                         style={{
                                           color: "#1c2957",
                                           fontSize: "20px",
-                                        }}
-                                      >
+                                        }}>
                                         {job.job_detail.job_title}
                                       </p>
                                     )}
 
                                     <div
                                       className="d-flex flex-row mb-0 "
-                                      style={{ gap: "7px" }}
-                                    >
+                                      style={{ gap: "7px" }}>
                                       {job.job_detail.skills_arr.map(
                                         (item, index) => (
                                           <p className="mb-0 " key={index}>
@@ -668,41 +695,57 @@ function JobPage() {
                                       )}
                                     </div>
                                     <div
-                                      className="d-flex flex-row gap-0 align-items-center joblist"
+                                      className=" gap-0 align-items-center joblist"
                                       style={{
                                         gap: "0px",
                                         height: "auto",
-                                      }}
-                                    >
+                                      }}>
                                       {job.job_category && (
                                         <p
                                           style={{
-                                            paddingBottom: "0px",
-                                          }}
-                                        >
+                                            margin: "0px",
+                                          }}>
                                           {job.job_category.name}
                                         </p>
                                       )}
                                       {job.job_type && (
-                                        <p>{job.job_type.name}</p>
+                                        <p
+                                          style={{
+                                            margin: "0px",
+                                          }}>
+                                          {job.job_type.name}
+                                        </p>
                                       )}
-                                      {job.job_workplace_types.name && (
-                                        <p>{job.job_workplace_types.name}</p>
-                                      )}
-                                    </div>
-                                    {job.job_detail.created_at && (
-                                      <p
+                                      <div
+                                        className="d-flex "
                                         style={{
-                                          margin: "0px",
-                                        }}
-                                      >
-                                        Posted{" "}
-                                        {moment(
-                                          job.job_detail.created_at
-                                        ).format("YYYY-MM-DD")}
-                                        ago
-                                      </p>
-                                    )}
+                                          justifyContent: "space-between",
+                                        }}>
+                                        <div>
+                                          {job.job_workplace_types.name && (
+                                            <p
+                                              style={{
+                                                margin: "0px",
+                                              }}>
+                                              {job.job_workplace_types.name}
+                                            </p>
+                                          )}
+                                        </div>
+                                        <div>
+                                          {job.job_detail.created_at && (
+                                            <p
+                                              style={{
+                                                margin: "0px",
+                                                fontWeight: "600",
+                                              }}>
+                                              {moment(
+                                                job.job_detail.created_at
+                                              ).fromNow()}
+                                            </p>
+                                          )}
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                               </Link>
@@ -722,6 +765,29 @@ function JobPage() {
                             {selectedJob.job_detail.job_title}
                           </h3>
                         </Link>
+                        <div className="job-details-content">
+                          {selectedJob.job_workplace_types.name &&
+                            selectedJob.job_type.name &&
+                            selectedJob.job_category.name && (
+                              <p className="mb-0">
+                                {selectedJob.job_workplace_types.name} |{" "}
+                                {selectedJob.job_type.name} |{" "}
+                                {selectedJob.job_category.name}
+                              </p>
+                            )}
+                          <div className="d-flex" style={{ gap: "7px" }}>
+                            {selectedJob.job_detail.skills_arr.map(
+                              (item, index) => (
+                                <p key={index} className="mb-5">
+                                  {item}
+                                </p>
+                              )
+                            )}
+                          </div>
+                          {selectedJob.job_detail.skills && (
+                            <p>Skills: {selectedJob.job_detail.skills}</p>
+                          )}
+                        </div>
                         {selectedJob.job_detail.job_description && (
                           <p className="mb-1">
                             <div
@@ -736,38 +802,12 @@ function JobPage() {
                           </p>
                         )}
                       </div>
-                      <div className="job-details-content">
-                        {selectedJob.job_workplace_types.name &&
-                          selectedJob.job_type.name &&
-                          selectedJob.job_category.name && (
-                            <p className="mb-0">
-                              {selectedJob.job_workplace_types.name} |{" "}
-                              {selectedJob.job_type.name} |{" "}
-                              {selectedJob.job_category.name}
-                            </p>
-                          )}
-                        <div className="d-flex" style={{ gap: "7px" }}>
-                          {selectedJob.job_detail.skills_arr.map(
-                            (item, index) => (
-                              <p key={index} className="mb-5">
-                                {item}
-                              </p>
-                            )
-                          )}
-                        </div>
-                        {selectedJob.job_detail.skills && (
-                          <p>Skills: {selectedJob.job_detail.skills}</p>
-                        )}
-                        {selectedJob.job_detail.created_at && (
-                          <p>
-                            Posted{" "}
-                            {moment(selectedJob.job_detail.created_at).format(
-                              "YYYY-MM-DD"
-                            )}{" "}
-                            ago
-                          </p>
-                        )}
-                      </div>
+                      {selectedJob.job_detail.created_at && (
+                        <p>
+                          Posted{" "}
+                          {moment(selectedJob.job_detail.created_at).fromNow()}
+                        </p>
+                      )}
                       <div className="d-flex justify-content-start align-items-center">
                         {selectedJob.job_detail.is_job_applied ? (
                           <button
@@ -779,8 +819,7 @@ function JobPage() {
                         ) : (
                           <button
                             className="radius-xl site-button"
-                            onClick={handleShow}
-                          >
+                            onClick={handleShow}>
                             Apply
                           </button>
                         )}
@@ -788,13 +827,11 @@ function JobPage() {
                           show={show}
                           onHide={handleClose}
                           backdrop="static"
-                          keyboard={false}
-                        >
+                          keyboard={false}>
                           <Modal.Header
                             closeButton
                             style={{ backgroundColor: "#ffff" }}
-                            className="mt-4"
-                          >
+                            className="mt-4">
                             <Modal.Title style={{ color: "#000" }}>
                               <p> Apply to {selectedJob.company}</p>
                             </Modal.Title>
@@ -802,8 +839,7 @@ function JobPage() {
                           <Modal.Body>
                             <Tab.Container
                               id="tabs-example"
-                              activeKey={activeTab}
-                            >
+                              activeKey={activeTab}>
                               {/* Tab Content */}
 
                               <Tab.Content>
@@ -862,8 +898,7 @@ function JobPage() {
                                       <select
                                         class="form-control"
                                         id="englishProficiency"
-                                        required
-                                      >
+                                        required>
                                         <option value="">
                                           Select an option
                                         </option>
@@ -881,8 +916,7 @@ function JobPage() {
                                       <select
                                         class="form-control"
                                         id="salaryRange"
-                                        required
-                                      >
+                                        required>
                                         <option value="">
                                           Select an option
                                         </option>
@@ -913,8 +947,7 @@ function JobPage() {
                                       <select
                                         class="form-control"
                                         id="workLocation"
-                                        required
-                                      >
+                                        required>
                                         <option value="">
                                           Select an option
                                         </option>
@@ -964,8 +997,7 @@ function JobPage() {
                                       <select
                                         class="form-control"
                                         id="immediateStart"
-                                        required
-                                      >
+                                        required>
                                         <option value="">
                                           Select an option
                                         </option>
@@ -982,8 +1014,7 @@ function JobPage() {
                             {activeTab !== "contact-info" && (
                               <button
                                 className="site-button mr-2"
-                                onClick={handlePrev}
-                              >
+                                onClick={handlePrev}>
                                 Previous
                               </button>
                             )}
@@ -1002,11 +1033,16 @@ function JobPage() {
                           </Modal.Footer>
                         </Modal>
 
-                        <label className="like-btn" onClick={toggleFabJobs}>
+                        <label className="like-btn" labl>
                           <input
                             type="checkbox"
+                            defaultChecked={
+                              selectedJob.job_detail.is_job_favorite
+                            }
                             name={selectedJob.job_detail.id}
-                            checked={selectedJob.job_detail.is_job_favorite}
+                            onClick={() => {
+                              toggleFabJobs();
+                            }}
                           />
                           <span className="checkmark"></span>
                         </label>

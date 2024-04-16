@@ -28,7 +28,7 @@ function Jobprofile() {
   useEffect(() => {
     axios({
       method: "GET",
-      url: "http://93.188.167.106:3001/api/jobseeker/user-profile",
+      url: "https://jobsbooklet.in/api/jobseeker/user-profile",
       headers: {
         Authorization: token,
       },
@@ -80,7 +80,7 @@ function Jobprofile() {
     e.preventDefault();
     axios({
       method: "PUT",
-      url: "http://93.188.167.106:3001/api/jobseeker/user-profile",
+      url: "https://jobsbooklet.in/api/jobseeker/user-profile",
       headers: {
         Authorization: token,
       },
@@ -115,7 +115,7 @@ function Jobprofile() {
   const getCountry = () => {
     axios({
       method: "GET",
-      url: "http://93.188.167.106:3001/api/jobseeker/countries",
+      url: "https://jobsbooklet.in/api/jobseeker/countries",
       headers: {
         Authorization: token,
       },
@@ -134,7 +134,7 @@ function Jobprofile() {
   const getState = () => {
     axios({
       method: "GET",
-      url: `http://93.188.167.106:3001/api/jobseeker/stats/${jobProfileValues.country_id}`,
+      url: `https://jobsbooklet.in/api/jobseeker/stats/${jobProfileValues.country_id}`,
       headers: {
         Authorization: token,
       },
@@ -153,7 +153,7 @@ function Jobprofile() {
   const getCities = () => {
     axios({
       method: "GET",
-      url: `http://93.188.167.106:3001/api/jobseeker/cities/${jobProfileValues.state_id}`,
+      url: `https://jobsbooklet.in/api/jobseeker/cities/${jobProfileValues.state_id}`,
       headers: {
         Authorization: token,
       },
