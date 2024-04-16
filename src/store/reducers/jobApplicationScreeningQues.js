@@ -14,7 +14,7 @@ const jobApplicationScreeningQues = createSlice({
     },
     setJobSeekerAnswer: (state, action) => {
       const { index, questionIndex, answer } = action.payload;
-
+      console.log(state.selectedScreeningQuestions.screen_question_keywords[0]);
       state.selectedScreeningQuestions.screen_question_keywords[
         index
       ].screen_questions[questionIndex].user_answer = answer;

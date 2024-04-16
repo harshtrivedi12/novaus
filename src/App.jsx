@@ -308,7 +308,7 @@ function App() {
           }
         />
         <Route
-          path="job-detail"
+          path="job-detail/:id"
           element={
             <UserPrivateRoute>
               <Jobdetail />

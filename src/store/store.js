@@ -13,6 +13,8 @@ import jobApplicationSlice from "./reducers/jobApplicationSlice";
 import userMessageSlice from "./reducers/userMessageSlice";
 import skillTestQuestionSlice from "./reducers/skillTestQuestionsSlice";
 import jobApplicatioonScreeningQues from "./reducers/jobApplicationScreeningQues";
+import jobsMyResumeSlice from "./reducers/jobsMyResumeSlice";
+import jobProfileSlice from "./reducers/jobProfileSlice";
 const middleware = applyMiddleware(thunk);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -31,6 +33,8 @@ const reducers = combineReducers({
   userMessageSlice: userMessageSlice,
   skillTestQuestionSlice: skillTestQuestionSlice,
   jobApplicationScreeningQues: jobApplicatioonScreeningQues,
+  jobsMyResumeSlice: jobsMyResumeSlice,
+  jobProfileSlice: jobProfileSlice,
 });
 
 //const store = createStore(rootReducers);
