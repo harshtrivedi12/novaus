@@ -3,7 +3,7 @@ import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import Profilesidebar from "./../Element/Profilesidebar";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
+import FixedHeader from "../Layout/fixedHeader";
 import axios from "axios"
 
 import {

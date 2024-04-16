@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
-import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
+import FixedHeader from "../Layout/fixedHeader";
 
 const jobAlert = [
   { id: 1, title: "Social Media Expert", date: "December 15,2018" },
