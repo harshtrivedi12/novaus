@@ -55,7 +55,7 @@ function Jobsection() {
   const toggleFabJobs = async (id) => {
     try {
       await axios({
-        url: "http://93.188.167.106:3001/api/jobseeker/job-favorites",
+        url: "https://jobsbooklet.in/api/jobseeker/job-favorites",
         method: "POST",
         headers: { Authorization: token },
         data: {
