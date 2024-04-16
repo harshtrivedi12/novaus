@@ -155,8 +155,7 @@ function EmployeeJobPage() {
                         style={{
                           maxHeight: "calc(100vh - 200px)",
                           overflowY: "auto",
-                        }}
-                      >
+                        }}>
                         {jobData.map((job) => (
                           <li key={job.id}>
                             <Link to={"#"} onClick={() => handleSelectJob(job)}>
@@ -165,8 +164,7 @@ function EmployeeJobPage() {
                                   {" "}
                                   <i
                                     className="fa fa-user-o"
-                                    aria-hidden="true"
-                                  ></i>{" "}
+                                    aria-hidden="true"></i>{" "}
                                   {job.title}
                                 </span>
                                 <span>
@@ -234,21 +232,18 @@ function EmployeeJobPage() {
                       <div className="d-flex justify-content-start align-items-center">
                         <button
                           className="radius-xl site-button"
-                          onClick={handleShow}
-                        >
+                          onClick={handleShow}>
                           Apply
                         </button>
                         <Modal
                           show={show}
                           onHide={handlClose}
                           backdrop="static"
-                          keyboard={false}
-                        >
+                          keyboard={false}>
                           <Modal.Header
                             closeButton
                             style={{ backgroundColor: "#ffff" }}
-                            className="mt-4"
-                          >
+                            className="mt-4">
                             <Modal.Title style={{ color: "#000" }}>
                               <p> Apply to {selectedJob.company}</p>
                             </Modal.Title>
@@ -256,8 +251,7 @@ function EmployeeJobPage() {
                           <Modal.Body>
                             <Tab.Container
                               id="tabs-example"
-                              activeKey={activeTab}
-                            >
+                              activeKey={activeTab}>
                               <Tab.Content>
                                 <Tab.Pane eventKey="contact-info">
                                   <form className="col-12 p-a0">
@@ -270,8 +264,7 @@ function EmployeeJobPage() {
                                           {" "}
                                           <i
                                             className="fa fa-user-o"
-                                            aria-hidden="true"
-                                          ></i>{" "}
+                                            aria-hidden="true"></i>{" "}
                                           Abc name
                                         </span>
                                       </h6>
@@ -332,8 +325,7 @@ function EmployeeJobPage() {
                                       <select
                                         class="form-control"
                                         id="englishProficiency"
-                                        required
-                                      >
+                                        required>
                                         <option value="">
                                           Select an option
                                         </option>
@@ -351,8 +343,7 @@ function EmployeeJobPage() {
                                       <select
                                         class="form-control"
                                         id="salaryRange"
-                                        required
-                                      >
+                                        required>
                                         <option value="">
                                           Select an option
                                         </option>
@@ -383,8 +374,7 @@ function EmployeeJobPage() {
                                       <select
                                         class="form-control"
                                         id="workLocation"
-                                        required
-                                      >
+                                        required>
                                         <option value="">
                                           Select an option
                                         </option>
@@ -434,8 +424,7 @@ function EmployeeJobPage() {
                                       <select
                                         class="form-control"
                                         id="immediateStart"
-                                        required
-                                      >
+                                        required>
                                         <option value="">
                                           Select an option
                                         </option>
@@ -453,24 +442,15 @@ function EmployeeJobPage() {
                             {activeTab !== "contact-info" && (
                               <button
                                 className="site-button mr-2"
-                                onClick={handlePrev}
-                              >
+                                onClick={handlePrev}>
                                 Previous
                               </button>
                             )}
-                            {activeTab !== "immediate-info" && (
-                              <button
-                                className="site-button"
-                                onClick={handleNext}
-                              >
-                                Next
-                              </button>
-                            )}
+
                             {activeTab === "immediate-info" && (
                               <button
                                 className="site-button"
-                                onClick={handlClose}
-                              >
+                                onClick={handlClose}>
                                 Submit
                               </button>
                             )}
@@ -488,8 +468,7 @@ function EmployeeJobPage() {
                             borderColor: "#9d9d9d",
                             cursor: "pointer",
                             outline: "none",
-                          }}
-                        >
+                          }}>
                           Save
                         </button>
                       </div>

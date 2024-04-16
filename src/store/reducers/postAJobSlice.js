@@ -15,7 +15,9 @@ const initialState = {
     dateOfBirth: "",
   },
   screeningQuestion: {},
-  setSelectedScreeningQuestion: [],
+  selectedScreeningQuestions: {
+    screen_question_keywords: [],
+  },
   postAJobData: {
     jobTitle: "",
     company: "",
@@ -58,9 +60,26 @@ const postAJobSlice = createSlice({
       state.screeningQuestion = action.payload;
     },
     setSelctedScreeningQuestion: (state, action) => {
-      const { index } = action.payload;
-      console.log(state.screeningQuestion[index]);
-      state.setSelectedScreeningQuestion.push(state.screeningQuestion[index]);
+      const { category } = action.payload;
+      console.log(category);
+      const index =
+        state.selectedScreeningQuestions.screen_question_keywords.findIndex(
+          (item) => item.id === category.id
+        );
+      if (index === -1) {
+        state.selectedScreeningQuestions.screen_question_keywords.push(
+          category
+        );
+      } else {
+        state.selectedScreeningQuestions.screen_question_keywords.splice(
+          index,
+          1
+        );
+      }
+    },
+    setSelctedScreeningQuestionGet: (state, action) => {
+      console.log(action.payload, "item");
+      state.selectedScreeningQuestions = action.payload;
     },
   },
 });
@@ -74,6 +93,7 @@ export const {
   setPersonalInformation,
   setScreeningQuestion,
   setSelctedScreeningQuestion,
+  setSelctedScreeningQuestionGet,
 } = postAJobSlice.actions;
 
 export default postAJobSlice.reducer;

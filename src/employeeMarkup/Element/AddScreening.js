@@ -3,7 +3,7 @@ import { FaCheck, FaPlus } from "react-icons/fa";
 import { Form } from "react-bootstrap";
 import axios from "axios";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setScreeningQuestion,
   setSelctedScreeningQuestion,
@@ -12,6 +12,10 @@ import {
 const AddScreening = () => {
   const token = localStorage.getItem("employeeLoginToken");
   const [screeningQuestions, setScreeningQuestions] = useState([]);
+  const selelctedQuestions = useSelector(
+    (state) =>
+      state.postAJobSlice.selectedScreeningQuestions.screen_question_keywords
+  );
   const dispatch = useDispatch();
   const screeningQuestion = async () => {
     await axios({
@@ -97,13 +101,16 @@ const AddScreening = () => {
   // ];
 
   const [expanded, setExpanded] = useState({});
-
+  useEffect(() => {
+    if (Object.keys(expanded).length === 0) {
+      selelctedQuestions.map((item) => toggleExpansion(item.name));
+    }
+  }, [selelctedQuestions]);
   const toggleExpansion = (name) => {
     setExpanded((prevState) => ({
       ...prevState,
       [name]: !prevState[name],
     }));
-    console.log(expanded, "ques");
   };
 
   return (
@@ -139,7 +146,13 @@ const AddScreening = () => {
             <button
               className="d-flex justify-content-center align-items-center"
               onClick={() => {
-                dispatch(setSelctedScreeningQuestion({ index: index }));
+                console.log(expanded, "ques");
+                dispatch(
+                  setSelctedScreeningQuestion({
+                    index: index, // Define these variables appropriately
+                    category: category,
+                  })
+                );
                 toggleExpansion(category.name);
               }}
               style={{

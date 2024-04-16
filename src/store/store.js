@@ -12,6 +12,7 @@ import jobDataSlice from "./reducers/jobDataSlice";
 import jobApplicationSlice from "./reducers/jobApplicationSlice";
 import userMessageSlice from "./reducers/userMessageSlice";
 import skillTestQuestionSlice from "./reducers/skillTestQuestionsSlice";
+import jobApplicatioonScreeningQues from "./reducers/jobApplicationScreeningQues";
 import jobsMyResumeSlice from "./reducers/jobsMyResumeSlice";
 import jobProfileSlice from "./reducers/jobProfileSlice";
 const middleware = applyMiddleware(thunk);
@@ -31,6 +32,7 @@ const reducers = combineReducers({
   jobApplicationSlice: jobApplicationSlice,
   userMessageSlice: userMessageSlice,
   skillTestQuestionSlice: skillTestQuestionSlice,
+  jobApplicationScreeningQues: jobApplicatioonScreeningQues,
   jobsMyResumeSlice: jobsMyResumeSlice,
   jobProfileSlice: jobProfileSlice,
 });

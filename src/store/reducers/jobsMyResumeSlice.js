@@ -87,6 +87,9 @@ const jobsMyResumeSlice = createSlice({
   name: "jobsMyResumeSlice",
   initialState,
   reducers: {
+    setResumeData: (state, action) => {
+      state.jobsMyResumeData = action.payload;
+    },
     setResumeHeadline: (state, action) => {
       state.resumeHeadling = action.payload;
     },
@@ -135,6 +138,7 @@ export const {
   setDesiredCareerProfile,
   setPersonalDetails,
   setAttachResumeValue,
+  setResumeData,
 } = jobsMyResumeSlice.actions;
 
 export default jobsMyResumeSlice.reducer;

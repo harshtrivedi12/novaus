@@ -7,11 +7,33 @@ import { Form } from "react-bootstrap";
 import Listingsidebar from "./../Element/Listingsidebar";
 import Profilesidebar from "../Element/Profilesidebar";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setResumeData } from "../../store/reducers/jobsMyResumeSlice";
+import { useEffect } from "react";
 
 var bnr = require("./../../images/banner/bnr1.jpg");
 //var bnr2 = require('./../../images/background/bg3.jpg');
 
 function Jobmyresume() {
+  const token = localStorage.getItem("jobSeekerLoginToken");
+  const dispatch = useDispatch();
+  const getResumeData = async () => {
+    axios({
+      url: "http://93.188.167.106:3001/api/jobseeker/user-profile",
+      method: "Get",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      dispatch(setResumeData(res.data.data.ai_resume_parse_data));
+    });
+  };
+
+  useEffect(() => {
+    getResumeData();
+  }, []);
   const [basicdetails, setBasicDetails] = useState(false);
   const [resume, setResume] = useState(false);
   const [keyskill, setKeyskill] = useState(false);
@@ -92,8 +114,7 @@ function Jobmyresume() {
       <div className="page-content">
         <div
           className="overlay-black-dark profile-edit p-t50 p-b20"
-          style={{ backgroundImage: "url(" + bnr + ")" }}
-        >
+          style={{ backgroundImage: "url(" + bnr + ")" }}>
           <div className="container">
             <div className="row">
               <div className="col-lg-8 col-md-7 candidate-info">
@@ -109,8 +130,7 @@ function Jobmyresume() {
                       className="upload-link"
                       title="update"
                       data-toggle="tooltip"
-                      data-placement="right"
-                    >
+                      data-placement="right">
                       <input type="file" className="update-flie" />
                       <i className="fa fa-camera"></i>
                     </div>
@@ -121,8 +141,7 @@ function Jobmyresume() {
                       <Link
                         to={"#"}
                         onClick={() => setBasicDetails(true)}
-                        className="m-l15 font-16 text-white"
-                      >
+                        className="m-l15 font-16 text-white">
                         <i className="fa fa-pencil"></i>
                       </Link>
                     </h4>
@@ -152,8 +171,7 @@ function Jobmyresume() {
                         <div
                           className="progress-bar bg-primary"
                           style={{ width: "80%" }}
-                          role="progressbar"
-                        ></div>
+                          role="progressbar"></div>
                       </div>
                     </div>
                   </div>
@@ -176,8 +194,7 @@ function Jobmyresume() {
           <Modal
             className="modal fade browse-job modal-bx-info editor"
             show={basicdetails}
-            onHide={setBasicDetails}
-          >
+            onHide={setBasicDetails}>
             <div className="modal-dialog my-0" role="document">
               <div className="modal-content">
                 <div className="modal-header">
@@ -187,8 +204,7 @@ function Jobmyresume() {
                   <button
                     type="button"
                     className="close"
-                    onClick={() => setBasicDetails(false)}
-                  >
+                    onClick={() => setBasicDetails(false)}>
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -218,8 +234,7 @@ function Jobmyresume() {
                                 />
                                 <label
                                   className="custom-control-label"
-                                  htmlFor="fresher"
-                                >
+                                  htmlFor="fresher">
                                   Fresher
                                 </label>
                               </div>
@@ -234,8 +249,7 @@ function Jobmyresume() {
                                 />
                                 <label
                                   className="custom-control-label"
-                                  htmlFor="experienced"
-                                >
+                                  htmlFor="experienced">
                                   Experienced
                                 </label>
                               </div>
@@ -321,8 +335,7 @@ function Jobmyresume() {
                   <button
                     type="button"
                     className="site-button"
-                    onClick={() => setBasicDetails(false)}
-                  >
+                    onClick={() => setBasicDetails(false)}>
                     Cancel
                   </button>
                   <button type="button" className="site-button">
@@ -339,8 +352,7 @@ function Jobmyresume() {
             <div className="container">
               <Link
                 to={"/user/jobs-profile/"}
-                className="site-button right-arrow button-sm float-left mt-3"
-              >
+                className="site-button right-arrow button-sm float-left mt-3">
                 Back
               </Link>
               <div className="row">
@@ -352,15 +364,13 @@ function Jobmyresume() {
                   {resumeHeadline ? (
                     <div
                       id="resume_headline_bx"
-                      className=" job-bx bg-white m-b30"
-                    >
+                      className=" job-bx bg-white m-b30">
                       <div className="d-flex">
                         <h5 className="m-b15">Resume Headline</h5>
                         <Link
                           to={"#"}
                           className="site-button add-btn button-sm"
-                          onClick={() => setResume(true)}
-                        >
+                          onClick={() => setResume(true)}>
                           <i className="fa fa-pencil m-r5"></i> Edit
                         </Link>
                       </div>
@@ -369,22 +379,19 @@ function Jobmyresume() {
                       <Modal
                         show={resume}
                         onHide={setResume}
-                        className="modal fade modal-bx-info editor"
-                      >
+                        className="modal fade modal-bx-info editor">
                         <div className="modal-dialog my-0" role="document">
                           <div className="modal-content">
                             <div className="modal-header">
                               <h5
                                 className="modal-title"
-                                id="ResumeheadlineModalLongTitle"
-                              >
+                                id="ResumeheadlineModalLongTitle">
                                 Resume Headline
                               </h5>
                               <button
                                 type="button"
                                 className="close"
-                                onClick={() => setResume(false)}
-                              >
+                                onClick={() => setResume(false)}>
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
@@ -401,8 +408,7 @@ function Jobmyresume() {
                                     <div className="form-group">
                                       <textarea
                                         className="form-control"
-                                        placeholder="Type Description"
-                                      ></textarea>
+                                        placeholder="Type Description"></textarea>
                                     </div>
                                   </div>
                                 </div>
@@ -412,8 +418,7 @@ function Jobmyresume() {
                               <button
                                 type="button"
                                 className="site-button"
-                                onClick={() => setResume(false)}
-                              >
+                                onClick={() => setResume(false)}>
                                 Cancel
                               </button>
                               <button type="button" className="site-button">
@@ -435,8 +440,7 @@ function Jobmyresume() {
                           data-toggle="modal"
                           data-target="#keyskills"
                           onClick={() => setKeyskill(true)}
-                          className="site-button add-btn button-sm"
-                        >
+                          className="site-button add-btn button-sm">
                           <i className="fa fa-pencil m-r5"></i> Edit
                         </Link>
                       </div>
@@ -453,22 +457,19 @@ function Jobmyresume() {
                       <Modal
                         show={keyskill}
                         onHide={setKeyskill}
-                        className="modal fade modal-bx-info editor"
-                      >
+                        className="modal fade modal-bx-info editor">
                         <div className="modal-dialog my-0" role="document">
                           <div className="modal-content">
                             <div className="modal-header">
                               <h5
                                 className="modal-title"
-                                id="KeyskillsModalLongTitle"
-                              >
+                                id="KeyskillsModalLongTitle">
                                 Key Skills
                               </h5>
                               <button
                                 type="button"
                                 className="close"
-                                onClick={() => setKeyskill(false)}
-                              >
+                                onClick={() => setKeyskill(false)}>
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
@@ -497,8 +498,7 @@ function Jobmyresume() {
                               <button
                                 type="button"
                                 className="site-button"
-                                onClick={() => setKeyskill(false)}
-                              >
+                                onClick={() => setKeyskill(false)}>
                                 Cancel
                               </button>
                               <button type="button" className="site-button">
@@ -518,8 +518,7 @@ function Jobmyresume() {
                         <Link
                           to={"#"}
                           onClick={() => setEmployment(true)}
-                          className="site-button add-btn button-sm"
-                        >
+                          className="site-button add-btn button-sm">
                           <i className="fa fa-pencil m-r5"></i> Edit
                         </Link>
                       </div>
@@ -539,22 +538,19 @@ function Jobmyresume() {
                       <Modal
                         show={employment}
                         onHide={setEmployment}
-                        className="modal fade modal-bx-info editor"
-                      >
+                        className="modal fade modal-bx-info editor">
                         <div className="modal-dialog my-0" role="document">
                           <div className="modal-content">
                             <div className="modal-header">
                               <h5
                                 className="modal-title"
-                                id="EmploymentModalLongTitle"
-                              >
+                                id="EmploymentModalLongTitle">
                                 Add Employment
                               </h5>
                               <button
                                 type="button"
                                 className="close"
-                                onClick={() => setEmployment(false)}
-                              >
+                                onClick={() => setEmployment(false)}>
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
@@ -597,8 +593,7 @@ function Jobmyresume() {
                                             />
                                             <label
                                               className="custom-control-label"
-                                              htmlFor="employ_yes"
-                                            >
+                                              htmlFor="employ_yes">
                                               Yes
                                             </label>
                                           </div>
@@ -613,8 +608,7 @@ function Jobmyresume() {
                                             />
                                             <label
                                               className="custom-control-label"
-                                              htmlFor="employ_no"
-                                            >
+                                              htmlFor="employ_no">
                                               No
                                             </label>
                                           </div>
@@ -717,8 +711,7 @@ function Jobmyresume() {
                                       <label>Describe your Job Profile</label>
                                       <textarea
                                         className="form-control"
-                                        placeholder="Type Description"
-                                      ></textarea>
+                                        placeholder="Type Description"></textarea>
                                     </div>
                                   </div>
                                 </div>
@@ -728,8 +721,7 @@ function Jobmyresume() {
                               <button
                                 type="button"
                                 className="site-button"
-                                onClick={() => setEmployment(false)}
-                              >
+                                onClick={() => setEmployment(false)}>
                                 Cancel
                               </button>
                               <button type="button" className="site-button">
@@ -749,8 +741,7 @@ function Jobmyresume() {
                         <Link
                           to={"#"}
                           onClick={() => setEducation(true)}
-                          className="site-button add-btn button-sm"
-                        >
+                          className="site-button add-btn button-sm">
                           <i className="fa fa-pencil m-r5"></i> Edit
                         </Link>
                       </div>
@@ -762,22 +753,19 @@ function Jobmyresume() {
                       <Modal
                         className="modal fade modal-bx-info editor"
                         show={education}
-                        onHide={setEducation}
-                      >
+                        onHide={setEducation}>
                         <div className="modal-dialog my-0" role="document">
                           <div className="modal-content">
                             <div className="modal-header">
                               <h5
                                 className="modal-title"
-                                id="EducationModalLongTitle"
-                              >
+                                id="EducationModalLongTitle">
                                 Education
                               </h5>
                               <button
                                 type="button"
                                 className="close"
-                                onClick={() => setEducation(false)}
-                              >
+                                onClick={() => setEducation(false)}>
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
@@ -821,8 +809,7 @@ function Jobmyresume() {
                               <button
                                 type="button"
                                 className="site-button"
-                                onClick={() => setEducation(false)}
-                              >
+                                onClick={() => setEducation(false)}>
                                 Cancel
                               </button>
                               <button type="button" className="site-button">
@@ -838,8 +825,7 @@ function Jobmyresume() {
                           return (
                             <div
                               key={index}
-                              className="col-lg-12 col-md-12 col-sm-12"
-                            >
+                              className="col-lg-12 col-md-12 col-sm-12">
                               <div className="clearfix m-b20">
                                 <label className="m-b0">
                                   {item.education} {item.university}
@@ -870,15 +856,13 @@ function Jobmyresume() {
                   {itSkillsData ? (
                     <div
                       id="it_skills_bx"
-                      className="job-bx table-job-bx bg-white m-b30"
-                    >
+                      className="job-bx table-job-bx bg-white m-b30">
                       <div className="d-flex">
                         <h5 className="m-b15">IT Skills</h5>
                         <Link
                           to={"#"}
                           onClick={() => setItSkills(true)}
-                          className="site-button add-btn button-sm"
-                        >
+                          className="site-button add-btn button-sm">
                           <i className="fa fa-pencil m-r5"></i> Edit
                         </Link>
                       </div>
@@ -909,8 +893,7 @@ function Jobmyresume() {
                                     to={"#"}
                                     className="m-l15 font-14"
                                     data-toggle="modal"
-                                    data-target="#itskills"
-                                  >
+                                    data-target="#itskills">
                                     <i className="fa fa-pencil"></i>
                                   </Link>
                                 </td>
@@ -923,8 +906,7 @@ function Jobmyresume() {
                       <Modal
                         className="modal fade modal-bx-info editor"
                         show={itskills}
-                        onHide={setItSkills}
-                      >
+                        onHide={setItSkills}>
                         <div className="modal-dialog my-0" role="document">
                           <div className="modal-content">
                             <div className="modal-header">
@@ -932,8 +914,7 @@ function Jobmyresume() {
                               <button
                                 type="button"
                                 className="close"
-                                onClick={() => setItSkills(false)}
-                              >
+                                onClick={() => setItSkills(false)}>
                                 <span>&times;</span>
                               </button>
                             </div>
@@ -1037,8 +1018,7 @@ function Jobmyresume() {
                               <button
                                 type="button"
                                 className="site-button"
-                                onClick={() => setItSkills(false)}
-                              >
+                                onClick={() => setItSkills(false)}>
                                 Cancel
                               </button>
                               <button type="button" className="site-button">
@@ -1058,8 +1038,7 @@ function Jobmyresume() {
                         <Link
                           to={"#"}
                           onClick={() => setProjects(true)}
-                          className="site-button add-btn button-sm"
-                        >
+                          className="site-button add-btn button-sm">
                           <i className="fa fa-pencil m-r5"></i> Edit
                         </Link>
                       </div>
@@ -1084,22 +1063,19 @@ function Jobmyresume() {
                       <Modal
                         className="modal fade modal-bx-info editor"
                         show={projects}
-                        onHide={setProjects}
-                      >
+                        onHide={setProjects}>
                         <div className="modal-dialog my-0" role="document">
                           <div className="modal-content">
                             <div className="modal-header">
                               <h5
                                 className="modal-title"
-                                id="ProjectsModalLongTitle"
-                              >
+                                id="ProjectsModalLongTitle">
                                 Add Projects
                               </h5>
                               <button
                                 type="button"
                                 className="close"
-                                onClick={() => setProjects(false)}
-                              >
+                                onClick={() => setProjects(false)}>
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
@@ -1152,8 +1128,7 @@ function Jobmyresume() {
                                             />
                                             <label
                                               className="custom-control-label"
-                                              htmlFor="inprogress"
-                                            >
+                                              htmlFor="inprogress">
                                               In Progress
                                             </label>
                                           </div>
@@ -1168,8 +1143,7 @@ function Jobmyresume() {
                                             />
                                             <label
                                               className="custom-control-label"
-                                              htmlFor="finished"
-                                            >
+                                              htmlFor="finished">
                                               Finished
                                             </label>
                                           </div>
@@ -1272,8 +1246,7 @@ function Jobmyresume() {
                                       <label>Details of Project</label>
                                       <textarea
                                         className="form-control"
-                                        placeholder="Type Description"
-                                      ></textarea>
+                                        placeholder="Type Description"></textarea>
                                     </div>
                                   </div>
                                 </div>
@@ -1283,8 +1256,7 @@ function Jobmyresume() {
                               <button
                                 type="button"
                                 className="site-button"
-                                onClick={() => setProjects(false)}
-                              >
+                                onClick={() => setProjects(false)}>
                                 Cancel
                               </button>
                               <button type="button" className="site-button">
@@ -1300,15 +1272,13 @@ function Jobmyresume() {
                   {profileSummaryValue ? (
                     <div
                       id="profile_summary_bx"
-                      className="job-bx bg-white m-b30"
-                    >
+                      className="job-bx bg-white m-b30">
                       <div className="d-flex">
                         <h5 className="m-b15">Profile Summary</h5>
                         <Link
                           to={"#"}
                           onClick={() => setProfileSummary(true)}
-                          className="site-button add-btn button-sm"
-                        >
+                          className="site-button add-btn button-sm">
                           <i className="fa fa-pencil m-r5"></i> Edit
                         </Link>
                       </div>
@@ -1317,8 +1287,7 @@ function Jobmyresume() {
                       <Modal
                         className="modal fade modal-bx-info editor"
                         show={profilesummary}
-                        onHide={setProfileSummary}
-                      >
+                        onHide={setProfileSummary}>
                         <div className="modal-dialog my-0" role="document">
                           <div className="modal-content">
                             <div className="modal-header">
@@ -1326,8 +1295,7 @@ function Jobmyresume() {
                               <button
                                 type="button"
                                 className="close"
-                                onClick={() => setProfileSummary(false)}
-                              >
+                                onClick={() => setProfileSummary(false)}>
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
@@ -1346,8 +1314,7 @@ function Jobmyresume() {
                                       <label>Details of Project</label>
                                       <textarea
                                         className="form-control"
-                                        placeholder="Type Description"
-                                      ></textarea>
+                                        placeholder="Type Description"></textarea>
                                     </div>
                                   </div>
                                 </div>
@@ -1357,8 +1324,7 @@ function Jobmyresume() {
                               <button
                                 type="button"
                                 className="site-button"
-                                onClick={() => setProfileSummary(false)}
-                              >
+                                onClick={() => setProfileSummary(false)}>
                                 Cancel
                               </button>
                               <button type="button" className="site-button">
@@ -1373,8 +1339,7 @@ function Jobmyresume() {
 
                   <div
                     id="accomplishments_bx"
-                    className="job-bx bg-white m-b30"
-                  >
+                    className="job-bx bg-white m-b30">
                     <h5 className="m-b10">Accomplishments</h5>
                     <div className="list-row">
                       <div className="list-line">
@@ -1385,15 +1350,13 @@ function Jobmyresume() {
                               <Link
                                 to={"#"}
                                 onClick={() => setOnlineProfile(true)}
-                                className="site-button add-btn button-sm"
-                              >
+                                className="site-button add-btn button-sm">
                                 <i className="fa fa-pencil m-r5"></i> Edit
                               </Link>
                             </div>
                             <div
                               className="m-b0 d-flex flex-wrap align-items-center  "
-                              style={{ gap: "7px" }}
-                            >
+                              style={{ gap: "7px" }}>
                               {onlineProfileData.map((item, index) => {
                                 return (
                                   <Link key={index} to={item.link}>
@@ -1406,12 +1369,10 @@ function Jobmyresume() {
                             <Modal
                               className="modal fade modal-bx-info editor"
                               show={onlineprofile}
-                              onHide={setOnlineProfile}
-                            >
+                              onHide={setOnlineProfile}>
                               <div
                                 className="modal-dialog my-0"
-                                role="document"
-                              >
+                                role="document">
                                 <div className="modal-content">
                                   <div className="modal-header">
                                     <h5 className="modal-title">
@@ -1420,8 +1381,7 @@ function Jobmyresume() {
                                     <button
                                       type="button"
                                       className="close"
-                                      onClick={() => setOnlineProfile(false)}
-                                    >
+                                      onClick={() => setOnlineProfile(false)}>
                                       <span aria-hidden="true">&times;</span>
                                     </button>
                                   </div>
@@ -1453,8 +1413,7 @@ function Jobmyresume() {
                                             <label>Description</label>
                                             <textarea
                                               className="form-control"
-                                              placeholder="Type Description"
-                                            ></textarea>
+                                              placeholder="Type Description"></textarea>
                                           </div>
                                         </div>
                                       </div>
@@ -1464,14 +1423,12 @@ function Jobmyresume() {
                                     <button
                                       type="button"
                                       className="site-button"
-                                      onClick={() => setOnlineProfile(false)}
-                                    >
+                                      onClick={() => setOnlineProfile(false)}>
                                       Cancel
                                     </button>
                                     <button
                                       type="button"
-                                      className="site-button"
-                                    >
+                                      className="site-button">
                                       Save
                                     </button>
                                   </div>
@@ -1488,15 +1445,13 @@ function Jobmyresume() {
                               <Link
                                 to={"#"}
                                 onClick={() => setWorkSample(true)}
-                                className="site-button add-btn button-sm"
-                              >
+                                className="site-button add-btn button-sm">
                                 <i className="fa fa-pencil m-r5"></i> Edit
                               </Link>
                             </div>
                             <div
                               className="m-b0 d-flex align-items-center flex-wrap"
-                              style={{ gap: "7px" }}
-                            >
+                              style={{ gap: "7px" }}>
                               {workSampleData.map((item, index) => {
                                 return (
                                   <Link key={index} to={item.link}>
@@ -1509,20 +1464,17 @@ function Jobmyresume() {
                             <Modal
                               className="modal fade modal-bx-info editor"
                               show={worksample}
-                              onHide={setWorkSample}
-                            >
+                              onHide={setWorkSample}>
                               <div
                                 className="modal-dialog my-0"
-                                role="document"
-                              >
+                                role="document">
                                 <div className="modal-content">
                                   <div className="modal-header">
                                     <h5 className="modal-title">Work Sample</h5>
                                     <button
                                       type="button"
                                       className="close"
-                                      onClick={() => setWorkSample(false)}
-                                    >
+                                      onClick={() => setWorkSample(false)}>
                                       <span aria-hidden="true">&times;</span>
                                     </button>
                                   </div>
@@ -1650,8 +1602,7 @@ function Jobmyresume() {
                                               />
                                               <label
                                                 className="custom-control-label"
-                                                htmlFor="check1"
-                                              >
+                                                htmlFor="check1">
                                                 I am currently working on this
                                               </label>
                                             </div>
@@ -1662,8 +1613,7 @@ function Jobmyresume() {
                                             <label>Description</label>
                                             <textarea
                                               className="form-control"
-                                              placeholder="Type Description"
-                                            ></textarea>
+                                              placeholder="Type Description"></textarea>
                                           </div>
                                         </div>
                                       </div>
@@ -1673,14 +1623,12 @@ function Jobmyresume() {
                                     <button
                                       type="button"
                                       className="site-button"
-                                      onClick={() => setWorkSample(false)}
-                                    >
+                                      onClick={() => setWorkSample(false)}>
                                       Cancel
                                     </button>
                                     <button
                                       type="button"
-                                      className="site-button"
-                                    >
+                                      className="site-button">
                                       Save
                                     </button>
                                   </div>
@@ -1700,15 +1648,13 @@ function Jobmyresume() {
                               <Link
                                 to={"#"}
                                 onClick={() => setWhitePaper(true)}
-                                className="site-button add-btn button-sm"
-                              >
+                                className="site-button add-btn button-sm">
                                 <i className="fa fa-pencil m-r5"></i> Edit
                               </Link>
                             </div>
                             <div
                               className="m-b0 d-flex flex-wrap align-items-center "
-                              style={{ gap: "7px" }}
-                            >
+                              style={{ gap: "7px" }}>
                               {whitePaperData.map((item, index) => {
                                 return (
                                   <Link key={index} to={item.link}>
@@ -1721,26 +1667,22 @@ function Jobmyresume() {
                             <Modal
                               className="modal fade modal-bx-info editor"
                               show={whitepaper}
-                              onHide={setWhitePaper}
-                            >
+                              onHide={setWhitePaper}>
                               <div
                                 className="modal-dialog my-0"
-                                role="document"
-                              >
+                                role="document">
                                 <div className="modal-content">
                                   <div className="modal-header">
                                     <h5
                                       className="modal-title"
-                                      id="JournalentryModalLongTitle"
-                                    >
+                                      id="JournalentryModalLongTitle">
                                       White Paper / Research Publication /
                                       Journal Entry
                                     </h5>
                                     <button
                                       type="button"
                                       className="close"
-                                      onClick={() => setWhitePaper(false)}
-                                    >
+                                      onClick={() => setWhitePaper(false)}>
                                       <span aria-hidden="true">&times;</span>
                                     </button>
                                   </div>
@@ -1817,8 +1759,7 @@ function Jobmyresume() {
                                             <label>Description</label>
                                             <textarea
                                               className="form-control"
-                                              placeholder="Type Description"
-                                            ></textarea>
+                                              placeholder="Type Description"></textarea>
                                           </div>
                                         </div>
                                       </div>
@@ -1828,14 +1769,12 @@ function Jobmyresume() {
                                     <button
                                       type="button"
                                       className="site-button"
-                                      onClick={() => setWhitePaper(false)}
-                                    >
+                                      onClick={() => setWhitePaper(false)}>
                                       Cancel
                                     </button>
                                     <button
                                       type="button"
-                                      className="site-button"
-                                    >
+                                      className="site-button">
                                       Save
                                     </button>
                                   </div>
@@ -1852,15 +1791,13 @@ function Jobmyresume() {
                               <Link
                                 to={"#"}
                                 onClick={() => setPresentation(true)}
-                                className="site-button add-btn button-sm"
-                              >
+                                className="site-button add-btn button-sm">
                                 <i className="fa fa-pencil m-r5"></i> Edit
                               </Link>
                             </div>
                             <div
                               className="m-b0 d-flex align-items-center flex-wrap"
-                              style={{ gap: "7px" }}
-                            >
+                              style={{ gap: "7px" }}>
                               {presentationData.map((item, index) => {
                                 return (
                                   <Link key={index} to={item.link}>
@@ -1874,25 +1811,21 @@ function Jobmyresume() {
                               className="modal fade modal-bx-info editor"
                               id="presentation"
                               show={presentation}
-                              onHide={setPresentation}
-                            >
+                              onHide={setPresentation}>
                               <div
                                 className="modal-dialog my-0"
-                                role="document"
-                              >
+                                role="document">
                                 <div className="modal-content">
                                   <div className="modal-header">
                                     <h5
                                       className="modal-title"
-                                      id="PresentationModalLongTitle"
-                                    >
+                                      id="PresentationModalLongTitle">
                                       Presentation
                                     </h5>
                                     <button
                                       type="button"
                                       className="close"
-                                      onClick={() => setPresentation(false)}
-                                    >
+                                      onClick={() => setPresentation(false)}>
                                       <span aria-hidden="true">&times;</span>
                                     </button>
                                   </div>
@@ -1924,8 +1857,7 @@ function Jobmyresume() {
                                             <label>Description</label>
                                             <textarea
                                               className="form-control"
-                                              placeholder="Type Description"
-                                            ></textarea>
+                                              placeholder="Type Description"></textarea>
                                           </div>
                                         </div>
                                       </div>
@@ -1935,14 +1867,12 @@ function Jobmyresume() {
                                     <button
                                       type="button"
                                       className="site-button"
-                                      data-dismiss="modal"
-                                    >
+                                      data-dismiss="modal">
                                       Cancel
                                     </button>
                                     <button
                                       type="button"
-                                      className="site-button"
-                                    >
+                                      className="site-button">
                                       Save
                                     </button>
                                   </div>
@@ -1961,15 +1891,13 @@ function Jobmyresume() {
                                 data-toggle="modal"
                                 data-target="#patent"
                                 onClick={() => setPatent(true)}
-                                className="site-button add-btn button-sm"
-                              >
+                                className="site-button add-btn button-sm">
                                 <i className="fa fa-pencil m-r5"></i> Edit
                               </Link>
                             </div>
                             <div
                               className="m-b0 d-flex flex-wrap align-items-center "
-                              style={{ gap: "7px" }}
-                            >
+                              style={{ gap: "7px" }}>
                               {patentData.map((item, index) => {
                                 return (
                                   <Link to={item.link} key={index}>
@@ -1982,25 +1910,21 @@ function Jobmyresume() {
                             <Modal
                               className="modal fade modal-bx-info editor"
                               show={patent}
-                              onHide={setPatent}
-                            >
+                              onHide={setPatent}>
                               <div
                                 className="modal-dialog my-0"
-                                role="document"
-                              >
+                                role="document">
                                 <div className="modal-content">
                                   <div className="modal-header">
                                     <h5
                                       className="modal-title"
-                                      id="PatentModalLongTitle"
-                                    >
+                                      id="PatentModalLongTitle">
                                       Patent
                                     </h5>
                                     <button
                                       type="button"
                                       className="close"
-                                      onClick={() => setPatent(false)}
-                                    >
+                                      onClick={() => setPatent(false)}>
                                       <span aria-hidden="true">&times;</span>
                                     </button>
                                   </div>
@@ -2051,8 +1975,7 @@ function Jobmyresume() {
                                                   />
                                                   <label
                                                     className="custom-control-label"
-                                                    htmlFor="check2"
-                                                  >
+                                                    htmlFor="check2">
                                                     Patent Issued
                                                   </label>
                                                 </div>
@@ -2067,8 +1990,7 @@ function Jobmyresume() {
                                                   />
                                                   <label
                                                     className="custom-control-label"
-                                                    htmlFor="check3"
-                                                  >
+                                                    htmlFor="check3">
                                                     Patent pending
                                                   </label>
                                                 </div>
@@ -2136,8 +2058,7 @@ function Jobmyresume() {
                                             <label>Description</label>
                                             <textarea
                                               className="form-control"
-                                              placeholder="Type Description"
-                                            ></textarea>
+                                              placeholder="Type Description"></textarea>
                                           </div>
                                         </div>
                                       </div>
@@ -2147,14 +2068,12 @@ function Jobmyresume() {
                                     <button
                                       type="button"
                                       className="site-button"
-                                      onClick={() => setPatent(false)}
-                                    >
+                                      onClick={() => setPatent(false)}>
                                       Cancel
                                     </button>
                                     <button
                                       type="button"
-                                      className="site-button"
-                                    >
+                                      className="site-button">
                                       Save
                                     </button>
                                   </div>
@@ -2171,15 +2090,13 @@ function Jobmyresume() {
                               <Link
                                 to={"#"}
                                 onClick={() => setCertification(true)}
-                                className="site-button add-btn button-sm"
-                              >
+                                className="site-button add-btn button-sm">
                                 <i className="fa fa-pencil m-r5"></i> Edit
                               </Link>
                             </div>
                             <div
                               className="m-b0 d-flex  flex-wrap align-items-center "
-                              style={{ gap: "7px" }}
-                            >
+                              style={{ gap: "7px" }}>
                               {certificationData.map((item, index) => {
                                 return (
                                   <Link to={item.link} key={index}>
@@ -2192,25 +2109,21 @@ function Jobmyresume() {
                             <Modal
                               className="modal fade modal-bx-info editor"
                               show={certification}
-                              onHide={setCertification}
-                            >
+                              onHide={setCertification}>
                               <div
                                 className="modal-dialog my-0"
-                                role="document"
-                              >
+                                role="document">
                                 <div className="modal-content">
                                   <div className="modal-header">
                                     <h5
                                       className="modal-title"
-                                      id="CertificationModalLongTitle"
-                                    >
+                                      id="CertificationModalLongTitle">
                                       Certification
                                     </h5>
                                     <button
                                       type="button"
                                       className="close"
-                                      onClick={() => setCertification(false)}
-                                    >
+                                      onClick={() => setCertification(false)}>
                                       <span aria-hidden="true">&times;</span>
                                     </button>
                                   </div>
@@ -2269,14 +2182,12 @@ function Jobmyresume() {
                                     <button
                                       type="button"
                                       className="site-button"
-                                      onClick={() => setCertification(false)}
-                                    >
+                                      onClick={() => setCertification(false)}>
                                       Cancel
                                     </button>
                                     <button
                                       type="button"
-                                      className="site-button"
-                                    >
+                                      className="site-button">
                                       Save
                                     </button>
                                   </div>
@@ -2290,37 +2201,32 @@ function Jobmyresume() {
                   </div>
                   <div
                     id="desired_career_profile_bx"
-                    className="job-bx bg-white m-b30"
-                  >
+                    className="job-bx bg-white m-b30">
                     <div className="d-flex">
                       <h5 className="m-b30">Desired Career Profile</h5>
                       <Link
                         to={"#"}
                         onClick={() => setCareerProfile(true)}
-                        className="site-button add-btn button-sm"
-                      >
+                        className="site-button add-btn button-sm">
                         <i className="fa fa-pencil m-r5"></i> Edit
                       </Link>
                     </div>
                     <Modal
                       className="modal fade modal-bx-info editor"
                       show={careerprofile}
-                      onHide={setCareerProfile}
-                    >
+                      onHide={setCareerProfile}>
                       <div className="modal-dialog my-0" role="document">
                         <div className="modal-content">
                           <div className="modal-header">
                             <h5
                               className="modal-title"
-                              id="DesiredprofileModalLongTitle"
-                            >
+                              id="DesiredprofileModalLongTitle">
                               Desired Career Profile{" "}
                             </h5>
                             <button
                               type="button"
                               className="close"
-                              onClick={() => setCareerProfile(false)}
-                            >
+                              onClick={() => setCareerProfile(false)}>
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
@@ -2395,8 +2301,7 @@ function Jobmyresume() {
                                           />
                                           <label
                                             className="custom-control-label"
-                                            htmlFor="permanent"
-                                          >
+                                            htmlFor="permanent">
                                             Permanent
                                           </label>
                                         </div>
@@ -2411,8 +2316,7 @@ function Jobmyresume() {
                                           />
                                           <label
                                             className="custom-control-label"
-                                            htmlFor="contractual"
-                                          >
+                                            htmlFor="contractual">
                                             Contractual
                                           </label>
                                         </div>
@@ -2434,8 +2338,7 @@ function Jobmyresume() {
                                           />
                                           <label
                                             className="custom-control-label"
-                                            htmlFor="fulltime"
-                                          >
+                                            htmlFor="fulltime">
                                             Full Time
                                           </label>
                                         </div>
@@ -2450,8 +2353,7 @@ function Jobmyresume() {
                                           />
                                           <label
                                             className="custom-control-label"
-                                            htmlFor="parttime"
-                                          >
+                                            htmlFor="parttime">
                                             Part Time
                                           </label>
                                         </div>
@@ -2473,8 +2375,7 @@ function Jobmyresume() {
                                           />
                                           <label
                                             className="custom-control-label"
-                                            htmlFor="day"
-                                          >
+                                            htmlFor="day">
                                             Day
                                           </label>
                                         </div>
@@ -2489,8 +2390,7 @@ function Jobmyresume() {
                                           />
                                           <label
                                             className="custom-control-label"
-                                            htmlFor="night"
-                                          >
+                                            htmlFor="night">
                                             Night
                                           </label>
                                         </div>
@@ -2505,8 +2405,7 @@ function Jobmyresume() {
                                           />
                                           <label
                                             className="custom-control-label"
-                                            htmlFor="flexible"
-                                          >
+                                            htmlFor="flexible">
                                             Part Time
                                           </label>
                                         </div>
@@ -2560,8 +2459,7 @@ function Jobmyresume() {
                                           />
                                           <label
                                             className="custom-control-label"
-                                            htmlFor="usdollars"
-                                          >
+                                            htmlFor="usdollars">
                                             US Dollars
                                           </label>
                                         </div>
@@ -2576,8 +2474,7 @@ function Jobmyresume() {
                                           />
                                           <label
                                             className="custom-control-label"
-                                            htmlFor="rupees"
-                                          >
+                                            htmlFor="rupees">
                                             Indian Rupees
                                           </label>
                                         </div>
@@ -2649,8 +2546,7 @@ function Jobmyresume() {
                             <button
                               type="button"
                               className="site-button"
-                              onClick={() => setCareerProfile(false)}
-                            >
+                              onClick={() => setCareerProfile(false)}>
                               Cancel
                             </button>
                             <button type="button" className="site-button">
@@ -2754,15 +2650,13 @@ function Jobmyresume() {
                   </div>
                   <div
                     id="personal_details_bx"
-                    className="job-bx bg-white m-b30"
-                  >
+                    className="job-bx bg-white m-b30">
                     <div className="d-flex">
                       <h5 className="m-b30">Personal Details</h5>
                       <Link
                         to={"#"}
                         onClick={() => setPersonalDetails(true)}
-                        className="site-button add-btn button-sm"
-                      >
+                        className="site-button add-btn button-sm">
                         <i className="fa fa-pencil m-r5"></i> Edit
                       </Link>
                     </div>
@@ -2770,22 +2664,19 @@ function Jobmyresume() {
                     <Modal
                       className="modal fade modal-bx-info editor"
                       show={personaldetails}
-                      onHide={setPersonalDetails}
-                    >
+                      onHide={setPersonalDetails}>
                       <div className="modal-dialog my-0" role="document">
                         <div className="modal-content">
                           <div className="modal-header">
                             <h5
                               className="modal-title"
-                              id="PersonaldetailsModalLongTitle"
-                            >
+                              id="PersonaldetailsModalLongTitle">
                               Personal Details
                             </h5>
                             <button
                               type="button"
                               className="close"
-                              onClick={() => setPersonalDetails(false)}
-                            >
+                              onClick={() => setPersonalDetails(false)}>
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
@@ -2886,8 +2777,7 @@ function Jobmyresume() {
                                           />
                                           <label
                                             className="custom-control-label"
-                                            htmlFor="male"
-                                          >
+                                            htmlFor="male">
                                             Male
                                           </label>
                                         </div>
@@ -2902,8 +2792,7 @@ function Jobmyresume() {
                                           />
                                           <label
                                             className="custom-control-label"
-                                            htmlFor="female"
-                                          >
+                                            htmlFor="female">
                                             Female
                                           </label>
                                         </div>
@@ -2965,8 +2854,7 @@ function Jobmyresume() {
                                     <label>What assistance do you need</label>
                                     <textarea
                                       className="form-control"
-                                      placeholder="Type Description"
-                                    ></textarea>
+                                      placeholder="Type Description"></textarea>
                                   </div>
                                 </div>
                                 <div className="col-lg-12 col-md-12">
@@ -2994,8 +2882,7 @@ function Jobmyresume() {
                             <button
                               type="button"
                               className="site-button"
-                              onClick={() => setPersonalDetails(false)}
-                            >
+                              onClick={() => setPersonalDetails(false)}>
                               Cancel
                             </button>
                             <button type="button" className="site-button">
@@ -3148,4 +3035,4 @@ function Jobmyresume() {
     </>
   );
 }
-export default Jobmyresume;   
+export default Jobmyresume;
