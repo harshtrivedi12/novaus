@@ -1,12 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import { Modal } from "react-bootstrap";
 import CompanySideBar from "../Layout/companySideBar";
-
+import axios from "axios";
+import moment from "moment";
 function EmployeeCompanymanage() {
   const [company, setCompany] = useState(false);
+  const token = localStorage.getItem("employeeLoginToken");
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: "http://93.188.167.106:3002/api/employeer/job-lists?is_publish=0",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        console.log(response.data.data);
+        setData(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const handlePutReq = (id) => {
+    console.log(id, "id");
+    axios({
+      method: "PUT",
+      url: `http://93.188.167.106:3002/api/employeer/job-post/${id}`,
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => console.log(err, "error"));
+  };
+
   return (
     <>
       <Header2 />
@@ -35,335 +70,112 @@ function EmployeeCompanymanage() {
                       </div>
                     </div>
                     <ul className="post-job-bx browse-job">
-                      <li>
-                        <div className="post-bx d-flex w-100 justify-content-between ">
-                          <div className="job-post-info m-a0">
-                            <h4 className="mb-0">
-                              <a href="/react/demo/job-detail">
-                                Social Media Expert
-                              </a>
-                            </h4>
-                            <h6 className="mb-0">
-                              {" "}
-                              <a href="/react/demo/company-profile">
-                                @company-name
-                              </a>
-                            </h6>
-                            <p style={{ color: "#232323" }} className="mb-2">
-                              {" "}
-                              <i className="fa fa-map-marker"></i> Sacramento,
-                              California
-                            </p>
-
-                            <p className="mb-0">
-                              {" "}
-                              <span className="text-black ">Draft *</span>
-                              Created 7mo ago
-                            </p>
-                            <p style={{ color: "#007bff" }} className="">
-                              Complete draft
-                            </p>
-                          </div>
-                          <div
-                            className="d-flex flex-row justify-content-center align-items-center "
-                            style={{ gap: "12px" }}
-                          >
-                            <button
-                              className="px-3 py-2 site-button text-white border-0"
-                              style={{
-                                backgroundColor: "#3053e3",
-                                borderRadius: "7px",
-                                cursor: "pointer",
-                              }}
-                            >
-                              Publish
-                            </button>
-                            <button
-                              className="px-3 site-button py-2  text-white border-0"
-                              style={{
-                                borderRadius: "7px",
-                                cursor: "pointer",
-                                backgroundColor: "red",
-                              }}
-                            >
-                              Draft
-                            </button>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="post-bx">
-                          <div className="job-post-info m-a0">
-                            <h4 className="mb-0">
-                              <a href="/react/demo/job-detail">Web Designer</a>
-                            </h4>
-                            <h6 className="mb-0">
-                              {" "}
-                              <a href="/react/demo/company-profile">
-                                @company-name
-                              </a>
-                            </h6>
-                            <p style={{ color: "#232323" }} className="mb-2">
-                              {" "}
-                              <i className="fa fa-map-marker"></i> Sacramento,
-                              California
-                            </p>
-
-                            <p className="mb-0">
-                              {" "}
-                              <span className="text-black ">Draft *</span>
-                              Created 7mo ago
-                            </p>
-                            <p style={{ color: "#007bff" }} className="">
-                              Complete draft
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="post-bx">
-                          <div className="job-post-info m-a0">
-                            <h4 className="mb-0">
-                              <a href="/react/demo/job-detail">
-                                Finance Accountant
-                              </a>
-                            </h4>
-                            <h6 className="mb-0">
-                              {" "}
-                              <a href="/react/demo/company-profile">
-                                @company-name
-                              </a>
-                            </h6>
-                            <p style={{ color: "#232323" }} className="mb-2">
-                              {" "}
-                              <i className="fa fa-map-marker"></i> Sacramento,
-                              California
-                            </p>
-
-                            <p className="mb-0">
-                              {" "}
-                              <span className="text-black ">Draft *</span>
-                              Created 7mo ago
-                            </p>
-                            <p style={{ color: "#007bff" }} className="">
-                              Complete draft
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="post-bx">
-                          <div className="job-post-info m-a0">
-                            <h4 className="mb-0">
-                              <a href="/react/demo/job-detail">
-                                Social Media Expert
-                              </a>
-                            </h4>
-                            <h6 className="mb-0">
-                              {" "}
-                              <a href="/react/demo/company-profile">
-                                @company-name
-                              </a>
-                            </h6>
-                            <p style={{ color: "#232323" }} className="mb-2">
-                              {" "}
-                              <i className="fa fa-map-marker"></i> Sacramento,
-                              California
-                            </p>
-
-                            <p className="mb-0">
-                              {" "}
-                              <span className="text-black ">Draft *</span>
-                              Created 7mo ago
-                            </p>
-                            <p style={{ color: "#007bff" }} className="">
-                              Complete draft
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="post-bx">
-                          <div className="job-post-info m-a0">
-                            <h4 className="mb-0">
-                              <a href="/react/demo/job-detail">Web Designer</a>
-                            </h4>
-                            <h6 className="mb-0">
-                              {" "}
-                              <a href="/react/demo/company-profile">
-                                @company-name
-                              </a>
-                            </h6>
-                            <p style={{ color: "#232323" }} className="mb-2">
-                              {" "}
-                              <i className="fa fa-map-marker"></i> Sacramento,
-                              California
-                            </p>
-
-                            <p className="mb-0">
-                              {" "}
-                              <span className="text-black ">Draft *</span>
-                              Created 7mo ago
-                            </p>
-                            <p style={{ color: "#007bff" }} className="">
-                              Complete draft
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="post-bx">
-                          <div className="job-post-info m-a0">
-                            <h4 className="mb-0">
-                              <a href="/react/demo/job-detail">
-                                Finance Accountant
-                              </a>
-                            </h4>
-                            <h6 className="mb-0">
-                              {" "}
-                              <a href="/react/demo/company-profile">
-                                @company-name
-                              </a>
-                            </h6>
-                            <p style={{ color: "#232323" }} className="mb-2">
-                              {" "}
-                              <i className="fa fa-map-marker"></i> Sacramento,
-                              California
-                            </p>
-
-                            <p className="mb-0">
-                              {" "}
-                              <span className="text-black ">Draft *</span>
-                              Created 7mo ago
-                            </p>
-                            <p style={{ color: "#007bff" }} className="">
-                              Complete draft
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="post-bx">
-                          <div className="job-post-info m-a0">
-                            <h4 className="mb-0">
-                              <a href="/react/demo/job-detail">
-                                Social Media Expert
-                              </a>
-                            </h4>
-                            <h6 className="mb-0">
-                              {" "}
-                              <a href="/react/demo/company-profile">
-                                @company-name
-                              </a>
-                            </h6>
-                            <p style={{ color: "#232323" }} className="mb-2">
-                              {" "}
-                              <i className="fa fa-map-marker"></i> Sacramento,
-                              California
-                            </p>
-
-                            <p className="mb-0">
-                              {" "}
-                              <span className="text-black ">Draft *</span>
-                              Created 7mo ago
-                            </p>
-                            <p style={{ color: "#007bff" }} className="">
-                              Complete draft
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="post-bx">
-                          <div className="job-post-info m-a0">
-                            <h4 className="mb-0">
-                              <a href="/react/demo/job-detail">Web Designer</a>
-                            </h4>
-                            <h6 className="mb-0">
-                              {" "}
-                              <a href="/react/demo/company-profile">
-                                @company-name
-                              </a>
-                            </h6>
-                            <p style={{ color: "#232323" }} className="mb-2">
-                              {" "}
-                              <i className="fa fa-map-marker"></i> Sacramento,
-                              California
-                            </p>
-
-                            <p className="mb-0">
-                              {" "}
-                              <span className="text-black ">Draft *</span>
-                              Created 7mo ago
-                            </p>
-                            <p style={{ color: "#007bff" }} className="">
-                              Complete draft
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="post-bx">
-                          <div className="job-post-info m-a0">
-                            <h4 className="mb-0">
-                              <a href="/react/demo/job-detail">
-                                Finance Accountant
-                              </a>
-                            </h4>
-                            <h6 className="mb-0">
-                              {" "}
-                              <a href="/react/demo/company-profile">
-                                @company-name
-                              </a>
-                            </h6>
-                            <p style={{ color: "#232323" }} className="mb-2">
-                              {" "}
-                              <i className="fa fa-map-marker"></i> Sacramento,
-                              California
-                            </p>
-
-                            <p className="mb-0">
-                              {" "}
-                              <span className="text-black ">Draft *</span>
-                              Created 7mo ago
-                            </p>
-                            <p style={{ color: "#007bff" }} className="">
-                              Complete draft
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="post-bx">
-                          <div className="job-post-info m-a0">
-                            <h4 className="mb-0">
-                              <a href="/react/demo/job-detail">
-                                Social Media Expert
-                              </a>
-                            </h4>
-                            <h6 className="mb-0">
-                              {" "}
-                              <a href="/react/demo/company-profile">
-                                @company-name
-                              </a>
-                            </h6>
-                            <p style={{ color: "#232323" }} className="mb-2">
-                              {" "}
-                              <i className="fa fa-map-marker"></i> Sacramento,
-                              California
-                            </p>
-
-                            <p className="mb-0">
-                              {" "}
-                              <span className="text-black ">Draft *</span>
-                              Created 7mo ago
-                            </p>
-                            <p style={{ color: "#007bff" }} className="">
-                              Complete draft
-                            </p>
-                          </div>
-                        </div>
-                      </li>
+                      {data.map((item, index) => {
+                        const formattedDate = moment(
+                          item.job_detail.created_at
+                        ).format("YYYY-MM-DD");
+                        return (
+                          <li key={index}>
+                            <div className="post-bx d-flex w-100 justify-content-between ">
+                              <div className="job-post-info m-a0">
+                                {item.job_detail.job_title ? (
+                                  <h4 className="mb-0">
+                                    <a href="/react/demo/job-detail">
+                                      {item.job_detail.job_title}
+                                    </a>
+                                  </h4>
+                                ) : null}
+                                {item.job_category.name ||
+                                item.job_type.name ||
+                                item.job_workplace_types.name ? (
+                                  <div className="row">
+                                    {item.job_category.name ? (
+                                      <p>
+                                        {item.job_category.name}
+                                        {" | "}{" "}
+                                      </p>
+                                    ) : null}
+                                    {item.job_type.name ? (
+                                      <p>
+                                        {item.job_type.name}
+                                        {" | "}{" "}
+                                      </p>
+                                    ) : null}{" "}
+                                    {item.job_workplace_types.name ? (
+                                      <p>{item.job_workplace_types.name}</p>
+                                    ) : null}
+                                  </div>
+                                ) : null}
+                                {item.experience_level.name ? (
+                                  <p className="mb-2">
+                                    Experience:
+                                    {item.experience_level.name}
+                                  </p>
+                                ) : null}
+                                {item.cities.name ||
+                                item.states.name ||
+                                item.countries.name ? (
+                                  <p
+                                    style={{ color: "#232323" }}
+                                    className="mb-2"
+                                  >
+                                    {" "}
+                                    <i className="fa fa-map-marker"></i>{" "}
+                                    {item.cities.name ? (
+                                      <span>
+                                        {item.cities.name} {" | "}
+                                      </span>
+                                    ) : null}{" "}
+                                    {item.states.name ? (
+                                      <span>
+                                        {item.states.name}
+                                        {" | "}
+                                      </span>
+                                    ) : null}{" "}
+                                    {item.countries.name ? (
+                                      <span>{item.countries.name}</span>
+                                    ) : null}
+                                  </p>
+                                ) : null}
+                                {item.job_detail.created_at ? (
+                                  <p className="mb-0">
+                                    {" "}
+                                    <span className="text-black ">Draft *</span>
+                                    {formattedDate}
+                                  </p>
+                                ) : null}
+                              </div>
+                              <div
+                                className="d-flex flex-row justify-content-center align-items-center "
+                                style={{ gap: "12px" }}
+                              >
+                                <button
+                                  onClick={() => {
+                                    handlePutReq(item.job_detail.id);
+                                  }}
+                                  className="px-3 py-2 site-button text-white border-0"
+                                  style={{
+                                    borderRadius: "7px",
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  Publish
+                                </button>
+                                {/* <button
+                                  className="px-3 site-button py-2  text-white border-0"
+                                  style={{
+                                    borderRadius: "7px",
+                                    cursor: "pointer",
+                                    backgroundColor: "red",
+                                  }}
+                                >
+                                  Draft
+                                </button> */}
+                              </div>
+                            </div>
+                          </li>
+                        );
+                      })}
                     </ul>
                     <div className="pagination-bx m-t30 float-right">
                       <ul className="pagination">

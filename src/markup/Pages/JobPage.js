@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "./../Layout/Header";
 import Footer from "./../Layout/Footer";
-import { FaSave, FaTimes } from "react-icons/fa";
+import { FaSave, FaSearch, FaTimes } from "react-icons/fa";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Tab, Nav, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
+import FixedHeader from "../Layout/fixedHeader";
 import {
   setJobApplicationData,
   setJobApplicationValues,
@@ -142,6 +142,8 @@ function JobPage() {
   const jobApplicationValues = useSelector(
     (state) => state.jobApplicationSlice.jobApplicationValues
   );
+
+  console.table(jobApplicationValues, "values");
   const handleChange = (e) => {
     const { name, value } = e.target;
     dispatch(
@@ -182,6 +184,31 @@ function JobPage() {
       name: "",
     },
   ]);
+
+  const [job_type, setJobType] = useState([
+    {
+      id: 0,
+      name: "",
+    },
+  ]);
+
+  const getJobTyes = async () => {
+    await axios({
+      method: "GET",
+      url: "http://93.188.167.106:3001/api/jobseeker/job-types",
+
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        console.log(res.data.data, "JOBTYPE");
+        setJobType(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err, "joy");
+      });
+  };
 
   const getWorkplaceType = () => {
     axios({
@@ -276,6 +303,7 @@ function JobPage() {
     getExperience();
     getWorkplaceType();
     getCountry();
+    getJobTyes();
   }, []);
 
   useEffect(() => {
@@ -319,6 +347,60 @@ function JobPage() {
         console.log(err);
       });
   };
+  // /api/jobseeker/job-lists?title_keywords=software developer&location=Jaipur&workplace_type=1+2+3&job_type=1+2+3&experience_level=1+2+3
+
+  // const url = `http://93.188.167.106:3001/api/jobseeker/job-lists?title_keyword=${
+  //   jobApplicationValues.search_input
+  // }&location=Jaipur,${
+  //   jobApplicationValues.country_id === ""
+  //     ? "India"
+  //     : jobApplicationValues.country_id
+  // }&workplace_type=${jobApplicationValues.workplace_type}&job_type=${
+  //   jobApplicationValues.job_type
+  // }&experience_level=${jobApplicationValues.experience_level}`;
+
+  const baseUrl = "http://93.188.167.106:3001/api/jobseeker/job-lists";
+
+  const params = new URLSearchParams();
+
+  if (jobApplicationValues.search_input) {
+    params.append("title_keyword", jobApplicationValues.search_input);
+  }
+
+  const location =
+    jobApplicationValues.country_id === "101"
+      ? "India"
+      : jobApplicationValues.country_id;
+  params.append("location", `Jaipur,${location}`);
+
+  if (jobApplicationValues.workplace_type) {
+    params.append("workplace_type", jobApplicationValues.workplace_type);
+  }
+
+  if (jobApplicationValues.job_type) {
+    params.append("job_type", jobApplicationValues.job_type);
+  }
+  if (jobApplicationValues.experience_level) {
+    params.append("experience_level", jobApplicationValues.experience_level);
+  }
+
+  const url = `${baseUrl}?${params.toString()}`;
+  console.log(url, "this is the url");
+  const handleGetReq = () => {
+    axios({
+      method: "GET",
+      url: url,
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <Header />
@@ -328,7 +410,7 @@ function JobPage() {
         <div className="content-block">
           <div className="section-full bg-white p-t50 p-b20">
             <div className="container">
-              <div className="row justify-content-center align-items-center  ">
+              <div className="d-flex justify-content-center align-items-center  ">
                 <div className="col-lg-2  col-md-5 col-12  ">
                   <div className="form-group">
                     <label htmlFor="country_id">Country:</label>
@@ -427,7 +509,31 @@ function JobPage() {
                     ) : null}
                   </div>
                 </div>
-
+                <div className="col-lg-2  col-md-5 col-12 ">
+                  <div className="form-group">
+                    <label htmlFor="job_type">Job Type:</label>
+                    {job_type ? (
+                      <select
+                        type="text"
+                        className="form-control"
+                        // placeholder="London"
+                        id="job_type"
+                        name="job_type"
+                        onChange={handleChange}
+                        value={jobApplicationValues.job_type}
+                      >
+                        <option value="">Select Job Type</option>
+                        {job_type.map((item, index) => {
+                          return (
+                            <option key={index} value={item.id}>
+                              {item.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    ) : null}
+                  </div>
+                </div>
                 <div className="col-lg-2  col-md-5 col-12  ">
                   <div className="form-group">
                     <label htmlFor="experience_level">Experience Level:</label>
@@ -453,13 +559,36 @@ function JobPage() {
                     ) : null}
                   </div>
                 </div>
-
-                <button
-                  className="px-3 py-2 site-button d-flex align-items-center "
-                  style={{ gap: "7px" }}
+              </div>
+            </div>
+            <div className="container">
+              <div
+                className="row d-flex justify-content-center "
+                style={{ gap: "12px" }}
+              >
+                <div
+                  className=" w-75 d-flex flex-column   p-2 "
+                  style={{ backgroundColor: "#f5f5f5", alignItems: "center" }}
                 >
-                  <FaSave />
-                  Save
+                  <input
+                    type="text"
+                    name="search_input"
+                    id="search_input"
+                    onChange={handleChange}
+                    value={jobApplicationValues.search_input}
+                    autoComplete="false"
+                    className="w-100 p-2 h-100 bg-transparent border-0 "
+                    placeholder="search here..."
+                    style={{ outline: "none" }}
+                  />
+                </div>
+                <button
+                  onClick={handleGetReq}
+                  className="border-0 site-button d-flex align-items-center "
+                  style={{ cursor: "pointer", outline: "none", gap: "7px" }}
+                >
+                  <FaSearch />
+                  Search
                 </button>
               </div>
             </div>
@@ -682,12 +811,12 @@ function JobPage() {
                                   <form className="col-12 p-a0">
                                     {selectedJob.screen_questions.screen_question_keywords.map(
                                       (item, index) => (
-                                        <div>
+                                        <div key={index}>
                                           <h2>{item.name}</h2>
                                           <div>
                                             {item.screen_questions.map(
                                               (ques, questionIndex) => (
-                                                <div>
+                                                <div key={questionIndex}>
                                                   <h4>{ques.name}</h4>
                                                   {ques.screen_questions_options.map(
                                                     (option) => (
@@ -873,11 +1002,7 @@ function JobPage() {
                           </Modal.Footer>
                         </Modal>
 
-                        <label
-                          className="like-btn"
-                          labl
-                          onClick={toggleFabJobs}
-                        >
+                        <label className="like-btn" onClick={toggleFabJobs}>
                           <input
                             type="checkbox"
                             name={selectedJob.job_detail.id}

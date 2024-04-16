@@ -426,7 +426,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setJobsData } from "../../store/reducers/jobDataSlice";
 import moment from "moment";
-import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
+import FixedHeader from "../Layout/fixedHeader";
 
 function ApplicantsJobPage() {
   const jobsData = useSelector((state) => state.jobDataSlice.jobsData);

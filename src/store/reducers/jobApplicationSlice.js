@@ -7,6 +7,8 @@ const initialState = {
     state_id: "",
     workplace_type: "",
     experience_level: "",
+    job_type: "",
+    search_input: "",
   },
 };
 

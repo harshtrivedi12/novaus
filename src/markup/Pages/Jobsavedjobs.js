@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import SavedJobs from "./../Element/SavedJobs";
-import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
+import FixedHeader from "../Layout/fixedHeader";
 
 function Jobsavedjobs() {
   return (
