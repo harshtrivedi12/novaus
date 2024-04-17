@@ -147,77 +147,80 @@ function EmployeeApplicantsJobPage() {
                           </h4>
                         </div>
                       </div>
-                      <ul className="job-list-container">
-                        {jobsData.map((job) => {
-                          const createdAt = job?.job_applied_detail?.created_at;
-                          const formattedCreatedDate =
-                            moment(createdAt).format("YYYY-MM-DD");
-                          return (
-                            <li key={job.id}>
-                              <Link
-                                to={"#"}
-                                onClick={() => handleSelectJob(job)}
-                              >
-                                <h6 className="mb-0 d-flex justify-content-between align-items-center">
-                                  <div>
-                                    {job?.jobskkers_detail?.photo ? (
-                                      <img
-                                        src={job?.jobskkers_detail?.photo}
-                                        alt="image"
-                                        style={{
-                                          width: "70px",
-                                          height: "70px",
-                                        }}
-                                      />
-                                    ) : null}
-                                  </div>
+                      {jobsData ? (
+                        <ul className="job-list-container">
+                          {jobsData.map((job) => {
+                            const createdAt =
+                              job?.job_applied_detail?.created_at;
+                            const formattedCreatedDate =
+                              moment(createdAt).format("YYYY-MM-DD");
+                            return (
+                              <li key={job.id}>
+                                <Link
+                                  to={"#"}
+                                  onClick={() => handleSelectJob(job)}
+                                >
+                                  <h6 className="mb-0 d-flex justify-content-between align-items-center">
+                                    <div>
+                                      {job?.jobskkers_detail?.photo ? (
+                                        <img
+                                          src={job?.jobskkers_detail?.photo}
+                                          alt="image"
+                                          style={{
+                                            width: "70px",
+                                            height: "70px",
+                                          }}
+                                        />
+                                      ) : null}
+                                    </div>
 
-                                  <span>
-                                    {" "}
-                                    <FaTimes
-                                      className="close-btn"
-                                      onClick={handleClose}
-                                    />
-                                  </span>
-                                </h6>
-                                <p className="m-0 ">
-                                  {job?.jobskkers_detail?.id}
-                                </p>
-                                {job?.jobskkers_detail?.first_name ||
-                                job?.jobskkers_detail?.last_name ? (
-                                  <p
-                                    className="mb-0"
-                                    style={{ color: "#1c2957" }}
-                                  >
-                                    {job?.jobskkers_detail?.first_name}{" "}
-                                    {job?.jobskkers_detail?.last_name}{" "}
+                                    <span>
+                                      {" "}
+                                      <FaTimes
+                                        className="close-btn"
+                                        onClick={handleClose}
+                                      />
+                                    </span>
+                                  </h6>
+                                  <p className="m-0 ">
+                                    {job?.jobskkers_detail?.id}
                                   </p>
-                                ) : null}
-                                {job?.jobskkers_detail?.phone ? (
-                                  <p
-                                    className="mb-0"
-                                    style={{ color: "#1c2957" }}
-                                  >
-                                    {job?.jobskkers_detail?.phone}
-                                  </p>
-                                ) : null}
-                                {job?.jobskkers_detail?.email ? (
-                                  <p
-                                    className="mb-2"
-                                    style={{ color: "#1c2957" }}
-                                  >
-                                    {" "}
-                                    {job?.jobskkers_detail?.email}
-                                  </p>
-                                ) : null}
-                                {job?.job_applied_detail?.created_at ? (
-                                  <p>Applied {formattedCreatedDate} ago</p>
-                                ) : null}
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
+                                  {job?.jobskkers_detail?.first_name ||
+                                  job?.jobskkers_detail?.last_name ? (
+                                    <p
+                                      className="mb-0"
+                                      style={{ color: "#1c2957" }}
+                                    >
+                                      {job?.jobskkers_detail?.first_name}{" "}
+                                      {job?.jobskkers_detail?.last_name}{" "}
+                                    </p>
+                                  ) : null}
+                                  {job?.jobskkers_detail?.phone ? (
+                                    <p
+                                      className="mb-0"
+                                      style={{ color: "#1c2957" }}
+                                    >
+                                      {job?.jobskkers_detail?.phone}
+                                    </p>
+                                  ) : null}
+                                  {job?.jobskkers_detail?.email ? (
+                                    <p
+                                      className="mb-2"
+                                      style={{ color: "#1c2957" }}
+                                    >
+                                      {" "}
+                                      {job?.jobskkers_detail?.email}
+                                    </p>
+                                  ) : null}
+                                  {job?.job_applied_detail?.created_at ? (
+                                    <p>Applied {formattedCreatedDate} ago</p>
+                                  ) : null}
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      ) : null}
                     </div>
                   </div>
                 </div>

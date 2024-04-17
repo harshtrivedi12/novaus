@@ -23,6 +23,7 @@ function EmployeeCompanymanage() {
       .then((response) => {
         console.log(response.data.data);
         setData(response.data.data);
+        setSkeleton(false);
       })
       .catch((err) => {
         console.log(err);

@@ -60,15 +60,11 @@ function TwoBoxWithLinesSkeleton() {
         className="w-100 d-flex align-items-center   justify-content-center "
         style={{ gap: "12px" }}
       >
-        <div style={{ width: "40%" }}>
+        <div style={{ width: "30%" }}>
           <div
             className="d-flex justify-content-center "
             style={{ gap: "12px" }}
-          >
-            <div role="status" style={styles.container}>
-              <span style={styles.visuallyHidden}>Loading...</span>
-            </div>
-          </div>
+          ></div>
           {array.map((item, index) => {
             return (
               <div className="w-100 d-flex justify-content-center " key={index}>
@@ -132,15 +128,11 @@ function TwoBoxWithLinesSkeleton() {
             );
           })}
         </div>
-        <div style={{ width: "40%" }}>
+        <div style={{ width: "60%" }}>
           <div
             className="d-flex justify-content-center "
             style={{ gap: "12px" }}
-          >
-            <div role="status" style={styles.container}>
-              <span style={styles.visuallyHidden}>Loading...</span>
-            </div>
-          </div>
+          ></div>
           {array.map((item, index) => {
             return (
               <div className="w-100 d-flex justify-content-center " key={index}>

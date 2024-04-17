@@ -61,20 +61,28 @@ const postAJobSlice = createSlice({
     },
     setSelctedScreeningQuestion: (state, action) => {
       const { category } = action.payload;
-      console.log(category);
-      const index =
-        state.selectedScreeningQuestions.screen_question_keywords.findIndex(
-          (item) => item.id === category.id
-        );
-      if (index === -1) {
-        state.selectedScreeningQuestions.screen_question_keywords.push(
-          category
-        );
+      console.log(category, "category in slice file");
+      const questions =
+        state.selectedScreeningQuestions.screen_question_keywords;
+      if (questions === null) {
+        return;
       } else {
-        state.selectedScreeningQuestions.screen_question_keywords.splice(
-          index,
-          1
-        );
+        const index =
+          state.selectedScreeningQuestions.screen_question_keywords.findIndex(
+            (item) => item.id === category.id
+          );
+        console.log(index);
+        console.log(index, "index");
+        if (index === -1) {
+          state.selectedScreeningQuestions.screen_question_keywords.push(
+            category
+          );
+        } else {
+          state.selectedScreeningQuestions.screen_question_keywords.splice(
+            index,
+            1
+          );
+        }
       }
     },
     setSelctedScreeningQuestionGet: (state, action) => {

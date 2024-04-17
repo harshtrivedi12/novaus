@@ -443,7 +443,7 @@ function JobPage() {
     })
       .then((response) => {
         dispatch(setJobApplicationData(response.data.data));
-        setShowSkeleton(false);
+        // setShowSkeleton(false);
         console.log(response);
       })
       .catch((err) => {
@@ -467,52 +467,56 @@ function JobPage() {
                   <div className="col-lg-2  col-md-5 col-12  ">
                     <div className="form-group">
                       <label htmlFor="country_id">Country:</label>
-                      <select
-                        type="text"
-                        className="form-control"
-                        id="country_id"
-                        name="country_id"
-                        onChange={(e) => {
-                          handleChange(e);
-                        }}
-                        value={jobApplicationValues.country_id}
-                      >
-                        <option value="">Select a country</option>
-                        {countries.map((item, index) => {
-                          return (
-                            <option
-                              key={index}
-                              value={item.id}
-                              country={item.name}
-                            >
-                              {item.name}
-                            </option>
-                          );
-                        })}
-                      </select>
+                      {countries ? (
+                        <select
+                          type="text"
+                          className="form-control"
+                          id="country_id"
+                          name="country_id"
+                          onChange={(e) => {
+                            handleChange(e);
+                          }}
+                          value={jobApplicationValues.country_id}
+                        >
+                          <option value="">Select a country</option>
+                          {countries.map((item, index) => {
+                            return (
+                              <option
+                                key={index}
+                                value={item.id}
+                                country={item.name}
+                              >
+                                {item.name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      ) : null}
                     </div>
                   </div>
 
                   <div className="col-lg-2  col-md-5 col-12 ">
                     <div className="form-group">
                       <label htmlFor="state_id">State:</label>
-                      <select
-                        type="text"
-                        className="form-control"
-                        id="state_id"
-                        name="state_id"
-                        onChange={handleChange}
-                        value={jobApplicationValues.state_id}
-                      >
-                        <option value="">Select a State</option>
-                        {states.map((item, index) => {
-                          return (
-                            <option key={index} value={item.id}>
-                              {item.name}
-                            </option>
-                          );
-                        })}
-                      </select>
+                      {states ? (
+                        <select
+                          type="text"
+                          className="form-control"
+                          id="state_id"
+                          name="state_id"
+                          onChange={handleChange}
+                          value={jobApplicationValues.state_id}
+                        >
+                          <option value="">Select a State</option>
+                          {states.map((item, index) => {
+                            return (
+                              <option key={index} value={item.id}>
+                                {item.name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      ) : null}
                     </div>
                   </div>
 
@@ -657,139 +661,150 @@ function JobPage() {
                 <div className="row">
                   <div className="col-xl-4 col-lg-5 m-b30">
                     <div className="sticky-top">
-                      <div className="candidate-info company-info">
-                        <ul
-                          className="job-list-container"
-                          style={{
-                            maxHeight: "calc(100vh - 200px)",
-                            overflowY: "auto",
-                            boxShadow: "0 0 10px 0 rgba(0, 24, 128, 0.1)",
-                          }}
-                        >
-                          {jobApplicationData.map((job) => (
-                            <div>
-                              <li key={job.s_no}>
-                                <Link
-                                  to="#"
-                                  onClick={() => handleSelectJob(job)}
-                                >
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      width: "100%",
-                                      position: "relative",
-                                    }}
-                                  >
-                                    <div
-                                      style={{
-                                        width: "30%",
-                                      }}
+                      {jobApplicationData ? (
+                        <div className="candidate-info company-info">
+                          {jobApplicationData ? (
+                            <ul
+                              className="job-list-container"
+                              style={{
+                                maxHeight: "calc(100vh - 200px)",
+                                overflowY: "auto",
+                                boxShadow: "0 0 10px 0 rgba(0, 24, 128, 0.1)",
+                              }}
+                            >
+                              {jobApplicationData.map((job) => (
+                                <div>
+                                  <li key={job.s_no}>
+                                    <Link
+                                      to="#"
+                                      onClick={() => handleSelectJob(job)}
                                     >
-                                      <img
-                                        src={testImg}
-                                        alt=""
-                                        style={{
-                                          width: "80px",
-                                          height: "80px",
-                                        }}
-                                      />
-                                    </div>
-                                    <div
-                                      style={{
-                                        width: "80%",
-                                        overflow: "hidden",
-                                      }}
-                                    >
-                                      {job.job_detail.job_title && (
-                                        <p
-                                          className="mb-0"
-                                          style={{
-                                            color: "#1c2957",
-                                            fontSize: "20px",
-                                          }}
-                                        >
-                                          {job.job_detail.job_title}
-                                        </p>
-                                      )}
-
                                       <div
-                                        className="d-flex flex-row mb-0 "
-                                        style={{ gap: "7px" }}
-                                      >
-                                        {job.job_detail.skills_arr.map(
-                                          (item, index) => (
-                                            <p className="mb-0 " key={index}>
-                                              {item}
-                                            </p>
-                                          )
-                                        )}
-                                      </div>
-                                      <div
-                                        className=" gap-0 align-items-center joblist"
                                         style={{
-                                          gap: "0px",
-                                          height: "auto",
+                                          display: "flex",
+                                          width: "100%",
+                                          position: "relative",
                                         }}
                                       >
-                                        {job.job_category && (
-                                          <p
-                                            style={{
-                                              margin: "0px",
-                                            }}
-                                          >
-                                            {job.job_category.name}
-                                          </p>
-                                        )}
-                                        {job.job_type && (
-                                          <p
-                                            style={{
-                                              margin: "0px",
-                                            }}
-                                          >
-                                            {job.job_type.name}
-                                          </p>
-                                        )}
                                         <div
-                                          className="d-flex "
                                           style={{
-                                            justifyContent: "space-between",
+                                            width: "30%",
                                           }}
                                         >
-                                          <div>
-                                            {job.job_workplace_types.name && (
-                                              <p
-                                                style={{
-                                                  margin: "0px",
-                                                }}
-                                              >
-                                                {job.job_workplace_types.name}
-                                              </p>
+                                          <img
+                                            src={testImg}
+                                            alt=""
+                                            style={{
+                                              width: "80px",
+                                              height: "80px",
+                                            }}
+                                          />
+                                        </div>
+                                        <div
+                                          style={{
+                                            width: "80%",
+                                            overflow: "hidden",
+                                          }}
+                                        >
+                                          {job.job_detail.job_title && (
+                                            <p
+                                              className="mb-0"
+                                              style={{
+                                                color: "#1c2957",
+                                                fontSize: "20px",
+                                              }}
+                                            >
+                                              {job.job_detail.job_title}
+                                            </p>
+                                          )}
+
+                                          <div
+                                            className="d-flex flex-row mb-0 "
+                                            style={{ gap: "7px" }}
+                                          >
+                                            {job.job_detail.skills_arr.map(
+                                              (item, index) => (
+                                                <p
+                                                  className="mb-0 "
+                                                  key={index}
+                                                >
+                                                  {item}
+                                                </p>
+                                              )
                                             )}
                                           </div>
-                                          <div>
-                                            {job.job_detail.created_at && (
+                                          <div
+                                            className=" gap-0 align-items-center joblist"
+                                            style={{
+                                              gap: "0px",
+                                              height: "auto",
+                                            }}
+                                          >
+                                            {job.job_category && (
                                               <p
                                                 style={{
                                                   margin: "0px",
-                                                  fontWeight: "600",
                                                 }}
                                               >
-                                                {moment(
-                                                  job.job_detail.created_at
-                                                ).fromNow()}
+                                                {job.job_category.name}
                                               </p>
                                             )}
+                                            {job.job_type && (
+                                              <p
+                                                style={{
+                                                  margin: "0px",
+                                                }}
+                                              >
+                                                {job.job_type.name}
+                                              </p>
+                                            )}
+                                            <div
+                                              className="d-flex "
+                                              style={{
+                                                justifyContent: "space-between",
+                                              }}
+                                            >
+                                              <div>
+                                                {job.job_workplace_types
+                                                  .name && (
+                                                  <p
+                                                    style={{
+                                                      margin: "0px",
+                                                    }}
+                                                  >
+                                                    {
+                                                      job.job_workplace_types
+                                                        .name
+                                                    }
+                                                  </p>
+                                                )}
+                                              </div>
+                                              <div>
+                                                {job.job_detail.created_at && (
+                                                  <p
+                                                    style={{
+                                                      margin: "0px",
+                                                      fontWeight: "600",
+                                                    }}
+                                                  >
+                                                    {moment(
+                                                      job.job_detail.created_at
+                                                    ).fromNow()}
+                                                  </p>
+                                                )}
+                                              </div>
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
-                                    </div>
-                                  </div>
-                                </Link>
-                              </li>
-                            </div>
-                          ))}
-                        </ul>
-                      </div>
+                                    </Link>
+                                  </li>
+                                </div>
+                              ))}
+                            </ul>
+                          ) : null}
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                   <div className="col-xl-8 col-lg-7 m-b30 job-bx ">
