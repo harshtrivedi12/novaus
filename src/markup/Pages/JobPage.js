@@ -22,6 +22,8 @@ import {
   setUserAnswer,
 } from "../../store/reducers/jobApplicationScreeningQues";
 import { submit } from "redux-form";
+import JobPageSkeleton from "../skeleton/jobPage";
+import TwoBoxWithLinesSkeleton from "../skeleton/twoBoxLines";
 
 function JobPage() {
   const [selectedJob, setSelectedJob] = useState(null);
@@ -36,6 +38,8 @@ function JobPage() {
   const screeningQuestion = useSelector(
     (state) => state.jobApplicationScreeningQues.selectedScreeningQuestions
   );
+
+  const [showSkeleton, setShowSkeleton] = useState(true);
 
   const toggleFabJobs = async () => {
     try {
@@ -133,6 +137,7 @@ function JobPage() {
           }
         );
         dispatch(setJobApplicationData(response.data.data));
+        setShowSkeleton(false);
       } catch (error) {
         console.log(error);
       }
@@ -342,9 +347,9 @@ function JobPage() {
   };
 
   useEffect(() => {
+    getCountry();
     getExperience();
     getWorkplaceType();
-    getCountry();
     getJobTyes();
   }, []);
 
@@ -438,7 +443,7 @@ function JobPage() {
     })
       .then((response) => {
         dispatch(setJobApplicationData(response.data.data));
-
+        setShowSkeleton(false);
         console.log(response);
       })
       .catch((err) => {
@@ -449,76 +454,58 @@ function JobPage() {
     <>
       <Header />
       <FixedHeader />
-
-      <div className="page-content bg-white">
-        <div className="content-block">
-          <div className="section-full bg-white p-t50 p-b20">
-            <div className="container">
-              <div className="d-flex justify-content-center align-items-center  ">
-                <div className="col-lg-2  col-md-5 col-12  ">
-                  <div className="form-group">
-                    <label htmlFor="country_id">Country:</label>
-                    <select
-                      type="text"
-                      className="form-control"
-                      id="country_id"
-                      name="country_id"
-                      onChange={(e) => {
-                        handleChange(e);
-                      }}
-                      value={jobApplicationValues.country_id}>
-                      <option value="">Select a country</option>
-                      {countries.map((item, index) => {
-                        return (
-                          <option
-                            key={index}
-                            value={item.id}
-                            country={item.name}>
-                            {item.name}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="col-lg-2  col-md-5 col-12 ">
-                  <div className="form-group">
-                    <label htmlFor="state_id">State:</label>
-                    <select
-                      type="text"
-                      className="form-control"
-                      id="state_id"
-                      name="state_id"
-                      onChange={handleChange}
-                      value={jobApplicationValues.state_id}>
-                      <option value="">Select a State</option>
-                      {states.map((item, index) => {
-                        return (
-                          <option key={index} value={item.id}>
-                            {item.name}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="col-lg-2  col-md-5 col-12  ">
-                  <div className="form-group">
-                    <label htmlFor="city_id">City:</label>
-                    {cities ? (
+      {showSkeleton === true ? (
+        <div className="bg-white w-100 ">
+          <TwoBoxWithLinesSkeleton />
+        </div>
+      ) : (
+        <div className="page-content bg-white">
+          <div className="content-block">
+            <div className="section-full bg-white p-t50 p-b20">
+              <div className="container">
+                <div className="d-flex justify-content-center align-items-center  ">
+                  <div className="col-lg-2  col-md-5 col-12  ">
+                    <div className="form-group">
+                      <label htmlFor="country_id">Country:</label>
                       <select
                         type="text"
                         className="form-control"
-                        // placeholder="London"
-                        id="city_id"
-                        name="city_id"
-                        onChange={handleChange}
-                        value={jobApplicationValues.city_id}>
-                        <option value="">Select A City</option>
+                        id="country_id"
+                        name="country_id"
+                        onChange={(e) => {
+                          handleChange(e);
+                        }}
+                        value={jobApplicationValues.country_id}
+                      >
+                        <option value="">Select a country</option>
+                        {countries.map((item, index) => {
+                          return (
+                            <option
+                              key={index}
+                              value={item.id}
+                              country={item.name}
+                            >
+                              {item.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                  </div>
 
-                        {cities.map((item, index) => {
+                  <div className="col-lg-2  col-md-5 col-12 ">
+                    <div className="form-group">
+                      <label htmlFor="state_id">State:</label>
+                      <select
+                        type="text"
+                        className="form-control"
+                        id="state_id"
+                        name="state_id"
+                        onChange={handleChange}
+                        value={jobApplicationValues.state_id}
+                      >
+                        <option value="">Select a State</option>
+                        {states.map((item, index) => {
                           return (
                             <option key={index} value={item.id}>
                               {item.name}
@@ -526,535 +513,600 @@ function JobPage() {
                           );
                         })}
                       </select>
-                    ) : null}
+                    </div>
                   </div>
-                </div>
 
-                <div className="col-lg-2  col-md-5 col-12 ">
-                  <div className="form-group">
-                    <label htmlFor="workplace_type">WorkPlace Type:</label>
-                    {cities ? (
-                      <select
-                        type="text"
-                        className="form-control"
-                        // placeholder="London"
-                        id="workplace_type"
-                        name="workplace_type"
-                        onChange={handleChange}
-                        value={jobApplicationValues.workplace_type}>
-                        <option value="">Select WorkPlace Type</option>
-                        {workplace_type.map((item, index) => {
-                          return (
-                            <option key={index} value={item.id}>
-                              {item.name}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    ) : null}
+                  <div className="col-lg-2  col-md-5 col-12  ">
+                    <div className="form-group">
+                      <label htmlFor="city_id">City:</label>
+                      {cities ? (
+                        <select
+                          type="text"
+                          className="form-control"
+                          // placeholder="London"
+                          id="city_id"
+                          name="city_id"
+                          onChange={handleChange}
+                          value={jobApplicationValues.city_id}
+                        >
+                          <option value="">Select A City</option>
+
+                          {cities.map((item, index) => {
+                            return (
+                              <option key={index} value={item.id}>
+                                {item.name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      ) : null}
+                    </div>
                   </div>
-                </div>
-                <div className="col-lg-2  col-md-5 col-12 ">
-                  <div className="form-group">
-                    <label htmlFor="job_type">Job Type:</label>
-                    {job_type ? (
-                      <select
-                        type="text"
-                        className="form-control"
-                        // placeholder="London"
-                        id="job_type"
-                        name="job_type"
-                        onChange={handleChange}
-                        value={jobApplicationValues.job_type}>
-                        <option value="">Select Job Type</option>
-                        {job_type.map((item, index) => {
-                          return (
-                            <option key={index} value={item.id}>
-                              {item.name}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    ) : null}
+
+                  <div className="col-lg-2  col-md-5 col-12 ">
+                    <div className="form-group">
+                      <label htmlFor="workplace_type">WorkPlace Type:</label>
+                      {workplace_type ? (
+                        <select
+                          type="text"
+                          className="form-control"
+                          // placeholder="London"
+                          id="workplace_type"
+                          name="workplace_type"
+                          onChange={handleChange}
+                          value={jobApplicationValues.workplace_type}
+                        >
+                          <option value="">Select WorkPlace Type</option>
+                          {workplace_type.map((item, index) => {
+                            return (
+                              <option key={index} value={item.id}>
+                                {item.name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      ) : null}
+                    </div>
                   </div>
-                </div>
-                <div className="col-lg-2  col-md-5 col-12  ">
-                  <div className="form-group">
-                    <label htmlFor="experience_level">Experience Level:</label>
-                    {experience ? (
-                      <select
-                        type="text"
-                        className="form-control"
-                        // placeholder="London"
-                        id="experience_level"
-                        name="experience_level"
-                        onChange={handleChange}
-                        value={jobApplicationValues.experience_level}>
-                        <option value="">Select Experience Level</option>
-                        {experience.map((item, index) => {
-                          return (
-                            <option key={index} value={item.id}>
-                              {item.name}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    ) : null}
+                  <div className="col-lg-2  col-md-5 col-12 ">
+                    <div className="form-group">
+                      <label htmlFor="job_type">Job Type:</label>
+                      {job_type ? (
+                        <select
+                          type="text"
+                          className="form-control"
+                          // placeholder="London"
+                          id="job_type"
+                          name="job_type"
+                          onChange={handleChange}
+                          value={jobApplicationValues.job_type}
+                        >
+                          <option value="">Select Job Type</option>
+                          {job_type.map((item, index) => {
+                            return (
+                              <option key={index} value={item.id}>
+                                {item.name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div className="col-lg-2  col-md-5 col-12  ">
+                    <div className="form-group">
+                      <label htmlFor="experience_level">
+                        Experience Level:
+                      </label>
+                      {experience ? (
+                        <select
+                          type="text"
+                          className="form-control"
+                          // placeholder="London"
+                          id="experience_level"
+                          name="experience_level"
+                          onChange={handleChange}
+                          value={jobApplicationValues.experience_level}
+                        >
+                          <option value="">Select Experience Level</option>
+                          {experience.map((item, index) => {
+                            return (
+                              <option key={index} value={item.id}>
+                                {item.name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="container">
-              <div
-                className="row d-flex justify-content-center "
-                style={{ gap: "12px" }}>
+              <div className="container">
                 <div
-                  className=" w-75 d-flex flex-column   p-2 "
-                  style={{ backgroundColor: "#f5f5f5", alignItems: "center" }}>
-                  <input
-                    type="text"
-                    name="search_input"
-                    id="search_input"
-                    onChange={handleChange}
-                    value={jobApplicationValues.search_input}
-                    autoComplete="false"
-                    className="w-100 p-2 h-100 bg-transparent border-0 "
-                    placeholder="search here..."
-                    style={{ outline: "none" }}
-                  />
+                  className="row d-flex justify-content-center "
+                  style={{ gap: "12px" }}
+                >
+                  <div
+                    className=" w-75 d-flex flex-column   p-2 "
+                    style={{ backgroundColor: "#f5f5f5", alignItems: "center" }}
+                  >
+                    <input
+                      type="text"
+                      name="search_input"
+                      id="search_input"
+                      onChange={handleChange}
+                      value={jobApplicationValues.search_input}
+                      autoComplete="false"
+                      className="w-100 p-2 h-100 bg-transparent border-0 "
+                      placeholder="search here..."
+                      style={{ outline: "none" }}
+                    />
+                  </div>
+                  <button
+                    onClick={handleGetReq}
+                    className="border-0 site-button d-flex align-items-center "
+                    style={{ cursor: "pointer", outline: "none", gap: "7px" }}
+                  >
+                    <FaSearch />
+                    Search
+                  </button>
                 </div>
-                <button
-                  onClick={handleGetReq}
-                  className="border-0 site-button d-flex align-items-center "
-                  style={{ cursor: "pointer", outline: "none", gap: "7px" }}>
-                  <FaSearch />
-                  Search
-                </button>
               </div>
-            </div>
-            <div className="container">
-              <div className="row">
-                <div className="col-xl-4 col-lg-5 m-b30">
-                  <div className="sticky-top">
-                    <div className="candidate-info company-info">
-                      <ul
-                        className="job-list-container"
-                        style={{
-                          maxHeight: "calc(100vh - 200px)",
-                          overflowY: "auto",
-                          boxShadow: "0 0 10px 0 rgba(0, 24, 128, 0.1)",
-                        }}>
-                        {jobApplicationData.map((job) => (
-                          <div>
-                            <li key={job.s_no}>
-                              <Link to="#" onClick={() => handleSelectJob(job)}>
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    width: "100%",
-                                    position: "relative",
-                                  }}>
+              <div className="container">
+                <div className="row">
+                  <div className="col-xl-4 col-lg-5 m-b30">
+                    <div className="sticky-top">
+                      <div className="candidate-info company-info">
+                        <ul
+                          className="job-list-container"
+                          style={{
+                            maxHeight: "calc(100vh - 200px)",
+                            overflowY: "auto",
+                            boxShadow: "0 0 10px 0 rgba(0, 24, 128, 0.1)",
+                          }}
+                        >
+                          {jobApplicationData.map((job) => (
+                            <div>
+                              <li key={job.s_no}>
+                                <Link
+                                  to="#"
+                                  onClick={() => handleSelectJob(job)}
+                                >
                                   <div
                                     style={{
-                                      width: "30%",
-                                    }}>
-                                    <img
-                                      src={testImg}
-                                      alt=""
-                                      style={{
-                                        width: "80px",
-                                        height: "80px",
-                                      }}
-                                    />
-                                  </div>
-                                  <div
-                                    style={{
-                                      width: "80%",
-                                      overflow: "hidden",
-                                    }}>
-                                    {job.job_detail.job_title && (
-                                      <p
-                                        className="mb-0"
-                                        style={{
-                                          color: "#1c2957",
-                                          fontSize: "20px",
-                                        }}>
-                                        {job.job_detail.job_title}
-                                      </p>
-                                    )}
-
+                                      display: "flex",
+                                      width: "100%",
+                                      position: "relative",
+                                    }}
+                                  >
                                     <div
-                                      className="d-flex flex-row mb-0 "
-                                      style={{ gap: "7px" }}>
-                                      {job.job_detail.skills_arr.map(
-                                        (item, index) => (
-                                          <p className="mb-0 " key={index}>
-                                            {item}
-                                          </p>
-                                        )
-                                      )}
+                                      style={{
+                                        width: "30%",
+                                      }}
+                                    >
+                                      <img
+                                        src={testImg}
+                                        alt=""
+                                        style={{
+                                          width: "80px",
+                                          height: "80px",
+                                        }}
+                                      />
                                     </div>
                                     <div
-                                      className=" gap-0 align-items-center joblist"
                                       style={{
-                                        gap: "0px",
-                                        height: "auto",
-                                      }}>
-                                      {job.job_category && (
+                                        width: "80%",
+                                        overflow: "hidden",
+                                      }}
+                                    >
+                                      {job.job_detail.job_title && (
                                         <p
+                                          className="mb-0"
                                           style={{
-                                            margin: "0px",
-                                          }}>
-                                          {job.job_category.name}
+                                            color: "#1c2957",
+                                            fontSize: "20px",
+                                          }}
+                                        >
+                                          {job.job_detail.job_title}
                                         </p>
                                       )}
-                                      {job.job_type && (
-                                        <p
-                                          style={{
-                                            margin: "0px",
-                                          }}>
-                                          {job.job_type.name}
-                                        </p>
-                                      )}
+
                                       <div
-                                        className="d-flex "
+                                        className="d-flex flex-row mb-0 "
+                                        style={{ gap: "7px" }}
+                                      >
+                                        {job.job_detail.skills_arr.map(
+                                          (item, index) => (
+                                            <p className="mb-0 " key={index}>
+                                              {item}
+                                            </p>
+                                          )
+                                        )}
+                                      </div>
+                                      <div
+                                        className=" gap-0 align-items-center joblist"
                                         style={{
-                                          justifyContent: "space-between",
-                                        }}>
-                                        <div>
-                                          {job.job_workplace_types.name && (
-                                            <p
-                                              style={{
-                                                margin: "0px",
-                                              }}>
-                                              {job.job_workplace_types.name}
-                                            </p>
-                                          )}
-                                        </div>
-                                        <div>
-                                          {job.job_detail.created_at && (
-                                            <p
-                                              style={{
-                                                margin: "0px",
-                                                fontWeight: "600",
-                                              }}>
-                                              {moment(
-                                                job.job_detail.created_at
-                                              ).fromNow()}
-                                            </p>
-                                          )}
+                                          gap: "0px",
+                                          height: "auto",
+                                        }}
+                                      >
+                                        {job.job_category && (
+                                          <p
+                                            style={{
+                                              margin: "0px",
+                                            }}
+                                          >
+                                            {job.job_category.name}
+                                          </p>
+                                        )}
+                                        {job.job_type && (
+                                          <p
+                                            style={{
+                                              margin: "0px",
+                                            }}
+                                          >
+                                            {job.job_type.name}
+                                          </p>
+                                        )}
+                                        <div
+                                          className="d-flex "
+                                          style={{
+                                            justifyContent: "space-between",
+                                          }}
+                                        >
+                                          <div>
+                                            {job.job_workplace_types.name && (
+                                              <p
+                                                style={{
+                                                  margin: "0px",
+                                                }}
+                                              >
+                                                {job.job_workplace_types.name}
+                                              </p>
+                                            )}
+                                          </div>
+                                          <div>
+                                            {job.job_detail.created_at && (
+                                              <p
+                                                style={{
+                                                  margin: "0px",
+                                                  fontWeight: "600",
+                                                }}
+                                              >
+                                                {moment(
+                                                  job.job_detail.created_at
+                                                ).fromNow()}
+                                              </p>
+                                            )}
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
-                                </div>
-                              </Link>
-                            </li>
-                          </div>
-                        ))}
-                      </ul>
+                                </Link>
+                              </li>
+                            </div>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="col-xl-8 col-lg-7 m-b30 job-bx ">
-                  {selectedJob && (
-                    <div>
-                      <div className="candidate-title">
-                        <Link to="#">
-                          <h3 className="mb-1">
-                            {selectedJob.job_detail.job_title}
-                          </h3>
-                        </Link>
-                        <div className="job-details-content">
-                          {selectedJob.job_workplace_types.name &&
-                            selectedJob.job_type.name &&
-                            selectedJob.job_category.name && (
-                              <p className="mb-0">
-                                {selectedJob.job_workplace_types.name} |{" "}
-                                {selectedJob.job_type.name} |{" "}
-                                {selectedJob.job_category.name}
-                              </p>
-                            )}
-                          <div className="d-flex" style={{ gap: "7px" }}>
-                            {selectedJob.job_detail.skills_arr.map(
-                              (item, index) => (
-                                <p key={index} className="mb-5">
-                                  {item}
+                  <div className="col-xl-8 col-lg-7 m-b30 job-bx ">
+                    {selectedJob && (
+                      <div>
+                        <div className="candidate-title">
+                          <Link to="#">
+                            <h3 className="mb-1">
+                              {selectedJob.job_detail.job_title}
+                            </h3>
+                          </Link>
+                          <div className="job-details-content">
+                            {selectedJob.job_workplace_types.name &&
+                              selectedJob.job_type.name &&
+                              selectedJob.job_category.name && (
+                                <p className="mb-0">
+                                  {selectedJob.job_workplace_types.name} |{" "}
+                                  {selectedJob.job_type.name} |{" "}
+                                  {selectedJob.job_category.name}
                                 </p>
-                              )
+                              )}
+                            <div className="d-flex" style={{ gap: "7px" }}>
+                              {selectedJob.job_detail.skills_arr.map(
+                                (item, index) => (
+                                  <p key={index} className="mb-5">
+                                    {item}
+                                  </p>
+                                )
+                              )}
+                            </div>
+                            {selectedJob.job_detail.skills && (
+                              <p>Skills: {selectedJob.job_detail.skills}</p>
                             )}
                           </div>
-                          {selectedJob.job_detail.skills && (
-                            <p>Skills: {selectedJob.job_detail.skills}</p>
+                          {selectedJob.job_detail.job_description && (
+                            <p className="mb-1">
+                              <div
+                                className="ql-editor"
+                                style={{
+                                  fontSize: "13px",
+                                }}
+                                dangerouslySetInnerHTML={{
+                                  __html:
+                                    selectedJob.job_detail.job_description,
+                                }}
+                              />
+                            </p>
                           )}
                         </div>
-                        {selectedJob.job_detail.job_description && (
-                          <p className="mb-1">
-                            <div
-                              className="ql-editor"
-                              style={{
-                                fontSize: "13px",
-                              }}
-                              dangerouslySetInnerHTML={{
-                                __html: selectedJob.job_detail.job_description,
-                              }}
-                            />
+                        {selectedJob.job_detail.created_at && (
+                          <p>
+                            Posted{" "}
+                            {moment(
+                              selectedJob.job_detail.created_at
+                            ).fromNow()}
                           </p>
                         )}
-                      </div>
-                      {selectedJob.job_detail.created_at && (
-                        <p>
-                          Posted{" "}
-                          {moment(selectedJob.job_detail.created_at).fromNow()}
-                        </p>
-                      )}
-                      <div className="d-flex justify-content-start align-items-center">
-                        {selectedJob.job_detail.is_job_applied ? (
-                          <button
-                            className="radius-xl site-button"
-                            // onClick={handleShow}
+                        <div className="d-flex justify-content-start align-items-center">
+                          {selectedJob.job_detail.is_job_applied ? (
+                            <button
+                              className="radius-xl site-button"
+                              // onClick={handleShow}
+                            >
+                              View Status
+                            </button>
+                          ) : (
+                            <button
+                              className="radius-xl site-button"
+                              onClick={handleShow}
+                            >
+                              Apply
+                            </button>
+                          )}
+                          <Modal
+                            show={show}
+                            onHide={handleClose}
+                            backdrop="static"
+                            keyboard={false}
                           >
-                            View Status
-                          </button>
-                        ) : (
-                          <button
-                            className="radius-xl site-button"
-                            onClick={handleShow}>
-                            Apply
-                          </button>
-                        )}
-                        <Modal
-                          show={show}
-                          onHide={handleClose}
-                          backdrop="static"
-                          keyboard={false}>
-                          <Modal.Header
-                            closeButton
-                            style={{ backgroundColor: "#ffff" }}
-                            className="mt-4">
-                            <Modal.Title style={{ color: "#000" }}>
-                              <p> Apply to {selectedJob.company}</p>
-                            </Modal.Title>
-                          </Modal.Header>
-                          <Modal.Body>
-                            <Tab.Container
-                              id="tabs-example"
-                              activeKey={activeTab}>
-                              {/* Tab Content */}
-
-                              <Tab.Content>
-                                <Tab.Pane eventKey="contact-info">
-                                  <form className="col-12 p-a0">
-                                    {selectedJob.screen_questions.screen_question_keywords.map(
-                                      (item, index) => (
-                                        <div key={index}>
-                                          <h2>{item.name}</h2>
-                                          <div>
-                                            {item.screen_questions.map(
-                                              (ques, questionIndex) => (
-                                                <div key={questionIndex}>
-                                                  <h4>{ques.name}</h4>
-                                                  {ques.screen_questions_options.map(
-                                                    (option) => (
-                                                      <Form.Check
-                                                        type="radio"
-                                                        label={option.option}
-                                                        className="p-10"
-                                                        name={ques.name}
-                                                        onClick={() => {
-                                                          dispatch(
-                                                            setJobSeekerAnswer({
-                                                              index: index,
-                                                              questionIndex:
-                                                                questionIndex,
-                                                              answer:
-                                                                option.option,
-                                                            })
-                                                          );
-                                                        }}
-                                                      />
-                                                    )
-                                                  )}
-                                                </div>
-                                              )
-                                            )}
-                                          </div>
-                                        </div>
-                                      )
-                                    )}
-                                  </form>
-                                </Tab.Pane>
-                                <Tab.Pane eventKey="additional-info">
-                                  {/* Additional Info Form */}
-                                  <form className="col-12 p-a0">
-                                    <h6 className="font-weight-600">
-                                      Additional info
-                                    </h6>
-                                    <div class="form-group">
-                                      <label for="englishProficiency">
-                                        What is your level of proficiency in
-                                        English?
-                                      </label>
-                                      <select
-                                        class="form-control"
-                                        id="englishProficiency"
-                                        required>
-                                        <option value="">
-                                          Select an option
-                                        </option>
-                                        <option>Beginner</option>
-                                        <option>Intermediate</option>
-                                        <option>Advanced</option>
-                                        <option>Fluent</option>
-                                      </select>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="salaryRange">
-                                        Are you okay with the salary range
-                                        between 30k - 35K?
-                                      </label>
-                                      <select
-                                        class="form-control"
-                                        id="salaryRange"
-                                        required>
-                                        <option value="">
-                                          Select an option
-                                        </option>
-                                        <option>Yes</option>
-                                        <option>No</option>
-                                      </select>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="customerServiceExperience">
-                                        How many years of Customer Service
-                                        experience do you currently have?
-                                      </label>
-                                      <input
-                                        type="number"
-                                        class="form-control"
-                                        id="customerServiceExperience"
-                                        placeholder="Enter years of experience"
-                                        min="0"
-                                        max="99"
-                                        required
-                                      />
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="workLocation">
-                                        Are you comfortable to work on both
-                                        Gurgaon and Delhi branches?
-                                      </label>
-                                      <select
-                                        class="form-control"
-                                        id="workLocation"
-                                        required>
-                                        <option value="">
-                                          Select an option
-                                        </option>
-                                        <option>Yes</option>
-                                        <option>No</option>
-                                      </select>
-                                    </div>
-                                  </form>
-                                </Tab.Pane>
-                                <Tab.Pane eventKey="resume-info">
-                                  {/* Additional Info Form */}
-                                  <form className="col-12 p-a0">
-                                    <h6 className="font-weight-600">
-                                      Resume info
-                                    </h6>
-                                    <div class="form-group">
-                                      <label for="resume">
-                                        Upload resume (DOC, DOCX, PDF, up to 2
-                                        MB)
-                                      </label>
-                                      <input
-                                        type="file"
-                                        class="form-control-file"
-                                        id="resume"
-                                        name="resume"
-                                        accept=".doc, .docx, .pdf"
-                                        required
-                                      />
-                                      <small class="form-text text-muted">
-                                        Accepted file types: DOC, DOCX, PDF.
-                                        Maximum file size: 2 MB.
-                                      </small>
-                                    </div>
-                                  </form>
-                                </Tab.Pane>
-                                <Tab.Pane eventKey="immediate-info">
-                                  <form className="col-12 p-a0">
-                                    <h6 className="font-weight-600">
-                                      immediate info
-                                    </h6>
-
-                                    <div class="form-group">
-                                      <label for="immediateStart">
-                                        We must fill this position urgently. Can
-                                        you start immediately?
-                                      </label>
-                                      <select
-                                        class="form-control"
-                                        id="immediateStart"
-                                        required>
-                                        <option value="">
-                                          Select an option
-                                        </option>
-                                        <option>Yes</option>
-                                        <option>No</option>
-                                      </select>
-                                    </div>
-                                  </form>
-                                </Tab.Pane>
-                              </Tab.Content>
-                            </Tab.Container>
-                          </Modal.Body>
-                          <Modal.Footer>
-                            {activeTab !== "contact-info" && (
-                              <button
-                                className="site-button mr-2"
-                                onClick={handlePrev}>
-                                Previous
-                              </button>
-                            )}
-                            {activeTab === "contact-info" && (
-                              <button
-                                className="site-button"
-                                onClick={() => {
-                                  handleClose();
-                                  submitApplication();
-                                }}
-                                // onClick={handleClose}
+                            <Modal.Header
+                              closeButton
+                              style={{ backgroundColor: "#ffff" }}
+                              className="mt-4"
+                            >
+                              <Modal.Title style={{ color: "#000" }}>
+                                <p> Apply to {selectedJob.company}</p>
+                              </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                              <Tab.Container
+                                id="tabs-example"
+                                activeKey={activeTab}
                               >
-                                Submit
-                              </button>
-                            )}
-                          </Modal.Footer>
-                        </Modal>
+                                {/* Tab Content */}
 
-                        <label className="like-btn" labl>
-                          <input
-                            type="checkbox"
-                            defaultChecked={
-                              selectedJob.job_detail.is_job_favorite
-                            }
-                            name={selectedJob.job_detail.id}
-                            onClick={() => {
-                              toggleFabJobs();
-                            }}
-                          />
-                          <span className="checkmark"></span>
-                        </label>
+                                <Tab.Content>
+                                  <Tab.Pane eventKey="contact-info">
+                                    <form className="col-12 p-a0">
+                                      {selectedJob.screen_questions.screen_question_keywords.map(
+                                        (item, index) => (
+                                          <div key={index}>
+                                            <h2>{item.name}</h2>
+                                            <div>
+                                              {item.screen_questions.map(
+                                                (ques, questionIndex) => (
+                                                  <div key={questionIndex}>
+                                                    <h4>{ques.name}</h4>
+                                                    {ques.screen_questions_options.map(
+                                                      (option) => (
+                                                        <Form.Check
+                                                          type="radio"
+                                                          label={option.option}
+                                                          className="p-10"
+                                                          name={ques.name}
+                                                          onClick={() => {
+                                                            dispatch(
+                                                              setJobSeekerAnswer(
+                                                                {
+                                                                  index: index,
+                                                                  questionIndex:
+                                                                    questionIndex,
+                                                                  answer:
+                                                                    option.option,
+                                                                }
+                                                              )
+                                                            );
+                                                          }}
+                                                        />
+                                                      )
+                                                    )}
+                                                  </div>
+                                                )
+                                              )}
+                                            </div>
+                                          </div>
+                                        )
+                                      )}
+                                    </form>
+                                  </Tab.Pane>
+                                  <Tab.Pane eventKey="additional-info">
+                                    {/* Additional Info Form */}
+                                    <form className="col-12 p-a0">
+                                      <h6 className="font-weight-600">
+                                        Additional info
+                                      </h6>
+                                      <div class="form-group">
+                                        <label for="englishProficiency">
+                                          What is your level of proficiency in
+                                          English?
+                                        </label>
+                                        <select
+                                          class="form-control"
+                                          id="englishProficiency"
+                                          required
+                                        >
+                                          <option value="">
+                                            Select an option
+                                          </option>
+                                          <option>Beginner</option>
+                                          <option>Intermediate</option>
+                                          <option>Advanced</option>
+                                          <option>Fluent</option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="salaryRange">
+                                          Are you okay with the salary range
+                                          between 30k - 35K?
+                                        </label>
+                                        <select
+                                          class="form-control"
+                                          id="salaryRange"
+                                          required
+                                        >
+                                          <option value="">
+                                            Select an option
+                                          </option>
+                                          <option>Yes</option>
+                                          <option>No</option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="customerServiceExperience">
+                                          How many years of Customer Service
+                                          experience do you currently have?
+                                        </label>
+                                        <input
+                                          type="number"
+                                          class="form-control"
+                                          id="customerServiceExperience"
+                                          placeholder="Enter years of experience"
+                                          min="0"
+                                          max="99"
+                                          required
+                                        />
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="workLocation">
+                                          Are you comfortable to work on both
+                                          Gurgaon and Delhi branches?
+                                        </label>
+                                        <select
+                                          class="form-control"
+                                          id="workLocation"
+                                          required
+                                        >
+                                          <option value="">
+                                            Select an option
+                                          </option>
+                                          <option>Yes</option>
+                                          <option>No</option>
+                                        </select>
+                                      </div>
+                                    </form>
+                                  </Tab.Pane>
+                                  <Tab.Pane eventKey="resume-info">
+                                    {/* Additional Info Form */}
+                                    <form className="col-12 p-a0">
+                                      <h6 className="font-weight-600">
+                                        Resume info
+                                      </h6>
+                                      <div class="form-group">
+                                        <label for="resume">
+                                          Upload resume (DOC, DOCX, PDF, up to 2
+                                          MB)
+                                        </label>
+                                        <input
+                                          type="file"
+                                          class="form-control-file"
+                                          id="resume"
+                                          name="resume"
+                                          accept=".doc, .docx, .pdf"
+                                          required
+                                        />
+                                        <small class="form-text text-muted">
+                                          Accepted file types: DOC, DOCX, PDF.
+                                          Maximum file size: 2 MB.
+                                        </small>
+                                      </div>
+                                    </form>
+                                  </Tab.Pane>
+                                  <Tab.Pane eventKey="immediate-info">
+                                    <form className="col-12 p-a0">
+                                      <h6 className="font-weight-600">
+                                        immediate info
+                                      </h6>
+
+                                      <div class="form-group">
+                                        <label for="immediateStart">
+                                          We must fill this position urgently.
+                                          Can you start immediately?
+                                        </label>
+                                        <select
+                                          class="form-control"
+                                          id="immediateStart"
+                                          required
+                                        >
+                                          <option value="">
+                                            Select an option
+                                          </option>
+                                          <option>Yes</option>
+                                          <option>No</option>
+                                        </select>
+                                      </div>
+                                    </form>
+                                  </Tab.Pane>
+                                </Tab.Content>
+                              </Tab.Container>
+                            </Modal.Body>
+                            <Modal.Footer>
+                              {activeTab !== "contact-info" && (
+                                <button
+                                  className="site-button mr-2"
+                                  onClick={handlePrev}
+                                >
+                                  Previous
+                                </button>
+                              )}
+                              {activeTab === "contact-info" && (
+                                <button
+                                  className="site-button"
+                                  onClick={() => {
+                                    handleClose();
+                                    submitApplication();
+                                  }}
+                                  // onClick={handleClose}
+                                >
+                                  Submit
+                                </button>
+                              )}
+                            </Modal.Footer>
+                          </Modal>
+
+                          <label className="like-btn" labl>
+                            <input
+                              type="checkbox"
+                              defaultChecked={
+                                selectedJob.job_detail.is_job_favorite
+                              }
+                              name={selectedJob.job_detail.id}
+                              onClick={() => {
+                                toggleFabJobs();
+                              }}
+                            />
+                            <span className="checkmark"></span>
+                          </label>
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
+
       <Footer />
     </>
   );

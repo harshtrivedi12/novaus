@@ -6,9 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setProfileImageValue } from "../../store/reducers/jobProfileSlice";
 import axios from "axios";
 import { setFixedHeaderValues } from "../../store/reducers/fixedHeaderSlice";
+import SimpleLoadingSkeleton from "../skeleton/simpleLoadingSkeleton";
 var bnr = require("./../../images/banner/bnr1.jpg");
 
 const FixedHeader = () => {
+  const [showSkeleton, setShowSkeleton] = useState(true);
   const [basicdetails, setBasicDetails] = useState(false);
   const [imgData, setImgData] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
@@ -56,6 +58,7 @@ const FixedHeader = () => {
             photo: data.photo,
           })
         );
+        setShowSkeleton(false);
       })
       .catch((err) => {
         console.log(err);
@@ -139,83 +142,92 @@ const FixedHeader = () => {
       <div className="container">
         <div className="row">
           <div className="col-lg-8 col-md-7 candidate-info">
-            <div className="candidate-detail">
-              <div className="canditate-des text-center">
-                <Link to={"#"}>
-                  {imgData ? (
-                    <img src={imgData} />
-                  ) : (
-                    <img alt="" src={require("./../../images/team/pic1.jpg")} />
-                  )}
-                </Link>
+            {showSkeleton === true ? (
+              <SimpleLoadingSkeleton />
+            ) : (
+              <div className="candidate-detail">
+                <div className="canditate-des text-center">
+                  <Link to={"#"}>
+                    {imgData ? (
+                      <img src={imgData} />
+                    ) : (
+                      <img
+                        alt=""
+                        src={require("./../../images/team/pic1.jpg")}
+                      />
+                    )}
+                  </Link>
 
-                <div
-                  className="upload-link"
-                  title="update"
-                  data-toggle="tooltip"
-                  data-placement="right"
-                >
-                  <input
-                    type="file"
-                    className="update-flie"
-                    onChange={handleImageChange}
-                  />
-                  <i className="fa fa-camera"></i>
+                  <div
+                    className="upload-link"
+                    title="update"
+                    data-toggle="tooltip"
+                    data-placement="right"
+                  >
+                    <input
+                      type="file"
+                      className="update-flie"
+                      onChange={handleImageChange}
+                    />
+                    <i className="fa fa-camera"></i>
+                  </div>
                 </div>
-              </div>
-              <div className="text-white browse-job text-left">
-                {fixedHeaderValues.first_name || fixedHeaderValues.last_name ? (
-                  <h4 className="m-b0">
-                    {fixedHeaderValues.first_name} {fixedHeaderValues.last_name}
-                    <Link
-                      to={"#"}
-                      onClick={() => setBasicDetails(true)}
-                      className="m-l15 font-16 text-white"
-                    ></Link>
-                  </h4>
-                ) : null}
-                {fixedHeaderValues.professional_title ? (
-                  <p className="m-b15">
-                    {fixedHeaderValues.professional_title}
-                  </p>
-                ) : null}
-                <ul className="clearfix">
-                  {fixedHeaderValues.country_id ||
-                  fixedHeaderValues.state_id ? (
-                    <li>
-                      <i className="ti-location-pin"></i>{" "}
-                      {getSingleCountry(fixedHeaderValues.country_id)}
-                      {getSingleState(fixedHeaderValues.state_id)}
-                    </li>
+                <div className="text-white browse-job text-left">
+                  {fixedHeaderValues.first_name ||
+                  fixedHeaderValues.last_name ? (
+                    <h4 className="m-b0">
+                      {fixedHeaderValues.first_name}{" "}
+                      {fixedHeaderValues.last_name}
+                      <Link
+                        to={"#"}
+                        onClick={() => setBasicDetails(true)}
+                        className="m-l15 font-16 text-white"
+                      ></Link>
+                    </h4>
                   ) : null}
-                  {fixedHeaderValues.phone ? (
-                    <li>
-                      <i className="ti-mobile"></i> {fixedHeaderValues.phone}
-                    </li>
+                  {fixedHeaderValues.professional_title ? (
+                    <p className="m-b15">
+                      {fixedHeaderValues.professional_title}
+                    </p>
                   ) : null}
-                  {/* <li>
+                  <ul className="clearfix">
+                    {fixedHeaderValues.country_id ||
+                    fixedHeaderValues.state_id ? (
+                      <li>
+                        <i className="ti-location-pin"></i>{" "}
+                        {getSingleCountry(fixedHeaderValues.country_id)}
+                        {getSingleState(fixedHeaderValues.state_id)}
+                      </li>
+                    ) : null}
+                    {fixedHeaderValues.phone ? (
+                      <li>
+                        <i className="ti-mobile"></i> {fixedHeaderValues.phone}
+                      </li>
+                    ) : null}
+                    {/* <li>
                     <i className="ti-briefcase"></i> Fresher
                   </li> */}
-                  {fixedHeaderValues.email ? (
-                    <li>
-                      <i className="ti-email"></i> {fixedHeaderValues.email}
-                    </li>
-                  ) : null}
-                </ul>
-                <div className="progress-box m-t10">
-                  <div className="progress-info">
-                    Profile Strength (Average)<span>70%</span>
-                  </div>
-                  <div className="progress">
-                    <div
-                      className="progress-bar bg-primary"
-                      style={{ width: "80%" }}
-                      role="progressbar"
-                    ></div>
+                    {fixedHeaderValues.email ? (
+                      <li>
+                        <i className="ti-email"></i> {fixedHeaderValues.email}
+                      </li>
+                    ) : null}
+                  </ul>
+                  <div className="progress-box m-t10">
+                    <div className="progress-info">
+                      Profile Strength (Average)<span>70%</span>
+                    </div>
+                    <div className="progress">
+                      <div
+                        className="progress-bar bg-primary"
+                        style={{ width: "80%" }}
+                        role="progressbar"
+                      ></div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
           <div className="col-lg-4 col-md-5">
             <Link to={"#"}>

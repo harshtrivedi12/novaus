@@ -25,7 +25,7 @@ const ProfilePage = () => {
           setUserData(res.data.data);
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.message);
         });
     } catch (error) {
       console.log(error);
@@ -62,33 +62,46 @@ const ProfilePage = () => {
                             />
                           </div>
                           <div style={{ padding: "10px 30px" }}>
-                            <h2 className="mb-0">
-                              {userData.jobskkers_detail.first_name}{" "}
-                              {userData.jobskkers_detail.last_name}
-                            </h2>
-                            <h6 className="mb-0">
-                              {userData.jobskkers_detail.countries.name} |{" "}
-                              {userData.jobskkers_detail.states.name} |{" "}
-                              {userData.jobskkers_detail.cities.name}
-                            </h6>
+                            {userData.jobskkers_detail.first_name ||
+                            userData.jobskkers_detail.last_name ? (
+                              <h2 className="mb-0">
+                                {userData.jobskkers_detail.first_name}{" "}
+                                {userData.jobskkers_detail.last_name}
+                              </h2>
+                            ) : null}
+                            {userData.jobskkers_detail.countries.name ||
+                            userData.jobskkers_detail.states.name ||
+                            userData.jobskkers_detail.cities.name ? (
+                              <h6 className="mb-0">
+                                {userData.jobskkers_detail.countries.name} |{" "}
+                                {userData.jobskkers_detail.states.name} |{" "}
+                                {userData.jobskkers_detail.cities.name}
+                              </h6>
+                            ) : null}
                             <p className="mb-0">
                               MIT Sloan School of Management
                             </p>
                             <p className="mb-0">
                               1,623,846 followers 500+ connections
                             </p>
-                            <p className="mb-0">
-                              {userData.jobskkers_detail.countries.name} ,{" "}
-                              {userData.jobskkers_detail.states.name} ,{" "}
-                              {userData.jobskkers_detail.cities.name}
-                            </p>
+
+                            {userData.jobskkers_detail.countries.name ||
+                            userData.jobskkers_detail.states.name ||
+                            userData.jobskkers_detail.cities.name ? (
+                              <p className="mb-0">
+                                {userData.jobskkers_detail.countries.name} ,{" "}
+                                {userData.jobskkers_detail.states.name} ,{" "}
+                                {userData.jobskkers_detail.cities.name}
+                              </p>
+                            ) : null}
                             <div className="job-time m-t15 m-b10">
                               <a className="mr-1" href="#">
                                 <span
                                   style={{
                                     padding: "5px 15px",
                                     borderRadius: "100px",
-                                  }}>
+                                  }}
+                                >
                                   Message
                                 </span>
                               </a>
@@ -97,7 +110,8 @@ const ProfilePage = () => {
                                   style={{
                                     padding: "5px 15px",
                                     borderRadius: "100px",
-                                  }}>
+                                  }}
+                                >
                                   Visit my website
                                 </span>
                               </a>
@@ -106,7 +120,8 @@ const ProfilePage = () => {
                                   style={{
                                     padding: "5px 15px",
                                     borderRadius: "100px",
-                                  }}>
+                                  }}
+                                >
                                   More
                                 </span>
                               </a>
@@ -114,15 +129,18 @@ const ProfilePage = () => {
 
                             <div className="post-bx">
                               <div className="job-post-info m-a0">
-                                <div className="posted-info clearfix">
-                                  <p className="m-tb0 text-primary ">
-                                    {
-                                      userData.jobskkers_detail
-                                        .ai_resume_parse_data
-                                        .profileSummaryValue
-                                    }
-                                  </p>
-                                </div>
+                                {userData.jobskkers_detail.ai_resume_parse_data
+                                  .profileSummaryValue ? (
+                                  <div className="posted-info clearfix">
+                                    <p className="m-tb0 text-primary ">
+                                      {
+                                        userData.jobskkers_detail
+                                          .ai_resume_parse_data
+                                          .profileSummaryValue
+                                      }
+                                    </p>
+                                  </div>
+                                ) : null}
                               </div>
                             </div>
                           </div>
@@ -130,10 +148,11 @@ const ProfilePage = () => {
                       </div>
                       <div
                         className="mt-4 profile-summary"
-                        style={{ padding: "10px 30px" }}>
+                        style={{ padding: "10px 30px" }}
+                      >
                         <div className="candidate-info company-info">
                           {userData.jobskkers_detail.ai_resume_parse_data
-                            .employmentData[0] ? (
+                            .employmentData ? (
                             <div className="job-list-container">
                               <h4 className="mb-2 mt-4">Education</h4>
                               {userData.jobskkers_detail.ai_resume_parse_data.employmentData.map(
@@ -142,7 +161,8 @@ const ProfilePage = () => {
                                     <div>
                                       <i
                                         className="fa fa-user-o"
-                                        aria-hidden="true"></i>
+                                        aria-hidden="true"
+                                      ></i>
                                     </div>
                                     <div className="ml-2">
                                       <h6 className="mb-0 d-flex justify-content-between align-items-center">
@@ -153,7 +173,8 @@ const ProfilePage = () => {
                                       </h6>
                                       <p
                                         className="mb-0"
-                                        style={{ color: "#1c2957" }}>
+                                        style={{ color: "#1c2957" }}
+                                      >
                                         {item.jobDescription}
                                       </p>
                                       <div className="job-time m-t15 m-b10"></div>
@@ -166,7 +187,7 @@ const ProfilePage = () => {
                         </div>
                         <div className="candidate-info company-info">
                           {userData.jobskkers_detail.ai_resume_parse_data
-                            .skillsData[0] ? (
+                            .skillsData ? (
                             <div className="job-list-container">
                               <h4 className="mb-2 mt-4">Skills</h4>
                               <div className="job-time m-t15 m-b10">
@@ -177,7 +198,8 @@ const ProfilePage = () => {
                                         style={{
                                           padding: "5px 15px",
                                           borderRadius: "100px",
-                                        }}>
+                                        }}
+                                      >
                                         {item}
                                       </span>
                                     </a>
@@ -192,7 +214,8 @@ const ProfilePage = () => {
                     <div className="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12 ">
                       <div
                         className=" profile-summary"
-                        style={{ padding: "10px 30px" }}>
+                        style={{ padding: "10px 30px" }}
+                      >
                         <div className="candidate-info company-info">
                           <div className="job-list-container text-center">
                             <p
@@ -201,7 +224,8 @@ const ProfilePage = () => {
                                 color: "#1c2957",
                                 fontSize: "13px",
                                 lineHeight: "20px",
-                              }}>
+                              }}
+                            >
                               Abc, unlock your full potential with linkedin
                               premium
                             </p>
@@ -209,12 +233,14 @@ const ProfilePage = () => {
                               <div>
                                 <i
                                   className="fa fa-user-o"
-                                  aria-hidden="true"></i>
+                                  aria-hidden="true"
+                                ></i>
                               </div>
                               <div>
                                 <i
                                   className="fa fa-user-o"
-                                  aria-hidden="true"></i>
+                                  aria-hidden="true"
+                                ></i>
                               </div>
                             </div>
 
@@ -224,7 +250,8 @@ const ProfilePage = () => {
                                 color: "#1c2957",
                                 fontSize: "15px",
                                 lineHeight: "20px",
-                              }}>
+                              }}
+                            >
                               See who's viewed your profile in the last 90 days
                             </p>
                             <div className="job-time m-t15 m-b10">
@@ -233,7 +260,8 @@ const ProfilePage = () => {
                                   style={{
                                     padding: "5px 15px",
                                     borderRadius: "100px",
-                                  }}>
+                                  }}
+                                >
                                   Try for free
                                 </span>
                               </a>
@@ -243,17 +271,20 @@ const ProfilePage = () => {
                       </div>
                       <div
                         className="mt-4 profile-summary"
-                        style={{ padding: "10px 30px" }}>
+                        style={{ padding: "10px 30px" }}
+                      >
                         <div className="candidate-info company-info">
                           <h6 className="mb-2 mt-2">Other similar profiles</h6>
                           <div
                             className="job-list-container mt-2"
-                            style={{ borderBottom: "1px solid gray" }}>
+                            style={{ borderBottom: "1px solid gray" }}
+                          >
                             <div className="d-flex justify-content-start aligns-item-center ">
                               <div>
                                 <i
                                   className="fa fa-user-o"
-                                  aria-hidden="true"></i>
+                                  aria-hidden="true"
+                                ></i>
                               </div>
                               <div className="ml-2">
                                 <h6 className="mb-0 d-flex justify-content-between align-items-center">
@@ -261,7 +292,8 @@ const ProfilePage = () => {
                                 </h6>
                                 <p
                                   className="mb-0"
-                                  style={{ color: "#1c2957" }}>
+                                  style={{ color: "#1c2957" }}
+                                >
                                   I help people understand and apply AI
                                 </p>
                                 <div className="job-time m-t15 m-b10">
@@ -272,12 +304,14 @@ const ProfilePage = () => {
                           </div>
                           <div
                             className="job-list-container mt-2"
-                            style={{ borderBottom: "1px solid gray" }}>
+                            style={{ borderBottom: "1px solid gray" }}
+                          >
                             <div className="d-flex justify-content-start aligns-item-center ">
                               <div>
                                 <i
                                   className="fa fa-user-o"
-                                  aria-hidden="true"></i>
+                                  aria-hidden="true"
+                                ></i>
                               </div>
                               <div className="ml-2">
                                 <h6 className="mb-0 d-flex justify-content-between align-items-center">
@@ -285,7 +319,8 @@ const ProfilePage = () => {
                                 </h6>
                                 <p
                                   className="mb-0"
-                                  style={{ color: "#1c2957" }}>
+                                  style={{ color: "#1c2957" }}
+                                >
                                   I help people understand and apply AI
                                 </p>
                                 <div className="job-time m-t15 m-b10">
@@ -296,12 +331,14 @@ const ProfilePage = () => {
                           </div>
                           <div
                             className="job-list-container mt-2"
-                            style={{ borderBottom: "1px solid gray" }}>
+                            style={{ borderBottom: "1px solid gray" }}
+                          >
                             <div className="d-flex justify-content-start aligns-item-center ">
                               <div>
                                 <i
                                   className="fa fa-user-o"
-                                  aria-hidden="true"></i>
+                                  aria-hidden="true"
+                                ></i>
                               </div>
                               <div className="ml-2">
                                 <h6 className="mb-0 d-flex justify-content-between align-items-center">
@@ -309,7 +346,8 @@ const ProfilePage = () => {
                                 </h6>
                                 <p
                                   className="mb-0"
-                                  style={{ color: "#1c2957" }}>
+                                  style={{ color: "#1c2957" }}
+                                >
                                   I help people understand and apply AI
                                 </p>
                                 <div className="job-time m-t15 m-b10">
@@ -320,12 +358,14 @@ const ProfilePage = () => {
                           </div>
                           <div
                             className="job-list-container mt-2"
-                            style={{ borderBottom: "1px solid gray" }}>
+                            style={{ borderBottom: "1px solid gray" }}
+                          >
                             <div className="d-flex justify-content-start aligns-item-center ">
                               <div>
                                 <i
                                   className="fa fa-user-o"
-                                  aria-hidden="true"></i>
+                                  aria-hidden="true"
+                                ></i>
                               </div>
                               <div className="ml-2">
                                 <h6 className="mb-0 d-flex justify-content-between align-items-center">
@@ -333,7 +373,8 @@ const ProfilePage = () => {
                                 </h6>
                                 <p
                                   className="mb-0"
-                                  style={{ color: "#1c2957" }}>
+                                  style={{ color: "#1c2957" }}
+                                >
                                   I help people understand and apply AI
                                 </p>
                                 <div className="job-time m-t15 m-b10">

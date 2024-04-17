@@ -213,7 +213,6 @@ function EmployeeComponypostjobs() {
       },
     })
       .then((res) => {
-        alert("res");
         console.log(res.data.data);
         setJobType(res.data.data);
       })
@@ -231,7 +230,6 @@ function EmployeeComponypostjobs() {
       },
     })
       .then((res) => {
-        alert("res");
         console.log(res.data.data);
         setWorkplaceType(res.data.data);
       })
@@ -349,7 +347,7 @@ function EmployeeComponypostjobs() {
 
     dispatch(setPostAJobData({ ...postAJobData, [name]: value }));
   };
-
+  console.log(countries, "ciosda");
   return (
     <>
       <Header2 />
@@ -367,7 +365,8 @@ function EmployeeComponypostjobs() {
                       </h5>
                       <Link
                         to={"/employee/company-profile"}
-                        className="site-button right-arrow button-sm float-right">
+                        className="site-button right-arrow button-sm float-right"
+                      >
                         Back
                       </Link>
                     </div>
@@ -425,96 +424,119 @@ function EmployeeComponypostjobs() {
                             <label htmlFor="workplaceType">
                               Workplace type
                             </label>
-                            <Form.Control
-                              as="select"
-                              custom
-                              className="custom-select"
-                              onChange={handleChange}
-                              name="workplaceType"
-                              id="workplaceType"
-                              value={postAJobData.workplaceType}>
-                              {workplaceType.map(
-                                (item) => (
-                                  console.log(item),
-                                  (<option value={item.id}>{item.name}</option>)
-                                )
-                              )}
-                            </Form.Control>
+                            {workplaceType ? (
+                              <Form.Control
+                                as="select"
+                                custom
+                                className="custom-select"
+                                onChange={handleChange}
+                                name="workplaceType"
+                                id="workplaceType"
+                                value={postAJobData.workplaceType}
+                              >
+                                {workplaceType.map(
+                                  (item) => (
+                                    console.log(item),
+                                    (
+                                      <option value={item.id}>
+                                        {item.name}
+                                      </option>
+                                    )
+                                  )
+                                )}
+                              </Form.Control>
+                            ) : null}
                           </div>
                         </div>
 
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
                             <label>Country</label>
-                            <Form.Control
-                              as="select"
-                              custom
-                              className="custom-select"
-                              name="selectedCountry"
-                              value={postAJobData.selectedCountry}
-                              onChange={handleChange}>
-                              {countries.map((item) => (
-                                <option value={item.id}>{item.name}</option>
-                              ))}
-                            </Form.Control>
+                            {countries ? (
+                              <Form.Control
+                                as="select"
+                                custom
+                                className="custom-select"
+                                name="selectedCountry"
+                                value={postAJobData.selectedCountry}
+                                onChange={handleChange}
+                              >
+                                {countries.map((item) => (
+                                  <option value={item.id}>{item.name}</option>
+                                ))}
+                              </Form.Control>
+                            ) : null}
                           </div>
                         </div>
 
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
                             <label>State</label>
-                            <Form.Control
-                              as="select"
-                              custom
-                              className="custom-select"
-                              name="selectedState"
-                              value={postAJobData.selectedState}
-                              onChange={handleChange}>
-                              {/* <option value=""></option> */}
-                              {states.map((item) => (
-                                <option value={item.id}>{item.name}</option>
-                              ))}
-                            </Form.Control>
+                            {states ? (
+                              <Form.Control
+                                as="select"
+                                custom
+                                className="custom-select"
+                                name="selectedState"
+                                value={postAJobData.selectedState}
+                                onChange={handleChange}
+                              >
+                                {/* <option value=""></option> */}
+                                {states.map((item) => (
+                                  <option value={item.id}>{item.name}</option>
+                                ))}
+                              </Form.Control>
+                            ) : null}
                           </div>
                         </div>
 
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
                             <label>City</label>
-                            <Form.Control
-                              as="select"
-                              custom
-                              name="selectedCity"
-                              className="custom-select"
-                              value={postAJobData.selectedCity}
-                              onChange={handleChange}>
-                              {/* <option value=""></option> */}
+                            {cities ? (
+                              <Form.Control
+                                as="select"
+                                custom
+                                name="selectedCity"
+                                className="custom-select"
+                                value={postAJobData.selectedCity}
+                                onChange={handleChange}
+                              >
+                                {/* <option value=""></option> */}
 
-                              {cities.map((item) => (
-                                <option value={item.id}>{item.name}</option>
-                              ))}
-                            </Form.Control>
+                                {cities.map((item) => (
+                                  <option value={item.id}>{item.name}</option>
+                                ))}
+                              </Form.Control>
+                            ) : null}
                           </div>
                         </div>
 
                         <div className="col-6">
                           <div className="form-group">
                             <label htmlFor="jobType">Job Type</label>
-                            <Form.Control
-                              as="select"
-                              custom
-                              className="custom-select"
-                              name="jobType"
-                              id="jobType"
-                              value={postAJobData.jobType}
-                              onChange={handleChange}>
-                              {jobType.map(
-                                (item) => (
-                                  console.log(item),
-                                  (<option value={item.id}>{item.name}</option>)
-                                )
-                              )}
-                            </Form.Control>
+                            {jobType ? (
+                              <Form.Control
+                                as="select"
+                                custom
+                                className="custom-select"
+                                name="jobType"
+                                id="jobType"
+                                value={postAJobData.jobType}
+                                onChange={handleChange}
+                              >
+                                {jobType.map(
+                                  (item) => (
+                                    console.log(item),
+                                    (
+                                      <option value={item.id}>
+                                        {item.name}
+                                      </option>
+                                    )
+                                  )
+                                )}
+                              </Form.Control>
+                            ) : null}
                           </div>
                         </div>
                         {/* <div className="col-lg-6 col-md-6">
@@ -595,7 +617,8 @@ function EmployeeComponypostjobs() {
                         style={{
                           backgroundColor: "#edf3f8",
                           borderRadius: "7px",
-                        }}>
+                        }}
+                      >
                         <div className="d-flex justify-content-end ">
                           <FaX
                             className="outline-none p-0 border-0 f"
@@ -618,7 +641,8 @@ function EmployeeComponypostjobs() {
                               aiJobDescription();
                             }}
                             className="py-3 "
-                            style={{ borderRadius: "50px", fontWeight: "600" }}>
+                            style={{ borderRadius: "50px", fontWeight: "600" }}
+                          >
                             Write With AI
                           </Button>
                         </div>
@@ -675,7 +699,8 @@ function EmployeeComponypostjobs() {
                           />
                           <label
                             class="custom-control-label"
-                            for="check1"></label>
+                            for="check1"
+                          ></label>
                         </div>
                         <div style={{ color: "#9d9d9d" }}>
                           Filter out and send rejections to applicants who don't
@@ -690,15 +715,18 @@ function EmployeeComponypostjobs() {
                       style={{
                         display: "flex",
                         gap: 10,
-                      }}>
+                      }}
+                    >
                       <button
                         onClick={postCompleted}
-                        className="site-button d-flex justify-content-center align-items-center">
+                        className="site-button d-flex justify-content-center align-items-center"
+                      >
                         Pending
                       </button>
                       <button
                         // onClick={handleAddSkill}
-                        className="site-button d-flex justify-content-center align-items-center">
+                        className="site-button d-flex justify-content-center align-items-center"
+                      >
                         Pending
                       </button>
                     </div>

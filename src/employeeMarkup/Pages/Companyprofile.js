@@ -196,7 +196,8 @@ function EmployeeCompanyprofile() {
                       </h5>
                       <Link
                         to={"/employee/company-profile"}
-                        className="site-button right-arrow button-sm float-right">
+                        className="site-button right-arrow button-sm float-right"
+                      >
                         Back
                       </Link>
                     </div>
@@ -282,7 +283,8 @@ function EmployeeCompanyprofile() {
                               onChange={(e) => {
                                 setIndustry(e.target.value);
                               }}
-                              value={industry}>
+                              value={industry}
+                            >
                               <option>Web Designer</option>
                               <option>Web Developer1</option>
                             </Form.Control>
@@ -297,7 +299,8 @@ function EmployeeCompanyprofile() {
                               onChange={(e) => {
                                 setDescription(e.target.value);
                               }}
-                              value={description}></textarea>
+                              value={description}
+                            ></textarea>
                           </div>
                         </div>
                       </div>
@@ -330,7 +333,8 @@ function EmployeeCompanyprofile() {
                               value={selectedCountry}
                               onChange={(e) =>
                                 setSelectedCountry(e.target.value)
-                              }>
+                              }
+                            >
                               <option value=""></option>
                               {countries.map((item) => (
                                 <option value={item.id}>{item.name}</option>
@@ -342,35 +346,41 @@ function EmployeeCompanyprofile() {
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
                             <label>State</label>
-                            <select
-                              className="form-control"
-                              value={selectedStates}
-                              onChange={(e) =>
-                                setSelectedState(e.target.value)
-                              }>
-                              <option value=""></option>
-                              {states.map((item) => (
-                                <option value={item.id}>{item.name}</option>
-                              ))}
-                            </select>
+                            {states ? (
+                              <select
+                                className="form-control"
+                                value={selectedStates}
+                                onChange={(e) =>
+                                  setSelectedState(e.target.value)
+                                }
+                              >
+                                <option value=""></option>
+                                {states.map((item) => (
+                                  <option value={item.id}>{item.name}</option>
+                                ))}
+                              </select>
+                            ) : null}
                           </div>
                         </div>
 
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
                             <label>City</label>
-                            <select
-                              className="form-control"
-                              value={selectedCities}
-                              onChange={(e) => {
-                                setSelectedCities(e.target.value);
-                              }}>
-                              <option value=""></option>
+                            {cities ? (
+                              <select
+                                className="form-control"
+                                value={selectedCities}
+                                onChange={(e) => {
+                                  setSelectedCities(e.target.value);
+                                }}
+                              >
+                                <option value=""></option>
 
-                              {cities.map((item) => (
-                                <option value={item.id}>{item.name}</option>
-                              ))}
-                            </select>
+                                {cities.map((item) => (
+                                  <option value={item.id}>{item.name}</option>
+                                ))}
+                              </select>
+                            ) : null}
                           </div>
                         </div>
                         {/* <div className="col-lg-6 col-md-6">
@@ -502,7 +512,8 @@ function EmployeeCompanyprofile() {
                           e.preventDefault();
 
                           updateCompanyData();
-                        }}>
+                        }}
+                      >
                         Update Setting
                       </button>
                     </form>

@@ -88,18 +88,31 @@ const CompanyPage = () => {
                             />
                           </div>
                           <div style={{ padding: "10px 30px" }}>
-                            <h2 className="mb-0">{companyData.company_name}</h2>
-                            <h6 className="mb-0">{companyData.tagline}</h6>
-                            <p className="mb-0">
-                              <strong
-                                style={{
-                                  fontWeight: "900",
-                                }}>
-                                {companyData.country.name},
-                                {companyData.state.name},{companyData.city.name}
-                                , {companyData.zip_code}
-                              </strong>
-                            </p>
+                            {companyData.company_name ? (
+                              <h2 className="mb-0">
+                                {companyData.company_name}
+                              </h2>
+                            ) : null}
+                            {companyData.tagline ? (
+                              <h6 className="mb-0">{companyData.tagline}</h6>
+                            ) : null}
+                            {companyData.country.name ||
+                            companyData.state.name ||
+                            companyData.city.name ||
+                            companyData.zip_code ? (
+                              <p className="mb-0">
+                                <strong
+                                  style={{
+                                    fontWeight: "900",
+                                  }}
+                                >
+                                  {companyData.country.name},
+                                  {companyData.state.name},
+                                  {companyData.city.name},{" "}
+                                  {companyData.zip_code}
+                                </strong>
+                              </p>
+                            ) : null}
 
                             <div>
                               <div className="tab-buttons">
@@ -107,14 +120,16 @@ const CompanyPage = () => {
                                   className={
                                     activeTab === "home" ? "active" : ""
                                   }
-                                  onClick={() => handleTabClick("home")}>
+                                  onClick={() => handleTabClick("home")}
+                                >
                                   Home
                                 </button>
                                 <button
                                   className={
                                     activeTab === "jobs" ? "active" : ""
                                   }
-                                  onClick={() => handleTabClick("jobs")}>
+                                  onClick={() => handleTabClick("jobs")}
+                                >
                                   Jobs
                                 </button>
                               </div>
@@ -124,28 +139,50 @@ const CompanyPage = () => {
                       </div>
                       <div
                         className="mt-4 profile-summary"
-                        style={{ padding: "10px 30px" }}>
+                        style={{ padding: "10px 30px" }}
+                      >
                         <div className="candidate-info company-info">
                           <div className="tab-content">
                             {activeTab === "home" && (
                               <div>
-                                <h4 className="mb-2 mt-4">About</h4>
-                                <p>{companyData.about}</p>
-                                <h4 className="mb-2 mt-4">Summary</h4>
-                                <p>{companyData.summery}</p>
-                                <h4 className="mb-2 mt-4">Size & Range</h4>
-                                <p>
-                                  {companyData.company_size.name}
-                                  {companyData.company_size.range}
-                                </p>
-                                <h4 className="mb-2 mt-4">Email</h4>
-                                <p>{companyData.email}</p>
-                                <h4 className="mb-2 mt-4">Founded year</h4>
-                                <p>
-                                  {moment(companyData.founded_date).format(
-                                    "YYYY-MM-DD"
-                                  )}
-                                </p>
+                                {companyData.about ? (
+                                  <div>
+                                    <h4 className="mb-2 mt-4">About</h4>
+                                    <p>{companyData.about}</p>
+                                  </div>
+                                ) : null}
+                                {companyData.summery ? (
+                                  <div>
+                                    <h4 className="mb-2 mt-4">Summary</h4>
+                                    <p>{companyData.summery}</p>
+                                  </div>
+                                ) : null}
+                                {companyData.company_size.name ||
+                                companyData.company_size.range ? (
+                                  <div>
+                                    <h4 className="mb-2 mt-4">Size & Range</h4>
+                                    <p>
+                                      {companyData.company_size.name}
+                                      {companyData.company_size.range}
+                                    </p>
+                                  </div>
+                                ) : null}
+                                {companyData.email ? (
+                                  <div>
+                                    <h4 className="mb-2 mt-4">Email</h4>
+                                    <p>{companyData.email}</p>
+                                  </div>
+                                ) : null}
+                                {companyData.founded_date ? (
+                                  <div>
+                                    <h4 className="mb-2 mt-4">Founded year</h4>
+                                    <p>
+                                      {moment(companyData.founded_date).format(
+                                        "YYYY-MM-DD"
+                                      )}
+                                    </p>
+                                  </div>
+                                ) : null}
                               </div>
                             )}
 
@@ -161,27 +198,34 @@ const CompanyPage = () => {
                                         <div>
                                           <i
                                             className="fa fa-user-o"
-                                            aria-hidden="true"></i>
+                                            aria-hidden="true"
+                                          ></i>
                                         </div>
                                         <div className="ml-2">
-                                          <h6
-                                            className="mb-0 "
-                                            onClick={() => {
-                                              navigate(
-                                                `/user/job-detail/${item.job_detail.id}`
-                                              );
-                                            }}>
-                                            {item.job_detail.job_title}
-                                          </h6>
-
-                                          <p
-                                            className=""
-                                            style={{ color: "#1c2957" }}>
-                                            {item.job_type.name},
-                                            {item.experience_level.name},
-                                            {item.job_workplace_types.name},
-                                            {item.job_type.name}
-                                          </p>
+                                          {item.job_detail.job_title ? (
+                                            <h6
+                                              className="mb-0 "
+                                              onClick={() => {
+                                                navigate(
+                                                  `/user/job-detail/${item.job_detail.id}`
+                                                );
+                                              }}
+                                            >
+                                              {item.job_detail.job_title}
+                                            </h6>
+                                          ) : null}
+                                          {item.job_type.name ||
+                                          item.experience_level.name ||
+                                          item.job_workplace_types.name ? (
+                                            <p
+                                              className=""
+                                              style={{ color: "#1c2957" }}
+                                            >
+                                              {item.job_type.name},
+                                              {item.experience_level.name},
+                                              {item.job_workplace_types.name},
+                                            </p>
+                                          ) : null}
                                         </div>
                                       </div>
                                     ))}
@@ -193,19 +237,22 @@ const CompanyPage = () => {
                             {activeTab === "people" && (
                               <div
                                 className="mt-4 profile-summary"
-                                style={{ padding: "10px 30px" }}>
+                                style={{ padding: "10px 30px" }}
+                              >
                                 <div className="candidate-info company-info">
                                   <h6 className="mb-2 mt-2">
                                     4 associated members
                                   </h6>
                                   <div
                                     className="job-list-container mt-2"
-                                    style={{ borderBottom: "1px solid gray" }}>
+                                    style={{ borderBottom: "1px solid gray" }}
+                                  >
                                     <div className="d-flex justify-content-start aligns-item-center ">
                                       <div>
                                         <i
                                           className="fa fa-user-o"
-                                          aria-hidden="true"></i>
+                                          aria-hidden="true"
+                                        ></i>
                                       </div>
                                       <div className="ml-2">
                                         <h6 className="mb-0 d-flex justify-content-between align-items-center">
@@ -213,7 +260,8 @@ const CompanyPage = () => {
                                         </h6>
                                         <p
                                           className="mb-0"
-                                          style={{ color: "#1c2957" }}>
+                                          style={{ color: "#1c2957" }}
+                                        >
                                           I help people understand and apply AI
                                         </p>
                                         <div className="job-time m-t15 m-b10">
@@ -222,7 +270,8 @@ const CompanyPage = () => {
                                               style={{
                                                 padding: "5px 15px",
                                                 borderRadius: "100px",
-                                              }}>
+                                              }}
+                                            >
                                               + Follow
                                             </span>
                                           </a>
@@ -232,12 +281,14 @@ const CompanyPage = () => {
                                   </div>
                                   <div
                                     className="job-list-container mt-2"
-                                    style={{ borderBottom: "1px solid gray" }}>
+                                    style={{ borderBottom: "1px solid gray" }}
+                                  >
                                     <div className="d-flex justify-content-start aligns-item-center ">
                                       <div>
                                         <i
                                           className="fa fa-user-o"
-                                          aria-hidden="true"></i>
+                                          aria-hidden="true"
+                                        ></i>
                                       </div>
                                       <div className="ml-2">
                                         <h6 className="mb-0 d-flex justify-content-between align-items-center">
@@ -245,7 +296,8 @@ const CompanyPage = () => {
                                         </h6>
                                         <p
                                           className="mb-0"
-                                          style={{ color: "#1c2957" }}>
+                                          style={{ color: "#1c2957" }}
+                                        >
                                           I help people understand and apply AI
                                         </p>
                                         <div className="job-time m-t15 m-b10">
@@ -254,7 +306,8 @@ const CompanyPage = () => {
                                               style={{
                                                 padding: "5px 15px",
                                                 borderRadius: "100px",
-                                              }}>
+                                              }}
+                                            >
                                               + Follow
                                             </span>
                                           </a>
@@ -264,12 +317,14 @@ const CompanyPage = () => {
                                   </div>
                                   <div
                                     className="job-list-container mt-2"
-                                    style={{ borderBottom: "1px solid gray" }}>
+                                    style={{ borderBottom: "1px solid gray" }}
+                                  >
                                     <div className="d-flex justify-content-start aligns-item-center ">
                                       <div>
                                         <i
                                           className="fa fa-user-o"
-                                          aria-hidden="true"></i>
+                                          aria-hidden="true"
+                                        ></i>
                                       </div>
                                       <div className="ml-2">
                                         <h6 className="mb-0 d-flex justify-content-between align-items-center">
@@ -277,7 +332,8 @@ const CompanyPage = () => {
                                         </h6>
                                         <p
                                           className="mb-0"
-                                          style={{ color: "#1c2957" }}>
+                                          style={{ color: "#1c2957" }}
+                                        >
                                           I help people understand and apply AI
                                         </p>
                                         <div className="job-time m-t15 m-b10">
@@ -286,7 +342,8 @@ const CompanyPage = () => {
                                               style={{
                                                 padding: "5px 15px",
                                                 borderRadius: "100px",
-                                              }}>
+                                              }}
+                                            >
                                               + Follow
                                             </span>
                                           </a>
@@ -296,12 +353,14 @@ const CompanyPage = () => {
                                   </div>
                                   <div
                                     className="job-list-container mt-2"
-                                    style={{ borderBottom: "1px solid gray" }}>
+                                    style={{ borderBottom: "1px solid gray" }}
+                                  >
                                     <div className="d-flex justify-content-start aligns-item-center ">
                                       <div>
                                         <i
                                           className="fa fa-user-o"
-                                          aria-hidden="true"></i>
+                                          aria-hidden="true"
+                                        ></i>
                                       </div>
                                       <div className="ml-2">
                                         <h6 className="mb-0 d-flex justify-content-between align-items-center">
@@ -309,7 +368,8 @@ const CompanyPage = () => {
                                         </h6>
                                         <p
                                           className="mb-0"
-                                          style={{ color: "#1c2957" }}>
+                                          style={{ color: "#1c2957" }}
+                                        >
                                           I help people understand and apply AI
                                         </p>
                                         <div className="job-time m-t15 m-b10">
@@ -318,7 +378,8 @@ const CompanyPage = () => {
                                               style={{
                                                 padding: "5px 15px",
                                                 borderRadius: "100px",
-                                              }}>
+                                              }}
+                                            >
                                               + Follow
                                             </span>
                                           </a>
@@ -336,19 +397,22 @@ const CompanyPage = () => {
                     <div className=" col-lg-4 col-md-4 col-sm-12 col-12">
                       <div
                         className="mt-4 profile-summary"
-                        style={{ padding: "10px 30px" }}>
+                        style={{ padding: "10px 30px" }}
+                      >
                         <div className="candidate-info company-info">
                           <h6 className="mb-2 mt-2">
                             Pages people also viewed
                           </h6>
                           <div
                             className="job-list-container mt-2"
-                            style={{ borderBottom: "1px solid gray" }}>
+                            style={{ borderBottom: "1px solid gray" }}
+                          >
                             <div className="d-flex justify-content-start aligns-item-center ">
                               <div>
                                 <i
                                   className="fa fa-user-o"
-                                  aria-hidden="true"></i>
+                                  aria-hidden="true"
+                                ></i>
                               </div>
                               <div className="ml-2">
                                 <h6 className="mb-0 d-flex justify-content-between align-items-center">
@@ -356,12 +420,14 @@ const CompanyPage = () => {
                                 </h6>
                                 <p
                                   className="mb-0"
-                                  style={{ color: "#1c2957" }}>
+                                  style={{ color: "#1c2957" }}
+                                >
                                   IT Services and IT Consulting
                                 </p>
                                 <p
                                   className="mb-0"
-                                  style={{ color: "#1c2957" }}>
+                                  style={{ color: "#1c2957" }}
+                                >
                                   5,329,878 followers
                                 </p>
                                 <div className="job-time m-t15 m-b10">
@@ -370,7 +436,8 @@ const CompanyPage = () => {
                                       style={{
                                         padding: "5px 15px",
                                         borderRadius: "100px",
-                                      }}>
+                                      }}
+                                    >
                                       + Follow
                                     </span>
                                   </a>
@@ -380,12 +447,14 @@ const CompanyPage = () => {
                           </div>
                           <div
                             className="job-list-container mt-2"
-                            style={{ borderBottom: "1px solid gray" }}>
+                            style={{ borderBottom: "1px solid gray" }}
+                          >
                             <div className="d-flex justify-content-start aligns-item-center ">
                               <div>
                                 <i
                                   className="fa fa-user-o"
-                                  aria-hidden="true"></i>
+                                  aria-hidden="true"
+                                ></i>
                               </div>
                               <div className="ml-2">
                                 <h6 className="mb-0 d-flex justify-content-between align-items-center">
@@ -393,12 +462,14 @@ const CompanyPage = () => {
                                 </h6>
                                 <p
                                   className="mb-0"
-                                  style={{ color: "#1c2957" }}>
+                                  style={{ color: "#1c2957" }}
+                                >
                                   IT Services and IT Consulting
                                 </p>
                                 <p
                                   className="mb-0"
-                                  style={{ color: "#1c2957" }}>
+                                  style={{ color: "#1c2957" }}
+                                >
                                   5,329,878 followers
                                 </p>
                                 <div className="job-time m-t15 m-b10">
@@ -407,7 +478,8 @@ const CompanyPage = () => {
                                       style={{
                                         padding: "5px 15px",
                                         borderRadius: "100px",
-                                      }}>
+                                      }}
+                                    >
                                       + Follow
                                     </span>
                                   </a>
@@ -417,12 +489,14 @@ const CompanyPage = () => {
                           </div>
                           <div
                             className="job-list-container mt-2"
-                            style={{ borderBottom: "1px solid gray" }}>
+                            style={{ borderBottom: "1px solid gray" }}
+                          >
                             <div className="d-flex justify-content-start aligns-item-center ">
                               <div>
                                 <i
                                   className="fa fa-user-o"
-                                  aria-hidden="true"></i>
+                                  aria-hidden="true"
+                                ></i>
                               </div>
                               <div className="ml-2">
                                 <h6 className="mb-0 d-flex justify-content-between align-items-center">
@@ -430,12 +504,14 @@ const CompanyPage = () => {
                                 </h6>
                                 <p
                                   className="mb-0"
-                                  style={{ color: "#1c2957" }}>
+                                  style={{ color: "#1c2957" }}
+                                >
                                   IT Services and IT Consulting
                                 </p>
                                 <p
                                   className="mb-0"
-                                  style={{ color: "#1c2957" }}>
+                                  style={{ color: "#1c2957" }}
+                                >
                                   5,329,878 followers
                                 </p>
                                 <div className="job-time m-t15 m-b10">
@@ -444,7 +520,8 @@ const CompanyPage = () => {
                                       style={{
                                         padding: "5px 15px",
                                         borderRadius: "100px",
-                                      }}>
+                                      }}
+                                    >
                                       + Follow
                                     </span>
                                   </a>
@@ -454,12 +531,14 @@ const CompanyPage = () => {
                           </div>
                           <div
                             className="job-list-container mt-2"
-                            style={{ borderBottom: "1px solid gray" }}>
+                            style={{ borderBottom: "1px solid gray" }}
+                          >
                             <div className="d-flex justify-content-start aligns-item-center ">
                               <div>
                                 <i
                                   className="fa fa-user-o"
-                                  aria-hidden="true"></i>
+                                  aria-hidden="true"
+                                ></i>
                               </div>
                               <div className="ml-2">
                                 <h6 className="mb-0 d-flex justify-content-between align-items-center">
@@ -467,12 +546,14 @@ const CompanyPage = () => {
                                 </h6>
                                 <p
                                   className="mb-0"
-                                  style={{ color: "#1c2957" }}>
+                                  style={{ color: "#1c2957" }}
+                                >
                                   IT Services and IT Consulting
                                 </p>
                                 <p
                                   className="mb-0"
-                                  style={{ color: "#1c2957" }}>
+                                  style={{ color: "#1c2957" }}
+                                >
                                   5,329,878 followers
                                 </p>
                                 <div className="job-time m-t15 m-b10">
@@ -481,7 +562,8 @@ const CompanyPage = () => {
                                       style={{
                                         padding: "5px 15px",
                                         borderRadius: "100px",
-                                      }}>
+                                      }}
+                                    >
                                       + Follow
                                     </span>
                                   </a>

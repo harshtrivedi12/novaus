@@ -5,8 +5,10 @@ import Footer from "./../Layout/Footer";
 import { Modal } from "react-bootstrap";
 import CompanySideBar from "../Layout/companySideBar";
 import axios from "axios";
+import JobPageSkeleton from "../../markup/skeleton/jobPage";
 import moment from "moment";
 function EmployeeCompanymanage() {
+  const [skeleton, setSkeleton] = useState(true);
   const [company, setCompany] = useState(false);
   const token = localStorage.getItem("employeeLoginToken");
   const [data, setData] = useState([]);
@@ -69,99 +71,104 @@ function EmployeeCompanymanage() {
                         </select>
                       </div>
                     </div>
-                    <ul className="post-job-bx browse-job">
-                      {data.map((item, index) => {
-                        const formattedDate = moment(
-                          item.job_detail.created_at
-                        ).format("YYYY-MM-DD");
-                        return (
-                          <li key={index}>
-                            <div className="post-bx d-flex w-100 justify-content-between ">
-                              <div className="job-post-info m-a0">
-                                {item.job_detail.job_title ? (
-                                  <h4 className="mb-0">
-                                    <a href="/react/demo/job-detail">
-                                      {item.job_detail.job_title}
-                                    </a>
-                                  </h4>
-                                ) : null}
-                                {item.job_category.name ||
-                                item.job_type.name ||
-                                item.job_workplace_types.name ? (
-                                  <div className="row">
-                                    {item.job_category.name ? (
-                                      <p>
-                                        {item.job_category.name}
-                                        {" | "}{" "}
-                                      </p>
-                                    ) : null}
-                                    {item.job_type.name ? (
-                                      <p>
-                                        {item.job_type.name}
-                                        {" | "}{" "}
-                                      </p>
-                                    ) : null}{" "}
-                                    {item.job_workplace_types.name ? (
-                                      <p>{item.job_workplace_types.name}</p>
-                                    ) : null}
-                                  </div>
-                                ) : null}
-                                {item.experience_level.name ? (
-                                  <p className="mb-2">
-                                    Experience:
-                                    {item.experience_level.name}
-                                  </p>
-                                ) : null}
-                                {item.cities.name ||
-                                item.states.name ||
-                                item.countries.name ? (
-                                  <p
-                                    style={{ color: "#232323" }}
-                                    className="mb-2"
-                                  >
-                                    {" "}
-                                    <i className="fa fa-map-marker"></i>{" "}
-                                    {item.cities.name ? (
-                                      <span>
-                                        {item.cities.name} {" | "}
+                    {skeleton === true ? (
+                      <JobPageSkeleton />
+                    ) : (
+                      <ul className="post-job-bx browse-job">
+                        {data.map((item, index) => {
+                          const formattedDate = moment(
+                            item.job_detail.created_at
+                          ).format("YYYY-MM-DD");
+                          return (
+                            <li key={index}>
+                              <div className="post-bx d-flex w-100 justify-content-between ">
+                                <div className="job-post-info m-a0">
+                                  {item.job_detail.job_title ? (
+                                    <h4 className="mb-0">
+                                      <a href="/react/demo/job-detail">
+                                        {item.job_detail.job_title}
+                                      </a>
+                                    </h4>
+                                  ) : null}
+                                  {item.job_category.name ||
+                                  item.job_type.name ||
+                                  item.job_workplace_types.name ? (
+                                    <div className="row">
+                                      {item.job_category.name ? (
+                                        <p>
+                                          {item.job_category.name}
+                                          {" | "}{" "}
+                                        </p>
+                                      ) : null}
+                                      {item.job_type.name ? (
+                                        <p>
+                                          {item.job_type.name}
+                                          {" | "}{" "}
+                                        </p>
+                                      ) : null}{" "}
+                                      {item.job_workplace_types.name ? (
+                                        <p>{item.job_workplace_types.name}</p>
+                                      ) : null}
+                                    </div>
+                                  ) : null}
+                                  {item.experience_level.name ? (
+                                    <p className="mb-2">
+                                      Experience:
+                                      {item.experience_level.name}
+                                    </p>
+                                  ) : null}
+                                  {item.cities.name ||
+                                  item.states.name ||
+                                  item.countries.name ? (
+                                    <p
+                                      style={{ color: "#232323" }}
+                                      className="mb-2"
+                                    >
+                                      {" "}
+                                      <i className="fa fa-map-marker"></i>{" "}
+                                      {item.cities.name ? (
+                                        <span>
+                                          {item.cities.name} {" | "}
+                                        </span>
+                                      ) : null}{" "}
+                                      {item.states.name ? (
+                                        <span>
+                                          {item.states.name}
+                                          {" | "}
+                                        </span>
+                                      ) : null}{" "}
+                                      {item.countries.name ? (
+                                        <span>{item.countries.name}</span>
+                                      ) : null}
+                                    </p>
+                                  ) : null}
+                                  {item.job_detail.created_at ? (
+                                    <p className="mb-0">
+                                      {" "}
+                                      <span className="text-black ">
+                                        Draft *
                                       </span>
-                                    ) : null}{" "}
-                                    {item.states.name ? (
-                                      <span>
-                                        {item.states.name}
-                                        {" | "}
-                                      </span>
-                                    ) : null}{" "}
-                                    {item.countries.name ? (
-                                      <span>{item.countries.name}</span>
-                                    ) : null}
-                                  </p>
-                                ) : null}
-                                {item.job_detail.created_at ? (
-                                  <p className="mb-0">
-                                    {" "}
-                                    <span className="text-black ">Draft *</span>
-                                    {formattedDate}
-                                  </p>
-                                ) : null}
-                              </div>
-                              <div
-                                className="d-flex flex-row justify-content-center align-items-center "
-                                style={{ gap: "12px" }}
-                              >
-                                <button
-                                  onClick={() => {
-                                    handlePutReq(item.job_detail.id);
-                                  }}
-                                  className="px-3 py-2 site-button text-white border-0"
-                                  style={{
-                                    borderRadius: "7px",
-                                    cursor: "pointer",
-                                  }}
+                                      {formattedDate}
+                                    </p>
+                                  ) : null}
+                                </div>
+                                <div
+                                  className="d-flex flex-row justify-content-center align-items-center "
+                                  style={{ gap: "12px" }}
                                 >
-                                  Publish
-                                </button>
-                                {/* <button
+                                  <button
+                                    onClick={() => {
+                                      handlePutReq(item.job_detail.id);
+                                    }}
+                                    className="px-3 py-2 site-button text-white border-0"
+                                    style={{
+                                      borderRadius: "7px",
+                                      cursor: "pointer",
+                                    }}
+                                  >
+                                    Publish
+                                  </button>
+                                  {/* <button
                                   className="px-3 site-button py-2  text-white border-0"
                                   style={{
                                     borderRadius: "7px",
@@ -171,12 +178,14 @@ function EmployeeCompanymanage() {
                                 >
                                   Draft
                                 </button> */}
+                                </div>
                               </div>
-                            </div>
-                          </li>
-                        );
-                      })}
-                    </ul>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+
                     <div className="pagination-bx m-t30 float-right">
                       <ul className="pagination">
                         <li className="previous">

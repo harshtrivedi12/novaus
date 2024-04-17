@@ -117,7 +117,8 @@ function Jobdetail() {
         <div className="page-content bg-white">
           <div
             className="dez-bnr-inr overlay-black-middle"
-            style={{ backgroundImage: "url(" + bnr + ")" }}>
+            style={{ backgroundImage: "url(" + bnr + ")" }}
+          >
             <PageTitle activeName="Job Detail" motherName="Home" />
           </div>
           <div className="content-block">
@@ -137,20 +138,26 @@ function Jobdetail() {
                         </div>
                         <div className="col-lg-12 col-md-6">
                           <div className="widget bg-white p-lr20 p-t20  widget_getintuch radius-sm">
-                            <h4 className="text-black font-weight-700 p-t10 m-b15">
-                              {jobData.job_detail.job_title}
-                            </h4>
+                            {jobData.job_detail.job_title ? (
+                              <h4 className="text-black font-weight-700 p-t10 m-b15">
+                                {jobData.job_detail.job_title}
+                              </h4>
+                            ) : null}
                             <ul>
-                              <li>
-                                <i className="ti-location-pin"></i>
-                                <strong className="font-weight-700 text-black">
-                                  Address
-                                </strong>
-                                <span className="text-black-light">
-                                  {jobData.countries.name},{" "}
-                                  {jobData.states.name}, {jobData.cities.name}
-                                </span>
-                              </li>
+                              {jobData.countries.name ||
+                              jobData.states.name ||
+                              jobData.cities.name ? (
+                                <li>
+                                  <i className="ti-location-pin"></i>
+                                  <strong className="font-weight-700 text-black">
+                                    Address
+                                  </strong>
+                                  <span className="text-black-light">
+                                    {jobData.countries.name},{" "}
+                                    {jobData.states.name}, {jobData.cities.name}
+                                  </span>
+                                </li>
+                              ) : null}
                               <li>
                                 <i className="ti-money"></i>
                                 <strong className="font-weight-700 text-black">
@@ -179,25 +186,31 @@ function Jobdetail() {
                         </Link>
                       </h3>
                       <ul className="job-info">
-                        <li>
-                          <strong>Skills</strong>{" "}
-                          {jobData.job_detail.skills_arr.map((item) => (
-                            <span>{item} </span>
-                          ))}
-                        </li>
-                        <li>
-                          <strong>Posted on:</strong>{" "}
-                          {convertDate(jobData.job_detail.created_at)}
-                        </li>
-                        <li>
-                          <i className="ti-location-pin text-black m-r5"></i>
-                          {jobData.cities.name}
-                        </li>
+                        {jobData.job_detail.skills_arr ? (
+                          <li>
+                            <strong>Skills</strong>{" "}
+                            {jobData.job_detail.skills_arr.map((item) => (
+                              <span>{item} </span>
+                            ))}
+                          </li>
+                        ) : null}
+                        {jobData.job_detail.created_at ? (
+                          <li>
+                            <strong>Posted on:</strong>{" "}
+                            {convertDate(jobData.job_detail.created_at)}
+                          </li>
+                        ) : null}
+                        {jobData.cities.name ? (
+                          <li>
+                            <i className="ti-location-pin text-black m-r5"></i>
+                            {jobData.cities.name}
+                          </li>
+                        ) : null}
                       </ul>
-                      <p className="p-t20">
-                        <p className="mb-1">
+                      {jobData.job_detail.job_description ? (
+                        <p className="p-t20">
                           <div
-                            className="ql-editor"
+                            className="ql-editor mb-1 "
                             style={{
                               fontSize: "13px",
                             }}
@@ -206,7 +219,7 @@ function Jobdetail() {
                             }}
                           />
                         </p>
-                      </p>
+                      ) : null}
 
                       <div className="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
 
@@ -220,7 +233,8 @@ function Jobdetail() {
                       ) : (
                         <button
                           className="radius-xl site-button"
-                          onClick={handleShow}>
+                          onClick={handleShow}
+                        >
                           Apply
                         </button>
                       )}
@@ -228,11 +242,13 @@ function Jobdetail() {
                         show={show}
                         onHide={handleClose}
                         backdrop="static"
-                        keyboard={false}>
+                        keyboard={false}
+                      >
                         <Modal.Header
                           closeButton
                           style={{ backgroundColor: "#ffff" }}
-                          className="mt-4">
+                          className="mt-4"
+                        >
                           <Modal.Title style={{ color: "#000" }}>
                             <p> Apply to {jobData.company}</p>
                           </Modal.Title>
@@ -240,7 +256,8 @@ function Jobdetail() {
                         <Modal.Body>
                           <Tab.Container
                             id="tabs-example"
-                            activeKey={activeTab}>
+                            activeKey={activeTab}
+                          >
                             {/* Tab Content */}
 
                             <Tab.Content>
@@ -299,7 +316,8 @@ function Jobdetail() {
                                     <select
                                       class="form-control"
                                       id="englishProficiency"
-                                      required>
+                                      required
+                                    >
                                       <option value="">Select an option</option>
                                       <option>Beginner</option>
                                       <option>Intermediate</option>
@@ -315,7 +333,8 @@ function Jobdetail() {
                                     <select
                                       class="form-control"
                                       id="salaryRange"
-                                      required>
+                                      required
+                                    >
                                       <option value="">Select an option</option>
                                       <option>Yes</option>
                                       <option>No</option>
@@ -344,7 +363,8 @@ function Jobdetail() {
                                     <select
                                       class="form-control"
                                       id="workLocation"
-                                      required>
+                                      required
+                                    >
                                       <option value="">Select an option</option>
                                       <option>Yes</option>
                                       <option>No</option>
@@ -391,7 +411,8 @@ function Jobdetail() {
                                     <select
                                       class="form-control"
                                       id="immediateStart"
-                                      required>
+                                      required
+                                    >
                                       <option value="">Select an option</option>
                                       <option>Yes</option>
                                       <option>No</option>
@@ -406,7 +427,8 @@ function Jobdetail() {
                           {activeTab !== "contact-info" && (
                             <button
                               className="site-button mr-2"
-                              onClick={handlePrev}>
+                              onClick={handlePrev}
+                            >
                               Previous
                             </button>
                           )}
@@ -472,7 +494,8 @@ function Jobdetail() {
                               to={"/blog-details"}
                               title="READ MORE"
                               rel="bookmark"
-                              className="site-button-link">
+                              className="site-button-link"
+                            >
                               <span className="fw6">READ MORE</span>
                             </Link>
                           </div>
