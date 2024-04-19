@@ -4,9 +4,7 @@ import { Link } from "react-scroll";
 function Listingsidebar() {
   return (
     <div className="sticky-top bg-white">
-		
       <div className="candidate-info onepage">
-
         <ul>
           <li>
             <Link
@@ -15,7 +13,8 @@ function Listingsidebar() {
               to="resume_headline_bx"
               smooth={true}
               offset={-70}
-              duration={500}>
+              duration={500}
+            >
               <span>Resume Headline</span>
             </Link>
           </li>
@@ -26,7 +25,8 @@ function Listingsidebar() {
               to="key_skills_bx"
               smooth={true}
               offset={-70}
-              duration={500}>
+              duration={500}
+            >
               <span>Key Skills</span>
             </Link>
           </li>
@@ -37,7 +37,8 @@ function Listingsidebar() {
               to="employment_bx"
               smooth={true}
               offset={-70}
-              duration={500}>
+              duration={500}
+            >
               <span>Employment</span>
             </Link>
           </li>
@@ -48,7 +49,8 @@ function Listingsidebar() {
               to="education_bx"
               smooth={true}
               offset={-70}
-              duration={500}>
+              duration={500}
+            >
               <span>Education</span>
             </Link>
           </li>
@@ -59,7 +61,8 @@ function Listingsidebar() {
               to="it_skills_bx"
               smooth={true}
               offset={-70}
-              duration={500}>
+              duration={500}
+            >
               <span>IT Skills</span>
             </Link>
           </li>
@@ -70,7 +73,8 @@ function Listingsidebar() {
               to="projects_bx"
               smooth={true}
               offset={-70}
-              duration={500}>
+              duration={500}
+            >
               <span>Projects</span>
             </Link>
           </li>
@@ -81,7 +85,8 @@ function Listingsidebar() {
               to="profile_summary_bx"
               smooth={true}
               offset={-70}
-              duration={500}>
+              duration={500}
+            >
               <span>Profile Summary</span>
             </Link>
           </li>
@@ -92,7 +97,8 @@ function Listingsidebar() {
               to="accomplishments_bx"
               smooth={true}
               offset={-70}
-              duration={500}>
+              duration={500}
+            >
               <span>Accomplishments</span>
             </Link>
           </li>
@@ -103,7 +109,8 @@ function Listingsidebar() {
               to="desired_career_profile_bx"
               smooth={true}
               offset={-70}
-              duration={500}>
+              duration={500}
+            >
               <span>Desired Career Profile</span>
             </Link>
           </li>
@@ -114,11 +121,12 @@ function Listingsidebar() {
               to="personal_details_bx"
               smooth={true}
               offset={-70}
-              duration={500}>
+              duration={500}
+            >
               <span>Personal Details</span>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link
               activeClass="active"
               className="scroll-bar nav-link"
@@ -128,7 +136,7 @@ function Listingsidebar() {
               duration={500}>
               <span>Attach Resume</span>
             </Link>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>

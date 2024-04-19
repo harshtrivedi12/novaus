@@ -1,60 +1,132 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   jobsMyResumeData: {
+    skillsValue: {
+      skills: "",
+    },
     resumeHeadline: "Job board currently living in USA",
     skillsData: ["javascript", "css", "html", "bootstrap"],
+    employmentValues: {
+      jobTitle: "",
+      company: "",
+      jobStartDate: "",
+      jobEndDate: "",
+      jobDescription: "",
+    },
     employmentData: [
       {
         jobTitle: "Junior Software Developer",
         company: "W3ITEXPERTS",
-        jobStartDate: "10-2015",
+        jobStartDate: "09-10-2015",
         jobEndDate: "Present",
         jobDescription: "Junior Software Developer",
       },
+      {
+        jobTitle: "Senior Software Developer",
+        company: "W3ITEXPERTS",
+        jobStartDate: "09-10-2015",
+        jobEndDate: "Present",
+        jobDescription: "Senior Software Developer",
+      },
     ],
+    educationValues: {
+      education: "",
+      course: "",
+      passOutDate: "",
+      university: "",
+    },
     educationData: [
       {
-        education: "Doctorate/PHD",
-        course: "Select Course",
-        passOut: "2015",
+        education: "Graduation/Diploma",
+        course: "Bachelor of arts",
+        passOutDate: "09-10-2015",
         university: "Select University",
       },
     ],
+    itSkillsValue: {
+      skills: "",
+      version: "",
+      lastUsed: "",
+      experience: "",
+    },
     itSkillsData: [
       {
         skills: "Bootstrap",
         version: "1",
-        lastUsed: "2018",
+        lastUsed: "2015",
         experience: "1 Year 5 Months",
       },
     ],
+    projectsValue: {
+      projectTitle: "",
+      clientName: "",
+      projectStatus: "",
+      workStarted: "",
+      workedTill: "",
+      projectDescription: "",
+    },
+
     projectsData: [
       {
         projectTitle: "Project Title",
         clientName: "Enter Client Name",
         projectStatus: "IN PROGRESS",
-        workStartedFromYear: "2018",
-        workStartedFromMonth: "January",
-        workedTillYear: "2019",
-        workedTillMonth: "January",
+        workStarted: "09-10-2015",
+        workedTill: "09-10-2015",
         projectDescription: "Hey this is the project Description",
       },
     ],
     profileSummaryValue:
       "Your Profile Summary should mention the highlights of your career and education, what your professional interests are, and what kind of a career you are looking for. Write a meaningful summary of more than 50 characters.dsa",
     accomplishments: {
+      onlineProfileValue: {
+        label: "",
+        link: "",
+      },
+
       onlineProfileData: [
-        { label: "facebook", link: "https://facebook.com" },
-        { label: "facebook", link: "https://facebook.com" },
+        {
+          label: "facebook",
+          link: "https://facebook.com",
+        },
+        {
+          label: "insta",
+          link: "https://instagram.com",
+        },
       ],
+      workSampleValue: {
+        label: "",
+        link: "",
+      },
       workSampleData: [{ label: "project", link: "#" }],
+      whitePaperValue: {
+        label: "",
+        link: "",
+      },
       whitePaperData: [{ label: "online publications", link: "#" }],
+      presentationValue: {
+        label: "",
+        link: "",
+      },
       presentationData: [{ label: "online presentations", link: "#" }],
+      patentValue: {
+        label: "",
+        link: "",
+      },
       patentData: [{ label: "patents", link: "#" }],
-      certificationData: ["html", "css", "js"],
+      certificationValue: {
+        label: "",
+        link: "",
+      },
+      certificationData: [
+        {
+          label: "javascript",
+          link: "https://javascript.com",
+        },
+      ],
     },
     desiredCareerProfile: {
-      industry: "It Software services",
+      industry: "It xc services",
       role: "Web Designer",
       employmentType: "Full Time",
       availabilityToJoin: "12 July",
@@ -66,13 +138,13 @@ const initialState = {
       desiredIndustry: "add desired Industry",
     },
 
-    personalDetails: {
+    personalDetailsValue: {
       dateOfBirth: "31 July 0998",
       gender: "male",
-      maritalStatus: "unmarried",
+      maritalStatus: "single",
       passportNumber: "+1234567890",
       differentlyAbled: "None",
-      languages: "English",
+      languages: "Portuguese",
       addPermanentAddress: "Add Permanent Address",
       areaPinCode: "302010",
       homeTown: "Delhi",
@@ -91,37 +163,88 @@ const jobsMyResumeSlice = createSlice({
       state.jobsMyResumeData = action.payload;
     },
     setResumeHeadline: (state, action) => {
-      state.resumeHeadling = action.payload;
+      state.jobsMyResumeData.resumeHeadline = action.payload;
+    },
+    setProfileSummaryValue: (state, action) => {
+      state.jobsMyResumeData.profileSummaryValue = action.payload;
     },
     setSkillsData: (state, action) => {
-      state.skillsData = action.payload;
+      state.jobsMyResumeData.skillsData = action.payload;
     },
     setEmploymentData: (state, action) => {
-      state.employmentData = action.payload;
+      state.jobsMyResumeData.employmentData = action.payload;
     },
     setEducationData: (state, action) => {
-      state.educationData = action.payload;
+      state.jobsMyResumeData.educationData = action.payload;
     },
     setItSkillsData: (state, action) => {
-      state.itSkillsData = action.payload;
+      state.jobsMyResumeData.itSkillsData = action.payload;
     },
     setProjectsData: (state, action) => {
-      state.projectsData = action.payload;
+      state.jobsMyResumeData.projectsData = action.payload;
     },
-    setProfileSummary: (state, action) => {
-      state.profileSummary = action.payload;
-    },
-    setAccomplishments: (state, action) => {
-      state.accomplishments = action.payload;
-    },
+
     setDesiredCareerProfile: (state, action) => {
-      state.desiredCareerProfile = action.payload;
+      state.jobsMyResumeData.desiredCareerProfile = action.payload;
     },
-    setPersonalDetails: (state, action) => {
-      state.personalDetails = action.payload;
+    setPersonalDetailsValue: (state, action) => {
+      state.jobsMyResumeData.personalDetailsValue = action.payload;
     },
     setAttachResumeValue: (state, action) => {
-      state.attachResumeValue = action.payload;
+      state.jobsMyResumeData.attachResumeValue = action.payload;
+    },
+    setSkillsValue: (state, action) => {
+      state.jobsMyResumeData.skillsValue = action.payload;
+    },
+    setEmploymentValues: (state, action) => {
+      state.jobsMyResumeData.employmentValues = action.payload;
+    },
+    setEducationValues: (state, action) => {
+      state.jobsMyResumeData.educationValues = action.payload;
+    },
+    setItSkillsValue: (state, action) => {
+      state.jobsMyResumeData.itSkillsValue = action.payload;
+    },
+    setProjectsValue: (state, action) => {
+      state.jobsMyResumeData.projectsValue = action.payload;
+    },
+    setOnlineProfileValue: (state, action) => {
+      state.jobsMyResumeData.accomplishments.onlineProfileValue =
+        action.payload;
+    },
+    setOnlineProfileData: (state, action) => {
+      state.jobsMyResumeData.accomplishments.onlineProfileData = action.payload;
+    },
+    setWorkSampleValue: (state, action) => {
+      state.jobsMyResumeData.accomplishments.workSampleValue = action.payload;
+    },
+    setWorkSampleData: (state, action) => {
+      state.jobsMyResumeData.accomplishments.workSampleData = action.payload;
+    },
+    setWhitePaperData: (state, action) => {
+      state.jobsMyResumeData.accomplishments.whitePaperData = action.payload;
+    },
+    setWhitePaperValue: (state, action) => {
+      state.jobsMyResumeData.accomplishments.whitePaperValue = action.payload;
+    },
+    setPresentationValue: (state, action) => {
+      state.jobsMyResumeData.accomplishments.presentationValue = action.payload;
+    },
+    setPresentationData: (state, action) => {
+      state.jobsMyResumeData.accomplishments.presentationData = action.payload;
+    },
+    setPatentValue: (state, action) => {
+      state.jobsMyResumeData.accomplishments.patentValue = action.payload;
+    },
+    setPatentData: (state, action) => {
+      state.jobsMyResumeData.accomplishments.patentData = action.payload;
+    },
+    setCertificationValue: (state, action) => {
+      state.jobsMyResumeData.accomplishments.certificationValue =
+        action.payload;
+    },
+    setCertificationData: (state, action) => {
+      state.jobsMyResumeData.accomplishments.certificationData = action.payload;
     },
   },
 });
@@ -133,12 +256,28 @@ export const {
   setEducationData,
   setItSkillsData,
   setProjectsData,
-  setProfileSummary,
-  setAccomplishments,
+  setSkillsValue,
+  setProfileSummaryValue,
   setDesiredCareerProfile,
-  setPersonalDetails,
+  setPersonalDetailsValue,
   setAttachResumeValue,
   setResumeData,
+  setEmploymentValues,
+  setEducationValues,
+  setItSkillsValue,
+  setProjectsValue,
+  setOnlineProfileData,
+  setOnlineProfileValue,
+  setWorkSampleValue,
+  setWorkSampleData,
+  setWhitePaperValue,
+  setWhitePaperData,
+  setPresentationValue,
+  setPresentationData,
+  setPatentValue,
+  setPatentData,
+  setCertificationValue,
+  setCertificationData,
 } = jobsMyResumeSlice.actions;
 
 export default jobsMyResumeSlice.reducer;

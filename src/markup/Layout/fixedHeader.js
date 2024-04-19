@@ -28,7 +28,6 @@ const FixedHeader = () => {
       reader.readAsDataURL(file);
     }
   };
-  console.log(profileImageValue, "imgvalue");
 
   const fixedHeaderValues = useSelector(
     (state) => state.fixedHeaderSlice.fixedHeaderValues
@@ -44,7 +43,6 @@ const FixedHeader = () => {
       },
     })
       .then((response) => {
-        console.log(response);
         let data = response.data.data;
         dispatch(
           setFixedHeaderValues({
@@ -104,7 +102,6 @@ const FixedHeader = () => {
       },
     })
       .then((response) => {
-        console.log(response.data.data, "STATE");
         setStates(response.data.data);
       })
       .catch((err) => {
