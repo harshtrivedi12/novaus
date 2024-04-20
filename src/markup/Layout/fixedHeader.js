@@ -20,7 +20,8 @@ const FixedHeader = () => {
   );
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    dispatch(setProfileImageValue(file));
+    // dispatch(setProfileImageValue(file));
+    console.log(file);
 
     if (file) {
       const reader = new FileReader();
@@ -145,8 +146,8 @@ const FixedHeader = () => {
               <div className="candidate-detail">
                 <div className="canditate-des text-center">
                   <Link to={"#"}>
-                    {imgData ? (
-                      <img src={imgData} />
+                    {fixedHeaderValues.photo ? (
+                      <img src={fixedHeaderValues.photo} />
                     ) : (
                       <img
                         alt=""

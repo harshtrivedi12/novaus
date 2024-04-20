@@ -6,8 +6,13 @@ import Footer from "./../Layout/Footer";
 import Profilesidebar from "./../Element/Profilesidebar";
 import FixedHeader from "../Layout/fixedHeader";
 import { useDispatch, useSelector } from "react-redux";
-import { setJobProfileValues } from "../../store/reducers/jobProfileSlice";
+import {
+  setJobProfileValues,
+  setProfileImageValue,
+} from "../../store/reducers/jobProfileSlice";
 import { useEffect } from "react";
+import { FaImage } from "react-icons/fa";
+import Resizer from "react-image-file-resizer";
 
 function Jobprofile() {
   const [basicdetails, setBasicDetails] = useState(false);
@@ -34,7 +39,7 @@ function Jobprofile() {
       },
     })
       .then((response) => {
-        console.log(response);
+        console.log(response, "all data");
         let data = response.data.data;
         dispatch(
           setJobProfileValues({
@@ -51,6 +56,7 @@ function Jobprofile() {
             country_id: data.country_id,
             city_id: data.city_id,
             state_id: data.state_id,
+            photo: data.photo,
           })
         );
       })
@@ -95,20 +101,20 @@ function Jobprofile() {
   };
   const [countries, setCountries] = useState([
     {
-      id: 0,
+      id: "",
       name: "",
     },
   ]);
   const [states, setStates] = useState([
     {
-      id: 0,
+      id: "",
       name: "",
     },
   ]);
 
   const [cities, setCities] = useState([
     {
-      id: 0,
+      id: "",
       name: "",
     },
   ]);
@@ -122,6 +128,7 @@ function Jobprofile() {
     })
       .then((response) => {
         let country = response.data.data;
+        console.log(country, "countries");
         setCountries(country);
       })
       .catch((err) => {
@@ -193,7 +200,21 @@ function Jobprofile() {
     getCities();
   }, [jobProfileValues.state_id]);
 
-  console.log(countries, "countries fetched");
+  const resizeFile = (file) => {
+    Resizer.imageFileResizer(
+      file,
+      300,
+      300,
+      "JPEG",
+      100,
+      0,
+      (uri) => {
+        console.log(uri);
+        dispatch(setProfileImageValue(uri));
+      },
+      "file"
+    );
+  };
   return (
     <>
       <Header2 />
@@ -219,6 +240,48 @@ function Jobprofile() {
                     </div>
                     <form>
                       <div className="row m-b30">
+                        <div className="col-12">
+                          <div className="form-group">
+                            <label htmlFor="changeImage">
+                              Change Your Image
+                            </label>
+                            <div
+                              className="position-relative form-control"
+                              style={{ cursor: "pointer" }}
+                            >
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  gap: "7px",
+                                  zIndex: "2",
+                                }}
+                              >
+                                <FaImage />
+                                Change Image
+                              </div>
+                              <input
+                                type="file"
+                                name="changeImage"
+                                id="changeImage"
+                                onChange={(e) => {
+                                  resizeFile(e.target.files[0]);
+                                }}
+                                style={{
+                                  position: "absolute",
+                                  top: "0px",
+                                  left: "0px",
+                                  zIndex: "5",
+                                  width: "100%",
+                                  height: "100%",
+                                  cursor: "pointer",
+                                  opacity: "0",
+                                }}
+                              />
+                            </div>
+                          </div>
+                        </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
                             <label htmlFor="first_name">First Name:</label>

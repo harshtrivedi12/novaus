@@ -17,6 +17,7 @@
     "react-devtools": "^4.21.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
+    "react-image-file-resizer": "^0.4.8",
     "react-loading-skeleton": "^3.4.0",
     "react-masonry-css": "^1.0.14",
     "react-quill": "^2.0.0",

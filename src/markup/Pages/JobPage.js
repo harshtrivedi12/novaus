@@ -24,7 +24,7 @@ import {
 import { submit } from "redux-form";
 import JobPageSkeleton from "../skeleton/jobPage";
 import TwoBoxWithLinesSkeleton from "../skeleton/twoBoxLines";
-
+import { useParams } from "react-router-dom";
 function JobPage() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [show, setShow] = useState(false);
@@ -149,13 +149,13 @@ function JobPage() {
     (state) => state.jobApplicationSlice.jobApplicationValues
   );
 
-  console.table(jobApplicationValues, "values");
+  // console.table(jobApplicationValues, "values");
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "country_id") {
       const selectedIndex = e.target.selectedIndex;
       const text = e.target.options[selectedIndex].text;
-      console.log(text);
+      // console.log(text);
       dispatch(
         setJobApplicationValues({
           ...jobApplicationValues,
@@ -169,7 +169,7 @@ function JobPage() {
     if (name === "city_id") {
       const selectedIndex = e.target.selectedIndex;
       const text = e.target.options[selectedIndex].text;
-      console.log(text);
+      // console.log(text);
       dispatch(
         setJobApplicationValues({
           ...jobApplicationValues,
@@ -183,7 +183,7 @@ function JobPage() {
     if (name === "state_id") {
       const selectedIndex = e.target.selectedIndex;
       const text = e.target.options[selectedIndex].text;
-      console.log(text);
+      // console.log(text);
       dispatch(
         setJobApplicationValues({
           ...jobApplicationValues,
@@ -249,7 +249,7 @@ function JobPage() {
       },
     })
       .then((res) => {
-        console.log(res.data.data, "JOBTYPE");
+        // console.log(res.data.data, "JOBTYPE");
         setJobType(res.data.data);
       })
       .catch((err) => {
@@ -266,7 +266,7 @@ function JobPage() {
       },
     })
       .then((response) => {
-        console.log(response.data.data);
+        // console.log(response.data.data);
         setWorkplace_type(response.data.data);
       })
       .catch((err) => {
@@ -301,7 +301,7 @@ function JobPage() {
       },
     })
       .then((response) => {
-        console.log(response.data.data, "STATE");
+        // console.log(response.data.data, "STATE");
         setStates(response.data.data);
       })
       .catch((err) => {
@@ -320,7 +320,7 @@ function JobPage() {
       },
     })
       .then((response) => {
-        console.log(response, "CITY");
+        // console.log(response, "CITY");
         setCities(response.data.data);
       })
       .catch((err) => {
@@ -338,7 +338,7 @@ function JobPage() {
       },
     })
       .then((response) => {
-        console.log(response.data.data);
+        // console.log(response.data.data);
         setExperience(response.data.data);
       })
       .catch((err) => {
@@ -387,7 +387,7 @@ function JobPage() {
       },
     })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         fetchJobApplicationData();
       })
       .catch((err) => {
@@ -406,19 +406,28 @@ function JobPage() {
   //   jobApplicationValues.job_type
   // }&experience_level=${jobApplicationValues.experience_level}`;
 
+  const selectedLocation = localStorage.getItem("selectedLocation");
+  const title_keyword = localStorage.getItem("title_keyword");
   const baseUrl = "https://jobsbooklet.in/api/jobseeker/job-lists";
 
   const params = new URLSearchParams();
 
   if (jobApplicationValues.search_input) {
     params.append("title_keywords", jobApplicationValues.search_input);
+  } else if (title_keyword) {
+    params.append("title_keywords", title_keyword);
   }
 
-  const location =
-    jobApplicationValues.country_id === "101"
-      ? "India"
-      : jobApplicationValues.country;
-  params.append("location", `${location}`);
+  // const location =
+  //   jobApplicationValues.country_id === "101"
+  //     ? "India"
+  //     : jobApplicationValues.country;
+  // params.append("location", `${location}`);
+  if (jobApplicationValues.country_id) {
+    params.append("location", jobApplicationValues.country_id);
+  } else if (selectedLocation) {
+    params.append("location", selectedLocation);
+  }
 
   if (jobApplicationValues.workplace_type) {
     params.append("workplace_type", jobApplicationValues.workplace_type);
@@ -444,12 +453,22 @@ function JobPage() {
       .then((response) => {
         dispatch(setJobApplicationData(response.data.data));
         // setShowSkeleton(false);
-        console.log(response);
+        console.log(response, "custom data");
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err, "custom err");
       });
   };
+  useEffect(() => {
+    if (selectedLocation || title_keyword !== null) {
+      handleGetReq();
+    }
+    return () => {
+      localStorage.removeItem("selectedLocation");
+      localStorage.removeItem("title_keyword");
+    };
+  }, []);
+
   return (
     <>
       <Header />
@@ -476,14 +495,16 @@ function JobPage() {
                           onChange={(e) => {
                             handleChange(e);
                           }}
-                          value={jobApplicationValues.country_id}>
+                          value={jobApplicationValues.country_id}
+                        >
                           <option value="">Select a country</option>
                           {countries.map((item, index) => {
                             return (
                               <option
                                 key={index}
                                 value={item.id}
-                                country={item.name}>
+                                country={item.name}
+                              >
                                 {item.name}
                               </option>
                             );
@@ -503,7 +524,8 @@ function JobPage() {
                           id="state_id"
                           name="state_id"
                           onChange={handleChange}
-                          value={jobApplicationValues.state_id}>
+                          value={jobApplicationValues.state_id}
+                        >
                           <option value="">Select a State</option>
                           {states.map((item, index) => {
                             return (
@@ -528,7 +550,8 @@ function JobPage() {
                           id="city_id"
                           name="city_id"
                           onChange={handleChange}
-                          value={jobApplicationValues.city_id}>
+                          value={jobApplicationValues.city_id}
+                        >
                           <option value="">Select A City</option>
 
                           {cities.map((item, index) => {
@@ -554,7 +577,8 @@ function JobPage() {
                           id="workplace_type"
                           name="workplace_type"
                           onChange={handleChange}
-                          value={jobApplicationValues.workplace_type}>
+                          value={jobApplicationValues.workplace_type}
+                        >
                           <option value="">Select WorkPlace Type</option>
                           {workplace_type.map((item, index) => {
                             return (
@@ -578,7 +602,8 @@ function JobPage() {
                           id="job_type"
                           name="job_type"
                           onChange={handleChange}
-                          value={jobApplicationValues.job_type}>
+                          value={jobApplicationValues.job_type}
+                        >
                           <option value="">Select Job Type</option>
                           {job_type.map((item, index) => {
                             return (
@@ -604,7 +629,8 @@ function JobPage() {
                           id="experience_level"
                           name="experience_level"
                           onChange={handleChange}
-                          value={jobApplicationValues.experience_level}>
+                          value={jobApplicationValues.experience_level}
+                        >
                           <option value="">Select Experience Level</option>
                           {experience.map((item, index) => {
                             return (
@@ -622,13 +648,15 @@ function JobPage() {
               <div className="container">
                 <div
                   className="row d-flex justify-content-center "
-                  style={{ gap: "12px" }}>
+                  style={{ gap: "12px" }}
+                >
                   <div
                     className=" w-75 d-flex flex-column   p-2 "
                     style={{
                       backgroundColor: "#f5f5f5",
                       alignItems: "center",
-                    }}>
+                    }}
+                  >
                     <input
                       type="text"
                       name="search_input"
@@ -644,7 +672,8 @@ function JobPage() {
                   <button
                     onClick={handleGetReq}
                     className="border-0 site-button d-flex align-items-center "
-                    style={{ cursor: "pointer", outline: "none", gap: "7px" }}>
+                    style={{ cursor: "pointer", outline: "none", gap: "7px" }}
+                  >
                     <FaSearch />
                     Search
                   </button>
@@ -656,132 +685,137 @@ function JobPage() {
                     <div className="sticky-top">
                       {jobApplicationData ? (
                         <div className="candidate-info company-info">
-                          {jobApplicationData ? (
-                            <ul
-                              className="job-list-container"
-                              style={{
-                                maxHeight: "calc(100vh - 200px)",
-                                overflowY: "auto",
-                                boxShadow: "0 0 10px 0 rgba(0, 24, 128, 0.1)",
-                              }}>
-                              {jobApplicationData.map((job) => (
-                                <div>
-                                  <li key={job.s_no}>
-                                    <Link
-                                      to="#"
-                                      onClick={() => handleSelectJob(job)}>
+                          <ul
+                            className="job-list-container"
+                            style={{
+                              maxHeight: "calc(100vh - 200px)",
+                              overflowY: "auto",
+                              boxShadow: "0 0 10px 0 rgba(0, 24, 128, 0.1)",
+                            }}
+                          >
+                            {jobApplicationData.map((job) => (
+                              <div>
+                                <li key={job.s_no}>
+                                  <Link
+                                    to="#"
+                                    onClick={() => handleSelectJob(job)}
+                                  >
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        width: "100%",
+                                        position: "relative",
+                                      }}
+                                    >
                                       <div
                                         style={{
-                                          display: "flex",
-                                          width: "100%",
-                                          position: "relative",
-                                        }}>
-                                        <div
+                                          width: "30%",
+                                        }}
+                                      >
+                                        <img
+                                          src={testImg}
+                                          alt=""
                                           style={{
-                                            width: "30%",
-                                          }}>
-                                          <img
-                                            src={testImg}
-                                            alt=""
+                                            width: "80px",
+                                            height: "80px",
+                                          }}
+                                        />
+                                      </div>
+                                      <div
+                                        style={{
+                                          width: "80%",
+                                          overflow: "hidden",
+                                        }}
+                                      >
+                                        {job.job_detail.job_title && (
+                                          <p
+                                            className="mb-0"
                                             style={{
-                                              width: "80px",
-                                              height: "80px",
+                                              color: "#1c2957",
+                                              fontSize: "20px",
                                             }}
-                                          />
+                                          >
+                                            {job.job_detail.job_title}
+                                          </p>
+                                        )}
+
+                                        <div
+                                          className="d-flex flex-row mb-0 "
+                                          style={{ gap: "7px" }}
+                                        >
+                                          {job.job_detail.skills_arr.map(
+                                            (item, index) => (
+                                              <p className="mb-0 " key={index}>
+                                                {item}
+                                              </p>
+                                            )
+                                          )}
                                         </div>
                                         <div
+                                          className=" gap-0 align-items-center joblist"
                                           style={{
-                                            width: "80%",
-                                            overflow: "hidden",
-                                          }}>
-                                          {job.job_detail.job_title && (
+                                            gap: "0px",
+                                            height: "auto",
+                                          }}
+                                        >
+                                          {job.job_category && (
                                             <p
-                                              className="mb-0"
                                               style={{
-                                                color: "#1c2957",
-                                                fontSize: "20px",
-                                              }}>
-                                              {job.job_detail.job_title}
+                                                margin: "0px",
+                                              }}
+                                            >
+                                              {job.job_category.name}
                                             </p>
                                           )}
-
-                                          <div
-                                            className="d-flex flex-row mb-0 "
-                                            style={{ gap: "7px" }}>
-                                            {job.job_detail.skills_arr.map(
-                                              (item, index) => (
-                                                <p
-                                                  className="mb-0 "
-                                                  key={index}>
-                                                  {item}
-                                                </p>
-                                              )
-                                            )}
-                                          </div>
-                                          <div
-                                            className=" gap-0 align-items-center joblist"
-                                            style={{
-                                              gap: "0px",
-                                              height: "auto",
-                                            }}>
-                                            {job.job_category && (
-                                              <p
-                                                style={{
-                                                  margin: "0px",
-                                                }}>
-                                                {job.job_category.name}
-                                              </p>
-                                            )}
-                                            {job.job_type && (
-                                              <p
-                                                style={{
-                                                  margin: "0px",
-                                                }}>
-                                                {job.job_type.name}
-                                              </p>
-                                            )}
-                                            <div
-                                              className="d-flex "
+                                          {job.job_type && (
+                                            <p
                                               style={{
-                                                justifyContent: "space-between",
-                                              }}>
-                                              <div>
-                                                {job.job_workplace_types
-                                                  .name && (
-                                                  <p
-                                                    style={{
-                                                      margin: "0px",
-                                                    }}>
-                                                    {
-                                                      job.job_workplace_types
-                                                        .name
-                                                    }
-                                                  </p>
-                                                )}
-                                              </div>
-                                              <div>
-                                                {job.job_detail.created_at && (
-                                                  <p
-                                                    style={{
-                                                      margin: "0px",
-                                                      fontWeight: "600",
-                                                    }}>
-                                                    {moment(
-                                                      job.job_detail.created_at
-                                                    ).fromNow()}
-                                                  </p>
-                                                )}
-                                              </div>
+                                                margin: "0px",
+                                              }}
+                                            >
+                                              {job.job_type.name}
+                                            </p>
+                                          )}
+                                          <div
+                                            className="d-flex "
+                                            style={{
+                                              justifyContent: "space-between",
+                                            }}
+                                          >
+                                            <div>
+                                              {job.job_workplace_types.name && (
+                                                <p
+                                                  style={{
+                                                    margin: "0px",
+                                                  }}
+                                                >
+                                                  {job.job_workplace_types.name}
+                                                </p>
+                                              )}
+                                            </div>
+                                            <div>
+                                              {job.job_detail.created_at && (
+                                                <p
+                                                  style={{
+                                                    margin: "0px",
+                                                    fontWeight: "600",
+                                                  }}
+                                                >
+                                                  {moment(
+                                                    job.job_detail.created_at
+                                                  ).fromNow()}
+                                                </p>
+                                              )}
                                             </div>
                                           </div>
                                         </div>
                                       </div>
-                                    </Link>
-                                  </li>
-                                </div>
-                              ))}
-                            </ul>
-                          ) : null}
+                                    </div>
+                                  </Link>
+                                </li>
+                              </div>
+                            ))}
+                          </ul>
                         </div>
                       ) : null}
                     </div>
@@ -852,7 +886,8 @@ function JobPage() {
                           ) : (
                             <button
                               className="radius-xl site-button"
-                              onClick={handleShow}>
+                              onClick={handleShow}
+                            >
                               Apply
                             </button>
                           )}
@@ -860,11 +895,13 @@ function JobPage() {
                             show={show}
                             onHide={handleClose}
                             backdrop="static"
-                            keyboard={false}>
+                            keyboard={false}
+                          >
                             <Modal.Header
                               closeButton
                               style={{ backgroundColor: "#ffff" }}
-                              className="mt-4">
+                              className="mt-4"
+                            >
                               <Modal.Title style={{ color: "#000" }}>
                                 <p> Apply to {selectedJob.company}</p>
                               </Modal.Title>
@@ -872,7 +909,8 @@ function JobPage() {
                             <Modal.Body>
                               <Tab.Container
                                 id="tabs-example"
-                                activeKey={activeTab}>
+                                activeKey={activeTab}
+                              >
                                 Screening questions
                                 <Tab.Content>
                                   <Tab.Pane eventKey="contact-info">
@@ -940,7 +978,8 @@ function JobPage() {
                                         <select
                                           class="form-control"
                                           id="englishProficiency"
-                                          required>
+                                          required
+                                        >
                                           <option value="">
                                             Select an option
                                           </option>
@@ -958,7 +997,8 @@ function JobPage() {
                                         <select
                                           class="form-control"
                                           id="salaryRange"
-                                          required>
+                                          required
+                                        >
                                           <option value="">
                                             Select an option
                                           </option>
@@ -989,7 +1029,8 @@ function JobPage() {
                                         <select
                                           class="form-control"
                                           id="workLocation"
-                                          required>
+                                          required
+                                        >
                                           <option value="">
                                             Select an option
                                           </option>
@@ -1039,7 +1080,8 @@ function JobPage() {
                                         <select
                                           class="form-control"
                                           id="immediateStart"
-                                          required>
+                                          required
+                                        >
                                           <option value="">
                                             Select an option
                                           </option>
@@ -1056,7 +1098,8 @@ function JobPage() {
                               {activeTab !== "contact-info" && (
                                 <button
                                   className="site-button mr-2"
-                                  onClick={handlePrev}>
+                                  onClick={handlePrev}
+                                >
                                   Previous
                                 </button>
                               )}

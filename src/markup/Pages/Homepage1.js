@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "./../Layout/Header";
 import Footer from "./../Layout/Footer";
 import CountUp from "react-countup";
@@ -24,25 +24,27 @@ function Homepage() {
             <div className="section-head d-flex head-counter clearfix">
               <div className="mr-auto">
                 <h2 className="m-b5">Popular Categories</h2>
-                <h6 className="fw3">20+ Catetories work wating for you</h6>
+                <h6 className="fw3">
+                  8+ Catetories wating for your application
+                </h6>
               </div>
               <div className="head-counter-bx">
                 <h2 className="m-b5 counter">
-                  <CountUp end={1800} duration={5} />
+                  <CountUp end={100} duration={5} />+
                 </h2>
                 <h6 className="fw3">Jobs Posted</h6>
               </div>
               <div className="head-counter-bx">
                 <h2 className="m-b5 counter">
-                  <CountUp end={4500} duration={5} />
+                  <CountUp end={100} duration={5} />+
                 </h2>
-                <h6 className="fw3">Tasks Posted</h6>
+                <h6 className="fw3">Employers Listed</h6>
               </div>
               <div className="head-counter-bx">
                 <h2 className="m-b5 counter">
-                  <CountUp end={1500} duration={5} />
+                  <CountUp end={100} duration={5} />%
                 </h2>
-                <h6 className="fw3">Freelancers</h6>
+                <h6 className="fw3">AI Verified Opportunities</h6>
               </div>
             </div>
             <Jobcategories />
@@ -57,7 +59,7 @@ function Homepage() {
           <div className="container">
             <div className="section-head text-center text-white">
               <h2 className="m-b5">Testimonials</h2>
-              <h5 className="fw4">Few words from candidates</h5>
+              <h5 className="fw4">Few words from Users</h5>
             </div>
             <Owltestimonial />
           </div>
@@ -75,15 +77,18 @@ function Homepage() {
             <div className="section-head text-black text-center">
               <h2 className="m-b0">Membership Plans</h2>
               <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy.
+                Unlock the full potential of our wide services. Your journey
+                starts with a Free Plan...
               </p>
             </div>
             <div className="section-content box-sort-in button-example m-t80">
               <div className="pricingtable-row">
-                <div className="row max-w1000 m-auto">
+                <div className="row max-w1000 m-auto justify-content-center ">
                   <div className="col-sm-12 col-md-4 col-lg-4 p-lr0">
-                    <div className="pricingtable-wrapper style2 bg-white">
+                    <div
+                      className="pricingtable-wrapper style2 bg-white"
+                      style={{ height: "350px" }}
+                    >
                       <div className="pricingtable-inner">
                         <div className="pricingtable-price">
                           <h4 className="font-weight-300 m-t10 m-b0">Basic</h4>
@@ -92,13 +97,12 @@ function Homepage() {
                           </div>
                         </div>
                         <p>
-                          Lorem ipsum dolor sit amet adipiscing elit sed do
-                          eiusmod tempors labore et dolore magna siad enim
-                          aliqua
+                          Jumpstart your AI Powered career transformation with
+                          our free Plan, all at no cost.
                         </p>
                         <div className="m-t20">
                           <Link
-                            to={"/user/register"}
+                            to={"/user/register-2"}
                             className="site-button radius-xl"
                           >
                             <span className="p-lr30">Sign Up</span>
@@ -108,25 +112,27 @@ function Homepage() {
                     </div>
                   </div>
                   <div className="col-sm-12 col-md-4 col-lg-4 p-lr0">
-                    <div className="pricingtable-wrapper style2 bg-primary text-white active">
+                    <div
+                      className="pricingtable-wrapper style2 bg-primary text-white"
+                      style={{ height: "350px" }}
+                    >
                       <div className="pricingtable-inner">
                         <div className="pricingtable-price">
                           <h4 className="font-weight-300 m-t10 m-b0">
-                            Professional
+                            Freemium
                           </h4>
                           <div className="pricingtable-bx">
                             {" "}
-                            $ <span>29</span> / Per Installation{" "}
+                            {/* $ <span>29</span> / Per Installation{" "} */}
+                            <span>Free To use</span>
                           </div>
                         </div>
                         <p>
-                          Lorem ipsum dolor sit amet adipiscing elit sed do
-                          eiusmod tempors labore et dolore magna siad enim
-                          aliqua
+                          Explore our freemium plan, with pay as you go option.
                         </p>
                         <div className="m-t20">
                           <Link
-                            to={"/user/register"}
+                            to={"/user/register-2"}
                             className="site-button white radius-xl"
                           >
                             <span className="text-primary p-lr30">Sign Up</span>
@@ -135,7 +141,7 @@ function Homepage() {
                       </div>
                     </div>
                   </div>
-                  <div className="col-sm-12 col-md-4 col-lg-4 p-lr0">
+                  {/* <div className="col-sm-12 col-md-4 col-lg-4 p-lr0">
                     <div className="pricingtable-wrapper style2 bg-white">
                       <div className="pricingtable-inner">
                         <div className="pricingtable-price">
@@ -162,7 +168,7 @@ function Homepage() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

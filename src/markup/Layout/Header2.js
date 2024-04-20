@@ -106,7 +106,13 @@ class EmployeeHeader2 extends Component {
                     <li className="">
                       <Link to={"/user"}>Home </Link>
                     </li>
-                    <li className="">
+                    <li
+                      onClick={() => {
+                        localStorage.removeItem("selectedLocation");
+                        localStorage.removeItem("title_keyword");
+                      }}
+                      className=""
+                    >
                       <Link to={"/user/job-application"}>Job Page</Link>
                     </li>
                     <li>
