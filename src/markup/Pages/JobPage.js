@@ -239,6 +239,13 @@ function JobPage() {
     },
   ]);
 
+  const [jobCategories, setJobCategories] = useState([
+    {
+      id: 0,
+      name: "",
+    },
+  ]);
+
   const getJobTyes = async () => {
     await axios({
       method: "GET",
@@ -295,7 +302,7 @@ function JobPage() {
   const getState = () => {
     axios({
       method: "GET",
-      url: `https://jobsbooklet.in/api/jobseeker/stats/${jobApplicationValues.country_id}`,
+      url: `https://jobsbooklet.in/api/jobseeker/stats/231`,
       headers: {
         Authorization: token,
       },
@@ -374,6 +381,21 @@ function JobPage() {
     getCities();
   }, [jobApplicationValues.state_id]);
 
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: "http://93.188.167.106:3001/api/jobseeker/job-categories",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        console.log(response.data.data, "jobCategory");
+        setJobCategories(response.data.data);
+      })
+      .catch((err) => console.log(err, "jobCategory"));
+  }, []);
+
   const submitApplication = async () => {
     await axios({
       url: "https://jobsbooklet.in/api/jobseeker/jobs-applied",
@@ -439,6 +461,11 @@ function JobPage() {
   if (jobApplicationValues.experience_level) {
     params.append("experience_level", jobApplicationValues.experience_level);
   }
+  if (jobApplicationValues.jobCategory) {
+    params.append("job_category_id", jobApplicationValues.jobCategory);
+  } else if (localStorage.getItem("jobCategory")) {
+    params.append("job_category_id", localStorage.getItem("jobCategory"));
+  }
 
   const url = `${baseUrl}?${params.toString()}`;
   console.log(url, "this is the url");
@@ -485,7 +512,7 @@ function JobPage() {
                 <div className="d-flex justify-content-center align-items-center  ">
                   <div className="col-lg-2  col-md-5 col-12  ">
                     <div className="form-group">
-                      <label htmlFor="country_id">Country:</label>
+                      {/* <label htmlFor="country_id">Country:</label>
                       {countries ? (
                         <select
                           type="text"
@@ -499,6 +526,32 @@ function JobPage() {
                         >
                           <option value="">Select a country</option>
                           {countries.map((item, index) => {
+                            return (
+                              <option
+                                key={index}
+                                value={item.id}
+                                country={item.name}
+                              >
+                                {item.name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      ) : null} */}
+                      <label htmlFor="jobCategory">Choose Category</label>
+                      {jobCategories ? (
+                        <select
+                          type="text"
+                          className="form-control"
+                          id="jobCategory"
+                          name="jobCategory"
+                          onChange={(e) => {
+                            handleChange(e);
+                          }}
+                          value={jobApplicationValues.jobCategory}
+                        >
+                          <option value="">Select a Category</option>
+                          {jobCategories.map((item, index) => {
                             return (
                               <option
                                 key={index}

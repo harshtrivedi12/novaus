@@ -21,7 +21,9 @@ const EmploymentComponent = () => {
   const [editIndex, setEditIndex] = useState(-1);
 
   const updateItem = () => {
-    if (editIndex === -1) return;
+    if (editIndex === -1) {
+      return;
+    }
 
     const updatedFormData = [...employmentData];
     updatedFormData[editIndex] = {
@@ -30,8 +32,16 @@ const EmploymentComponent = () => {
     };
     dispatch(setEmploymentData(updatedFormData));
     setEmployment(false);
-    // Reset fields after updating
-    setEditIndex(-1); // Exit edit mode
+    dispatch(
+      setEmploymentValues({
+        jobTitle: "",
+        company: "",
+        jobStartDate: "",
+        jobEndDate: "",
+        jobDescription: "",
+      })
+    );
+    setEditIndex(-1);
   };
 
   const editItem = (index) => {
@@ -53,38 +63,89 @@ const EmploymentComponent = () => {
     dispatch(setEmploymentValues({ ...employmentValues, [name]: value }));
   };
 
+  const handleAdd = () => {
+    if (editIndex !== -1) {
+      return;
+    }
+    const trimmedJobTitle = employmentValues.jobTitle.trim();
+    const trimmedCompany = employmentValues.company.trim();
+    const trimmedStartDate = employmentValues.jobStartDate.trim();
+    const trimmedEndDate = employmentValues.jobEndDate.trim();
+    const trimmedJobDescription = employmentValues.jobDescription.trim();
+
+    if (
+      trimmedJobTitle &&
+      trimmedCompany &&
+      trimmedStartDate &&
+      trimmedEndDate &&
+      trimmedJobDescription
+    ) {
+      const newItem = {
+        jobTitle: trimmedJobTitle,
+        company: trimmedCompany,
+        jobStartDate: trimmedStartDate,
+        jobEndDate: trimmedEndDate,
+        jobDescription: trimmedJobDescription,
+      };
+      const newEmployementData = [...employmentData, newItem];
+      dispatch(setEmploymentData(newEmployementData));
+      dispatch(
+        setEmploymentValues({
+          jobTitle: "",
+          company: "",
+          jobStartDate: "",
+          jobEndDate: "",
+          jobDescription: "",
+        })
+      );
+      setEmployment(false);
+    }
+  };
+
   return (
     <div>
       {" "}
       <div className="d-flex">
         <h5 className="m-b15">Employment</h5>
+        <Link
+          to={"#"}
+          data-toggle="modal"
+          onClick={() => setEmployment(true)}
+          className="site-button add-btn button-sm"
+        >
+          <i className="fa fa-plus m-r5"></i> Add
+        </Link>
       </div>
-      {employmentData.map((item, index) => {
-        return (
-          <div key={index}>
-            <div
-              className="d-flex justify-content-between align-items-center px-3 "
-              style={{ gap: "20px" }}
-            >
-              <div style={{ width: "80%" }}>
-                <h6 className="font-14 m-b0">{item.jobTitle}</h6>
-                <p className="m-b0">{item.company}</p>
-                <p className="m-b0">
-                  {item.jobStartDate} {item.jobEndDate}
-                </p>
-                <p className="m-b0">{item.jobDescription}</p>
+      {employmentData ? (
+        <div>
+          {employmentData.map((item, index) => {
+            return (
+              <div key={index}>
+                <div
+                  className="d-flex justify-content-between align-items-center px-3 "
+                  style={{ gap: "20px" }}
+                >
+                  <div style={{ width: "80%" }}>
+                    <h6 className="font-14 m-b0">{item.jobTitle}</h6>
+                    <p className="m-b0">{item.company}</p>
+                    <p className="m-b0">
+                      {item.jobStartDate} {item.jobEndDate}
+                    </p>
+                    <p className="m-b0">{item.jobDescription}</p>
+                  </div>
+                  <button
+                    onClick={() => editItem(index)}
+                    className="site-button row justify-content-center  align-items-center "
+                    style={{ gap: "7px", width: "20%" }}
+                  >
+                    Edit <FaEdit />
+                  </button>
+                </div>
               </div>
-              <button
-                onClick={() => editItem(index)}
-                className="site-button row justify-content-center  align-items-center "
-                style={{ gap: "7px", width: "20%" }}
-              >
-                Edit <FaEdit />
-              </button>
-            </div>
-          </div>
-        );
-      })}
+            );
+          })}
+        </div>
+      ) : null}
       <Modal
         show={employment}
         onHide={setEmployment}
@@ -99,7 +160,19 @@ const EmploymentComponent = () => {
               <button
                 type="button"
                 className="close"
-                onClick={() => setEmployment(false)}
+                onClick={() => {
+                  setEmployment(false);
+                  dispatch(
+                    setEmploymentValues({
+                      jobTitle: "",
+                      company: "",
+                      jobStartDate: "",
+                      jobEndDate: "",
+                      jobDescription: "",
+                    })
+                  );
+                  setEditIndex(-1);
+                }}
               >
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -225,9 +298,24 @@ const EmploymentComponent = () => {
               <button
                 type="button"
                 className="site-button"
-                onClick={() => setEmployment(false)}
+                onClick={() => {
+                  setEmployment(false);
+                  dispatch(
+                    setEmploymentValues({
+                      jobTitle: "",
+                      company: "",
+                      jobStartDate: "",
+                      jobEndDate: "",
+                      jobDescription: "",
+                    })
+                  );
+                  setEditIndex(-1);
+                }}
               >
                 Cancel
+              </button>
+              <button onClick={handleAdd} type="button" className="site-button">
+                Save
               </button>
               <button
                 onClick={updateItem}

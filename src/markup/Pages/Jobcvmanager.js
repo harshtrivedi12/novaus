@@ -49,7 +49,7 @@ function Jobcvmanager() {
   return (
     <>
       <Header2 />
-    <FixedHeader />
+      <FixedHeader />
 
       <div className="page-content bg-white">
         <div className="content-block">
@@ -103,6 +103,15 @@ function Jobcvmanager() {
                               aria-hidden="true"
                             ></i>
                             <span>CV Manager</span>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to={"/user/skill-test"}>
+                            <i
+                              className="fa fa-id-card-o"
+                              aria-hidden="true"
+                            ></i>
+                            <span>Skill Test</span>
                           </Link>
                         </li>
                         <li>

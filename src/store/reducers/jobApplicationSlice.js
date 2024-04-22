@@ -12,6 +12,7 @@ const initialState = {
     country: "",
     state: "",
     city: "",
+    jobCategory: "",
   },
 };
 

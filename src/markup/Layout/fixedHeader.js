@@ -156,7 +156,7 @@ const FixedHeader = () => {
                     )}
                   </Link>
 
-                  <div
+                  {/* <div
                     className="upload-link"
                     title="update"
                     data-toggle="tooltip"
@@ -168,7 +168,7 @@ const FixedHeader = () => {
                       onChange={handleImageChange}
                     />
                     <i className="fa fa-camera"></i>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="text-white browse-job text-left">
                   {fixedHeaderValues.first_name ||
