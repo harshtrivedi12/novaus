@@ -13,6 +13,7 @@ function Register2(props) {
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
   const [email, setEmail] = useState("");
+  const [runAiButton, setRunAiButton] = useState("Run Ai");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState("");
@@ -39,7 +40,6 @@ function Register2(props) {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("job_seeker_id", jobSeekerId);
     if (file) {
       formData.append("files", file);
     }
@@ -99,6 +99,7 @@ function Register2(props) {
   }
 
   const runAi = async (e) => {
+    setRunAiButton("Running Ai");
     setShowVideo(true);
     e.preventDefault();
     console.log(resumeUrl);
@@ -292,15 +293,6 @@ function Register2(props) {
                         <div>
                           <div className="form-group">
                             <input
-                              type="text"
-                              value={jobSeekerId}
-                              className="form-control"
-                              onChange={handleIdChange}
-                              placeholder="Job Seeker ID"
-                            />
-                          </div>
-                          <div className="form-group">
-                            <input
                               type="file"
                               onChange={handleChange}
                               className="form-control"
@@ -342,7 +334,7 @@ function Register2(props) {
                               runAi(e);
                             }}
                             className="site-button dz-xs-flex m-r5">
-                            Run Ai
+                            {runAiButton}
                           </button>
                         )}
                       </div>

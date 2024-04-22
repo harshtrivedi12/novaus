@@ -12,6 +12,7 @@ var bnr = require("./../../images/background/bg6.jpg");
 function EmployeeRegister2(props) {
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
+  const [runAiButton, setRunAiButton] = useState("Run Aiii");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -39,7 +40,7 @@ function EmployeeRegister2(props) {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("job_seeker_id", jobSeekerId);
+
     if (file) {
       formData.append("files", file);
     }
@@ -99,6 +100,7 @@ function EmployeeRegister2(props) {
   }
 
   const runAi = async (e) => {
+    setRunAiButton("Running Ai");
     setShowVideo(true);
     e.preventDefault();
     console.log(resumeUrl);
@@ -132,8 +134,7 @@ function EmployeeRegister2(props) {
           style={{
             backgroundImage: `url(${bnr})`,
             height: "100vh",
-          }}
-        >
+          }}>
           <div className="row">
             <div className="col-xl-4 col-lg-5 col-md-6 col-sm-12 bg-white z-index2 relative p-a0 content-scroll skew-section left-bottom">
               <div className="login-form style-2">
@@ -222,8 +223,7 @@ function EmployeeRegister2(props) {
                         <div className="form-group text-left">
                           <button
                             type="submit"
-                            className="site-button dz-xs-flex m-r5"
-                          >
+                            className="site-button dz-xs-flex m-r5">
                             Sign me up
                           </button>
                           <span className="custom-control custom-checkbox">
@@ -235,16 +235,14 @@ function EmployeeRegister2(props) {
                             />
                             <label
                               className="custom-control-label"
-                              htmlFor="check1"
-                            >
+                              htmlFor="check1">
                               Remember me
                             </label>
                           </span>
                           <Link
                             data-toggle="tab"
                             to="#forgot-password"
-                            className="forget-pass m-l5"
-                          >
+                            className="forget-pass m-l5">
                             <i className="fa fa-unlock-alt"></i> Forgot Password
                           </Link>
                         </div>
@@ -257,29 +255,25 @@ function EmployeeRegister2(props) {
                               <Link
                                 to={""}
                                 className="fa fa-facebook  fb-btn mr-1"
-                                target="bank"
-                              ></Link>
+                                target="bank"></Link>
                             </li>
                             <li>
                               <Link
                                 to={""}
                                 className="fa fa-twitter  tw-btn mr-1"
-                                target="bank"
-                              ></Link>
+                                target="bank"></Link>
                             </li>
                             <li>
                               <Link
                                 to={""}
                                 className="fa fa-linkedin link-btn mr-1"
-                                target="bank"
-                              ></Link>
+                                target="bank"></Link>
                             </li>
                             <li>
                               <Link
                                 to={""}
                                 className="fa fa-google-plus  gplus-btn"
-                                target="bank"
-                              ></Link>
+                                target="bank"></Link>
                             </li>
                           </ul>
                         </div>
@@ -287,8 +281,7 @@ function EmployeeRegister2(props) {
                       <div className="text-center bottom">
                         <Link
                           to="/login"
-                          className="site-button button-md btn-block text-white"
-                        >
+                          className="site-button button-md btn-block text-white">
                           Sign In
                         </Link>
                       </div>
@@ -320,8 +313,7 @@ function EmployeeRegister2(props) {
 
                         <button
                           type="submit"
-                          className="site-button dz-xs-flex m-r5"
-                        >
+                          className="site-button dz-xs-flex m-r5">
                           Upload Resume
                         </button>
                       </form>
@@ -331,8 +323,7 @@ function EmployeeRegister2(props) {
                           <video
                             width="200px"
                             loop={showVideo}
-                            autoPlay={showVideo}
-                          >
+                            autoPlay={showVideo}>
                             <source src={processVid} type="video/mp4" />
                           </video>
                         </div>
@@ -343,8 +334,7 @@ function EmployeeRegister2(props) {
                               className="site-button dz-xs-flex m-r5"
                               onClick={(e) => {
                                 navigate("/");
-                              }}
-                            >
+                              }}>
                               Go To Dashboard
                             </button>
                           </div>
@@ -353,9 +343,8 @@ function EmployeeRegister2(props) {
                             onClick={(e) => {
                               runAi(e);
                             }}
-                            className="site-button dz-xs-flex m-r5"
-                          >
-                            Run Ai
+                            className="site-button dz-xs-flex m-r5">
+                            {runAiButton}
                           </button>
                         )}
                       </div>

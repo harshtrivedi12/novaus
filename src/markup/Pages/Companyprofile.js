@@ -158,7 +158,6 @@ function Companyprofile() {
   }, [dispatch]);
 
   useEffect(() => {
-
     setCompanyName(companyData.company_name);
     setTagline(companyData.tagline);
     setEmail(companyData.email);

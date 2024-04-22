@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 var img1 = require("./../../images/city/pic1.jpg");
 var img2 = require("./../../images/city/pic2.jpg");
@@ -33,8 +33,7 @@ function Featureblog() {
                 style={{
                   backgroundImage: "url(" + img1 + ")",
                   cursor: "pointer",
-                }}
-              >
+                }}>
                 <div className="city-info">
                   <h5>Alabama</h5>
                   <span>765 Jobs</span>
@@ -49,8 +48,7 @@ function Featureblog() {
                 style={{
                   backgroundImage: "url(" + img2 + ")",
                   cursor: "pointer",
-                }}
-              >
+                }}>
                 <div className="city-info">
                   <h5>California</h5>
                   <span>352 Jobs</span>
@@ -65,8 +63,7 @@ function Featureblog() {
                 style={{
                   backgroundImage: "url(" + img3 + ")",
                   cursor: "pointer",
-                }}
-              >
+                }}>
                 <div className="city-info">
                   <h5>Hawali</h5>
                   <span>893 Jobs</span>
@@ -81,8 +78,7 @@ function Featureblog() {
                 style={{
                   backgroundImage: "url(" + img4 + ")",
                   cursor: "pointer",
-                }}
-              >
+                }}>
                 <div className="city-info">
                   <h5>Ohio</h5>
                   <span>502 Jobs</span>
@@ -97,8 +93,7 @@ function Featureblog() {
                 style={{
                   backgroundImage: "url(" + img5 + ")",
                   cursor: "pointer",
-                }}
-              >
+                }}>
                 <div className="city-info">
                   <h5>Virginia</h5>
                   <span>765 Jobs</span>
@@ -113,8 +108,7 @@ function Featureblog() {
                 style={{
                   backgroundImage: "url(" + img6 + ")",
                   cursor: "pointer",
-                }}
-              >
+                }}>
                 <div className="city-info">
                   <h5>Indiana</h5>
                   <span>352 Jobs</span>
@@ -129,8 +123,7 @@ function Featureblog() {
                 style={{
                   backgroundImage: "url(" + img7 + ")",
                   cursor: "pointer",
-                }}
-              >
+                }}>
                 <div className="city-info">
                   <h5>Georgia</h5>
                   <span>893 Jobs</span>
@@ -145,8 +138,7 @@ function Featureblog() {
                 style={{
                   backgroundImage: "url(" + img8 + ")",
                   cursor: "pointer",
-                }}
-              >
+                }}>
                 <div className="city-info">
                   <h5>Colorado</h5>
                   <span>502 Jobs</span>
