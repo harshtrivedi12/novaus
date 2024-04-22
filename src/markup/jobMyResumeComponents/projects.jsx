@@ -29,6 +29,16 @@ const ProjectsComponent = () => {
     };
     dispatch(setProjectsData(updatedFormData));
     setProjects(false);
+    dispatch(
+      setProjectsValue({
+        projectTitle: "",
+        clientName: "",
+        projectStatus: "",
+        workStarted: "",
+        workedTill: "",
+        projectDescription: "",
+      })
+    );
     setEditIndex(-1);
   };
 
@@ -51,45 +61,94 @@ const ProjectsComponent = () => {
     const { name, value } = e.target;
     dispatch(setProjectsValue({ ...projectsValue, [name]: value }));
   };
+
+  const handleAdd = () => {
+    if (editIndex !== -1) {
+      return;
+    }
+    const trimmedProjectTitle = projectsValue.projectTitle.trim();
+    const trimmedClientName = projectsValue.clientName.trim();
+    const trimmedProjectStatus = projectsValue.projectStatus.trim();
+    const trimmedWorkStarted = projectsValue.workStarted.trim();
+    const trimmedWorkedTill = projectsValue.workedTill.trim();
+    const trimmedDescription = projectsValue.projectDescription.trim();
+
+    if (
+      trimmedProjectTitle &&
+      trimmedClientName &&
+      trimmedProjectStatus &&
+      trimmedWorkStarted &&
+      trimmedWorkedTill &&
+      trimmedDescription
+    ) {
+      const newItem = {
+        projectTitle: trimmedProjectTitle,
+        clientName: trimmedClientName,
+        projectStatus: trimmedProjectStatus,
+        workStarted: trimmedWorkStarted,
+        workedTill: trimmedWorkedTill,
+        projectDescription: trimmedDescription,
+      };
+
+      const newData = [...projectsData, newItem];
+      dispatch(setProjectsData(newData));
+      dispatch(
+        setProjectsValue({
+          projectTitle: "",
+          clientName: "",
+          projectStatus: "",
+          workStarted: "",
+          workedTill: "",
+          projectDescription: "",
+        })
+      );
+      setProjects(false);
+    }
+  };
+
   return (
     <div>
       {" "}
       <div className="d-flex">
         <h5 className="m-b15">Projects</h5>
-        {/* <Link
+        <Link
           to={"#"}
           onClick={() => setProjects(true)}
           className="site-button add-btn button-sm"
         >
-          <i className="fa fa-pencil m-r5"></i> Edit
-        </Link> */}
+          <i className="fa fa-plus m-r5"></i> Add
+        </Link>
       </div>
-      {projectsData.map((item, index) => {
-        return (
-          <div
-            key={index}
-            className="d-flex justify-content-between align-items-center "
-          >
-            <div>
-              <h6 className="font-14 m-b0">{item.projectTitle}</h6>
-              <p className="m-b0">{item.clientName}</p>
-              <p className="m-b0">{item.projectStatus}</p>
-              <p className="m-b0">
-                {item.workStarted} {" - "} {item.workedTill}
-              </p>
-              <p className="m-b0">{item.projectDescription}</p>
-            </div>
-            <button
-              onClick={() => editItem(index)}
-              className="d-flex align-items-center site-button"
-              style={{ gap: "7px" }}
-            >
-              Edit
-              <FaEdit />
-            </button>
-          </div>
-        );
-      })}
+      {projectsData ? (
+        <div>
+          {projectsData.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className="d-flex justify-content-between align-items-center "
+              >
+                <div>
+                  <h6 className="font-14 m-b0">{item.projectTitle}</h6>
+                  <p className="m-b0">{item.clientName}</p>
+                  <p className="m-b0">{item.projectStatus}</p>
+                  <p className="m-b0">
+                    {item.workStarted} {" - "} {item.workedTill}
+                  </p>
+                  <p className="m-b0">{item.projectDescription}</p>
+                </div>
+                <button
+                  onClick={() => editItem(index)}
+                  className="d-flex align-items-center site-button"
+                  style={{ gap: "7px" }}
+                >
+                  Edit
+                  <FaEdit />
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
       <Modal
         className="modal fade modal-bx-info editor"
         show={projects}
@@ -104,7 +163,20 @@ const ProjectsComponent = () => {
               <button
                 type="button"
                 className="close"
-                onClick={() => setProjects(false)}
+                onClick={() => {
+                  dispatch(
+                    setProjectsValue({
+                      projectTitle: "",
+                      clientName: "",
+                      projectStatus: "",
+                      workStarted: "",
+                      workedTill: "",
+                      projectDescription: "",
+                    })
+                  );
+                  setProjects(false);
+                  setEditIndex(-1);
+                }}
               >
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -327,9 +399,25 @@ const ProjectsComponent = () => {
               <button
                 type="button"
                 className="site-button"
-                onClick={() => setProjects(false)}
+                onClick={() => {
+                  dispatch(
+                    setProjectsValue({
+                      projectTitle: "",
+                      clientName: "",
+                      projectStatus: "",
+                      workStarted: "",
+                      workedTill: "",
+                      projectDescription: "",
+                    })
+                  );
+                  setProjects(false);
+                  setEditIndex(-1);
+                }}
               >
                 Cancel
+              </button>
+              <button onClick={handleAdd} type="button" className="site-button">
+                Save
               </button>
               <button
                 onClick={updateItem}

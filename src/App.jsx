@@ -119,7 +119,7 @@ import AccessibilityCenter from "./markup/Pages/AccessibilityCenter";
 import HowItWorksEmployee from "./markup/Pages/HowItWorksEmployee";
 import HowItWorksCandidates from "./markup/Pages/HowItWorksCandidates";
 import CompanyPage from "./markup/Pages/CompanyPageView";
-
+import EmployeeJobPage from "./employeeMarkup/Pages/JobPage";
 function App() {
   const dispatch = useDispatch();
 
@@ -976,6 +976,7 @@ function App() {
             </EmployeePrivateRoute>
           }
         />
+        <Route path="candidate-listing" element={<EmployeeJobPage />} />
         <Route path="*" element={<EmployeeError404 />} />
       </Route>
     </Routes>

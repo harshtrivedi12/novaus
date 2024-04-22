@@ -41,7 +41,7 @@ const requestBody = {
   return (
     <>
       <Header2 />
-    <FixedHeader />
+      <FixedHeader />
 
       <div className="page-content bg-white">
         <div className="content-block">
@@ -51,7 +51,6 @@ const requestBody = {
                 <div className="col-xl-3 col-lg-4 m-b30">
                   <div className="sticky-top">
                     <div className="candidate-info">
-                
                       <ul>
                         <li>
                           <Link to={"/user/jobs-profile"}>
@@ -93,6 +92,15 @@ const requestBody = {
                           </Link>
                         </li>
                         <li>
+                          <Link to={"/user/skill-test"}>
+                            <i
+                              className="fa fa-id-card-o"
+                              aria-hidden="true"
+                            ></i>
+                            <span>Skill Test</span>
+                          </Link>
+                        </li>
+                        <li>
                           <Link
                             to={"/user/jobs-change-password"}
                             className="active"
@@ -129,23 +137,49 @@ const requestBody = {
                         <div className="col-lg-12">
                           <div className="form-group">
                             <label htmlFor="old_password">Old Password</label>
-                            <input type="password" className="form-control" onChange={handleChange} id="old_password" name="old_password" autoComplete="false" />
+                            <input
+                              type="password"
+                              className="form-control"
+                              onChange={handleChange}
+                              id="old_password"
+                              name="old_password"
+                              autoComplete="false"
+                            />
                           </div>
                         </div>
                         <div className="col-lg-6">
                           <div className="form-group">
                             <label htmlFor="new_password">New Password </label>
-                            <input type="password" className="form-control" onChange={handleChange} id="new_password" name="new_password" autoComplete="false" />
+                            <input
+                              type="password"
+                              className="form-control"
+                              onChange={handleChange}
+                              id="new_password"
+                              name="new_password"
+                              autoComplete="false"
+                            />
                           </div>
                         </div>
                         <div className="col-lg-6">
                           <div className="form-group">
-                            <label htmlFor="confirm_password">Confirm New Password</label>
-                            <input type="password" className="form-control" id="confirm_password" name="confirm_password" onChange={handleChange} autoComplete="false" />
+                            <label htmlFor="confirm_password">
+                              Confirm New Password
+                            </label>
+                            <input
+                              type="password"
+                              className="form-control"
+                              id="confirm_password"
+                              name="confirm_password"
+                              onChange={handleChange}
+                              autoComplete="false"
+                            />
                           </div>
                         </div>
                         <div className="col-lg-12 m-b10">
-                          <button onClick={handleSubmit} className="site-button">
+                          <button
+                            onClick={handleSubmit}
+                            className="site-button"
+                          >
                             Update Password
                           </button>
                         </div>

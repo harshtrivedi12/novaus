@@ -38,7 +38,7 @@ function Jobsection() {
   const fetchJobApplicationData = async () => {
     try {
       const response = await axios.get(
-        "https://jobsbooklet.in/api/jobseeker/job-lists",
+        "https://jobsbooklet.in/api/jobseeker/job-lists?page_size=7",
         {
           headers: {
             Authorization: token,
@@ -110,16 +110,15 @@ function Jobsection() {
                           <div className="job-post-info">
                             <h4>
                               <Link
-                                to={`/user/job-detail/${item.job_detail.id}`}
-                              >
+                                to={`/user/job-detail/${item.job_detail.id}`}>
                                 {item.job_detail.job_title}
                               </Link>
                             </h4>
                             <ul>
                               <li>
                                 <i className="fa fa-map-marker"></i>{" "}
-                                {item.countries.name}, {item.states.name},
-                                {item.cities.name}
+                                {item.cities.name}, {item.states.name},
+                                {item.countries.name},
                               </li>
                               {item.job_category.name ? (
                                 <li>
@@ -160,17 +159,6 @@ function Jobsection() {
                   ))}
                 </ul>
               ) : null}
-
-              <div className="m-t30">
-                <div className="d-flex">
-                  <Link className="site-button button-sm mr-auto" to={""}>
-                    <i className="ti-arrow-left"></i> Prev
-                  </Link>
-                  <Link className="site-button button-sm" to={""}>
-                    Next <i className="ti-arrow-right"></i>
-                  </Link>
-                </div>
-              </div>
             </div>
             <div className="col-lg-3">
               <div className="sticky-top">

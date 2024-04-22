@@ -29,6 +29,14 @@ const ITSkillsComponent = () => {
       ...itSkillsValue,
     };
     dispatch(setItSkillsData(updatedFormData));
+    dispatch(
+      setItSkillsValue({
+        skills: "",
+        version: "",
+        lastUsed: "",
+        experience: "",
+      })
+    );
     setItSkills(false);
     setEditIndex(-1);
   };
@@ -50,11 +58,55 @@ const ITSkillsComponent = () => {
     const { name, value } = e.target;
     dispatch(setItSkillsValue({ ...itSkillsValue, [name]: value }));
   };
+
+  const handleAdd = () => {
+    if (editIndex !== -1) {
+      return;
+    }
+
+    const trimmedSkills = itSkillsValue.skills.trim();
+    const trimmedVersion = itSkillsValue.version.trim();
+    const trimmedLastUsed = itSkillsValue.lastUsed.trim();
+    const trimmedExperience = itSkillsValue.experience.trim();
+
+    if (
+      trimmedSkills &&
+      trimmedVersion &&
+      trimmedLastUsed &&
+      trimmedExperience
+    ) {
+      const newItem = {
+        skills: trimmedSkills,
+        version: trimmedVersion,
+        lastUsed: trimmedLastUsed,
+        experience: trimmedExperience,
+      };
+      const newData = [...itSkillsData, newItem];
+      dispatch(setItSkillsData(newData));
+      dispatch(
+        setItSkillsValue({
+          skills: "",
+          version: "",
+          lastUsed: "",
+          experience: "",
+        })
+      );
+      setItSkills(false);
+    }
+  };
   return (
     <div>
       {" "}
       <div className="d-flex">
         <h5 className="m-b15">IT Skills</h5>
+        <Link
+          to={"#"}
+          data-toggle="modal"
+          onClick={() => setItSkills(true)}
+          className="site-button add-btn button-sm"
+        >
+          <i className="fa fa-plus m-r5"></i> Add
+        </Link>
       </div>
       <p>
         Mention your employment details including your current and previous
@@ -70,28 +122,30 @@ const ITSkillsComponent = () => {
             <th></th>
           </tr>
         </thead>
-        <tbody>
-          {itSkillsData.map((item, index) => {
-            return (
-              <tr key={index}>
-                <td>{item.skills}</td>
-                <td>{item.version}</td>
-                <td>{item.lastUsed}</td>
-                <td>{item.experience}</td>
-                <td>
-                  <button
-                    onClick={() => editItem(index)}
-                    to={"#"}
-                    className="m-l15 font-14 border-0 "
-                    style={{ cursor: "pointer" }}
-                  >
-                    <FaEdit />
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
+        {itSkillsData ? (
+          <tbody>
+            {itSkillsData.map((item, index) => {
+              return (
+                <tr key={index}>
+                  <td>{item.skills}</td>
+                  <td>{item.version}</td>
+                  <td>{item.lastUsed}</td>
+                  <td>{item.experience}</td>
+                  <td>
+                    <button
+                      onClick={() => editItem(index)}
+                      to={"#"}
+                      className="m-l15 font-14 border-0 "
+                      style={{ cursor: "pointer" }}
+                    >
+                      <FaEdit />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        ) : null}
       </table>
       <Modal
         className="modal fade modal-bx-info editor"
@@ -102,10 +156,22 @@ const ITSkillsComponent = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">IT Skills</h5>
+
               <button
                 type="button"
                 className="close"
-                onClick={() => setItSkills(false)}
+                onClick={() => {
+                  dispatch(
+                    setItSkillsValue({
+                      skills: "",
+                      version: "",
+                      lastUsed: "",
+                      experience: "",
+                    })
+                  );
+                  setItSkills(false);
+                  setEditIndex(-1);
+                }}
               >
                 <span>&times;</span>
               </button>
@@ -233,9 +299,23 @@ const ITSkillsComponent = () => {
               <button
                 type="button"
                 className="site-button"
-                onClick={() => setItSkills(false)}
+                onClick={() => {
+                  dispatch(
+                    setItSkillsValue({
+                      skills: "",
+                      version: "",
+                      lastUsed: "",
+                      experience: "",
+                    })
+                  );
+                  setItSkills(false);
+                  setEditIndex(-1);
+                }}
               >
                 Cancel
+              </button>
+              <button onClick={handleAdd} type="button" className="site-button">
+                Save
               </button>
               <button
                 onClick={updateItem}

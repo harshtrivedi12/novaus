@@ -35,28 +35,14 @@ const initialState = {
       passOutDate: "",
       university: "",
     },
-    educationData: [
-      {
-        education: "Graduation/Diploma",
-        course: "Bachelor of arts",
-        passOutDate: "09-10-2015",
-        university: "Select University",
-      },
-    ],
+    educationData: [],
     itSkillsValue: {
       skills: "",
       version: "",
       lastUsed: "",
       experience: "",
     },
-    itSkillsData: [
-      {
-        skills: "Bootstrap",
-        version: "1",
-        lastUsed: "2015",
-        experience: "1 Year 5 Months",
-      },
-    ],
+    itSkillsData: [],
     projectsValue: {
       projectTitle: "",
       clientName: "",
