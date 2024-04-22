@@ -18,6 +18,7 @@ function EmployeeLogin(props) {
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
   const [password, setPassword] = useState("123456");
+  const [showPassword, setShowPassword] = useState(false); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //   function onLogin(e) {
@@ -93,11 +94,11 @@ function EmployeeLogin(props) {
                     typesetting industry has been the industry.
                   </p>
                   <ul className="list-inline m-a0">
-                    <li>
+                    {/* <li>
                       <Link to={""} className="m-r10 text-white ">
                         <i className="fa fa-facebook"></i>
                       </Link>
-                    </li>
+                    </li> */}
                     <li>
                       <Link to={""} className="m-r10 text-white ">
                         <i className="fa fa-google-plus"></i>
@@ -108,7 +109,7 @@ function EmployeeLogin(props) {
                         <i className="fa fa-linkedin"></i>
                       </Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link to={""} className="m-r10 text-white ">
                         <i className="fa fa-instagram"></i>
                       </Link>
@@ -117,7 +118,7 @@ function EmployeeLogin(props) {
                       <Link to={""} className="m-r10 text-white">
                         <i className="fa fa-twitter"></i>
                       </Link>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </div>
@@ -155,22 +156,64 @@ function EmployeeLogin(props) {
                           )}
                         </div>
                       </div>
+
                       <div className="form-group">
                         <label>Password *</label>
-                        <div className="input-group">
+                        <div className="input-group d-flex align-items-center">
+                          <span className="input-group-addon position-absolute"
+                            onClick={() => setShowPassword(!showPassword)}
+                            style={{ cursor: 'pointer', right: '0px', zIndex: '11', position: 'absolute' }
+                            }>
+
+                            <i className={showPassword ? "fa fa-eye-slash " : "fa fa-eye"}></i>
+                          </span>
                           <input
-                            type="password"
-                            className="form-control"
+                            type={showPassword ? "text" : "password"} // Toggle password visibility
+                            className="form-control position-relative"
                             value={password}
                             placeholder="Type Your Password"
                             onChange={(e) => setPassword(e.target.value)}
+
                           />
+                        </div>
+
                           {errors.password && (
                             <div className="text-danger fs-12">
                               {errors.password}
                             </div>
                           )}
-                        </div>
+
+
+                      </div>
+                      <div className="form-group text-center">
+                        <Link
+                          data-toggle="tab"
+                          to="#forgot-password"
+                          className="forget-pass m-l5"
+                        >
+                          <i className="fa fa-unlock-alt"></i> Forgot Password
+                        </Link>
+                      </div>
+                      <div className="dz-social clearfix">
+                        <h5 className="form-title m-t5 pull-left">
+                          Sign In With
+                        </h5>
+                        <ul className="dez-social-icon dez-border pull-right dez-social-icon-lg text-white">
+                          <li>
+                            <Link
+                              to={""}
+                              className="fa fa-linkedin link-btn mr-1"
+                              target="bank"
+                            ></Link>
+                          </li>
+                          <li>
+                            <Link
+                              to={""}
+                              className="fa fa-google-plus  gplus-btn"
+                              target="bank"
+                            ></Link>
+                          </li>
+                        </ul>
                       </div>
                       <div className="text-center">
                         <button
@@ -180,13 +223,21 @@ function EmployeeLogin(props) {
                           login
                         </button>
                         <Link
-                          to="/user/register-2"
+                          to="/employee/register-2"
                           className="site-button-link forget-pass m-t15 float-right"
                         >
                           <i className="fa fa-unlock-alt"></i> Sign up
                         </Link>
                       </div>
                     </form>
+                    <div className="form-group text-center">
+                      <Link
+                        to="/employee/contact"
+                        className="site-button-link  m-t15 "
+                      >
+                        Need help click here
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>

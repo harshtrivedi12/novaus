@@ -5,43 +5,47 @@ import Footer from "./../Layout/Footer";
 import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
 import axios from "axios"
 function Changepasswordpage() {
- const [changePassword,setChangePassword] = useState({
-  old_password : "",
-  new_password : "",
-  confirm_password : ""
- })
- const handleChange = (e)=>{
-  const {name,value} = e.target
-  setChangePassword({...changePassword,[name] : value})
- }
-const token = localStorage.getItem("jobSeekerLoginToken")
-const requestBody = {
-  old_password : changePassword.old_password,
-  new_password : changePassword.new_password,
-  confirm_password : changePassword.confirm_password
-}
- const handleSubmit = (e)=>{
-  e.preventDefault()
-  axios({
-    method: "POST",
-    url: "https://jobsbooklet.in/api/jobseeker/change-password",
-    headers: {
-      Authorization: token,
-      "Content-type": "application/json",
-    },
-    data: requestBody,
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [changePassword, setChangePassword] = useState({
+    old_password: "",
+    new_password: "",
+    confirm_password: ""
   })
-    .then((response) => {
-      console.log(response);
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setChangePassword({ ...changePassword, [name]: value })
+  }
+  const token = localStorage.getItem("jobSeekerLoginToken")
+  const requestBody = {
+    old_password: changePassword.old_password,
+    new_password: changePassword.new_password,
+    confirm_password: changePassword.confirm_password
+
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    axios({
+      method: "POST",
+      url: "https://jobsbooklet.in/api/jobseeker/change-password",
+      headers: {
+        Authorization: token,
+        "Content-type": "application/json",
+      },
+      data: requestBody,
     })
-    .catch((err) => console.log(err));
- }
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
+  }
 
 
   return (
     <>
       <Header2 />
-    <FixedHeader />
+      <FixedHeader />
 
       <div className="page-content bg-white">
         <div className="content-block">
@@ -51,7 +55,7 @@ const requestBody = {
                 <div className="col-xl-3 col-lg-4 m-b30">
                   <div className="sticky-top">
                     <div className="candidate-info">
-                
+
                       <ul>
                         <li>
                           <Link to={"/user/jobs-profile"}>
@@ -129,20 +133,62 @@ const requestBody = {
                         <div className="col-lg-12">
                           <div className="form-group">
                             <label htmlFor="old_password">Old Password</label>
-                            <input type="password" className="form-control" onChange={handleChange} id="old_password" name="old_password" autoComplete="false" />
+
+
+                            <div className="input-group d-flex align-items-center">
+                              <span className="input-group-addon position-absolute"
+                                onClick={() => setShowOldPassword(!showOldPassword)}
+                                style={{ cursor: 'pointer', right: '0px', zIndex: '11', position: 'absolute' }
+                                }>
+
+                                <i className={showOldPassword ? "fa fa-eye-slash" : "fa fa-eye"}></i>
+                              </span>
+                              <input type={showOldPassword ? "text" : "password"}
+                                style={{ marginRight: '0px' }}
+                                className="form-control position-relative " onChange={handleChange}
+                                id="old_password" name="old_password" autoComplete="false" />
+                            </div>
                           </div>
                         </div>
                         <div className="col-lg-6">
                           <div className="form-group">
                             <label htmlFor="new_password">New Password </label>
-                            <input type="password" className="form-control" onChange={handleChange} id="new_password" name="new_password" autoComplete="false" />
+                            <div className="input-group d-flex align-items-center">
+                              <span className="input-group-addon position-absolute"
+                                onClick={() => setShowNewPassword(!showNewPassword)}
+                                style={{ cursor: 'pointer', right: '0px', zIndex: '11', position: 'absolute' }
+                                }>
+
+                                <i className={showNewPassword ? "fa fa-eye-slash" : "fa fa-eye"}></i>
+                              </span>
+                              <input type={showNewPassword ? "text" : "password"}
+                                style={{ marginRight: '0px' }}
+                                className="form-control position-relative " onChange={handleChange}
+                                id="new_password" name="new_password" autoComplete="false" />
+                            </div>
                           </div>
                         </div>
                         <div className="col-lg-6">
-                          <div className="form-group">
+
+                          <div className="form-group ">
                             <label htmlFor="confirm_password">Confirm New Password</label>
-                            <input type="password" className="form-control" id="confirm_password" name="confirm_password" onChange={handleChange} autoComplete="false" />
+                            <div className="input-group d-flex align-items-center">
+                              <span className="input-group-addon position-absolute"
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                style={{ cursor: 'pointer', right: '0px', zIndex: '11', position: 'absolute' }
+                                }>
+
+                                <i className={showConfirmPassword ? "fa fa-eye-slash" : "fa fa-eye"}></i>
+                              </span>
+                              <input type={showConfirmPassword ? "text" : "password"}
+                                style={{ marginRight: '0px' }}
+                                className="form-control position-relative " onChange={handleChange}
+                                id="confirm_password" name="confirm_password" autoComplete="false" />
+                            </div>
+
+
                           </div>
+
                         </div>
                         <div className="col-lg-12 m-b10">
                           <button onClick={handleSubmit} className="site-button">

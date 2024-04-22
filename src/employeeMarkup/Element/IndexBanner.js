@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Form } from "react-bootstrap";
-
+import { TypeAnimation } from 'react-type-animation';
 var bnr1 = require("./../../images/main-slider/slide2.jpg");
 
 class IndexBanner extends Component {
@@ -42,9 +42,28 @@ class IndexBanner extends Component {
               >
                 Find Jobs, Employment & Career Opportunities
               </Link>
-              <h2>
+              {/* <h2>
                 Search Between More Then <br />{" "}
                 <span className="text-primary">50,000</span> Open Jobs.
+              </h2> */}
+              <h2>  <TypeAnimation
+                sequence={[
+
+                  ' Search Jobs',
+                  1000,
+                  'Check Resume Ai Score',
+                  1000,
+                  ' Make Ai Resume',
+                  1000,
+                  'Connect with Employers',
+                  1000,
+                  'Get Hired..!!',
+                  1000
+                ]}
+                wrapper="span"
+                speed={50}
+                repeat={Infinity}
+              />
               </h2>
               <form className="dezPlaceAni">
                 <div className="row">

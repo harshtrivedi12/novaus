@@ -1,3 +1,5 @@
+
+
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Link, Redirect, useNavigate } from "react-router-dom";
@@ -6,41 +8,20 @@ import {
   loginAction,
 } from "../../store/actions/AuthActions";
 
-// image
-//import logo from "../../images/logo-full-white.png";
+
 import loginbg from "./../../images/bg6.jpg";
 import axios from "axios";
-// import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-// import logo2 from './../../images/logo-white2.png';
+
 
 function Login(props) {
   const [email, setEmail] = useState("demo@example.com");
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
   const [password, setPassword] = useState("123456");
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //   function onLogin(e) {
-  //     e.preventDefault();
-  //     let error = false;
-  //     const errorObj = { ...errorsObj };
-  //     if (email === "") {
-  //       errorObj.email = "Email is Required";
-  //       error = true;
-  //     }
-  //     if (password === "") {
-  //       errorObj.password = "Password is Required";
-  //       error = true;
-  //     }
-  //     setErrors(errorObj);
-  //     if (error) {
-  //       return;
-  //     }
-  //     dispatch(loadingToggleAction(true));
-  //     dispatch(loginAction(email, password, props.history));
-  //   }
 
-  // const history = useHistory();
   const handlePostRequest = async (e) => {
     e.preventDefault();
     const reqBody = {
@@ -67,6 +48,7 @@ function Login(props) {
         console.log(err);
       });
   };
+
   return (
     <div className="page-wraper">
       <div
@@ -82,7 +64,6 @@ function Login(props) {
               <div className="col-lg-6 col-md-6 d-flex">
                 <div className="text-white max-w400 align-self-center">
                   <div className="logo">
-                    {/* <Link to={"/"}><img src={logo2} alt="" /></Link> */}
                     <Link to={"/"}>
                       <img
                         src={require("./../../images/logo/NovaUS.png")}
@@ -98,11 +79,6 @@ function Login(props) {
                   <ul className="list-inline m-a0">
                     <li>
                       <Link to={""} className="m-r10 text-white ">
-                        <i className="fa fa-facebook"></i>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to={""} className="m-r10 text-white ">
                         <i className="fa fa-google-plus"></i>
                       </Link>
                     </li>
@@ -111,16 +87,7 @@ function Login(props) {
                         <i className="fa fa-linkedin"></i>
                       </Link>
                     </li>
-                    <li>
-                      <Link to={""} className="m-r10 text-white ">
-                        <i className="fa fa-instagram"></i>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to={""} className="m-r10 text-white">
-                        <i className="fa fa-twitter"></i>
-                      </Link>
-                    </li>
+
                   </ul>
                 </div>
               </div>
@@ -160,22 +127,60 @@ function Login(props) {
                       </div>
                       <div className="form-group">
                         <label>Password *</label>
-                        <div className="input-group">
+                        <div className="input-group d-flex align-items-center">
+                          <span className="input-group-addon position-absolute"
+                            onClick={() => setShowPassword(!showPassword)}
+                            style={{ cursor: 'pointer', right: '0px', zIndex: '11', position: 'absolute' }
+                            }>
+
+                            <i className={showPassword ? "fa fa-eye-slash " : "fa fa-eye"}></i>
+                          </span>
                           <input
-                            type="password"
-                            className="form-control"
+                            type={showPassword ? "text" : "password"} // Toggle password visibility
+                            className="form-control position-relative"
                             value={password}
                             placeholder="Type Your Password"
                             onChange={(e) => setPassword(e.target.value)}
+
                           />
-                          {errors.password && (
-                            <div className="text-danger fs-12">
-                              {errors.password}
-                            </div>
-                          )}
                         </div>
+
+                        {errors.password && (
+                          <div className="text-danger fs-12">
+                            {errors.password}
+                          </div>
+                        )}
                       </div>
-                     
+                      <div className="form-group text-center">
+                        <Link
+                          data-toggle="tab"
+                          to="/user/email-verification"
+                          className="forget-pass m-l5"
+                        >
+                          <i className="fa fa-unlock-alt"></i> Forgot Password
+                        </Link>
+                      </div>
+                      <div className="dz-social clearfix">
+                        <h5 className="form-title m-t5 pull-left">
+                          Sign In With
+                        </h5>
+                        <ul className="dez-social-icon dez-border pull-right dez-social-icon-lg text-white">
+                          <li>
+                            <Link
+                              to={""}
+                              className="fa fa-linkedin link-btn mr-1"
+                              target="bank"
+                            ></Link>
+                          </li>
+                          <li>
+                            <Link
+                              to={""}
+                              className="fa fa-google-plus  gplus-btn"
+                              target="bank"
+                            ></Link>
+                          </li>
+                        </ul>
+                      </div>
                       <div className="text-center">
                         <button
                           onClick={handlePostRequest}
@@ -190,7 +195,16 @@ function Login(props) {
                           <i className="fa fa-unlock-alt"></i> Sign up
                         </Link>
                       </div>
+
                     </form>
+                    <div className="form-group text-center">
+                      <Link
+                        to="/user/contact"
+                        className="site-button-link  m-t15 "
+                      >
+                        Need help click here
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>

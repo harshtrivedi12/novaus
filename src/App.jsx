@@ -119,6 +119,8 @@ import AccessibilityCenter from "./markup/Pages/AccessibilityCenter";
 import HowItWorksEmployee from "./markup/Pages/HowItWorksEmployee";
 import HowItWorksCandidates from "./markup/Pages/HowItWorksCandidates";
 import CompanyPage from "./markup/Pages/CompanyPageView";
+import EmailVerification from "./markup/Pages/EmailVerification";
+import NewPasswordSet from "./markup/Pages/NewPasswordSet";
 
 function App() {
   const dispatch = useDispatch();
@@ -481,6 +483,22 @@ function App() {
           element={
             <UserPrivateRoute>
               <Blogdetail />
+            </UserPrivateRoute>
+          }
+        />
+        <Route
+          path="email-verification"
+          element={
+            <UserPrivateRoute>
+              <EmailVerification />
+            </UserPrivateRoute>
+          }
+        />
+        <Route
+          path="new-password-set"
+          element={
+            <UserPrivateRoute>
+              <NewPasswordSet />
             </UserPrivateRoute>
           }
         />
