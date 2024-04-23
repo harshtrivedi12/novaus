@@ -8,6 +8,15 @@ function EmployeeChangepasswordpage() {
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [changePassword, setChangePassword] = useState({
+    old_password: "",
+    new_password: "",
+    confirm_password: ""
+  })
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setChangePassword({ ...changePassword, [name]: value })
+  }
   return (
     <>
       <Header2 />
@@ -93,7 +102,7 @@ function EmployeeChangepasswordpage() {
 
                         </div>
                         <div className="col-lg-12 m-b10">
-                          <button onClick={handleSubmit} className="site-button">
+                          <button className="site-button">
                             Update Password
                           </button>
                         </div>

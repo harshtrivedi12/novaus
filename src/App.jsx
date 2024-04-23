@@ -47,6 +47,7 @@ import Blogdetail from "./markup/Pages/Blogdetail";
 import ScrollToTop from "./markup/Element/ScrollToTop";
 import UserPrivateRoute from "./markup/protectedRoute";
 import ApplicantsJobPage from "./markup/Pages/ApplicantsJobPage";
+import EmployeeJobPage from "./employeeMarkup/Pages/JobPage";
 import "./css/plugins.css";
 import "./css/style.css";
 import "./css/templete.css";
@@ -991,7 +992,7 @@ function App() {
           element={
             <EmployeePrivateRoute>
               <EmployeeBlogdetail />
-            </EmployeePrivateRoute>
+            </EmployeePrivateRoute> 
           }
         />
         <Route path="candidate-listing" element={<EmployeeJobPage />} />
