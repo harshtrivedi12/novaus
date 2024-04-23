@@ -16,15 +16,12 @@ import {
 import moment from "moment";
 import testImg from "../../images/team/pic1.jpg";
 import "react-quill/dist/quill.snow.css";
-import {
-  setJobSeekerAnswer,
-  setScreeningQuestion,
-  setUserAnswer,
-} from "../../store/reducers/jobApplicationScreeningQues";
+
 import { submit } from "redux-form";
 import JobPageSkeleton from "../../markup/skeleton/jobPage";
 import TwoBoxWithLinesSkeleton from "../../markup/skeleton/twoBoxLines";
 import { useParams } from "react-router-dom";
+import { setBrowseCandidateData } from "../../store/reducers/browseCandidateSlice";
 function EmployeeJobPage() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [show, setShow] = useState(false);
@@ -34,10 +31,7 @@ function EmployeeJobPage() {
   const jobApplicationData = useSelector(
     (state) => state.jobApplicationSlice.jobApplicationData
   );
-  const token = localStorage.getItem("jobSeekerLoginToken");
-  const screeningQuestion = useSelector(
-    (state) => state.jobApplicationScreeningQues.selectedScreeningQuestions
-  );
+  const token = localStorage.getItem("employeeLoginToken");
 
   const [showSkeleton, setShowSkeleton] = useState(true);
 
@@ -62,39 +56,38 @@ function EmployeeJobPage() {
     }
   };
 
-  const fetchJobApplicationData = async () => {
-    try {
-      const response = await axios.get(
-        "https://jobsbooklet.in/api/jobseeker/job-lists",
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-      dispatch(setJobApplicationData(response.data.data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const browseCandidateData = useSelector(
+    (state) => state.browseCandidateSlice.browseCandidateData
+  );
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: "http://93.188.167.106:3002/api/employeer/job-seekers",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        dispatch(setBrowseCandidateData(res.data.data));
+        setShowSkeleton(false);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  console.log(browseCandidateData, "CANDIDATE");
+  console.log(selectedJob, "selectedJob");
+
+  // const convertToPlainText = (htmlContent) => {
+  //   const div = document.createElement("div");
+  //   div.innerHTML = htmlContent;
+  //   let plainText = div.innerText || div.textContent || "";
+  //   // Reduce length to 50 words
+  //   plainText = plainText.split(/\s+/).slice(0, 30).join(" ");
+  //   return plainText;
+  // };
 
   useEffect(() => {
-    if (selectedJob && selectedJob.screen_questions) {
-      dispatch(setScreeningQuestion(selectedJob.screen_questions));
-    }
-  }, [selectedJob]);
-  const convertToPlainText = (htmlContent) => {
-    const div = document.createElement("div");
-    div.innerHTML = htmlContent;
-    let plainText = div.innerText || div.textContent || "";
-    // Reduce length to 50 words
-    plainText = plainText.split(/\s+/).slice(0, 30).join(" ");
-    return plainText;
-  };
-
-  useEffect(() => {
-    setSelectedJob(jobApplicationData[0]);
-  }, [jobApplicationData]);
+    setSelectedJob(browseCandidateData[0]);
+  }, [browseCandidateData]);
 
   const handleSelectJob = (job) => {
     setSelectedJob(job);
@@ -124,26 +117,6 @@ function EmployeeJobPage() {
       setActiveTab("contact-info");
     }
   };
-
-  useEffect(() => {
-    const fetchJobApplicationData = async () => {
-      try {
-        const response = await axios.get(
-          "https://jobsbooklet.in/api/jobseeker/job-lists",
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-        dispatch(setJobApplicationData(response.data.data));
-        setShowSkeleton(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchJobApplicationData();
-  }, [dispatch, token]);
 
   const jobApplicationValues = useSelector(
     (state) => state.jobApplicationSlice.jobApplicationValues
@@ -381,6 +354,16 @@ function EmployeeJobPage() {
     getCities();
   }, [jobApplicationValues.state_id]);
 
+  const getSingleCountry = (countryId) => {
+    return countries.find((country) => country.id === countryId)?.name || "";
+  };
+
+  const getSingleState = (stateId) => {
+    return states.find((state) => state.id === stateId)?.name || "";
+  };
+  const getSingleCity = (cityId) => {
+    return cities.find((city) => city.id === cityId)?.name || "";
+  };
   useEffect(() => {
     axios({
       method: "GET",
@@ -405,28 +388,16 @@ function EmployeeJobPage() {
       },
       data: {
         job_id: selectedJob.job_detail.id,
-        screen_questions: screeningQuestion,
       },
     })
       .then((res) => {
         // console.log(res);
-        fetchJobApplicationData();
+        // fetchJobApplicationData();
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  // /api/jobseeker/job-lists?title_keywords=software developer&location=Jaipur&workplace_type=1+2+3&job_type=1+2+3&experience_level=1+2+3
-
-  // const url = `https://jobsbooklet.in/api/jobseeker/job-lists?title_keyword=${
-  //   jobApplicationValues.search_input
-  // }&location=Jaipur,${
-  //   jobApplicationValues.country_id === ""
-  //     ? "India"
-  //     : jobApplicationValues.country_id
-  // }&workplace_type=${jobApplicationValues.workplace_type}&job_type=${
-  //   jobApplicationValues.job_type
-  // }&experience_level=${jobApplicationValues.experience_level}`;
 
   const selectedLocation = localStorage.getItem("selectedLocation");
   const title_keyword = localStorage.getItem("title_keyword");
@@ -440,11 +411,6 @@ function EmployeeJobPage() {
     params.append("title_keywords", title_keyword);
   }
 
-  // const location =
-  //   jobApplicationValues.country_id === "101"
-  //     ? "India"
-  //     : jobApplicationValues.country;
-  // params.append("location", `${location}`);
   if (jobApplicationValues.country_id) {
     params.append("location", jobApplicationValues.country_id);
   } else if (selectedLocation) {
@@ -746,12 +712,12 @@ function EmployeeJobPage() {
                               boxShadow: "0 0 10px 0 rgba(0, 24, 128, 0.1)",
                             }}
                           >
-                            {jobApplicationData.map((job) => (
-                              <div>
-                                <li key={job.s_no}>
+                            {browseCandidateData.map((item, index) => (
+                              <div key={index}>
+                                <li>
                                   <Link
                                     to="#"
-                                    onClick={() => handleSelectJob(job)}
+                                    onClick={() => handleSelectJob(item)}
                                   >
                                     <div
                                       style={{
@@ -780,30 +746,36 @@ function EmployeeJobPage() {
                                           overflow: "hidden",
                                         }}
                                       >
-                                        {job.job_detail.job_title && (
-                                          <p
-                                            className="mb-0"
-                                            style={{
-                                              color: "#1c2957",
-                                              fontSize: "20px",
-                                            }}
+                                        {item.jobskkers_detail.first_name ||
+                                          (item.jobskkers_detail.last_name && (
+                                            <p
+                                              className="mb-0"
+                                              style={{
+                                                color: "#1c2957",
+                                                fontSize: "20px",
+                                              }}
+                                            >
+                                              {item.jobskkers_detail.first_name}{" "}
+                                              {item.jobskkers_detail.last_name}
+                                            </p>
+                                          ))}
+                                        {item.jobskkers_detail.skills_arr ? (
+                                          <div
+                                            className="d-flex flex-row mb-0 "
+                                            style={{ gap: "7px" }}
                                           >
-                                            {job.job_detail.job_title}
-                                          </p>
-                                        )}
-
-                                        <div
-                                          className="d-flex flex-row mb-0 "
-                                          style={{ gap: "7px" }}
-                                        >
-                                          {job.job_detail.skills_arr.map(
-                                            (item, index) => (
-                                              <p className="mb-0 " key={index}>
-                                                {item}
-                                              </p>
-                                            )
-                                          )}
-                                        </div>
+                                            {item.jobskkers_detail.skills_arr.map(
+                                              (item, index) => (
+                                                <p
+                                                  className="mb-0 "
+                                                  key={index}
+                                                >
+                                                  {item}
+                                                </p>
+                                              )
+                                            )}
+                                          </div>
+                                        ) : null}
                                         <div
                                           className=" gap-0 align-items-center joblist"
                                           style={{
@@ -811,22 +783,22 @@ function EmployeeJobPage() {
                                             height: "auto",
                                           }}
                                         >
-                                          {job.job_category && (
+                                          {item.jobskkers_detail.email && (
                                             <p
                                               style={{
                                                 margin: "0px",
                                               }}
                                             >
-                                              {job.job_category.name}
+                                              {item.jobskkers_detail.email}
                                             </p>
                                           )}
-                                          {job.job_type && (
+                                          {item.jobskkers_detail.phone && (
                                             <p
                                               style={{
                                                 margin: "0px",
                                               }}
                                             >
-                                              {job.job_type.name}
+                                              {item.jobskkers_detail.phone}
                                             </p>
                                           )}
                                           <div
@@ -836,30 +808,66 @@ function EmployeeJobPage() {
                                             }}
                                           >
                                             <div>
-                                              {job.job_workplace_types.name && (
+                                              {item.jobskkers_detail
+                                                .country_id && (
                                                 <p
                                                   style={{
                                                     margin: "0px",
                                                   }}
                                                 >
-                                                  {job.job_workplace_types.name}
+                                                  {getSingleCountry(
+                                                    item.jobskkers_detail
+                                                      .country_id
+                                                  )}
                                                 </p>
                                               )}
                                             </div>
                                             <div>
-                                              {job.job_detail.created_at && (
+                                              {item.jobskkers_detail
+                                                .state_id && (
                                                 <p
                                                   style={{
                                                     margin: "0px",
-                                                    fontWeight: "600",
                                                   }}
                                                 >
-                                                  {moment(
-                                                    job.job_detail.created_at
-                                                  ).fromNow()}
+                                                  {getSingleState(
+                                                    item.jobskkers_detail
+                                                      .state_id
+                                                  )}
                                                 </p>
                                               )}
                                             </div>
+                                            <div>
+                                              {item.jobskkers_detail
+                                                .city_id && (
+                                                <p
+                                                  style={{
+                                                    margin: "0px",
+                                                  }}
+                                                >
+                                                  {getSingleCity(
+                                                    item.jobskkers_detail
+                                                      .city_id
+                                                  )}
+                                                </p>
+                                              )}
+                                            </div>
+                                          </div>
+                                          <div>
+                                            {item.jobskkers_detail
+                                              .created_at && (
+                                              <p
+                                                style={{
+                                                  margin: "0px",
+                                                  fontWeight: "600",
+                                                }}
+                                              >
+                                                {moment(
+                                                  item.jobskkers_detail
+                                                    .created_at
+                                                ).format("YYYY-MM-DD")}
+                                              </p>
+                                            )}
                                           </div>
                                         </div>
                                       </div>
@@ -879,33 +887,46 @@ function EmployeeJobPage() {
                         <div className="candidate-title">
                           <Link to="#">
                             <h3 className="mb-1">
-                              {selectedJob.job_detail.job_title}
+                              {selectedJob.jobskkers_detail.first_name}{" "}
+                              {selectedJob.jobskkers_detail.last_name}
                             </h3>
                           </Link>
                           <div className="job-details-content">
-                            {selectedJob.job_workplace_types.name &&
-                              selectedJob.job_type.name &&
-                              selectedJob.job_category.name && (
+                            {selectedJob.jobskkers_detail.email &&
+                              selectedJob.jobskkers_detail.phone && (
                                 <p className="mb-0">
-                                  {selectedJob.job_workplace_types.name} |{" "}
-                                  {selectedJob.job_type.name} |{" "}
-                                  {selectedJob.job_category.name}
+                                  {selectedJob.jobskkers_detail.email} |{" "}
+                                  {selectedJob.jobskkers_detail.phone}
                                 </p>
                               )}
-                            <div className="d-flex" style={{ gap: "7px" }}>
-                              {selectedJob.job_detail.skills_arr.map(
-                                (item, index) => (
-                                  <p key={index} className="mb-5">
-                                    {item}
-                                  </p>
-                                )
-                              )}
-                            </div>
-                            {selectedJob.job_detail.skills && (
-                              <p>Skills: {selectedJob.job_detail.skills}</p>
-                            )}
+                            {selectedJob.jobskkers_detail.skills_arr ? (
+                              <div className="d-flex" style={{ gap: "7px" }}>
+                                {selectedJob.jobskkers_detail.skills_arr.map(
+                                  (item, index) => (
+                                    <p key={index} className="mb-5">
+                                      {item}
+                                    </p>
+                                  )
+                                )}
+                              </div>
+                            ) : null}
+                            {selectedJob.jobskkers_detail.city_id ||
+                            selectedJob.jobskkers_detail.state_id ||
+                            selectedJob.jobskkers_detail.country_id ? (
+                              <p className="mb-0 ">
+                                {getSingleCity(
+                                  selectedJob.jobskkers_detail.city_id
+                                )}{" "}
+                                {getSingleState(
+                                  selectedJob.jobskkers_detail.state_id
+                                )}{" "}
+                                {getSingleCountry(
+                                  selectedJob.jobskkers_detail.country_id
+                                )}
+                              </p>
+                            ) : null}
                           </div>
-                          {selectedJob.job_detail.job_description && (
+                          {selectedJob.jobskkers_detail.profileSummaryValue && (
                             <p className="mb-1">
                               <div
                                 className="ql-editor"
@@ -914,21 +935,32 @@ function EmployeeJobPage() {
                                 }}
                                 dangerouslySetInnerHTML={{
                                   __html:
-                                    selectedJob.job_detail.job_description,
+                                    selectedJob.jobskkers_detail
+                                      .profileSummaryValue,
                                 }}
                               />
                             </p>
                           )}
                         </div>
-                        {selectedJob.job_detail.created_at && (
-                          <p>
+                        {selectedJob.jobskkers_detail.created_at && (
+                          <p className="mb-0 ">
                             Posted{" "}
                             {moment(
-                              selectedJob.job_detail.created_at
+                              selectedJob.jobskkers_detail.created_at
                             ).fromNow()}
                           </p>
                         )}
-                        <div className="d-flex justify-content-start align-items-center">
+
+                        {selectedJob.jobskkers_detail
+                          .resume_score_percentage ? (
+                          <p>
+                            {
+                              selectedJob.jobskkers_detail
+                                .resume_score_percentage
+                            }
+                          </p>
+                        ) : null}
+                        {/* <div className="d-flex justify-content-start align-items-center">
                           {selectedJob.job_detail.is_job_applied ? (
                             <button
                               className="radius-xl site-button"
@@ -959,194 +991,7 @@ function EmployeeJobPage() {
                                 <p> Apply to {selectedJob.company}</p>
                               </Modal.Title>
                             </Modal.Header>
-                            <Modal.Body>
-                              <Tab.Container
-                                id="tabs-example"
-                                activeKey={activeTab}
-                              >
-                                Screening questions
-                                <Tab.Content>
-                                  <Tab.Pane eventKey="contact-info">
-                                    <form className="col-12 p-a0">
-                                      {selectedJob.screen_questions
-                                        .screen_question_keywords !== null ? (
-                                        <div>
-                                          {selectedJob.screen_questions.screen_question_keywords.map(
-                                            (item, index) => (
-                                              <div key={index}>
-                                                <h2>{item.name}</h2>
-                                                <div>
-                                                  {item.screen_questions.map(
-                                                    (ques, questionIndex) => (
-                                                      <div key={questionIndex}>
-                                                        <h4>{ques.name}</h4>
-                                                        {ques.screen_questions_options.map(
-                                                          (option) => (
-                                                            <Form.Check
-                                                              type="radio"
-                                                              label={
-                                                                option.option
-                                                              }
-                                                              className="p-10"
-                                                              name={ques.name}
-                                                              onClick={() => {
-                                                                dispatch(
-                                                                  setJobSeekerAnswer(
-                                                                    {
-                                                                      index:
-                                                                        index,
-                                                                      questionIndex:
-                                                                        questionIndex,
-                                                                      answer:
-                                                                        option.option,
-                                                                    }
-                                                                  )
-                                                                );
-                                                              }}
-                                                            />
-                                                          )
-                                                        )}
-                                                      </div>
-                                                    )
-                                                  )}
-                                                </div>
-                                              </div>
-                                            )
-                                          )}
-                                        </div>
-                                      ) : null}
-                                    </form>
-                                  </Tab.Pane>
-                                  <Tab.Pane eventKey="additional-info">
-                                    {/* Additional Info Form */}
-                                    <form className="col-12 p-a0">
-                                      <h6 className="font-weight-600">
-                                        Additional info
-                                      </h6>
-                                      <div class="form-group">
-                                        <label for="englishProficiency">
-                                          What is your level of proficiency in
-                                          English?
-                                        </label>
-                                        <select
-                                          class="form-control"
-                                          id="englishProficiency"
-                                          required
-                                        >
-                                          <option value="">
-                                            Select an option
-                                          </option>
-                                          <option>Beginner</option>
-                                          <option>Intermediate</option>
-                                          <option>Advanced</option>
-                                          <option>Fluent</option>
-                                        </select>
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="salaryRange">
-                                          Are you okay with the salary range
-                                          between 30k - 35K?
-                                        </label>
-                                        <select
-                                          class="form-control"
-                                          id="salaryRange"
-                                          required
-                                        >
-                                          <option value="">
-                                            Select an option
-                                          </option>
-                                          <option>Yes</option>
-                                          <option>No</option>
-                                        </select>
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="customerServiceExperience">
-                                          How many years of Customer Service
-                                          experience do you currently have?
-                                        </label>
-                                        <input
-                                          type="number"
-                                          class="form-control"
-                                          id="customerServiceExperience"
-                                          placeholder="Enter years of experience"
-                                          min="0"
-                                          max="99"
-                                          required
-                                        />
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="workLocation">
-                                          Are you comfortable to work on both
-                                          Gurgaon and Delhi branches?
-                                        </label>
-                                        <select
-                                          class="form-control"
-                                          id="workLocation"
-                                          required
-                                        >
-                                          <option value="">
-                                            Select an option
-                                          </option>
-                                          <option>Yes</option>
-                                          <option>No</option>
-                                        </select>
-                                      </div>
-                                    </form>
-                                  </Tab.Pane>
-                                  <Tab.Pane eventKey="resume-info">
-                                    {/* Additional Info Form */}
-                                    <form className="col-12 p-a0">
-                                      <h6 className="font-weight-600">
-                                        Resume info
-                                      </h6>
-                                      <div class="form-group">
-                                        <label for="resume">
-                                          Upload resume (DOC, DOCX, PDF, up to 2
-                                          MB)
-                                        </label>
-                                        <input
-                                          type="file"
-                                          class="form-control-file"
-                                          id="resume"
-                                          name="resume"
-                                          accept=".doc, .docx, .pdf"
-                                          required
-                                        />
-                                        <small class="form-text text-muted">
-                                          Accepted file types: DOC, DOCX, PDF.
-                                          Maximum file size: 2 MB.
-                                        </small>
-                                      </div>
-                                    </form>
-                                  </Tab.Pane>
-                                  <Tab.Pane eventKey="immediate-info">
-                                    <form className="col-12 p-a0">
-                                      <h6 className="font-weight-600">
-                                        immediate info
-                                      </h6>
 
-                                      <div class="form-group">
-                                        <label for="immediateStart">
-                                          We must fill this position urgently.
-                                          Can you start immediately?
-                                        </label>
-                                        <select
-                                          class="form-control"
-                                          id="immediateStart"
-                                          required
-                                        >
-                                          <option value="">
-                                            Select an option
-                                          </option>
-                                          <option>Yes</option>
-                                          <option>No</option>
-                                        </select>
-                                      </div>
-                                    </form>
-                                  </Tab.Pane>
-                                </Tab.Content>
-                              </Tab.Container>
-                            </Modal.Body>
                             <Modal.Footer>
                               {activeTab !== "contact-info" && (
                                 <button
@@ -1171,7 +1016,7 @@ function EmployeeJobPage() {
                             </Modal.Footer>
                           </Modal>
 
-                          <label className="like-btn" labl>
+                          <label className="like-btn">
                             <input
                               type="checkbox"
                               defaultChecked={
@@ -1184,7 +1029,7 @@ function EmployeeJobPage() {
                             />
                             <span className="checkmark"></span>
                           </label>
-                        </div>
+                        </div> */}
                       </div>
                     )}
                   </div>

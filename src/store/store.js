@@ -16,6 +16,7 @@ import jobApplicatioonScreeningQues from "./reducers/jobApplicationScreeningQues
 import jobsMyResumeSlice from "./reducers/jobsMyResumeSlice";
 import jobProfileSlice from "./reducers/jobProfileSlice";
 import fixedHeaderSlice from "./reducers/fixedHeaderSlice";
+import browseCandidateSlice from "./reducers/browseCandidateSlice";
 const middleware = applyMiddleware(thunk);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -37,6 +38,7 @@ const reducers = combineReducers({
   jobsMyResumeSlice: jobsMyResumeSlice,
   jobProfileSlice: jobProfileSlice,
   fixedHeaderSlice: fixedHeaderSlice,
+  browseCandidateSlice: browseCandidateSlice,
 });
 
 //const store = createStore(rootReducers);
