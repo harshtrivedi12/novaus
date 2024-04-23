@@ -584,7 +584,7 @@ const reqBody = {
 const handleUpdateResume = () => {
   axios({
     method: "PUT",
-    url: "http://93.188.167.106:3001/api/jobseeker/resume-update",
+    url: "https://jobsbooklet.in/api/jobseeker/resume-update",
     headers: {
       Authorization: token,
     },

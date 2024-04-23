@@ -96,6 +96,7 @@ function JobPage() {
 
   useEffect(() => {
     setSelectedJob(jobApplicationData[0]);
+    console.log(jobApplicationData, "error");
   }, [jobApplicationData]);
 
   const handleSelectJob = (job) => {
@@ -392,7 +393,7 @@ function JobPage() {
   useEffect(() => {
     axios({
       method: "GET",
-      url: "http://93.188.167.106:3001/api/jobseeker/job-categories",
+      url: "https://jobsbooklet.in/api/jobseeker/job-categories",
       headers: {
         Authorization: token,
       },
@@ -486,8 +487,12 @@ function JobPage() {
       },
     })
       .then((response) => {
-        dispatch(setJobApplicationData(response.data.data));
-        // setShowSkeleton(false);
+        if (response.data.data) {
+          dispatch(setJobApplicationData(response.data.data));
+        } else {
+          dispatch(setJobApplicationData([]));
+        }
+
         console.log(response, "custom data");
       })
       .catch((err) => {
@@ -513,21 +518,21 @@ function JobPage() {
     <>
       <Header />
       <FixedHeader />
-      {jobApplicationData.length !== 0 ? (
-        <div>
-          {showSkeleton === true ? (
-            <div className="bg-white w-100 ">
-              <TwoBoxWithLinesSkeleton />
-            </div>
-          ) : (
-            <div className="page-content bg-white">
-              <div className="content-block">
-                <div className="section-full bg-white p-t50 p-b20">
-                  <div className="container">
-                    <div className="d-flex justify-content-center align-items-center  ">
-                      <div className="col-lg-2  col-md-5 col-12  ">
-                        <div className="form-group">
-                          {/* <label htmlFor="country_id">Country:</label>
+
+      <div>
+        {showSkeleton === true ? (
+          <div className="bg-white w-100 ">
+            <TwoBoxWithLinesSkeleton />
+          </div>
+        ) : (
+          <div className="page-content bg-white">
+            <div className="content-block">
+              <div className="section-full bg-white p-t50 p-b20">
+                <div className="container">
+                  <div className="d-flex justify-content-center align-items-center  ">
+                    <div className="col-lg-2  col-md-5 col-12  ">
+                      <div className="form-group">
+                        {/* <label htmlFor="country_id">Country:</label>
                       {countries ? (
                         <select
                           type="text"
@@ -553,233 +558,223 @@ function JobPage() {
                           })}
                         </select>
                       ) : null} */}
-                          <label htmlFor="jobCategory">Choose Category</label>
-                          {jobCategories ? (
-                            <select
-                              type="text"
-                              className={`form-control dropdown-menu-job_page ${
-                                jobApplicationValues.jobCategory === ""
-                                  ? null
-                                  : "active_dropDown"
-                              }`}
-                              id="jobCategory"
-                              name="jobCategory"
-                              onChange={(e) => {
-                                handleChange(e);
-                              }}
-                              value={jobApplicationValues.jobCategory}
-                            >
-                              <option value="">Select a Category</option>
-                              {jobCategories.map((item, index) => {
-                                return (
-                                  <option
-                                    key={index}
-                                    value={item.id}
-                                    country={item.name}
-                                  >
-                                    {item.name}
-                                  </option>
-                                );
-                              })}
-                            </select>
-                          ) : null}
-                        </div>
+                        <label htmlFor="jobCategory">Choose Category</label>
+                        {jobCategories ? (
+                          <select
+                            type="text"
+                            className={`form-control dropdown-menu-job_page ${
+                              jobApplicationValues.jobCategory === ""
+                                ? null
+                                : "active_dropDown"
+                            }`}
+                            id="jobCategory"
+                            name="jobCategory"
+                            onChange={(e) => {
+                              handleChange(e);
+                            }}
+                            value={jobApplicationValues.jobCategory}>
+                            <option value="">Select a Category</option>
+                            {jobCategories.map((item, index) => {
+                              return (
+                                <option
+                                  key={index}
+                                  value={item.id}
+                                  country={item.name}>
+                                  {item.name}
+                                </option>
+                              );
+                            })}
+                          </select>
+                        ) : null}
                       </div>
+                    </div>
 
-                      <div className="col-lg-2  col-md-5 col-12 ">
-                        <div className="form-group">
-                          <label htmlFor="state_id">State:</label>
-                          {states ? (
-                            <select
-                              type="text"
-                              c
-                              className={`form-control dropdown-menu-job_page ${
-                                jobApplicationValues.state_id === ""
-                                  ? null
-                                  : "active_dropDown"
-                              }`}
-                              id="state_id"
-                              name="state_id"
-                              onChange={handleChange}
-                              value={jobApplicationValues.state_id}
-                            >
-                              <option value="">Select a State</option>
-                              {states.map((item, index) => {
-                                return (
-                                  <option key={index} value={item.id}>
-                                    {item.name}
-                                  </option>
-                                );
-                              })}
-                            </select>
-                          ) : null}
-                        </div>
+                    <div className="col-lg-2  col-md-5 col-12 ">
+                      <div className="form-group">
+                        <label htmlFor="state_id">State:</label>
+                        {states ? (
+                          <select
+                            type="text"
+                            c
+                            className={`form-control dropdown-menu-job_page ${
+                              jobApplicationValues.state_id === ""
+                                ? null
+                                : "active_dropDown"
+                            }`}
+                            id="state_id"
+                            name="state_id"
+                            onChange={handleChange}
+                            value={jobApplicationValues.state_id}>
+                            <option value="">Select a State</option>
+                            {states.map((item, index) => {
+                              return (
+                                <option key={index} value={item.id}>
+                                  {item.name}
+                                </option>
+                              );
+                            })}
+                          </select>
+                        ) : null}
                       </div>
+                    </div>
 
-                      <div className="col-lg-2  col-md-5 col-12  ">
-                        <div className="form-group">
-                          <label htmlFor="city_id">City:</label>
-                          {cities ? (
-                            <select
-                              type="text"
-                              className={`form-control dropdown-menu-job_page ${
-                                jobApplicationValues.city_id === 0
-                                  ? null
-                                  : "active_dropDown"
-                              }`}
-                              // placeholder="London"
-                              id="city_id"
-                              name="city_id"
-                              onChange={handleChange}
-                              value={jobApplicationValues.city_id}
-                            >
-                              <option value="" className="option">
-                                Select A City
-                              </option>
+                    <div className="col-lg-2  col-md-5 col-12  ">
+                      <div className="form-group">
+                        <label htmlFor="city_id">City:</label>
+                        {cities ? (
+                          <select
+                            type="text"
+                            className={`form-control dropdown-menu-job_page ${
+                              jobApplicationValues.city_id === 0
+                                ? null
+                                : "active_dropDown"
+                            }`}
+                            // placeholder="London"
+                            id="city_id"
+                            name="city_id"
+                            onChange={handleChange}
+                            value={jobApplicationValues.city_id}>
+                            <option value="" className="option">
+                              Select A City
+                            </option>
 
-                              {cities.map((item, index) => {
-                                return (
-                                  <option key={index} value={item.id}>
-                                    {item.name}
-                                  </option>
-                                );
-                              })}
-                            </select>
-                          ) : null}
-                        </div>
+                            {cities.map((item, index) => {
+                              return (
+                                <option key={index} value={item.id}>
+                                  {item.name}
+                                </option>
+                              );
+                            })}
+                          </select>
+                        ) : null}
                       </div>
+                    </div>
 
-                      <div className="col-lg-2  col-md-5 col-12 ">
-                        <div className="form-group">
-                          <label htmlFor="workplace_type">
-                            WorkPlace Type:
-                          </label>
-                          {workplace_type ? (
-                            <select
-                              type="text"
-                              className={`form-control dropdown-menu-job_page ${
-                                jobApplicationValues.workplace_type === ""
-                                  ? null
-                                  : "active_dropDown"
-                              }`}
-                              // placeholder="London"
-                              id="workplace_type"
-                              name="workplace_type"
-                              onChange={handleChange}
-                              value={jobApplicationValues.workplace_type}
-                            >
-                              <option value="">Select WorkPlace</option>
-                              {workplace_type.map((item, index) => {
-                                return (
-                                  <option key={index} value={item.id}>
-                                    {item.name}
-                                  </option>
-                                );
-                              })}
-                            </select>
-                          ) : null}
-                        </div>
+                    <div className="col-lg-2  col-md-5 col-12 ">
+                      <div className="form-group">
+                        <label htmlFor="workplace_type">WorkPlace Type:</label>
+                        {workplace_type ? (
+                          <select
+                            type="text"
+                            className={`form-control dropdown-menu-job_page ${
+                              jobApplicationValues.workplace_type === ""
+                                ? null
+                                : "active_dropDown"
+                            }`}
+                            // placeholder="London"
+                            id="workplace_type"
+                            name="workplace_type"
+                            onChange={handleChange}
+                            value={jobApplicationValues.workplace_type}>
+                            <option value="">Select WorkPlace</option>
+                            {workplace_type.map((item, index) => {
+                              return (
+                                <option key={index} value={item.id}>
+                                  {item.name}
+                                </option>
+                              );
+                            })}
+                          </select>
+                        ) : null}
                       </div>
-                      <div className="col-lg-2  col-md-5 col-12 ">
-                        <div className="form-group">
-                          <label htmlFor="job_type">Job Type:</label>
-                          {job_type ? (
-                            <select
-                              type="text"
-                              className={`form-control dropdown-menu-job_page ${
-                                jobApplicationValues.job_type === ""
-                                  ? null
-                                  : "active_dropDown"
-                              }`}
-                              // placeholder="London"
-                              id="job_type"
-                              name="job_type"
-                              onChange={handleChange}
-                              value={jobApplicationValues.job_type}
-                            >
-                              <option value="">Select Job Type</option>
-                              {job_type.map((item, index) => {
-                                return (
-                                  <option key={index} value={item.id}>
-                                    {item.name}
-                                  </option>
-                                );
-                              })}
-                            </select>
-                          ) : null}
-                        </div>
+                    </div>
+                    <div className="col-lg-2  col-md-5 col-12 ">
+                      <div className="form-group">
+                        <label htmlFor="job_type">Job Type:</label>
+                        {job_type ? (
+                          <select
+                            type="text"
+                            className={`form-control dropdown-menu-job_page ${
+                              jobApplicationValues.job_type === ""
+                                ? null
+                                : "active_dropDown"
+                            }`}
+                            // placeholder="London"
+                            id="job_type"
+                            name="job_type"
+                            onChange={handleChange}
+                            value={jobApplicationValues.job_type}>
+                            <option value="">Select Job Type</option>
+                            {job_type.map((item, index) => {
+                              return (
+                                <option key={index} value={item.id}>
+                                  {item.name}
+                                </option>
+                              );
+                            })}
+                          </select>
+                        ) : null}
                       </div>
-                      <div className="col-lg-2  col-md-5 col-12  ">
-                        <div className="form-group">
-                          <label htmlFor="experience_level">
-                            Experience Level:
-                          </label>
-                          {experience ? (
-                            <select
-                              type="text"
-                              className={`form-control dropdown-menu-job_page ${
-                                jobApplicationValues.experience_level === ""
-                                  ? null
-                                  : "active_dropDown"
-                              }`}
-                              // placeholder="London"
-                              id="experience_level"
-                              name="experience_level"
-                              onChange={handleChange}
-                              value={jobApplicationValues.experience_level}
-                            >
-                              <option value="">Select Experience</option>
-                              {experience.map((item, index) => {
-                                return (
-                                  <option key={index} value={item.id}>
-                                    {item.name}
-                                  </option>
-                                );
-                              })}
-                            </select>
-                          ) : null}
-                        </div>
+                    </div>
+                    <div className="col-lg-2  col-md-5 col-12  ">
+                      <div className="form-group">
+                        <label htmlFor="experience_level">
+                          Experience Level:
+                        </label>
+                        {experience ? (
+                          <select
+                            type="text"
+                            className={`form-control dropdown-menu-job_page ${
+                              jobApplicationValues.experience_level === ""
+                                ? null
+                                : "active_dropDown"
+                            }`}
+                            // placeholder="London"
+                            id="experience_level"
+                            name="experience_level"
+                            onChange={handleChange}
+                            value={jobApplicationValues.experience_level}>
+                            <option value="">Select Experience</option>
+                            {experience.map((item, index) => {
+                              return (
+                                <option key={index} value={item.id}>
+                                  {item.name}
+                                </option>
+                              );
+                            })}
+                          </select>
+                        ) : null}
                       </div>
                     </div>
                   </div>
-                  <div className="container">
+                </div>
+
+                <div className="container">
+                  <div
+                    className="row d-flex justify-content-center "
+                    style={{ gap: "12px" }}>
                     <div
-                      className="row d-flex justify-content-center "
-                      style={{ gap: "12px" }}
-                    >
-                      <div
-                        className=" w-75 d-flex flex-column   p-2 "
-                        style={{
-                          backgroundColor: "#f5f5f5",
-                          alignItems: "center",
-                        }}
-                      >
-                        <input
-                          type="text"
-                          name="search_input"
-                          id="search_input"
-                          onChange={handleChange}
-                          value={jobApplicationValues.search_input}
-                          autoComplete="false"
-                          className="w-100 p-2 h-100 bg-transparent border-0 "
-                          placeholder="search here..."
-                          style={{ outline: "none" }}
-                        />
-                      </div>
-                      <button
-                        onClick={handleGetReq}
-                        className="border-0 site-button d-flex align-items-center "
-                        style={{
-                          cursor: "pointer",
-                          outline: "none",
-                          gap: "7px",
-                        }}
-                      >
-                        <FaSearch />
-                        Search
-                      </button>
+                      className=" w-75 d-flex flex-column   p-2 "
+                      style={{
+                        backgroundColor: "#f5f5f5",
+                        alignItems: "center",
+                      }}>
+                      <input
+                        type="text"
+                        name="search_input"
+                        id="search_input"
+                        onChange={handleChange}
+                        value={jobApplicationValues.search_input}
+                        autoComplete="false"
+                        className="w-100 p-2 h-100 bg-transparent border-0 "
+                        placeholder="search here..."
+                        style={{ outline: "none" }}
+                      />
                     </div>
+                    <button
+                      onClick={handleGetReq}
+                      className="border-0 site-button d-flex align-items-center "
+                      style={{
+                        cursor: "pointer",
+                        outline: "none",
+                        gap: "7px",
+                      }}>
+                      <FaSearch />
+                      Search
+                    </button>
                   </div>
+                </div>
+                {jobApplicationData.length !== 0 ? (
                   <div className="container">
                     <div className="row">
                       <div className="col-xl-4 col-lg-5 m-b30">
@@ -792,27 +787,23 @@ function JobPage() {
                                   maxHeight: "calc(100vh - 200px)",
                                   overflowY: "auto",
                                   boxShadow: "0 0 10px 0 rgba(0, 24, 128, 0.1)",
-                                }}
-                              >
+                                }}>
                                 {jobApplicationData.map((job) => (
                                   <div>
                                     <li key={job.s_no}>
                                       <Link
                                         to="#"
-                                        onClick={() => handleSelectJob(job)}
-                                      >
+                                        onClick={() => handleSelectJob(job)}>
                                         <div
                                           style={{
                                             display: "flex",
                                             width: "100%",
                                             position: "relative",
-                                          }}
-                                        >
+                                          }}>
                                           <div
                                             style={{
                                               width: "30%",
-                                            }}
-                                          >
+                                            }}>
                                             <img
                                               src={testImg}
                                               alt=""
@@ -826,16 +817,14 @@ function JobPage() {
                                             style={{
                                               width: "80%",
                                               overflow: "hidden",
-                                            }}
-                                          >
+                                            }}>
                                             {job.job_detail.job_title && (
                                               <p
                                                 className="mb-0"
                                                 style={{
                                                   color: "#1c2957",
                                                   fontSize: "20px",
-                                                }}
-                                              >
+                                                }}>
                                                 {job.job_detail.job_title}
                                               </p>
                                             )}
@@ -844,16 +833,15 @@ function JobPage() {
                                               style={{
                                                 gap: "7px",
                                                 fontWeight: "700",
-                                              }}
-                                            >
+                                              }}>
+                                              {job.companies.company_name}
                                               <p
                                                 className="mb-0"
                                                 onClick={() => {
                                                   navigate(
                                                     `/user/company/${job.companies.id}`
                                                   );
-                                                }}
-                                              >
+                                                }}>
                                                 {job.companies.company_name}
                                               </p>
                                             </div>
@@ -862,26 +850,22 @@ function JobPage() {
                                               style={{
                                                 fontSize: "13px",
                                                 gap: "3px",
-                                              }}
-                                            >
+                                              }}>
                                               <p
                                                 style={{
                                                   fontWeight: "600",
                                                   marginBottom: "0px",
-                                                }}
-                                              >
+                                                }}>
                                                 Skills required:
                                               </p>
                                               <div
                                                 className="d-flex flex-row mb-0 "
-                                                style={{ gap: "7px" }}
-                                              >
+                                                style={{ gap: "7px" }}>
                                                 {job.job_detail.skills_arr.map(
                                                   (item, index) => (
                                                     <p
                                                       className="mb-0 "
-                                                      key={index}
-                                                    >
+                                                      key={index}>
                                                       {item}
                                                     </p>
                                                   )
@@ -896,8 +880,7 @@ function JobPage() {
                                                 fontSize: "13px",
 
                                                 height: "auto",
-                                              }}
-                                            >
+                                              }}>
                                               {/* {job.job_category && (
                                             <p
                                               style={{
@@ -919,16 +902,14 @@ function JobPage() {
                                                 style={{
                                                   justifyContent:
                                                     "space-between",
-                                                }}
-                                              >
+                                                }}>
                                                 <div>
                                                   {job.job_workplace_types
                                                     .name && (
                                                     <p
                                                       style={{
                                                         margin: "0px",
-                                                      }}
-                                                    >
+                                                      }}>
                                                       {
                                                         job.job_workplace_types
                                                           .name
@@ -943,8 +924,7 @@ function JobPage() {
                                                       style={{
                                                         margin: "0px",
                                                         fontWeight: "600",
-                                                      }}
-                                                    >
+                                                      }}>
                                                       {moment(
                                                         job.job_detail
                                                           .created_at
@@ -966,8 +946,8 @@ function JobPage() {
                         </div>
                       </div>
                       <div className="col-xl-8 col-lg-7 m-b30">
-                          {selectedJob && (
-                        <div className="m-b20 job-bx ">
+                        {selectedJob && (
+                          <div className="m-b20 job-bx ">
                             <div>
                               <div className="candidate-title">
                                 <Link to="#">
@@ -987,8 +967,7 @@ function JobPage() {
                                     )}
                                   <div
                                     className="d-flex"
-                                    style={{ gap: "7px" }}
-                                  >
+                                    style={{ gap: "7px" }}>
                                     {selectedJob.job_detail.skills_arr.map(
                                       (item, index) => (
                                         <p key={index} className="mb-5">
@@ -1007,8 +986,7 @@ function JobPage() {
                                       className="d-flex"
                                       style={{
                                         gap: "100px",
-                                      }}
-                                    >
+                                      }}>
                                       <p
                                         style={{
                                           cursor: "pointer",
@@ -1017,20 +995,17 @@ function JobPage() {
                                           navigate(
                                             `/user/company/${selectedJob.companies.id}`
                                           );
-                                        }}
-                                      >
+                                        }}>
                                         <i
                                           class="fa fa-briefcase"
-                                          aria-hidden="true"
-                                        ></i>
+                                          aria-hidden="true"></i>
                                         {"  "}
                                         {selectedJob.companies.company_name}
                                       </p>
                                       <p>
                                         <i
                                           class="fa fa-registered"
-                                          aria-hidden="true"
-                                        ></i>
+                                          aria-hidden="true"></i>
 
                                         {"  "}
                                         {selectedJob.companies.founded_date}
@@ -1042,13 +1017,11 @@ function JobPage() {
                                       className="d-flex"
                                       style={{
                                         gap: "100px",
-                                      }}
-                                    >
+                                      }}>
                                       <p>
                                         <i
                                           class="fa fa-users"
-                                          aria-hidden="true"
-                                        ></i>
+                                          aria-hidden="true"></i>
 
                                         {"  "}
                                         {
@@ -1059,8 +1032,7 @@ function JobPage() {
                                       <p>
                                         <i
                                           class="fa fa-location-arrow"
-                                          aria-hidden="true"
-                                        ></i>
+                                          aria-hidden="true"></i>
                                         {"  "}
                                         {
                                           selectedJob.companies.cities.name
@@ -1104,8 +1076,7 @@ function JobPage() {
                                 ) : (
                                   <button
                                     className="radius-xl site-button"
-                                    onClick={handleShow}
-                                  >
+                                    onClick={handleShow}>
                                     Apply
                                   </button>
                                 )}
@@ -1113,13 +1084,11 @@ function JobPage() {
                                   show={show}
                                   onHide={handleClose}
                                   backdrop="static"
-                                  keyboard={false}
-                                >
+                                  keyboard={false}>
                                   <Modal.Header
                                     closeButton
                                     style={{ backgroundColor: "#ffff" }}
-                                    className="mt-4"
-                                  >
+                                    className="mt-4">
                                     <Modal.Title style={{ color: "#000" }}>
                                       <p> Apply to {selectedJob.company}</p>
                                     </Modal.Title>
@@ -1127,14 +1096,12 @@ function JobPage() {
                                   <Modal.Body>
                                     <Tab.Container
                                       id="tabs-example"
-                                      activeKey={activeTab}
-                                    >
+                                      activeKey={activeTab}>
                                       <div
                                         style={{
                                           fontSize: "20px",
                                           paddingBottom: "10px",
-                                        }}
-                                      >
+                                        }}>
                                         Screening questions
                                       </div>
                                       <Tab.Content>
@@ -1161,8 +1128,7 @@ function JobPage() {
                                                               style={{
                                                                 paddingBottom:
                                                                   "30px",
-                                                              }}
-                                                            >
+                                                              }}>
                                                               <h5>
                                                                 {ques.name}
                                                               </h5>
@@ -1228,8 +1194,7 @@ function JobPage() {
                                               <select
                                                 class="form-control"
                                                 id="englishProficiency"
-                                                required
-                                              >
+                                                required>
                                                 <option value="">
                                                   Select an option
                                                 </option>
@@ -1247,8 +1212,7 @@ function JobPage() {
                                               <select
                                                 class="form-control"
                                                 id="salaryRange"
-                                                required
-                                              >
+                                                required>
                                                 <option value="">
                                                   Select an option
                                                 </option>
@@ -1280,8 +1244,7 @@ function JobPage() {
                                               <select
                                                 class="form-control"
                                                 id="workLocation"
-                                                required
-                                              >
+                                                required>
                                                 <option value="">
                                                   Select an option
                                                 </option>
@@ -1332,8 +1295,7 @@ function JobPage() {
                                               <select
                                                 class="form-control"
                                                 id="immediateStart"
-                                                required
-                                              >
+                                                required>
                                                 <option value="">
                                                   Select an option
                                                 </option>
@@ -1350,8 +1312,7 @@ function JobPage() {
                                     {activeTab !== "contact-info" && (
                                       <button
                                         className="site-button mr-2"
-                                        onClick={handlePrev}
-                                      >
+                                        onClick={handlePrev}>
                                         Previous
                                       </button>
                                     )}
@@ -1385,26 +1346,31 @@ function JobPage() {
                                 </label>
                               </div>
                             </div>
-                        </div>
-                          )}
-
-                        <div className="job-bx ">
-                          <h3>About Company</h3>
-                          {selectedJob.companies.about}
-                        </div>
+                          </div>
+                        )}
+                        {selectedJob ? (
+                          <div className="job-bx ">
+                            <h3>About Company</h3>
+                            {selectedJob.companies.about}
+                          </div>
+                        ) : null}
                       </div>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="w-100 d-flex align-items-center justify-content-center ">
+                    <img
+                      src={SkeletonImg}
+                      alt="no data there"
+                      style={{ width: "40%" }}
+                    />
+                  </div>
+                )}
               </div>
             </div>
-          )}
-        </div>
-      ) : (
-        <div className="w-100 d-flex align-items-center justify-content-center ">
-          <img src={SkeletonImg} alt="no data there" style={{ width: "40%" }} />
-        </div>
-      )}
+          </div>
+        )}
+      </div>
 
       <Footer />
     </>

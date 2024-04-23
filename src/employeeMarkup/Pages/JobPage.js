@@ -367,7 +367,7 @@ function EmployeeJobPage() {
   useEffect(() => {
     axios({
       method: "GET",
-      url: "http://93.188.167.106:3001/api/jobseeker/job-categories",
+      url: "https://jobsbooklet.in/api/jobseeker/job-categories",
       headers: {
         Authorization: token,
       },
