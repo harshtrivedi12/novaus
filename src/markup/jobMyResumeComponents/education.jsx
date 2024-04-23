@@ -21,7 +21,9 @@ const EducationComponent = () => {
   const [editIndex, setEditIndex] = useState(-1);
 
   const updateItem = () => {
-    if (editIndex === -1) return;
+    if (editIndex === -1) {
+      return;
+    }
 
     const updatedFormData = [...educationData];
     updatedFormData[editIndex] = {
@@ -29,6 +31,14 @@ const EducationComponent = () => {
       ...educationValues,
     };
     dispatch(setEducationData(updatedFormData));
+    dispatch(
+      setEducationValues({
+        education: "",
+        course: "",
+        passOutDate: "",
+        university: "",
+      })
+    );
     setEducation(false);
     setEditIndex(-1);
   };
@@ -51,17 +61,55 @@ const EducationComponent = () => {
     dispatch(setEducationValues({ ...educationValues, [name]: value }));
   };
 
+  const handleAdd = () => {
+    if (editIndex !== -1) {
+      return;
+    }
+
+    const trimmedEducation = educationValues.education.trim();
+    const trimmedCourse = educationValues.course.trim();
+    const trimmedPassOutDate = educationValues.passOutDate.trim();
+    const trimmedUniversity = educationValues.university.trim();
+
+    if (
+      trimmedEducation &&
+      trimmedCourse &&
+      trimmedPassOutDate &&
+      trimmedUniversity
+    ) {
+      const newItem = {
+        education: trimmedEducation,
+        course: trimmedCourse,
+        passOutDate: trimmedPassOutDate,
+        university: trimmedUniversity,
+      };
+      const newData = [...educationData, newItem];
+
+      dispatch(setEducationData(newData));
+
+      dispatch(
+        setEducationValues({
+          education: "",
+          course: "",
+          passOutDate: "",
+          university: "",
+        })
+      );
+      setEducation(false);
+    }
+  };
+
   return (
     <div>
       <div className="d-flex">
         <h5 className="m-b15">Education</h5>
-        {/* <Link
+        <Link
           to={"#"}
           onClick={() => setEducation(true)}
           className="site-button add-btn button-sm"
         >
-          <i className="fa fa-pencil m-r5"></i> Edit
-        </Link> */}
+          <i className="fa fa-plus m-r5"></i> Add
+        </Link>
       </div>
       <p>
         Mention your employment details including your current and previous
@@ -82,7 +130,18 @@ const EducationComponent = () => {
               <button
                 type="button"
                 className="close"
-                onClick={() => setEducation(false)}
+                onClick={() => {
+                  setEducation(false);
+                  dispatch(
+                    setEducationValues({
+                      education: "",
+                      course: "",
+                      passOutDate: "",
+                      university: "",
+                    })
+                  );
+                  setEditIndex(-1);
+                }}
               >
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -152,9 +211,23 @@ const EducationComponent = () => {
               <button
                 type="button"
                 className="site-button"
-                onClick={() => setEducation(false)}
+                onClick={() => {
+                  setEducation(false);
+                  dispatch(
+                    setEducationValues({
+                      education: "",
+                      course: "",
+                      passOutDate: "",
+                      university: "",
+                    })
+                  );
+                  setEditIndex(-1);
+                }}
               >
                 Cancel
+              </button>
+              <button onClick={handleAdd} type="button" className="site-button">
+                Save
               </button>
               <button
                 onClick={updateItem}
@@ -167,32 +240,33 @@ const EducationComponent = () => {
           </div>
         </div>
       </Modal>
-
-      <div className="row">
-        {educationData.map((item, index) => {
-          return (
-            <div
-              key={index}
-              className="col-lg-12 col-md-12 col-sm-12 d-flex align-items-center justify-content-between "
-            >
-              <div className="clearfix m-b20" style={{ width: "80%" }}>
-                <label className="m-b0">
-                  {item.education} {item.university}
-                </label>
-                <span className="clearfix font-13">{item.course}</span>
-                <span className="clearfix font-13">{item.passOutDate}</span>
-              </div>
-              <button
-                onClick={() => editItem(index)}
-                className="site-button row align-items-center justify-content-center "
-                style={{ gap: "7px", width: "20%" }}
+      {educationData ? (
+        <div className="row">
+          {educationData.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className="col-lg-12 col-md-12 col-sm-12 d-flex align-items-center justify-content-between "
               >
-                Edit <FaEdit />
-              </button>
-            </div>
-          );
-        })}
-      </div>
+                <div className="clearfix m-b20" style={{ width: "80%" }}>
+                  <label className="m-b0">
+                    {item.education} {item.university}
+                  </label>
+                  <span className="clearfix font-13">{item.course}</span>
+                  <span className="clearfix font-13">{item.passOutDate}</span>
+                </div>
+                <button
+                  onClick={() => editItem(index)}
+                  className="site-button row align-items-center justify-content-center "
+                  style={{ gap: "7px", width: "20%" }}
+                >
+                  Edit <FaEdit />
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
     </div>
   );
 };

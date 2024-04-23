@@ -97,6 +97,15 @@ function Changepasswordpage() {
                           </Link>
                         </li>
                         <li>
+                          <Link to={"/user/skill-test"}>
+                            <i
+                              className="fa fa-id-card-o"
+                              aria-hidden="true"
+                            ></i>
+                            <span>Skill Test</span>
+                          </Link>
+                        </li>
+                        <li>
                           <Link
                             to={"/user/jobs-change-password"}
                             className="active"
@@ -191,7 +200,10 @@ function Changepasswordpage() {
 
                         </div>
                         <div className="col-lg-12 m-b10">
-                          <button onClick={handleSubmit} className="site-button">
+                          <button
+                            onClick={handleSubmit}
+                            className="site-button"
+                          >
                             Update Password
                           </button>
                         </div>

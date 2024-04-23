@@ -13,6 +13,7 @@ function Register2(props) {
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
   const [email, setEmail] = useState("");
+  const [runAiButton, setRunAiButton] = useState("Run Ai");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState("");
@@ -41,7 +42,6 @@ function Register2(props) {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("job_seeker_id", jobSeekerId);
     if (file) {
       formData.append("files", file);
     }
@@ -103,6 +103,7 @@ function Register2(props) {
   }
 
   const runAi = async (e) => {
+    setRunAiButton("Running Ai");
     setShowVideo(true);
     e.preventDefault();
     console.log(resumeUrl);
@@ -166,27 +167,27 @@ function Register2(props) {
                         </div>
                         <div className="row">
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                          <input
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                            className="form-control"
-                            placeholder="First Name"
-                          />
-                          <div className="text-danger">
-                            {errors.email && <div>{errors.email}</div>}
+                            <input
+                              value={firstName}
+                              onChange={(e) => setFirstName(e.target.value)}
+                              className="form-control"
+                              placeholder="First Name"
+                            />
+                            <div className="text-danger">
+                              {errors.email && <div>{errors.email}</div>}
+                            </div>
                           </div>
-                        </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                          <input
-                            value={LastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                            className="form-control"
-                            placeholder="Last Name"
-                          />
-                          <div className="text-danger">
-                            {errors.email && <div>{errors.email}</div>}
+                            <input
+                              value={LastName}
+                              onChange={(e) => setLastName(e.target.value)}
+                              className="form-control"
+                              placeholder="Last Name"
+                            />
+                            <div className="text-danger">
+                              {errors.email && <div>{errors.email}</div>}
+                            </div>
                           </div>
-                        </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <input
                               value={company}
@@ -210,40 +211,40 @@ function Register2(props) {
                             </div>
                           </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                          <input
-                            value={phone}
-                            className="form-control"
-                            defaultValue="Password"
-                            placeholder="Phone Number"
-                            onChange={(e) => setPhone(e.target.value)}
-                          />
-                          <div className="text-danger">
-                            {errors.password && <div>{errors.password}</div>}
+                            <input
+                              value={phone}
+                              className="form-control"
+                              defaultValue="Password"
+                              placeholder="Phone Number"
+                              onChange={(e) => setPhone(e.target.value)}
+                            />
+                            <div className="text-danger">
+                              {errors.password && <div>{errors.password}</div>}
+                            </div>
                           </div>
-                        </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                          <input
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="form-control"
+                            <input
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                              className="form-control"
                               placeholder="Work Email Address"
-                          />
-                          <div className="text-danger">
-                            {errors.email && <div>{errors.email}</div>}
+                            />
+                            <div className="text-danger">
+                              {errors.email && <div>{errors.email}</div>}
+                            </div>
                           </div>
-                        </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                          <input
-                            value={password}
-                            className="form-control"
-                            defaultValue="Password"
-                            placeholder="Password"
-                            onChange={(e) => setPassword(e.target.value)}
-                          />
-                          <div className="text-danger">
-                            {errors.password && <div>{errors.password}</div>}
+                            <input
+                              value={password}
+                              className="form-control"
+                              defaultValue="Password"
+                              placeholder="Password"
+                              onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <div className="text-danger">
+                              {errors.password && <div>{errors.password}</div>}
+                            </div>
                           </div>
-                        </div>
                           <div className="form-group text-left ">
                             {/* <button
                             type="submit"
@@ -251,15 +252,15 @@ function Register2(props) {
                           >
                             Sign me up
                           </button> */}
-                          <span className="custom-control custom-checkbox">
-                            <input
-                              type="checkbox"
-                              className="custom-control-input"
-                              id="check1"
-                              name="example1"
-                            />
-                            <label
-                              className="custom-control-label"
+                            <span className="custom-control custom-checkbox">
+                              <input
+                                type="checkbox"
+                                className="custom-control-input"
+                                id="check1"
+                                name="example1"
+                              />
+                              <label
+                                className="custom-control-label"
                                 htmlFor="check1"
                               >
                                 I confirm I represent HR/Personnel, Recruiting, Marketing, PR, or am an executive at my company and I agree to Glassdoor's Terms of Use and acknowledge its Privacy Policy on behalf of my company
@@ -286,7 +287,7 @@ function Register2(props) {
                           >
                             <i className="fa fa-unlock-alt"></i> Forgot Password
                           </Link> */}
-                        </div>
+                          </div>
                           {/* <div className="dz-social clearfix">
                           <h5 className="form-title m-t5 pull-left">
                             Sign In With
@@ -330,7 +331,7 @@ function Register2(props) {
                           >
                             Create Account
 
-                          </button> 
+                          </button>
                         </div>
                       </form>
                       {/* <div className="text-center bottom">
@@ -351,15 +352,6 @@ function Register2(props) {
                         <div>
                           <div className="form-group">
                             <input
-                              type="text"
-                              value={jobSeekerId}
-                              className="form-control"
-                              onChange={handleIdChange}
-                              placeholder="Job Seeker ID"
-                            />
-                          </div>
-                          <div className="form-group">
-                            <input
                               type="file"
                               onChange={handleChange}
                               className="form-control"
@@ -370,8 +362,8 @@ function Register2(props) {
 
                         <button
                           type="submit"
-                            className="site-button dz-xs-flex m-r5"
-                          >
+                          className="site-button dz-xs-flex m-r5"
+                        >
                           Upload Resume
                         </button>
                       </form>
@@ -381,8 +373,8 @@ function Register2(props) {
                           <video
                             width="200px"
                             loop={showVideo}
-                                autoPlay={showVideo}
-                              >
+                            autoPlay={showVideo}
+                          >
                             <source src={processVid} type="video/mp4" />
                           </video>
                         </div>
@@ -393,8 +385,8 @@ function Register2(props) {
                               className="site-button dz-xs-flex m-r5"
                               onClick={(e) => {
                                 navigate("/");
-                                  }}
-                                >
+                              }}
+                            >
                               Go To Dashboard
                             </button>
                           </div>
@@ -403,9 +395,8 @@ function Register2(props) {
                             onClick={(e) => {
                               runAi(e);
                             }}
-                                  className="site-button dz-xs-flex m-r5"
-                                >
-                            Run Ai
+                            className="site-button dz-xs-flex m-r5">
+                            {runAiButton}
                           </button>
                         )}
                       </div>

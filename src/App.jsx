@@ -994,6 +994,7 @@ function App() {
             </EmployeePrivateRoute>
           }
         />
+        <Route path="candidate-listing" element={<EmployeeJobPage />} />
         <Route path="*" element={<EmployeeError404 />} />
       </Route>
     </Routes>

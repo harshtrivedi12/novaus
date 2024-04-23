@@ -25,13 +25,15 @@ const SkillsComponent = () => {
   //Edit Item Function
   const [editSkillIndex, setEditSkillIndex] = useState(-1);
   const updateSkillItem = () => {
-    if (editSkillIndex !== -1) {
-      const updatedSkills = [...skillsData];
-      updatedSkills[editSkillIndex] = skillsValue.skills.trim();
-      dispatch(setSkillsData(updatedSkills));
-      setKeySkillModalOpen(false);
-      setEditSkillIndex(-1);
+    if (editSkillIndex === -1) {
+      return;
     }
+    const updatedSkills = [...skillsData];
+    updatedSkills[editSkillIndex] = skillsValue.skills.trim();
+    dispatch(setSkillsData(updatedSkills));
+    dispatch(setSkillsValue({ skills: "" }));
+    setKeySkillModalOpen(false);
+    setEditSkillIndex(-1);
   };
 
   const editSkillItem = (index) => {
@@ -42,6 +44,9 @@ const SkillsComponent = () => {
   };
 
   //Editing Functionality Ends here
+
+  // handle add functionality starts in skills Component
+
   const handleAddSkill = () => {
     if (editSkillIndex !== -1) {
       return;
@@ -54,35 +59,40 @@ const SkillsComponent = () => {
       setKeySkillModalOpen(false);
     }
   };
+
+  // handle Add Functionality ends
+
   return (
     <div>
       <div className="d-flex">
         <h5 className="m-b15">Key Skills</h5>
-        {/* <Link
+        <Link
           to={"#"}
           data-toggle="modal"
           data-target="#keyskills"
-          onClick={() => setKeyskill(true)}
+          onClick={() => setKeySkillModalOpen(true)}
           className="site-button add-btn button-sm"
         >
-          <i className="fa fa-pencil m-r5"></i> Edit
-        </Link> */}
+          <i className="fa fa-plus m-r5"></i> Add
+        </Link>
       </div>
-      <div className="job-time row mr-auto">
-        {skillsData.map((item, index) => {
-          return (
-            <Link key={index} to={"#"} className="mr-1  ">
-              <span
-                className="d-flex align-items-center "
-                style={{ gap: "7px" }}
-              >
-                {item}
-                <FaEdit onClick={() => editSkillItem(index)} />
-              </span>
-            </Link>
-          );
-        })}
-      </div>
+      {skillsData ? (
+        <div className="job-time row mr-auto">
+          {skillsData.map((item, index) => {
+            return (
+              <Link key={index} to={"#"} className="mr-1  ">
+                <span
+                  className="d-flex align-items-center "
+                  style={{ gap: "7px" }}
+                >
+                  {item}
+                  <FaEdit onClick={() => editSkillItem(index)} />
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      ) : null}
 
       <Modal
         className="modal fade modal-bx-info editor"
@@ -98,7 +108,11 @@ const SkillsComponent = () => {
               <button
                 type="button"
                 className="close"
-                onClick={() => setKeySkillModalOpen(false)}
+                onClick={() => {
+                  setKeySkillModalOpen(false);
+                  dispatch(setSkillsValue({ skills: "" }));
+                  setEditSkillIndex(-1);
+                }}
               >
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -131,11 +145,21 @@ const SkillsComponent = () => {
               <button
                 type="button"
                 className="site-button"
-                onClick={() => setKeySkillModalOpen(false)}
+                onClick={() => {
+                  setKeySkillModalOpen(false);
+                  dispatch(setSkillsValue({ skills: "" }));
+                  setEditSkillIndex(-1);
+                }}
               >
                 Cancel
               </button>
-
+              <button
+                type="button"
+                className="site-button"
+                onClick={handleAddSkill}
+              >
+                Save
+              </button>
               <button
                 type="button"
                 className="site-button"

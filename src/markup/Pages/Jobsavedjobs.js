@@ -9,7 +9,7 @@ function Jobsavedjobs() {
   return (
     <>
       <Header2 />
-    <FixedHeader />
+      <FixedHeader />
 
       <div className="page-content bg-white">
         <div className="content-block">
@@ -19,7 +19,6 @@ function Jobsavedjobs() {
                 <div className="col-xl-3 col-lg-4 m-b30">
                   <div className="sticky-top">
                     <div className="candidate-info">
-                    
                       <ul>
                         <li>
                           <Link to={"/user/jobs-profile"}>
@@ -67,11 +66,21 @@ function Jobsavedjobs() {
                           </Link>
                         </li>
                         <li>
+                          <Link to={"/user/skill-test"}>
+                            <i
+                              className="fa fa-id-card-o"
+                              aria-hidden="true"
+                            ></i>
+                            <span>Skill Test</span>
+                          </Link>
+                        </li>
+                        <li>
                           <Link to={"/user/jobs-change-password"}>
                             <i className="fa fa-key" aria-hidden="true"></i>
                             <span>Change Password</span>
                           </Link>
                         </li>
+
                         <li>
                           <Link to={"./"}>
                             <i

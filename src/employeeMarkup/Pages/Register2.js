@@ -405,6 +405,7 @@ var bnr = require("./../../images/background/bg6.jpg");
 function EmployeeRegister2(props) {
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
+  const [runAiButton, setRunAiButton] = useState("Run Aiii");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -434,7 +435,7 @@ function EmployeeRegister2(props) {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("job_seeker_id", jobSeekerId);
+
     if (file) {
       formData.append("files", file);
     }
@@ -496,6 +497,7 @@ function EmployeeRegister2(props) {
   }
 
   const runAi = async (e) => {
+    setRunAiButton("Running Ai");
     setShowVideo(true);
     e.preventDefault();
     console.log(resumeUrl);
@@ -529,8 +531,7 @@ function EmployeeRegister2(props) {
           style={{
             backgroundImage: `url(${bnr})`,
             height: "100vh",
-          }}
-        >
+          }}>
           <div className="row">
             <div className="col-xl-6 col-lg-7 col-md-8 col-sm-12 bg-white z-index2 relative p-a0 content-scroll skew-section left-bottom">
               <div className="login-form style-2" style={{ display: 'flex', flexDirection: 'column' }}>
@@ -560,27 +561,27 @@ function EmployeeRegister2(props) {
                         </div>
                         <div className="row">
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                          <input
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                            className="form-control"
-                            placeholder="First Name"
-                          />
-                          <div className="text-danger">
-                            {errors.email && <div>{errors.email}</div>}
+                            <input
+                              value={firstName}
+                              onChange={(e) => setFirstName(e.target.value)}
+                              className="form-control"
+                              placeholder="First Name"
+                            />
+                            <div className="text-danger">
+                              {errors.email && <div>{errors.email}</div>}
+                            </div>
                           </div>
-                        </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                          <input
-                            value={LastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                            className="form-control"
-                            placeholder="Last Name"
-                          />
-                          <div className="text-danger">
-                            {errors.email && <div>{errors.email}</div>}
+                            <input
+                              value={LastName}
+                              onChange={(e) => setLastName(e.target.value)}
+                              className="form-control"
+                              placeholder="Last Name"
+                            />
+                            <div className="text-danger">
+                              {errors.email && <div>{errors.email}</div>}
+                            </div>
                           </div>
-                        </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <input
                               value={company}
@@ -604,61 +605,59 @@ function EmployeeRegister2(props) {
                             </div>
                           </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                          <input
-                            value={phone}
-                            className="form-control"
-                            defaultValue="Password"
-                            placeholder="Phone Number"
-                            onChange={(e) => setPhone(e.target.value)}
-                          />
-                          <div className="text-danger">
-                            {errors.password && <div>{errors.password}</div>}
+                            <input
+                              value={phone}
+                              className="form-control"
+                              defaultValue="Password"
+                              placeholder="Phone Number"
+                              onChange={(e) => setPhone(e.target.value)}
+                            />
+                            <div className="text-danger">
+                              {errors.password && <div>{errors.password}</div>}
+                            </div>
                           </div>
-                        </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                          <input
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="form-control"
+                            <input
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                              className="form-control"
                               placeholder="Work Email Address"
-                          />
-                          <div className="text-danger">
-                            {errors.email && <div>{errors.email}</div>}
+                            />
+                            <div className="text-danger">
+                              {errors.email && <div>{errors.email}</div>}
+                            </div>
                           </div>
-                        </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                          <input
-                            value={password}
-                            className="form-control"
-                            defaultValue="Password"
-                            placeholder="Password"
-                            onChange={(e) => setPassword(e.target.value)}
-                          />
-                          <div className="text-danger">
-                            {errors.password && <div>{errors.password}</div>}
+                            <input
+                              value={password}
+                              className="form-control"
+                              defaultValue="Password"
+                              placeholder="Password"
+                              onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <div className="text-danger">
+                              {errors.password && <div>{errors.password}</div>}
+                            </div>
                           </div>
-                        </div>
                           <div className="form-group text-left ">
                             {/* <button
                             type="submit"
-                            className="site-button dz-xs-flex m-r5"
-                          >
+                            className="site-button dz-xs-flex m-r5">
                             Sign me up
                           </button> */}
-                          <span className="custom-control custom-checkbox">
-                            <input
-                              type="checkbox"
-                              className="custom-control-input"
-                              id="check1"
-                              name="example1"
-                            />
-                            <label
-                              className="custom-control-label"
-                              htmlFor="check1"
-                            >
-                                I confirm I represent HR/Personnel, Recruiting, Marketing, PR, or am an executive at my company and I agree to Glassdoor's Terms of Use and acknowledge its Privacy Policy on behalf of my company
-                            </label>
-                          </span>
+                            <span className="custom-control custom-checkbox">
+                              <input
+                                type="checkbox"
+                                className="custom-control-input"
+                                id="check1"
+                                name="example1"
+                              />
+                              <label
+                                className="custom-control-label"
+                                htmlFor="check1">
+                                Remember me
+                              </label>
+                            </span>
                             <span className="custom-control custom-checkbox mt-3">
                               <input
                                 type="checkbox"
@@ -676,11 +675,10 @@ function EmployeeRegister2(props) {
                             {/* <Link
                             data-toggle="tab"
                             to="#forgot-password"
-                            className="forget-pass m-l5"
-                          >
+                            className="forget-pass m-l5">
                             <i className="fa fa-unlock-alt"></i> Forgot Password
                           </Link> */}
-                        </div>
+                          </div>
                           {/* <div className="dz-social clearfix">
                           <h5 className="form-title m-t5 pull-left">
                             Sign In With
@@ -690,29 +688,25 @@ function EmployeeRegister2(props) {
                               <Link
                                 to={""}
                                 className="fa fa-facebook  fb-btn mr-1"
-                                target="bank"
-                              ></Link>
+                                target="bank"></Link>
                             </li>
                              <li>
                               <Link
                                 to={""}
                                 className="fa fa-twitter  tw-btn mr-1"
-                                target="bank"
-                              ></Link>
+                                target="bank"></Link>
                             </li>
                             <li>
                               <Link
                                 to={""}
                                 className="fa fa-linkedin link-btn mr-1"
-                                target="bank"
-                              ></Link>
+                                target="bank"></Link>
                             </li>
                             <li>
                               <Link
                                 to={""}
                                 className="fa fa-google-plus  gplus-btn"
-                                target="bank"
-                              ></Link>
+                                target="bank"></Link>
                             </li>
                           </ul>
                         </div> */}
@@ -724,14 +718,13 @@ function EmployeeRegister2(props) {
                           >
                             Create Account
 
-                          </button> 
+                          </button>
                         </div>
                       </form>
                       {/* <div className="text-center bottom">
                         <Link
                           to="/login"
-                          className="site-button button-md btn-block text-white"
-                        >
+                          className="site-button button-md btn-block text-white">
                           Sign In
                         </Link>
                       </div> */}
@@ -764,8 +757,7 @@ function EmployeeRegister2(props) {
 
                         <button
                           type="submit"
-                          className="site-button dz-xs-flex m-r5"
-                        >
+                          className="site-button dz-xs-flex m-r5">
                           Upload Resume
                         </button>
                       </form>
@@ -775,8 +767,7 @@ function EmployeeRegister2(props) {
                           <video
                             width="200px"
                             loop={showVideo}
-                            autoPlay={showVideo}
-                          >
+                            autoPlay={showVideo}>
                             <source src={processVid} type="video/mp4" />
                           </video>
                         </div>
@@ -787,8 +778,7 @@ function EmployeeRegister2(props) {
                               className="site-button dz-xs-flex m-r5"
                               onClick={(e) => {
                                 navigate("/");
-                              }}
-                            >
+                              }}>
                               Go To Dashboard
                             </button>
                           </div>
@@ -797,9 +787,8 @@ function EmployeeRegister2(props) {
                             onClick={(e) => {
                               runAi(e);
                             }}
-                            className="site-button dz-xs-flex m-r5"
-                          >
-                            Run Ai
+                            className="site-button dz-xs-flex m-r5">
+                            {runAiButton}hrtgfddgfgf
                           </button>
                         )}
                       </div>
