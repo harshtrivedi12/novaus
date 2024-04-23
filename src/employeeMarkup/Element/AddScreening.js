@@ -8,6 +8,7 @@ import {
   setScreeningQuestion,
   setSelctedScreeningQuestion,
 } from "../../store/reducers/postAJobSlice";
+import { login } from "../../services/AuthService";
 
 const AddScreening = () => {
   const token = localStorage.getItem("employeeLoginToken");
@@ -102,17 +103,22 @@ const AddScreening = () => {
 
   const [expanded, setExpanded] = useState({});
   useEffect(() => {
-    if (Object.keys(expanded).length !== 0) {
+    console.log(expanded, "ofggg");
+    if (Object.keys(expanded).length === 0) {
+      console.log(Object.keys(expanded).length, "expanded");
       selelctedQuestions.map((item) => toggleExpansion(item.name));
     }
   }, [selelctedQuestions]);
   const toggleExpansion = (name) => {
+    console.log(name, "ofggg");
     setExpanded((prevState) => ({
       ...prevState,
       [name]: !prevState[name],
     }));
   };
-
+  useEffect(() => {
+    console.log(expanded, "expanded");
+  }, [expanded]);
   return (
     <div>
       <div>
@@ -142,15 +148,14 @@ const AddScreening = () => {
         {screeningQuestions.map((category, index) => (
           <div
             key={index}
-            style={{ display: "inline-block", marginRight: "10px" }}
-          >
+            style={{ display: "inline-block", marginRight: "10px" }}>
             <button
               className="d-flex justify-content-center align-items-center"
               onClick={() => {
                 console.log(expanded, "ques");
                 dispatch(
                   setSelctedScreeningQuestion({
-                    index: index, // Define these variables appropriately
+                    index: index,
                     category: category,
                   })
                 );
@@ -168,8 +173,7 @@ const AddScreening = () => {
                 borderColor: "#9d9d9d",
                 cursor: "pointer",
                 outline: "none",
-              }}
-            >
+              }}>
               {expanded[category.name] ? <FaCheck /> : <FaPlus />}{" "}
               <span className="ml-2">{category.name}</span>
             </button>

@@ -146,7 +146,7 @@ function EmployeeComponypostjobs() {
           })
         );
         dispatch(setSkillsData(res.data.data.job_detail.skills_arr));
-        if (res.data.data.screen_questions !== null) {
+        if (res.data.data.screen_questions.screen_question_keywords !== null) {
           dispatch(
             setSelctedScreeningQuestionGet(res.data.data.screen_questions)
           );
@@ -365,8 +365,7 @@ function EmployeeComponypostjobs() {
                       </h5>
                       <Link
                         to={"/employee/company-profile"}
-                        className="site-button right-arrow button-sm float-right"
-                      >
+                        className="site-button right-arrow button-sm float-right">
                         Back
                       </Link>
                     </div>
@@ -432,8 +431,7 @@ function EmployeeComponypostjobs() {
                                 onChange={handleChange}
                                 name="workplaceType"
                                 id="workplaceType"
-                                value={postAJobData.workplaceType}
-                              >
+                                value={postAJobData.workplaceType}>
                                 {workplaceType.map(
                                   (item) => (
                                     console.log(item),
@@ -459,8 +457,7 @@ function EmployeeComponypostjobs() {
                                 className="custom-select"
                                 name="selectedCountry"
                                 value={postAJobData.selectedCountry}
-                                onChange={handleChange}
-                              >
+                                onChange={handleChange}>
                                 {countries.map((item) => (
                                   <option value={item.id}>{item.name}</option>
                                 ))}
@@ -479,8 +476,7 @@ function EmployeeComponypostjobs() {
                                 className="custom-select"
                                 name="selectedState"
                                 value={postAJobData.selectedState}
-                                onChange={handleChange}
-                              >
+                                onChange={handleChange}>
                                 {/* <option value=""></option> */}
                                 {states.map((item) => (
                                   <option value={item.id}>{item.name}</option>
@@ -500,8 +496,7 @@ function EmployeeComponypostjobs() {
                                 name="selectedCity"
                                 className="custom-select"
                                 value={postAJobData.selectedCity}
-                                onChange={handleChange}
-                              >
+                                onChange={handleChange}>
                                 {/* <option value=""></option> */}
 
                                 {cities.map((item) => (
@@ -523,8 +518,7 @@ function EmployeeComponypostjobs() {
                                 name="jobType"
                                 id="jobType"
                                 value={postAJobData.jobType}
-                                onChange={handleChange}
-                              >
+                                onChange={handleChange}>
                                 {jobType.map(
                                   (item) => (
                                     console.log(item),
@@ -617,8 +611,7 @@ function EmployeeComponypostjobs() {
                         style={{
                           backgroundColor: "#edf3f8",
                           borderRadius: "7px",
-                        }}
-                      >
+                        }}>
                         <div className="d-flex justify-content-end ">
                           <FaX
                             className="outline-none p-0 border-0 f"
@@ -641,8 +634,7 @@ function EmployeeComponypostjobs() {
                               aiJobDescription();
                             }}
                             className="py-3 "
-                            style={{ borderRadius: "50px", fontWeight: "600" }}
-                          >
+                            style={{ borderRadius: "50px", fontWeight: "600" }}>
                             Write With AI
                           </Button>
                         </div>
@@ -699,8 +691,7 @@ function EmployeeComponypostjobs() {
                           />
                           <label
                             class="custom-control-label"
-                            for="check1"
-                          ></label>
+                            for="check1"></label>
                         </div>
                         <div style={{ color: "#9d9d9d" }}>
                           Filter out and send rejections to applicants who don't
@@ -715,18 +706,15 @@ function EmployeeComponypostjobs() {
                       style={{
                         display: "flex",
                         gap: 10,
-                      }}
-                    >
+                      }}>
                       <button
                         onClick={postCompleted}
-                        className="site-button d-flex justify-content-center align-items-center"
-                      >
+                        className="site-button d-flex justify-content-center align-items-center">
                         Pending
                       </button>
                       <button
                         // onClick={handleAddSkill}
-                        className="site-button d-flex justify-content-center align-items-center"
-                      >
+                        className="site-button d-flex justify-content-center align-items-center">
                         Pending
                       </button>
                     </div>

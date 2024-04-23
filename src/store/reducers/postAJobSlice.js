@@ -64,9 +64,7 @@ const postAJobSlice = createSlice({
       console.log(category, "category in slice file");
       const questions =
         state.selectedScreeningQuestions.screen_question_keywords;
-      if (questions === null) {
-        return;
-      } else {
+      
         const index =
           state.selectedScreeningQuestions.screen_question_keywords.findIndex(
             (item) => item.id === category.id
@@ -83,7 +81,7 @@ const postAJobSlice = createSlice({
             1
           );
         }
-      }
+      
     },
     setSelctedScreeningQuestionGet: (state, action) => {
       console.log(action.payload, "item");
