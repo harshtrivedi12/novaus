@@ -35,6 +35,7 @@ function EmployeeComponypostjobs() {
     setSuggestions(false);
   };
 
+
   function renderSection(text) {
     const htmlText = text
       .split("\n\n")
@@ -346,7 +347,30 @@ function EmployeeComponypostjobs() {
     const { name, value } = e.target;
 
     dispatch(setPostAJobData({ ...postAJobData, [name]: value }));
+
+
+    if (name === "jobTitle") {
+      // Validate  allow only characters
+      if (!/^[a-zA-Z\s]*$/.test(value)) {
+        setErrors({ ...errors, jobTitle: "Please add only characters." });
+      } else {
+        setErrors({ ...errors, jobTitle: "" });
+      }
+    } else if (name === "company") {
+      if (!/^[a-zA-Z\s]*$/.test(value)) {
+        setErrors({ ...errors, company: "Please add only characters." });
+      } else {
+        setErrors({ ...errors, company: "" });
+      }
+    }
+
+
+    dispatch(setPostAJobData({ ...postAJobData, [name]: value }));
   };
+  const [errors, setErrors] = useState({
+    jobTitle: '',
+    company: '',
+  });
   console.log(countries, "ciosda");
   return (
     <>
@@ -384,6 +408,9 @@ function EmployeeComponypostjobs() {
                               onChange={handleChange}
                             />
                           </div>
+                          {errors.jobTitle && (
+                            <p className="text-danger">{errors.jobTitle}</p>
+                          )}
                         </div>
                         <div className="col-12 ">
                           <div className="form-group">
@@ -398,6 +425,9 @@ function EmployeeComponypostjobs() {
                               onChange={handleChange}
                             />
                           </div>
+                          {errors.company && (
+                            <p className="text-danger">{errors.company}</p>
+                          )}
                         </div>
                         {/* <div className="col-12">
                           <div className="form-group">

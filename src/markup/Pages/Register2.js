@@ -30,6 +30,7 @@ function Register2(props) {
   const [percentage, setPercentage] = useState();
   const navigate = useNavigate();
   const [resumeUrl, setResumeUrl] = useState("");
+  const [showPassword, setShowPassword] = useState(false); 
   function handleChange(event) {
     setFile(event.target.files[0]);
   }
@@ -234,13 +235,24 @@ function Register2(props) {
                             </div>
                           </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <input
-                              value={password}
-                              className="form-control"
-                              defaultValue="Password"
-                              placeholder="Password"
-                              onChange={(e) => setPassword(e.target.value)}
-                            />
+                            <div className="input-group d-flex align-items-center">
+                              <span className="input-group-addon position-absolute"
+                                onClick={() => setShowPassword(!showPassword)}
+                                style={{ cursor: 'pointer', right: '0px', zIndex: '11', position: 'absolute' }
+                                }>
+
+                                <i className={showPassword ? "fa fa-eye-slash " : "fa fa-eye"}></i>
+                              </span>
+                              <input
+                                type={showPassword ? "text" : "password"} // Toggle password visibility
+                                className="form-control position-relative"
+                                value={password}
+                                placeholder="Type Your Password"
+                                defaultValue="Password"
+                                onChange={(e) => setPassword(e.target.value)}
+
+                              />
+                            </div>
                             <div className="text-danger">
                               {errors.password && <div>{errors.password}</div>}
                             </div>

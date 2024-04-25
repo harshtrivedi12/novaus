@@ -27,7 +27,95 @@ function Jobprofile() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     dispatch(setJobProfileValues({ ...jobProfileValues, [name]: value }));
+
+
+    if (name === "professional_title") {
+      // Validate professional title: allow only characters
+      if (!/^[a-zA-Z\s]*$/.test(value)) {
+        setErrors({ ...errors, professional_title: "Please add only characters." });
+      } else {
+        setErrors({ ...errors, professional_title: "" });
+      }
+    } else if (name === "phone") {
+      // Validate phone: allow only numeric characters and maximum length of 10
+      if (!/^\d{0,10}$/.test(value)) {
+        setErrors({
+          ...errors,
+          phone: "Please add only numeric value and max length is 10.",
+        });
+      } else {
+        setErrors({ ...errors, phone: "" });
+      }
+    } else if (name === "email") {
+      // Validate email: check for @ symbol
+      if (!value.includes("@")) {
+        setErrors({ ...errors, email: "Please add a valid email address." });
+      } else {
+        setErrors({ ...errors, email: "" });
+      }
+    }
+    else if (name === "first_name") {
+      if (!/^[a-zA-Z\s]*$/.test(value)) {
+        setErrors({ ...errors, first_name: "Please add only characters." });
+      } else {
+        setErrors({ ...errors, first_name: "" });
+      }
+    } else if (name === "last_name") {
+      if (!/^[a-zA-Z\s]*$/.test(value)) {
+        setErrors({ ...errors, last_name: "Please add only characters." });
+      } else {
+        setErrors({ ...errors, last_name: "" });
+      }
+    } else if (name === "languages") {
+      if (!/^[a-zA-Z\s]*$/.test(value)) {
+        setErrors({ ...errors, languages: "Please add only characters." });
+      } else {
+        setErrors({ ...errors, languages: "" });
+      }
+    }
+    else if (name === "age") {
+      // Validate age: allow only numeric characters and maximum length of 10
+      if (!/^\d{0,10}$/.test(value)) {
+        setErrors({
+          ...errors,
+          age: "Please add only numeric value and max length is 10.",
+        });
+      } else {
+        setErrors({ ...errors, age: "" });
+      }
+    } else if (name === "current_salary") {
+      // Validate current_salary: allow only numeric characters and maximum length of 10
+      if (!/^\d{0,10}$/.test(value)) {
+        setErrors({
+          ...errors,
+          current_salary: "Please add only numeric value.",
+        });
+      } else {
+        setErrors({ ...errors, current_salary: "" });
+      }
+    } else if (name === "expected_salary") {
+      // Validate expected_salary: allow only numeric characters and maximum length of 10
+      if (!/^\d{0,10}$/.test(value)) {
+        setErrors({
+          ...errors,
+          expected_salary: "Please add only numeric value.",
+        });
+      } else {
+        setErrors({ ...errors, expected_salary: "" });
+      }
+    }
   };
+  const [errors, setErrors] = useState({
+    professional_title: "",
+    phone: "",
+    email: "",
+    first_name: "",
+    last_name: "",
+    languages: "",
+    age: "",
+    current_salary: "",
+    expected_salary: ""
+  });
   const token = localStorage.getItem("jobSeekerLoginToken");
 
   useEffect(() => {
@@ -295,6 +383,9 @@ function Jobprofile() {
                               // placeholder="Alexander Weir"
                             />
                           </div>
+                          {errors.first_name && (
+                            <p className="text-danger">{errors.first_name}</p>
+                          )}
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
@@ -309,6 +400,9 @@ function Jobprofile() {
                               // placeholder="Alexander Weir"
                             />
                           </div>
+                          {errors.last_name && (
+                            <p className="text-danger">{errors.last_name}</p>
+                          )}
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
@@ -324,7 +418,12 @@ function Jobprofile() {
                               name="professional_title"
                               value={jobProfileValues.professional_title}
                             />
+
+
                           </div>
+                          {errors.professional_title && (
+                            <p className="text-danger">{errors.professional_title}</p>
+                          )}
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
@@ -339,6 +438,9 @@ function Jobprofile() {
                               value={jobProfileValues.languages}
                             />
                           </div>
+                          {errors.languages && (
+                            <p className="text-danger">{errors.languages}</p>
+                          )}
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
@@ -353,6 +455,9 @@ function Jobprofile() {
                               value={jobProfileValues.age}
                             />
                           </div>
+                          {errors.age && (
+                            <p className="text-danger">{errors.age}</p>
+                          )}
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
@@ -369,6 +474,9 @@ function Jobprofile() {
                               value={jobProfileValues.current_salary}
                             />
                           </div>
+                          {errors.current_salary && (
+                            <p className="text-danger">{errors.current_salary}</p>
+                          )}
                         </div>
                         <div className="col-12">
                           <div className="form-group">
@@ -385,6 +493,9 @@ function Jobprofile() {
                               value={jobProfileValues.expected_salary}
                             />
                           </div>
+                          {errors.expected_salary && (
+                            <p className="text-danger">{errors.expected_salary}</p>
+                          )}
                         </div>
                         <div className="col-lg-12 col-md-12">
                           <div className="form-group">
@@ -397,6 +508,7 @@ function Jobprofile() {
                               className="form-control"
                             ></textarea>
                           </div>
+
                         </div>
                       </div>
                       <div className="job-bx-title clearfix">
@@ -417,7 +529,9 @@ function Jobprofile() {
                               onChange={handleChange}
                               value={jobProfileValues.phone}
                             />
+
                           </div>
+                          {errors.phone && <p className="text-danger">{errors.phone}</p>}
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
@@ -432,6 +546,7 @@ function Jobprofile() {
                               value={jobProfileValues.email}
                             />
                           </div>
+                          {errors.email && <p className="text-danger">{errors.email}</p>}
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
