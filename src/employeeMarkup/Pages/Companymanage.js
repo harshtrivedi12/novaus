@@ -34,9 +34,12 @@ function EmployeeCompanymanage() {
     console.log(id, "id");
     axios({
       method: "PUT",
-      url: `https://jobsbooklet.in/api/employeer/job-post/${id}`,
+      url: `http://93.188.167.106:3002/api/employeer/job-post/${id}`,
       headers: {
         Authorization: token,
+      },
+      data: {
+        is_publish: 1,
       },
     })
       .then((response) => {

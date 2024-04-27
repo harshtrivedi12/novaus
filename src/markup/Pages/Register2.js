@@ -138,10 +138,14 @@ function Register2(props) {
           style={{
             backgroundImage: `url(${bnr})`,
             height: "100vh",
-          }}>
+          }}
+        >
           <div className="row">
             <div className="col-xl-6 col-lg-7 col-md-8 col-sm-12 bg-white z-index2 relative p-a0 content-scroll skew-section left-bottom">
-              <div className="login-form style-2" style={{ display: 'flex', flexDirection: 'column' }}>
+              <div
+                className="login-form style-2"
+                style={{ display: "flex", flexDirection: "column" }}
+              >
                 <div className="logo-header text-center p-tb30">
                   {/* <Link to={"./"}><img src={require("./../../images/logo.png")} alt="" /></Link> */}
                   <Link to={"./"}>
@@ -173,10 +177,11 @@ function Register2(props) {
                               onChange={(e) => setFirstName(e.target.value)}
                               className="form-control"
                               placeholder="First Name"
+                              required
                             />
-                            <div className="text-danger">
+                            {/* <div className="text-danger">
                               {errors.email && <div>{errors.email}</div>}
-                            </div>
+                            </div> */}
                           </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <input
@@ -184,10 +189,11 @@ function Register2(props) {
                               onChange={(e) => setLastName(e.target.value)}
                               className="form-control"
                               placeholder="Last Name"
+                              required
                             />
-                            <div className="text-danger">
+                            {/* <div className="text-danger">
                               {errors.email && <div>{errors.email}</div>}
-                            </div>
+                            </div> */}
                           </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <input
@@ -195,10 +201,11 @@ function Register2(props) {
                               onChange={(e) => setCompany(e.target.value)}
                               className="form-control"
                               placeholder="Company"
+                              required
                             />
-                            <div className="text-danger">
+                            {/* <div className="text-danger">
                               {errors.email && <div>{errors.email}</div>}
-                            </div>
+                            </div> */}
                           </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <input
@@ -206,10 +213,11 @@ function Register2(props) {
                               onChange={(e) => setJobTitle(e.target.value)}
                               className="form-control"
                               placeholder="Official Job Title"
+                              required
                             />
-                            <div className="text-danger">
+                            {/* <div className="text-danger">
                               {errors.email && <div>{errors.email}</div>}
-                            </div>
+                            </div> */}
                           </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <input
@@ -217,11 +225,12 @@ function Register2(props) {
                               className="form-control"
                               defaultValue="Password"
                               placeholder="Phone Number"
+                              required
                               onChange={(e) => setPhone(e.target.value)}
                             />
-                            <div className="text-danger">
+                            {/* <div className="text-danger">
                               {errors.password && <div>{errors.password}</div>}
-                            </div>
+                            </div> */}
                           </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <input
@@ -229,19 +238,31 @@ function Register2(props) {
                               onChange={(e) => setEmail(e.target.value)}
                               className="form-control"
                               placeholder="Work Email Address"
+                              required
                             />
-                            <div className="text-danger">
+                            {/* <div className="text-danger">
                               {errors.email && <div>{errors.email}</div>}
-                            </div>
+                            </div> */}
                           </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div className="input-group d-flex align-items-center">
-                              <span className="input-group-addon position-absolute"
+                              <span
+                                className="input-group-addon position-absolute"
                                 onClick={() => setShowPassword(!showPassword)}
-                                style={{ cursor: 'pointer', right: '0px', zIndex: '11', position: 'absolute' }
-                                }>
-
-                                <i className={showPassword ? "fa fa-eye-slash " : "fa fa-eye"}></i>
+                                style={{
+                                  cursor: "pointer",
+                                  right: "0px",
+                                  zIndex: "11",
+                                  position: "absolute",
+                                }}
+                              >
+                                <i
+                                  className={
+                                    showPassword
+                                      ? "fa fa-eye-slash "
+                                      : "fa fa-eye"
+                                  }
+                                ></i>
                               </span>
                               <input
                                 type={showPassword ? "text" : "password"} // Toggle password visibility
@@ -250,12 +271,12 @@ function Register2(props) {
                                 placeholder="Type Your Password"
                                 defaultValue="Password"
                                 onChange={(e) => setPassword(e.target.value)}
-
+                                required
                               />
                             </div>
-                            <div className="text-danger">
+                            {/* <div className="text-danger">
                               {errors.password && <div>{errors.password}</div>}
-                            </div>
+                            </div> */}
                           </div>
                           <div className="form-group text-left ">
                             {/* <button
@@ -270,12 +291,16 @@ function Register2(props) {
                                 className="custom-control-input"
                                 id="check1"
                                 name="example1"
+                                required
                               />
                               <label
                                 className="custom-control-label"
                                 htmlFor="check1"
                               >
-                                I confirm I represent HR/Personnel, Recruiting, Marketing, PR, or am an executive at my company and I agree to Glassdoor's Terms of Use and acknowledge its Privacy Policy on behalf of my company
+                                I confirm I represent HR/Personnel, Recruiting,
+                                Marketing, PR, or am an executive at my company
+                                and I agree to Terms of Use and acknowledge its
+                                Privacy Policy on behalf of my company
                               </label>
                             </span>
                             <span className="custom-control custom-checkbox mt-3">
@@ -284,12 +309,14 @@ function Register2(props) {
                                 className="custom-control-input"
                                 id="check2"
                                 name="example2"
+                                required
                               />
                               <label
                                 className="custom-control-label"
                                 htmlFor="check2"
                               >
-                                Click here if you do not want to receive marketing emails from Glassdoor and affiliates
+                                Click here if you do not want to receive
+                                marketing emails from affiliates
                               </label>
                             </span>
                             {/* <Link
@@ -342,7 +369,6 @@ function Register2(props) {
                             className="site-button dz-xs-flex m-r5"
                           >
                             Create Account
-
                           </button>
                         </div>
                       </form>
@@ -354,7 +380,6 @@ function Register2(props) {
                           Sign In
                         </Link>
                       </div> */}
-
                     </div>
                   </div>
                 ) : (
@@ -367,6 +392,7 @@ function Register2(props) {
                               type="file"
                               onChange={handleChange}
                               className="form-control"
+                              accept=".pdf, .doc, .docx"
                             />
                           </div>
                           <p>{percentage}</p>
@@ -407,7 +433,8 @@ function Register2(props) {
                             onClick={(e) => {
                               runAi(e);
                             }}
-                            className="site-button dz-xs-flex m-r5">
+                            className="site-button dz-xs-flex m-r5"
+                          >
                             {runAiButton}
                           </button>
                         )}
@@ -422,7 +449,9 @@ function Register2(props) {
                       © Copyright by{" "} */}
                       {/* <i className="fa fa-heart m-lr5 text-red heart"></i> */}
                       Already have an account ?
-                      <a class="site-button-link " href="/user/login"><i class="fa fa-unlock-alt"></i> Sign In</a>
+                      <a class="site-button-link " href="/user/login">
+                        <i class="fa fa-unlock-alt"></i> Sign In
+                      </a>
                     </span>
                   </div>
                 </div>

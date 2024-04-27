@@ -64,7 +64,7 @@ function EmployeeBrowsecandidates() {
       },
     })
       .then((res) => {
-        dispatch(setBrowseCandidateData(res.data.data));
+        dispatch(setBrowseCandidateData(res.data.data || []));
         setShowSkeleton(false);
       })
       .catch((err) => console.log(err));
@@ -258,7 +258,7 @@ function EmployeeBrowsecandidates() {
           <PageTitle motherName="Home" activeName="Browse Candidates" />
         </div>
         <Jobfindbox />
-        {browseCandidateData.length !== 0 ? (
+        {browseCandidateData ? (
           <div className="content-block">
             <div className="section-full bg-white browse-job p-b50">
               {showSkeleton === true ? (
@@ -270,7 +270,7 @@ function EmployeeBrowsecandidates() {
                   <div className="row">
                     <div className="col-xl-4 col-lg-5 m-b30">
                       <div className="sticky-top">
-                        {jobApplicationData ? (
+                        {browseCandidateData ? (
                           <div className="candidate-info company-info">
                             <ul
                               className="job-list-container"

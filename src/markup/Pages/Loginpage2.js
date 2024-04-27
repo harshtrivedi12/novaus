@@ -79,15 +79,9 @@ function Login(props) {
                   <ul className="list-inline m-a0">
                     <li>
                       <Link to={""} className="m-r10 text-white ">
-                        <i className="fa fa-google-plus"></i>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to={""} className="m-r10 text-white ">
                         <i className="fa fa-linkedin"></i>
                       </Link>
                     </li>
-
                   </ul>
                 </div>
               </div>
@@ -128,12 +122,21 @@ function Login(props) {
                       <div className="form-group">
                         <label>Password *</label>
                         <div className="input-group d-flex align-items-center">
-                          <span className="input-group-addon position-absolute"
+                          <span
+                            className="input-group-addon position-absolute"
                             onClick={() => setShowPassword(!showPassword)}
-                            style={{ cursor: 'pointer', right: '0px', zIndex: '11', position: 'absolute' }
-                            }>
-
-                            <i className={showPassword ? "fa fa-eye-slash " : "fa fa-eye"}></i>
+                            style={{
+                              cursor: "pointer",
+                              right: "0px",
+                              zIndex: "11",
+                              position: "absolute",
+                            }}
+                          >
+                            <i
+                              className={
+                                showPassword ? "fa fa-eye-slash " : "fa fa-eye"
+                              }
+                            ></i>
                           </span>
                           <input
                             type={showPassword ? "text" : "password"} // Toggle password visibility
@@ -141,7 +144,6 @@ function Login(props) {
                             value={password}
                             placeholder="Type Your Password"
                             onChange={(e) => setPassword(e.target.value)}
-
                           />
                         </div>
 
@@ -172,13 +174,6 @@ function Login(props) {
                               target="bank"
                             ></Link>
                           </li>
-                          <li>
-                            <Link
-                              to={""}
-                              className="fa fa-google-plus  gplus-btn"
-                              target="bank"
-                            ></Link>
-                          </li>
                         </ul>
                       </div>
                       <div className="text-center">
@@ -195,7 +190,6 @@ function Login(props) {
                           <i className="fa fa-unlock-alt"></i> Sign up
                         </Link>
                       </div>
-
                     </form>
                     <div className="form-group text-center">
                       <Link
@@ -215,12 +209,17 @@ function Login(props) {
           <div className="container">
             <div className="row">
               <div className="col-lg-12 text-center">
-                <span className="float-left">
+                <span className="float-left text-white">
                   © Copyright by{" "}
                   <i className="fa fa-heart m-lr5 text-red heart"></i>
-                  <Link to={"#"}>Nova Jobs </Link>{" "}
+                  <span className="text-white">Nova Jobs </span>
+                  <Link style={{ color: "white" }} to={"#"}>
+                    Powered By Hyper V Solutions
+                  </Link>
                 </span>
-                <span className="float-right">All rights reserved.</span>
+                <span className="float-right text-white">
+                  All rights reserved.
+                </span>
               </div>
             </div>
           </div>

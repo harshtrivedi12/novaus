@@ -25,7 +25,7 @@ function Homepage() {
               <div className="mr-auto">
                 <h2 className="m-b5">Popular Categories</h2>
                 <h6 className="fw3">
-                  8+ Catetories wating for your application
+                  8+ Catetories waiting for your application
                 </h6>
               </div>
               <div className="head-counter-bx">

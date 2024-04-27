@@ -6,7 +6,7 @@ import axios from "axios";
 import FixedHeader from "../Layout/fixedHeader";
 import moment from "moment";
 import JobPageSkeleton from "../skeleton/jobPage";
-
+import noDataFound from "../../images/nodata.png";
 const postBlog = [
   { title: "PHP Web Developer" },
   { title: "Software Developer" },
@@ -26,11 +26,11 @@ function Jobsappliedjob() {
       },
     })
       .then((response) => {
-        console.log(response.data.data);
+        console.log(response.data.data, "jobapplied");
         setData(response.data.data);
         setSkeleton(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err, "job applied"));
   }, []);
 
   return (
@@ -141,46 +141,48 @@ function Jobsappliedjob() {
                   {skeleton === true ? (
                     <JobPageSkeleton />
                   ) : (
-                    <ul className="post-job-bx browse-job">
-                      {data.map((item, index) => {
-                        const formattedCreatedDate = moment(
-                          item.job_detail.created_at
-                        ).fromNow();
+                    <div>
+                      {data ? (
+                        <ul className="post-job-bx browse-job">
+                          {data.map((item, index) => {
+                            const formattedCreatedDate = moment(
+                              item.job_detail.created_at
+                            ).fromNow();
 
-                        return (
-                          <li key={index}>
-                            <div className="post-bx">
-                              <div className="job-post-info m-a0">
-                                <h4>
-                                  <Link to={"/user/job-detail"}>
-                                    {item.job_detail.job_title}
-                                  </Link>
-                                </h4>
-                                <ul>
-                                  {item.countries.name ||
-                                  item.states.name ||
-                                  item.cities.name ? (
-                                    <li>
-                                      <i className="fa fa-map-marker"></i>{" "}
-                                      {item.countries.name}, {item.states.name},
-                                      {item.cities.name}
-                                    </li>
-                                  ) : null}
-                                  {item.job_category.name ? (
-                                    <li>
-                                      <i className="fa fa-bookmark-o"></i>{" "}
-                                      {item.job_category.name}
-                                    </li>
-                                  ) : null}
-                                  {item.job_type.name ? (
-                                    <li>{item.job_type.name}</li>
-                                  ) : null}
-                                  {item.job_workplace_types.name ? (
-                                    <li>{item.job_workplace_types.name}</li>
-                                  ) : null}
-                                </ul>
-                                {/* <p>{item.job_detail.job_description}</p> */}
-                                {/* <ul>
+                            return (
+                              <li key={index}>
+                                <div className="post-bx">
+                                  <div className="job-post-info m-a0">
+                                    <h4>
+                                      <Link to={"/user/job-detail"}>
+                                        {item.job_detail.job_title}
+                                      </Link>
+                                    </h4>
+                                    <ul>
+                                      {item.countries.name ||
+                                      item.states.name ||
+                                      item.cities.name ? (
+                                        <li>
+                                          <i className="fa fa-map-marker"></i>{" "}
+                                          {item.countries.name},{" "}
+                                          {item.states.name},{item.cities.name}
+                                        </li>
+                                      ) : null}
+                                      {item.job_category.name ? (
+                                        <li>
+                                          <i className="fa fa-bookmark-o"></i>{" "}
+                                          {item.job_category.name}
+                                        </li>
+                                      ) : null}
+                                      {item.job_type.name ? (
+                                        <li>{item.job_type.name}</li>
+                                      ) : null}
+                                      {item.job_workplace_types.name ? (
+                                        <li>{item.job_workplace_types.name}</li>
+                                      ) : null}
+                                    </ul>
+                                    {/* <p>{item.job_detail.job_description}</p> */}
+                                    {/* <ul>
       <li>
         <Link to={"/user/company-profile"}>
           @company-name
@@ -194,39 +196,49 @@ function Jobsappliedjob() {
         <i className="fa fa-money"></i> 25,000
       </li>
     </ul> */}
-                                <div className="job-time m-t15 m-b10">
-                                  {item.job_detail.skills_arr ? (
-                                    <div>
-                                      {item.job_detail.skills_arr.map(
-                                        (item, index) => {
-                                          return (
-                                            <span key={index}>{item}</span>
-                                          );
-                                        }
-                                      )}
+                                    <div className="job-time m-t15 m-b10">
+                                      {item.job_detail.skills_arr ? (
+                                        <div>
+                                          {item.job_detail.skills_arr.map(
+                                            (item, index) => {
+                                              return (
+                                                <span key={index}>{item}</span>
+                                              );
+                                            }
+                                          )}
+                                        </div>
+                                      ) : null}
                                     </div>
-                                  ) : null}
+                                    <div className="posted-info clearfix">
+                                      <p className="m-tb0 text-primary float-left">
+                                        <span className="text-black m-r10">
+                                          Posted:
+                                        </span>{" "}
+                                        {formattedCreatedDate}
+                                      </p>
+                                      <Link
+                                        to={"/jobs-my-resume"}
+                                        className="site-button button-sm float-right"
+                                      >
+                                        Job Details
+                                      </Link>
+                                    </div>
+                                  </div>
                                 </div>
-                                <div className="posted-info clearfix">
-                                  <p className="m-tb0 text-primary float-left">
-                                    <span className="text-black m-r10">
-                                      Posted:
-                                    </span>{" "}
-                                    {formattedCreatedDate}
-                                  </p>
-                                  <Link
-                                    to={"/jobs-my-resume"}
-                                    className="site-button button-sm float-right"
-                                  >
-                                    Job Details
-                                  </Link>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                        );
-                      })}
-                    </ul>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      ) : (
+                        <div className="d-flex w-100  justify-content-center ">
+                          <img
+                            src={noDataFound}
+                            alt="no data found"
+                            style={{ width: "400px" }}
+                          />
+                        </div>
+                      )}
+                    </div>
                   )}
 
                   <div className="pagination-bx m-t30">
