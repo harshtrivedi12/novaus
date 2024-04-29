@@ -122,33 +122,39 @@ const AddScreening = () => {
   return (
     <div>
       <div>
-        {screeningQuestions.map((category, index) => (
-          <div key={index}>
-            {expanded[category.name] && (
-              <div>
-                {category.screen_questions.map((question, qIndex) => (
-                  <div key={qIndex}>
-                    <label className="mt-4">{question.name}</label>
+        {screeningQuestions.map(
+          (category, index) => (
+            console.log(category),
+            (
+              <div key={index}>
+                {expanded[category.name] && (
+                  <div>
+                    {category.screen_questions.map((question, qIndex) => (
+                      <div key={qIndex}>
+                        <label className="mt-4">{question.name}</label>
 
-                    {question.screen_questions_options.map((item) => (
-                      <div className="custom-control custom-checkbox">
-                        <label className="custom-control-label">
-                          {item.option}
-                        </label>
+                        {question.screen_questions_options.map((item) => (
+                          <div className="custom-control custom-checkbox">
+                            <label className="custom-control-label">
+                              {item.option}
+                            </label>
+                          </div>
+                        ))}
                       </div>
                     ))}
                   </div>
-                ))}
+                )}
               </div>
-            )}
-          </div>
-        ))}
+            )
+          )
+        )}
       </div>
       <div style={{ marginTop: "20px" }}>
         {screeningQuestions.map((category, index) => (
           <div
             key={index}
-            style={{ display: "inline-block", marginRight: "10px" }}>
+            style={{ display: "inline-block", marginRight: "10px" }}
+          >
             <button
               className="d-flex justify-content-center align-items-center"
               onClick={() => {
@@ -173,7 +179,8 @@ const AddScreening = () => {
                 borderColor: "#9d9d9d",
                 cursor: "pointer",
                 outline: "none",
-              }}>
+              }}
+            >
               {expanded[category.name] ? <FaCheck /> : <FaPlus />}{" "}
               <span className="ml-2">{category.name}</span>
             </button>

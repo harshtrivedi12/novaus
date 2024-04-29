@@ -118,10 +118,11 @@ function Jobprofile() {
   });
   const token = localStorage.getItem("jobSeekerLoginToken");
 
-  useEffect(() => {
+
+  const getReq = () => {
     axios({
       method: "GET",
-      url: "https://jobsbooklet.in/api/jobseeker/user-profile",
+      url: "https://novajobs.us/api/jobseeker/user-profile",
       headers: {
         Authorization: token,
       },
@@ -151,6 +152,9 @@ function Jobprofile() {
       .catch((err) => {
         console.log(err);
       });
+  };
+  useEffect(() => {
+    getReq();
   }, []);
 
   const handleSubmit = (e) => {
@@ -174,7 +178,7 @@ function Jobprofile() {
     e.preventDefault();
     axios({
       method: "PUT",
-      url: "https://jobsbooklet.in/api/jobseeker/user-profile",
+      url: "https://novajobs.us/api/jobseeker/user-profile",
       headers: {
         Authorization: token,
       },
@@ -182,6 +186,7 @@ function Jobprofile() {
     })
       .then((response) => {
         console.log(response);
+        getReq();
       })
       .catch((err) => {
         console.log(err);
@@ -216,7 +221,6 @@ function Jobprofile() {
     })
       .then((response) => {
         let country = response.data.data;
-        console.log(country, "countries");
         setCountries(country);
       })
       .catch((err) => {
@@ -224,7 +228,6 @@ function Jobprofile() {
         setCities([]);
       });
   };
-  console.log(jobProfileValues.country_id, "countrtyid");
 
   const getState = () => {
     axios({
@@ -235,7 +238,6 @@ function Jobprofile() {
       },
     })
       .then((response) => {
-        console.log(response.data.data, "STATE");
         setStates(response.data.data);
       })
       .catch((err) => {
@@ -254,7 +256,6 @@ function Jobprofile() {
       },
     })
       .then((response) => {
-        console.log(response, "CITY");
         setCities(response.data.data);
       })
       .catch((err) => {

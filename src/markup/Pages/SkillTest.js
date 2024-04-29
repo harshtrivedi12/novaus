@@ -159,7 +159,7 @@ function SkillTest() {
                                 <span>Job Alerts</span>
                               </Link>
                             </li>
-                            <li>
+                            {/* <li>
                               <Link to={"/user/jobs-cv-manager"}>
                                 <i
                                   className="fa fa-id-card-o"
@@ -167,7 +167,7 @@ function SkillTest() {
                                 ></i>
                                 <span>CV Manager</span>
                               </Link>
-                            </li>
+                            </li> */}
                             <li>
                               <Link to={"/user/skill-test"} className="active">
                                 <i
@@ -244,6 +244,71 @@ function SkillTest() {
                                   onClick={() => handleViewDetails(card)}>
                                   View Details
                                 </button> */}
+                                    </div>
+                                    <div
+                                      className="d-flex flex-wrap  align-items-center justify-content-center "
+                                      style={{ gap: "7px" }}
+                                    >
+                                      <h3
+                                        style={{
+                                          fontWeight: "600",
+                                          fontSize: "16px",
+                                          marginBottom: "0px",
+                                        }}
+                                      >
+                                        Total Questions :{" "}
+                                        <span style={{ fontWeight: "400" }}>
+                                          {
+                                            card.skill_assessment.results
+                                              .total_question
+                                          }
+                                        </span>
+                                      </h3>
+                                      <h3
+                                        style={{
+                                          fontWeight: "600",
+                                          fontSize: "16px",
+                                          marginBottom: "0px",
+                                        }}
+                                      >
+                                        Right Answers :{" "}
+                                        <span style={{ fontWeight: "400" }}>
+                                          {
+                                            card.skill_assessment.results
+                                              .right_answer
+                                          }
+                                        </span>
+                                      </h3>
+                                      <h3
+                                        style={{
+                                          fontWeight: "600",
+                                          fontSize: "16px",
+                                          marginBottom: "0px",
+                                        }}
+                                      >
+                                        Wrong Answers :{" "}
+                                        <span style={{ fontWeight: "400" }}>
+                                          {
+                                            card.skill_assessment.results
+                                              .wrong_answer
+                                          }
+                                        </span>
+                                      </h3>
+                                      <h3
+                                        style={{
+                                          fontWeight: "600",
+                                          fontSize: "16px",
+                                          marginBottom: "0px",
+                                        }}
+                                      >
+                                        Percentage :{" "}
+                                        <span style={{ fontWeight: "400" }}>
+                                          {
+                                            card.skill_assessment.results
+                                              .Percentage
+                                          }
+                                        </span>
+                                      </h3>
                                     </div>
                                   </div>
                                 </div>

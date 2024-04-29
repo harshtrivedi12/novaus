@@ -425,17 +425,7 @@ function JobPage() {
         console.log(err);
       });
   };
-  // /api/jobseeker/job-lists?title_keywords=software developer&location=Jaipur&workplace_type=1+2+3&job_type=1+2+3&experience_level=1+2+3
-
-  // const url = `https://jobsbooklet.in/api/jobseeker/job-lists?title_keyword=${
-  //   jobApplicationValues.search_input
-  // }&location=Jaipur,${
-  //   jobApplicationValues.country_id === ""
-  //     ? "India"
-  //     : jobApplicationValues.country_id
-  // }&workplace_type=${jobApplicationValues.workplace_type}&job_type=${
-  //   jobApplicationValues.job_type
-  // }&experience_level=${jobApplicationValues.experience_level}`;
+ 
 
   const selectedLocation = localStorage.getItem("selectedLocation");
   const title_keyword = localStorage.getItem("title_keyword");
@@ -449,11 +439,7 @@ function JobPage() {
     params.append("title_keywords", title_keyword);
   }
 
-  // const location =
-  //   jobApplicationValues.country_id === "101"
-  //     ? "India"
-  //     : jobApplicationValues.country;
-  // params.append("location", `${location}`);
+
   if (jobApplicationValues.country_id) {
     params.append("location", jobApplicationValues.country_id);
   } else if (selectedLocation) {

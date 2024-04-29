@@ -7,6 +7,13 @@ import FixedHeader from "../Layout/fixedHeader";
 import moment from "moment";
 import JobPageSkeleton from "../skeleton/jobPage";
 import noDataFound from "../../images/nodata.png";
+import Profilesidebar from "../Element/Profilesidebar";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setJobSeekerAnswer,
+  setScreeningQuestion,
+} from "../../store/reducers/jobApplicationScreeningQues";
+import { Form, Modal, Tab } from "react-bootstrap";
 const postBlog = [
   { title: "PHP Web Developer" },
   { title: "Software Developer" },
@@ -14,7 +21,11 @@ const postBlog = [
 ];
 function Jobsappliedjob() {
   const [skeleton, setSkeleton] = useState(true);
+  const dispatch = useDispatch();
   const [data, setData] = useState([]);
+  const jobApplicationData = useSelector(
+    (state) => state.jobApplicationSlice.jobApplicationData
+  );
   const token = localStorage.getItem("jobSeekerLoginToken");
   useEffect(() => {
     axios({
@@ -32,6 +43,68 @@ function Jobsappliedjob() {
       })
       .catch((err) => console.log(err, "job applied"));
   }, []);
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleSelectJob = (job) => {
+    console.log(job, "selected job");
+    setSelectedJob(job);
+  };
+
+  useEffect(() => {
+    if (selectedJob && selectedJob.screen_questions) {
+      dispatch(setScreeningQuestion(selectedJob.screen_questions));
+    }
+  }, [selectedJob]);
+
+  useEffect(() => {
+    setSelectedJob(jobApplicationData[0]);
+    console.log(jobApplicationData, "error");
+  }, [jobApplicationData]);
+  const screeningQuestion = useSelector(
+    (state) => state.jobApplicationScreeningQues.selectedScreeningQuestions
+  );
+  const [activeTab, setActiveTab] = useState("contact-info");
+  const handleNext = () => {
+    if (activeTab === "contact-info") {
+      setActiveTab("additional-info");
+    } else if (activeTab === "additional-info") {
+      setActiveTab("resume-info");
+    } else if (activeTab === "resume-info") {
+      setActiveTab("immediate-info");
+    }
+  };
+
+  const handlePrev = () => {
+    if (activeTab === "immediate-info") {
+      setActiveTab("resume-info");
+    } else if (activeTab === "resume-info") {
+      setActiveTab("additional-info");
+    } else if (activeTab === "additional-info") {
+      setActiveTab("contact-info");
+    }
+  };
+  console.log(selectedJob?.job_detail?.id, "job id");
+  const handleSubmit = () => {
+    axios({
+      method: "POST",
+      url: "http://93.188.167.106:3001/api/jobseeker/jobs-applied",
+      headers: {
+        Authorization: token,
+      },
+      data: {
+        job_id: selectedJob.job_detail.id,
+        screen_questions: screeningQuestion,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <>
@@ -43,7 +116,7 @@ function Jobsappliedjob() {
           <div className="section-full bg-white p-t50 p-b20">
             <div className="container">
               <div className="row">
-                <div className="col-xl-3 col-lg-4 m-b30">
+                {/* <div className="col-xl-3 col-lg-4 m-b30">
                   <div className="sticky-top">
                     <div className="candidate-info">
                       <ul>
@@ -122,7 +195,8 @@ function Jobsappliedjob() {
                       </ul>
                     </div>
                   </div>
-                </div>
+                </div> */}
+                <Profilesidebar />
                 <div className="col-xl-9 col-lg-8 m-b30 browse-job">
                   <div className="job-bx-title  clearfix">
                     <h5 className="font-weight-700 pull-left text-uppercase">
@@ -209,19 +283,315 @@ function Jobsappliedjob() {
                                         </div>
                                       ) : null}
                                     </div>
-                                    <div className="posted-info clearfix">
-                                      <p className="m-tb0 text-primary float-left">
+                                    <div className="posted-info clearfix d-flex justify-content-between ">
+                                      <p className="m-tb0 text-primary w-50 ">
                                         <span className="text-black m-r10">
                                           Posted:
                                         </span>{" "}
                                         {formattedCreatedDate}
                                       </p>
-                                      <Link
-                                        to={"/jobs-my-resume"}
-                                        className="site-button button-sm float-right"
+                                      <div
+                                        className="d-flex align-items-center  w-50 justify-content-end "
+                                        style={{ gap: "7px" }}
                                       >
-                                        Job Details
-                                      </Link>
+                                        <Link
+                                          to={"/user/jobs-my-resume"}
+                                          className="site-button button-sm float-right"
+                                        >
+                                          Job Details
+                                        </Link>
+                                        <button
+                                          onClick={() => {
+                                            handleShow();
+                                            handleSelectJob(item);
+                                          }}
+                                          className="site-button button-sm float-right"
+                                        >
+                                          Apply
+                                        </button>
+                                        <Modal
+                                          show={show}
+                                          onHide={handleClose}
+                                          backdrop="static"
+                                          keyboard={false}
+                                        >
+                                          <Modal.Header
+                                            closeButton
+                                            style={{ backgroundColor: "#ffff" }}
+                                            className="mt-4"
+                                          >
+                                            <Modal.Title
+                                              style={{ color: "#000" }}
+                                            >
+                                              <p>
+                                                {" "}
+                                                Apply to {selectedJob?.company}
+                                              </p>
+                                            </Modal.Title>
+                                          </Modal.Header>
+                                          <Modal.Body>
+                                            <Tab.Container
+                                              id="tabs-example"
+                                              activeKey={activeTab}
+                                            >
+                                              <div
+                                                style={{
+                                                  fontSize: "20px",
+                                                  paddingBottom: "10px",
+                                                }}
+                                              >
+                                                Screening questions
+                                              </div>
+                                              <Tab.Content>
+                                                <Tab.Pane eventKey="contact-info">
+                                                  <form className="col-12 p-a0">
+                                                    {selectedJob
+                                                      ?.screen_questions
+                                                      ?.screen_question_keywords !==
+                                                    null ? (
+                                                      <div>
+                                                        {selectedJob?.screen_questions?.screen_question_keywords.map(
+                                                          (item, index) => (
+                                                            <div key={index}>
+                                                              <h4>
+                                                                {item.name}
+                                                              </h4>
+                                                              <div>
+                                                                {item?.screen_questions.map(
+                                                                  (
+                                                                    ques,
+                                                                    questionIndex
+                                                                  ) => (
+                                                                    <div
+                                                                      key={
+                                                                        questionIndex
+                                                                      }
+                                                                      style={{
+                                                                        paddingBottom:
+                                                                          "30px",
+                                                                      }}
+                                                                    >
+                                                                      <h5>
+                                                                        {
+                                                                          ques?.name
+                                                                        }
+                                                                      </h5>
+                                                                      {ques?.screen_questions_options.map(
+                                                                        (
+                                                                          option
+                                                                        ) => (
+                                                                          <Form.Check
+                                                                            type="radio"
+                                                                            label={
+                                                                              option.option
+                                                                            }
+                                                                            id={
+                                                                              option.option
+                                                                            }
+                                                                            className="site-button"
+                                                                            name={
+                                                                              ques.name
+                                                                            }
+                                                                            style={{
+                                                                              marginRight:
+                                                                                "30px",
+                                                                              padding:
+                                                                                "10px 30px",
+                                                                            }}
+                                                                            onClick={() => {
+                                                                              dispatch(
+                                                                                setJobSeekerAnswer(
+                                                                                  {
+                                                                                    index:
+                                                                                      index,
+                                                                                    questionIndex:
+                                                                                      questionIndex,
+                                                                                    answer:
+                                                                                      option.option,
+                                                                                  }
+                                                                                )
+                                                                              );
+                                                                            }}
+                                                                          />
+                                                                        )
+                                                                      )}
+                                                                    </div>
+                                                                  )
+                                                                )}
+                                                              </div>
+                                                            </div>
+                                                          )
+                                                        )}
+                                                      </div>
+                                                    ) : null}
+                                                  </form>
+                                                </Tab.Pane>
+                                                <Tab.Pane eventKey="additional-info">
+                                                  {/* Additional Info Form */}
+                                                  <form className="col-12 p-a0">
+                                                    <h6 className="font-weight-600">
+                                                      Additional info
+                                                    </h6>
+                                                    <div class="form-group">
+                                                      <label for="englishProficiency">
+                                                        What is your level of
+                                                        proficiency in English?
+                                                      </label>
+                                                      <select
+                                                        class="form-control"
+                                                        id="englishProficiency"
+                                                        required
+                                                      >
+                                                        <option value="">
+                                                          Select an option
+                                                        </option>
+                                                        <option>
+                                                          Beginner
+                                                        </option>
+                                                        <option>
+                                                          Intermediate
+                                                        </option>
+                                                        <option>
+                                                          Advanced
+                                                        </option>
+                                                        <option>Fluent</option>
+                                                      </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                      <label for="salaryRange">
+                                                        Are you okay with the
+                                                        salary range between 30k
+                                                        - 35K?
+                                                      </label>
+                                                      <select
+                                                        class="form-control"
+                                                        id="salaryRange"
+                                                        required
+                                                      >
+                                                        <option value="">
+                                                          Select an option
+                                                        </option>
+                                                        <option>Yes</option>
+                                                        <option>No</option>
+                                                      </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                      <label for="customerServiceExperience">
+                                                        How many years of
+                                                        Customer Service
+                                                        experience do you
+                                                        currently have?
+                                                      </label>
+                                                      <input
+                                                        type="number"
+                                                        class="form-control"
+                                                        id="customerServiceExperience"
+                                                        placeholder="Enter years of experience"
+                                                        min="0"
+                                                        max="99"
+                                                        required
+                                                      />
+                                                    </div>
+                                                    <div class="form-group">
+                                                      <label for="workLocation">
+                                                        Are you comfortable to
+                                                        work on both Gurgaon and
+                                                        Delhi branches?
+                                                      </label>
+                                                      <select
+                                                        class="form-control"
+                                                        id="workLocation"
+                                                        required
+                                                      >
+                                                        <option value="">
+                                                          Select an option
+                                                        </option>
+                                                        <option>Yes</option>
+                                                        <option>No</option>
+                                                      </select>
+                                                    </div>
+                                                  </form>
+                                                </Tab.Pane>
+                                                <Tab.Pane eventKey="resume-info">
+                                                  {/* Additional Info Form */}
+                                                  <form className="col-12 p-a0">
+                                                    <h6 className="font-weight-600">
+                                                      Resume info
+                                                    </h6>
+                                                    <div class="form-group">
+                                                      <label for="resume">
+                                                        Upload resume (DOC,
+                                                        DOCX, PDF, up to 2 MB)
+                                                      </label>
+                                                      <input
+                                                        type="file"
+                                                        class="form-control-file"
+                                                        id="resume"
+                                                        name="resume"
+                                                        accept=".doc, .docx, .pdf"
+                                                        required
+                                                      />
+                                                      <small class="form-text text-muted">
+                                                        Accepted file types:
+                                                        DOC, DOCX, PDF. Maximum
+                                                        file size: 2 MB.
+                                                      </small>
+                                                    </div>
+                                                  </form>
+                                                </Tab.Pane>
+                                                <Tab.Pane eventKey="immediate-info">
+                                                  <form className="col-12 p-a0">
+                                                    <h6 className="font-weight-600">
+                                                      immediate info
+                                                    </h6>
+
+                                                    <div class="form-group">
+                                                      <label for="immediateStart">
+                                                        We must fill this
+                                                        position urgently. Can
+                                                        you start immediately?
+                                                      </label>
+                                                      <select
+                                                        class="form-control"
+                                                        id="immediateStart"
+                                                        required
+                                                      >
+                                                        <option value="">
+                                                          Select an option
+                                                        </option>
+                                                        <option>Yes</option>
+                                                        <option>No</option>
+                                                      </select>
+                                                    </div>
+                                                  </form>
+                                                </Tab.Pane>
+                                              </Tab.Content>
+                                            </Tab.Container>
+                                          </Modal.Body>
+                                          <Modal.Footer>
+                                            {activeTab !== "contact-info" && (
+                                              <button
+                                                className="site-button mr-2"
+                                                onClick={handlePrev}
+                                              >
+                                                Previous
+                                              </button>
+                                            )}
+                                            {activeTab === "contact-info" && (
+                                              <button
+                                                className="site-button"
+                                                onClick={() => {
+                                                  handleClose();
+                                                  handleSubmit();
+                                                }}
+                                                // onClick={handleClose}
+                                              >
+                                                Submit
+                                              </button>
+                                            )}
+                                          </Modal.Footer>
+                                        </Modal>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>

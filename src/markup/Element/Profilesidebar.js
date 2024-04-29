@@ -37,12 +37,12 @@ function Profilesidebar() {
                 <span>Job Alerts</span>
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to={"/user/jobs-cv-manager"}>
                 <i className="fa fa-id-card-o" aria-hidden="true"></i>
                 <span>CV Manager</span>
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to={"/user/skill-test"}>
                 <i className="fa fa-id-card-o" aria-hidden="true"></i>

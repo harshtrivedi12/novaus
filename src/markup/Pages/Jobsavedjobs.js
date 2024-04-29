@@ -4,6 +4,7 @@ import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import SavedJobs from "./../Element/SavedJobs";
 import FixedHeader from "../Layout/fixedHeader";
+import Profilesidebar from "../Element/Profilesidebar";
 
 function Jobsavedjobs() {
   return (
@@ -16,7 +17,7 @@ function Jobsavedjobs() {
           <div className="section-full bg-white p-t50 p-b20">
             <div className="container">
               <div className="row">
-                <div className="col-xl-3 col-lg-4 m-b30">
+                {/* <div className="col-xl-3 col-lg-4 m-b30">
                   <div className="sticky-top">
                     <div className="candidate-info">
                       <ul>
@@ -57,8 +58,8 @@ function Jobsavedjobs() {
                           </Link>
                         </li>
                         <li>
-                          <Link to={"/user/jobs-cv-manager"}>
-                            <i
+                         <Link to={"/user/jobs-cv-manager"}>
+                             <i
                               className="fa fa-id-card-o"
                               aria-hidden="true"
                             ></i>
@@ -93,7 +94,8 @@ function Jobsavedjobs() {
                       </ul>
                     </div>
                   </div>
-                </div>
+                </div> */}
+                <Profilesidebar />
                 <div className="col-xl-9 col-lg-8 m-b30">
                   <SavedJobs />
                 </div>

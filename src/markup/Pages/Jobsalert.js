@@ -4,6 +4,7 @@ import { Modal } from "react-bootstrap";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import FixedHeader from "../Layout/fixedHeader";
+import Profilesidebar from "../Element/Profilesidebar";
 
 const jobAlert = [
   { id: 1, title: "Social Media Expert", date: "December 15,2018" },
@@ -38,7 +39,8 @@ function Jobsalert() {
           <div className="section-full bg-white p-t50 p-b20">
             <div className="container">
               <div className="row">
-                <div className="col-xl-3 col-lg-4 m-b30">
+                <Profilesidebar />
+                {/* <div className="col-xl-3 col-lg-4 m-b30">
                   <div className="sticky-top">
                     <div className="candidate-info">
                       <ul>
@@ -114,7 +116,7 @@ function Jobsalert() {
                       </ul>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="col-xl-9 col-lg-8 m-b30">
                   <div className="job-bx table-job-bx browse-job clearfix">
                     <div className="job-bx-title clearfix">
