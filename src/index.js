@@ -6,6 +6,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import reportWebVitals from "./reportWebVitals";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import SimpleReactLightbox from "simple-react-lightbox";
 
@@ -15,7 +17,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <App />
+        <GoogleOAuthProvider clientId="976140565294-ouen8r344q4iaeq0ubrbq1e5tmcpkadb.apps.googleusercontent.com">
+          <App />
+        </GoogleOAuthProvider>
       </Router>
     </Provider>
   </React.StrictMode>,

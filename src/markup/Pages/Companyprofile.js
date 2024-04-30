@@ -116,7 +116,7 @@ function Companyprofile() {
   const updateCompanyData = async (e) => {
     axios({
       method: "put",
-      url: `https://jobsbooklet.in/api/employeer/company/1`,
+      url: `https://jobsbooklet.in/api/employeer/company`,
       headers: {
         Authorization: token,
       },

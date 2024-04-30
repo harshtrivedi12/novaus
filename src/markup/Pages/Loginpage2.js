@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Link, Redirect, useNavigate } from "react-router-dom";
@@ -8,10 +6,8 @@ import {
   loginAction,
 } from "../../store/actions/AuthActions";
 
-
 import loginbg from "./../../images/bg6.jpg";
 import axios from "axios";
-
 
 function Login(props) {
   const [email, setEmail] = useState("demo@example.com");
@@ -48,211 +44,205 @@ function Login(props) {
         console.log(err);
       });
   };
-const [html, setHtml] = useState("");
-const handleGoogleLogin = (e) => {
-  e.preventDefault();
-  axios({
-    method: "GET",
-    url: "https://novajobs.us/api/jobseeker/auth/google",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => {
-      console.log(res);
-      setHtml(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+  const [html, setHtml] = useState("");
+  const handleGoogleLogin = (e) => {
+    e.preventDefault();
 
-return (
-  <div className="page-wraper">
-    <div
-      className="page-content bg-white login-style2"
-      style={{
-        backgroundImage: "url(" + loginbg + ")",
-        backgroundSize: "cover",
-      }}
-    >
-      <div className="section-full">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-6 col-md-6 d-flex">
-              <div className="text-white max-w400 align-self-center">
-                <div className="logo">
-                  <Link to={"/"}>
-                    <img
-                      src={require("./../../images/logo/NovaUS.png")}
-                      alt=""
-                    />
-                  </Link>
-                </div>
-                <h2 className="m-b10">Login To You Now</h2>
-                <p className="m-b30">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry has been the industry.
-                </p>
-                <ul className="list-inline m-a0">
-                  <li>
-                    <Link to={""} className="m-r10 text-white ">
-                      <i className="fa fa-linkedin"></i>
+    axios({
+      method: "GET",
+      url: "https://novajobs.us/api/jobseeker/auth/google",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      maxRedirects: 5,
+    })
+      .then((res) => {
+        console.log("Response Data:", res.data);
+        console.log("Response Headers:", res.headers);
+      })
+      .catch((error, res) => {
+        console.error("Error during API request:", error);
+      });
+  };
+
+  return (
+    <div className="page-wraper">
+      <div
+        className="page-content bg-white login-style2"
+        style={{
+          backgroundImage: "url(" + loginbg + ")",
+          backgroundSize: "cover",
+        }}>
+        <div className="section-full">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6 col-md-6 d-flex">
+                <div className="text-white max-w400 align-self-center">
+                  <div className="logo">
+                    <Link to={"/"}>
+                      <img
+                        src={require("./../../images/logo/NovaUS.png")}
+                        alt=""
+                      />
                     </Link>
-                  </li>
-                </ul>
+                  </div>
+                  <h2 className="m-b10">Login To You Now</h2>
+                  <p className="m-b30">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry has been the industry.
+                  </p>
+                  <ul className="list-inline m-a0">
+                    <li>
+                      <Link to={""} className="m-r10 text-white ">
+                        <i className="fa fa-linkedin"></i>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div className="col-lg-6 col-md-6">
-              <div className="login-2 submit-resume p-a30 seth">
-                <div className="nav">
-                  <form className="col-12 p-a0 ">
-                    <p className="font-weight-600">
-                      If you have an account with us, please log in.
-                    </p>
-                    {props.errorMessage && (
-                      <div className="bg-red-300 text-red-900 border border-red-900 p-1 my-2">
-                        {props.errorMessage}
+              <div className="col-lg-6 col-md-6">
+                <div className="login-2 submit-resume p-a30 seth">
+                  <div className="nav">
+                    <form className="col-12 p-a0 ">
+                      <p className="font-weight-600">
+                        If you have an account with us, please log in.
+                      </p>
+                      {props.errorMessage && (
+                        <div className="bg-red-300 text-red-900 border border-red-900 p-1 my-2">
+                          {props.errorMessage}
+                        </div>
+                      )}
+                      {props.successMessage && (
+                        <div className="bg-green-300 text-green-900 border border-green-900 p-1 my-2">
+                          {props.successMessage}
+                        </div>
+                      )}
+                      <div className="form-group ">
+                        <label>E-Mail Address*</label>
+                        <div className="input-group">
+                          <input
+                            type="email"
+                            className="form-control"
+                            placeholder="Type Your Email Address"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                          />
+                          {errors.email && (
+                            <div className="text-danger fs-12">
+                              {errors.email}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    )}
-                    {props.successMessage && (
-                      <div className="bg-green-300 text-green-900 border border-green-900 p-1 my-2">
-                        {props.successMessage}
-                      </div>
-                    )}
-                    <div className="form-group ">
-                      <label>E-Mail Address*</label>
-                      <div className="input-group">
-                        <input
-                          type="email"
-                          className="form-control"
-                          placeholder="Type Your Email Address"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                        {errors.email && (
+                      <div className="form-group">
+                        <label>Password *</label>
+                        <div className="input-group d-flex align-items-center">
+                          <span
+                            className="input-group-addon position-absolute"
+                            onClick={() => setShowPassword(!showPassword)}
+                            style={{
+                              cursor: "pointer",
+                              right: "0px",
+                              zIndex: "11",
+                              position: "absolute",
+                            }}>
+                            <i
+                              className={
+                                showPassword ? "fa fa-eye-slash " : "fa fa-eye"
+                              }></i>
+                          </span>
+                          <input
+                            type={showPassword ? "text" : "password"} // Toggle password visibility
+                            className="form-control position-relative"
+                            value={password}
+                            placeholder="Type Your Password"
+                            onChange={(e) => setPassword(e.target.value)}
+                          />
+                        </div>
+
+                        {errors.password && (
                           <div className="text-danger fs-12">
-                            {errors.email}
+                            {errors.password}
                           </div>
                         )}
                       </div>
-                    </div>
-                    <div className="form-group">
-                      <label>Password *</label>
-                      <div className="input-group d-flex align-items-center">
-                        <span
-                          className="input-group-addon position-absolute"
-                          onClick={() => setShowPassword(!showPassword)}
-                          style={{
-                            cursor: "pointer",
-                            right: "0px",
-                            zIndex: "11",
-                            position: "absolute",
-                          }}
-                        >
-                          <i
-                            className={
-                              showPassword ? "fa fa-eye-slash " : "fa fa-eye"
-                            }
-                          ></i>
-                        </span>
-                        <input
-                          type={showPassword ? "text" : "password"} // Toggle password visibility
-                          className="form-control position-relative"
-                          value={password}
-                          placeholder="Type Your Password"
-                          onChange={(e) => setPassword(e.target.value)}
-                        />
+                      <div className="form-group text-center">
+                        <Link
+                          data-toggle="tab"
+                          to="/user/email-verification"
+                          className="forget-pass m-l5">
+                          <i className="fa fa-unlock-alt"></i> Forgot Password
+                        </Link>
                       </div>
-
-                      {errors.password && (
-                        <div className="text-danger fs-12">
-                          {errors.password}
-                        </div>
-                      )}
-                    </div>
+                      <div className="dz-social clearfix">
+                        <h5 className="form-title m-t5 pull-left">
+                          Sign In With
+                        </h5>
+                        <ul className="dez-social-icon dez-border pull-right dez-social-icon-lg text-white">
+                          <li>
+                            <Link
+                              to={""}
+                              className="fa fa-linkedin link-btn mr-1"
+                              target="bank"></Link>
+                          </li>
+                          <li onClick={handleGoogleLogin}>
+                            <Link
+                              to={""}
+                              className="fa fa-google link-btn mr-1"
+                              target="bank"></Link>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="text-center">
+                        <button
+                          onClick={handlePostRequest}
+                          className="site-button float-left">
+                          login
+                        </button>
+                        <Link
+                          to="/user/register-2"
+                          className="site-button-link forget-pass m-t15 float-right">
+                          <i className="fa fa-unlock-alt"></i> Sign up
+                        </Link>
+                      </div>
+                    </form>
                     <div className="form-group text-center">
                       <Link
-                        data-toggle="tab"
-                        to="/user/email-verification"
-                        className="forget-pass m-l5"
-                      >
-                        <i className="fa fa-unlock-alt"></i> Forgot Password
+                        to="/user/contact"
+                        className="site-button-link  m-t15 ">
+                        Need help click here
                       </Link>
                     </div>
-                    <div className="dz-social clearfix">
-                      <h5 className="form-title m-t5 pull-left">
-                        Sign In With
-                      </h5>
-                      <ul className="dez-social-icon dez-border pull-right dez-social-icon-lg text-white">
-                        <li>
-                          <Link
-                            to={""}
-                            className="fa fa-linkedin link-btn mr-1"
-                            target="bank"
-                          ></Link>
-                        </li>
-                        <li onClick={handleGoogleLogin}>
-                          <Link
-                            to={""}
-                            className="fa fa-google link-btn mr-1"
-                            target="bank"
-                          ></Link>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="text-center">
-                      <button
-                        onClick={handlePostRequest}
-                        className="site-button float-left"
-                      >
-                        login
-                      </button>
-                      <Link
-                        to="/user/register-2"
-                        className="site-button-link forget-pass m-t15 float-right"
-                      >
-                        <i className="fa fa-unlock-alt"></i> Sign up
-                      </Link>
-                    </div>
-                  </form>
-                  <div className="form-group text-center">
-                    <Link
-                      to="/user/contact"
-                      className="site-button-link  m-t15 "
-                    >
-                      Need help click here
-                    </Link>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <footer className="login-footer">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12 text-center">
-              <span className="float-left text-white">
-                © Copyright by{" "}
-                <i className="fa fa-heart m-lr5 text-red heart"></i>
-                <span className="text-white">Nova Jobs </span>
-                <Link style={{ color: "white" }} to={"#"}>
-                  Powered By Hyper V Solutions
-                </Link>
-              </span>
-              <span className="float-right text-white">
-                All rights reserved.
-              </span>
+        <footer className="login-footer">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12 text-center">
+                <span className="float-left text-white">
+                  © Copyright by{" "}
+                  <i className="fa fa-heart m-lr5 text-red heart"></i>
+                  <span className="text-white">Nova Jobs </span>
+                  <Link style={{ color: "white" }} to={"#"}>
+                    Powered By Hyper V Solutions
+                  </Link>
+                </span>
+                <span className="float-right text-white">
+                  All rights reserved.
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-        {html && <div dangerouslySetInnerHTML={{ __html: html }}></div>}
-      </footer>
+          {html && <div dangerouslySetInnerHTML={{ __html: html }}></div>}
+        </footer>
+      </div>
     </div>
-  </div>
-);
+  );
 }
 
 const mapStateToProps = (state) => {

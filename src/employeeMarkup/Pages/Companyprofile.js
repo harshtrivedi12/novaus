@@ -104,7 +104,7 @@ function EmployeeCompanyprofile() {
   const updateCompanyData = async (e) => {
     axios({
       method: "put",
-      url: `https://jobsbooklet.in/api/employeer/company/1`,
+      url: `https://jobsbooklet.in/api/employeer/company`,
       headers: {
         Authorization: token,
       },
@@ -196,8 +196,7 @@ function EmployeeCompanyprofile() {
                       </h5>
                       <Link
                         to={"/employee/company-profile"}
-                        className="site-button right-arrow button-sm float-right"
-                      >
+                        className="site-button right-arrow button-sm float-right">
                         Back
                       </Link>
                     </div>
@@ -283,8 +282,7 @@ function EmployeeCompanyprofile() {
                               onChange={(e) => {
                                 setIndustry(e.target.value);
                               }}
-                              value={industry}
-                            >
+                              value={industry}>
                               <option>Web Designer</option>
                               <option>Web Developer1</option>
                             </Form.Control>
@@ -299,8 +297,7 @@ function EmployeeCompanyprofile() {
                               onChange={(e) => {
                                 setDescription(e.target.value);
                               }}
-                              value={description}
-                            ></textarea>
+                              value={description}></textarea>
                           </div>
                         </div>
                       </div>
@@ -333,8 +330,7 @@ function EmployeeCompanyprofile() {
                               value={selectedCountry}
                               onChange={(e) =>
                                 setSelectedCountry(e.target.value)
-                              }
-                            >
+                              }>
                               <option value=""></option>
                               {countries.map((item) => (
                                 <option value={item.id}>{item.name}</option>
@@ -352,8 +348,7 @@ function EmployeeCompanyprofile() {
                                 value={selectedStates}
                                 onChange={(e) =>
                                   setSelectedState(e.target.value)
-                                }
-                              >
+                                }>
                                 <option value=""></option>
                                 {states.map((item) => (
                                   <option value={item.id}>{item.name}</option>
@@ -372,8 +367,7 @@ function EmployeeCompanyprofile() {
                                 value={selectedCities}
                                 onChange={(e) => {
                                   setSelectedCities(e.target.value);
-                                }}
-                              >
+                                }}>
                                 <option value=""></option>
 
                                 {cities.map((item) => (
@@ -512,8 +506,7 @@ function EmployeeCompanyprofile() {
                           e.preventDefault();
 
                           updateCompanyData();
-                        }}
-                      >
+                        }}>
                         Update Setting
                       </button>
                     </form>
