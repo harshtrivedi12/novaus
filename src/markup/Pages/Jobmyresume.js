@@ -10,6 +10,15 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import {
+  Page,
+  View,
+  Document,
+  Text,
+  PDFDownloadLink,
+  Font,
+  StyleSheet,
+} from "@react-pdf/renderer";
+import {
   setCertificationData,
   setCertificationValue,
   setDesiredCareerProfile,
@@ -45,6 +54,11 @@ import ITSkillsComponent from "../jobMyResumeComponents/itSkills";
 import ProjectsComponent from "../jobMyResumeComponents/projects";
 import DesiredCareerComponent from "../jobMyResumeComponents/desiredCareer";
 import PersonalDetailsComponent from "../jobMyResumeComponents/personalDetails";
+import PoppinsRegular from "../../fonts/Poppins/Poppins-Regular.ttf";
+import PoppinsSemibold from "../../fonts/Poppins/Poppins-SemiBold.ttf";
+import PoppinsBold from "../../fonts/Poppins/Poppins-Bold.ttf";
+import PoppinsItalic from "../../fonts/Poppins/Poppins-Italic.ttf";
+import PoppinsBoldItalic from "../../fonts/Poppins/Poppins-BoldItalic.ttf";
 
 var bnr = require("./../../images/banner/bnr1.jpg");
 //var bnr2 = require('./../../images/background/bg3.jpg');
@@ -78,8 +92,8 @@ function Jobmyresume() {
   const desiredCareerProfile = useSelector(
     (state) => state.jobsMyResumeSlice.jobsMyResumeData.desiredCareerProfile
   );
-  const personalDetails = useSelector(
-    (state) => state.jobsMyResumeSlice.jobsMyResumeData.personalDetails
+  const personalDetailsValue = useSelector(
+    (state) => state.jobsMyResumeSlice.jobsMyResumeData.personalDetailsValue
   );
   const attachResumeValue = useSelector(
     (state) => state.jobsMyResumeSlice.jobsMyResumeData.attachResumeValue
@@ -146,6 +160,10 @@ function Jobmyresume() {
     (state) => state.jobsMyResumeSlice.jobsMyResumeData
   );
 
+  const handlePdfLink = () => {
+    console.log("Clicked Successfully");
+  };
+
   // axios req
 
   const getResumeData = async () => {
@@ -157,8 +175,6 @@ function Jobmyresume() {
         "Content-Type": "application/json",
       },
     }).then((res) => {
-      // dispatch(setResumeData(res.data.data.ai_resume_parse_data));
-      console.log(res.data.data.ai_resume_parse_data, "axios req");
       let data = res.data.data.ai_resume_parse_data;
       dispatch(setResumeHeadline(data.jobsMyResumeData.resumeHeadline));
       dispatch(setSkillsData(data.jobsMyResumeData.skillsData));
@@ -566,154 +582,865 @@ function Jobmyresume() {
 
   // certification edit update logic ends
 
-const reqBody = {
-  jobsMyResumeData: {
-    accomplishments: jobsMyResumeData.accomplishments,
-    educationData: jobsMyResumeData.educationData,
-    employmentData: jobsMyResumeData.employmentData,
-    skillsData: jobsMyResumeData.skillsData,
-    resumeHeadline: jobsMyResumeData.resumeHeadline,
-    projectsData: jobsMyResumeData.projectsData,
-    desiredCareerProfile: jobsMyResumeData.desiredCareerProfile,
-    itSkillsData: jobsMyResumeData.itSkillsData,
-    personalDetails: jobsMyResumeData.personalDetailsValue,
-    profileSummaryValue: jobsMyResumeData.profileSummaryValue,
-  },
-};
-
-const handleUpdateResume = () => {
-  axios({
-    method: "PUT",
-    url: "https://jobsbooklet.in/api/jobseeker/resume-update",
-    headers: {
-      Authorization: token,
+  const reqBody = {
+    jobsMyResumeData: {
+      accomplishments: jobsMyResumeData.accomplishments,
+      educationData: jobsMyResumeData.educationData,
+      employmentData: jobsMyResumeData.employmentData,
+      skillsData: jobsMyResumeData.skillsData,
+      resumeHeadline: jobsMyResumeData.resumeHeadline,
+      projectsData: jobsMyResumeData.projectsData,
+      desiredCareerProfile: jobsMyResumeData.desiredCareerProfile,
+      itSkillsData: jobsMyResumeData.itSkillsData,
+      personalDetails: jobsMyResumeData.personalDetailsValue,
+      profileSummaryValue: jobsMyResumeData.profileSummaryValue,
     },
-    data: reqBody,
-  })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-return (
-  <>
-    <Header />
-    <div className="page-content">
-      <FixedHeader />
-      <div className="content-block">
-        <div className="section-full browse-job content-inner-2">
-          <div className="container">
-            <Link
-              to={"/user/jobs-profile/"}
-              className="site-button right-arrow button-sm float-left mt-3"
-            >
-              Back
-            </Link>
-            <div className="row flex-nowrap">
-              <div className="col-xl-3 col-lg-4 col-md-4 col-sm-12 m-b30">
-                <Listingsidebar />
-              </div>
-              {showSkeleton === true ? (
-                <JobPageSkeleton />
-              ) : (
-                <div className="col-xl-9 col-lg-8 col-md-8 col-sm-12">
-                  {resumeHeadline ? (
-                    <div
-                      id="resume_headline_bx"
-                      className=" job-bx bg-white m-b30"
-                    >
-                      <div className="d-flex">
-                        <h5 className="m-b15">Resume Headline</h5>
-                        <Link
-                          to={"#"}
-                          className="site-button add-btn button-sm"
-                          onClick={() => setResume(true)}
-                        >
-                          <i className="fa fa-pencil m-r5"></i> Edit
-                        </Link>
-                      </div>
-                      <p className="m-b0">{resumeHeadline}</p>
+  };
 
-                      <Modal
-                        show={resume}
-                        onHide={setResume}
-                        className="modal fade modal-bx-info editor"
+  const handleUpdateResume = () => {
+    axios({
+      method: "PUT",
+      url: "https://jobsbooklet.in/api/jobseeker/resume-update",
+      headers: {
+        Authorization: token,
+      },
+      data: reqBody,
+    })
+      .then((response) => {})
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const Resume6Download = () => {
+    Font.register({
+      family: "Poppins-regular",
+      src: PoppinsRegular,
+    });
+    Font.register({
+      family: "Poppins-semi",
+      src: PoppinsSemibold,
+    });
+
+    Font.register({
+      family: "Poppins-bold",
+      src: PoppinsBold,
+    });
+    Font.register({
+      family: "Poppins-italic",
+      src: PoppinsItalic,
+    });
+    Font.register({
+      family: "Poppins-boldItalic",
+      src: PoppinsBoldItalic,
+    });
+
+    const styles = StyleSheet.create({
+      mainContainer: {
+        width: "100%",
+        height: "100%",
+        padding: "50px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "7px",
+        fontSize: "9px",
+        lineHeight: 1.5,
+        backgroundColor: "#f0f0f0",
+      },
+      imageValueContainer: {
+        display: "flex",
+        flexDirection: "row",
+        gap: "20px",
+        justifyContent: "space-between",
+      },
+      imageValueBox: {
+        width: "150px",
+        height: "150px",
+        borderRadius: "150px",
+        border: "4px",
+        borderColor: "#3a415c",
+      },
+      imageValue: {
+        width: "100%",
+        height: "100%",
+        objectFit: "fill",
+        borderRadius: "150px",
+      },
+      imageValueContent: {
+        width: "55%",
+        display: "flex",
+        flexDirection: "column",
+        gap: "7px",
+      },
+      withoutImageValueContent: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        gap: "7px",
+      },
+      flexColContainer: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "2px",
+      },
+      name: {
+        fontSize: "22px",
+        fontFamily: "Poppins-bold",
+        color: "#3a415c",
+      },
+      nameJobTitle: {
+        fontSize: "14px",
+        color: "#3a415c",
+        fontFamily: "Poppins-semi",
+      },
+      personalDetailsContainer: {
+        paddingTop: "12px",
+        marginTop: "7px",
+        borderTop: "1px",
+        borderColor: "#3a415c",
+        display: "flex",
+        flexDirection: "column",
+        gap: "4px",
+      },
+      flexRowContainer: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        gap: "4px",
+        flexWrap: "wrap",
+      },
+      mediumText: {
+        fontFamily: "Poppins-semi",
+      },
+
+      flexColumnGap4: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "4px",
+        width: "100%",
+      },
+      headingContainer: {
+        display: "flex",
+        flexDirection: "row",
+        color: "#3a415c",
+        alignItems: "center",
+        gap: "4px",
+        width: "100%",
+      },
+      heading: {
+        fontFamily: "Poppins-semi",
+        width: "50%",
+        fontSize: "12px",
+      },
+      headingLine: {
+        borderTop: "1px",
+        borderColor: "#3a415c",
+        height: "2px",
+        width: "100%",
+      },
+      justifyBetweenContainer: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+      },
+      linkItem: {
+        textDecoration: "underline",
+        color: "black",
+      },
+      normalText: {
+        lineHeight: 1.5,
+        fontSize: "9px",
+      },
+      bold: {
+        fontFamily: "Poppins-bold",
+        marginBottom: "0px",
+      },
+      italic: {
+        fontFamily: "Poppins-italic",
+        marginBottom: "0px",
+      },
+      underline: {
+        textDecoration: "underline",
+        marginBottom: "0px",
+      },
+      boldItalic: {
+        fontFamily: "Poppins-boldItalic",
+        marginBottom: "0px",
+      },
+      listItem: {
+        flexDirection: "row",
+        paddingLeft: "15px",
+      },
+      listItemContent: {
+        flex: 1,
+        textAlign: "left",
+        paddingLeft: 5,
+        fontSize: "9px",
+      },
+      list: {
+        fontSize: "9px",
+      },
+      listStyle: {
+        display: "flex",
+        flexDirection: "row",
+        gap: "4px",
+        alignItems: "center",
+        width: "30%",
+        justifyContent: "center",
+      },
+      bulletPoint: {
+        alignSelf: "flex-start",
+      },
+    });
+
+    const parseInline = (text) => {
+      text = text.replace(/<span class="ql-cursor">.*?<\/span>/g, "");
+
+      const parts = text.split(/(<\/?(?:em|strong|u|br ?\/?)>)/g);
+
+      let combinedStyles = [];
+
+      for (let i = 0; i < parts.length; i++) {
+        let part = parts[i];
+        if (part === "<strong>" || part === "<em>" || part === "<u>") {
+          let nextPart = parts[i + 2];
+          if (
+            (part === "<strong>" && nextPart === "<em>") ||
+            (part === "<em>" && nextPart === "<strong>")
+          ) {
+            combinedStyles.push(
+              <Text key={`bold-italic-${i}`} style={styles.boldItalic}>
+                {parts[i + 3]}
+              </Text>
+            );
+            i += 4;
+          } else if (part === "<strong>") {
+            combinedStyles.push(
+              <Text key={`bold-${i}`} style={styles.bold}>
+                {parts[i + 1]}
+              </Text>
+            );
+            i += 2;
+          } else if (part === "<em>") {
+            combinedStyles.push(
+              <Text key={`italic-${i}`} style={styles.italic}>
+                {parts[i + 1]}
+              </Text>
+            );
+            i += 2;
+          } else if (part === "<u>") {
+            combinedStyles.push(
+              <Text key={`underline-${i}`} style={styles.underline}>
+                {parts[i + 1]}
+              </Text>
+            );
+            i += 2;
+          }
+        } else if (!part.match(/^<\/?(?:em|strong|u|br ?\/?)>$/)) {
+          // It's just text or ignored tags
+          combinedStyles.push(<Text key={`text-${i}`}>{part}</Text>);
+        }
+      }
+
+      return combinedStyles.filter((component) => component != null);
+    };
+
+    const parseHtml = (html) => {
+      const regex =
+        /<p>(.*?)<\/p>|<li>(.*?)<\/li>|<ul>(.*?)<\/ul>|<ol>(.*?)<\/ol>/g;
+      let match;
+      const output = [];
+
+      while ((match = regex.exec(html))) {
+        if (match[1]) {
+          output.push(
+            <Text key={match.index} style={styles.paragraph}>
+              {parseInline(match[1])}
+            </Text>
+          );
+        } else if (match[2]) {
+          output.push(
+            <View key={match.index} style={styles.listItem}>
+              <Text>{"\u2022 "}</Text>
+              {parseInline(match[2])}
+            </View>
+          );
+        } else if (match[3]) {
+          const listItems = match[3];
+          const listItemRegex = /<li>(.*?)<\/li>/g;
+          let listItemMatch;
+          const listContent = [];
+          while ((listItemMatch = listItemRegex.exec(listItems))) {
+            listContent.push(
+              <View key={listItemMatch.index} style={styles.listItem}>
+                <Text>{"\u2022 "}</Text>
+                {parseInline(listItemMatch[1])}
+              </View>
+            );
+          }
+          output.push(
+            <View key={match.index} style={styles.list}>
+              {listContent}
+            </View>
+          );
+        } else if (match[4]) {
+        }
+      }
+      return output;
+    };
+    const ListItem = ({ children }) => (
+      <View style={styles.listItem}>
+        <Text style={styles.bullet}>•</Text>
+        <Text style={styles.text}>{children}</Text>
+      </View>
+    );
+    return (
+      <Document>
+        <Page size="A4" style={styles.mainContainer}>
+          <View style={styles.withoutImageValueContent}>
+            {/* {personalInfoValues.firstName ||
+            personalInfoValues.lastName ||
+            personalInfoValues.jobTitle ? (
+              <View style={styles.flexColContainer}>
+                {personalInfoValues.firstName ||
+                personalInfoValues.lastName ? (
+                  <Text style={styles.name}>
+                    {personalInfoValues.firstName}{" "}
+                    {personalInfoValues.lastName}
+                  </Text>
+                ) : null}
+                {personalInfoValues.jobTitle ? (
+                  <Text style={styles.nameJobTitle}>
+                    {personalInfoValues.jobTitle}
+                  </Text>
+                ) : null}
+              </View>
+            ) : null} */}
+
+
+{resumeHeadline ? 
+
+<View style={styles.flexColumnGap4}>
+  <Text style={styles.heading}>Resume Headline</Text>
+  <Text>{resumeHeadline}</Text>
+</View>
+
+: null}
+
+            {personalDetailsValue.dateofbirth ||
+            personalDetailsValue.gender ||
+            personalDetailsValue.maritalStatus ||
+            personalDetailsValue.passportNumber ||
+            personalDetailsValue.differentlyAbled ||
+            personalDetailsValue.languages ||
+            personalDetailsValue.addPermanentAddress ||
+            personalDetailsValue.areaPinCode ||
+            personalDetailsValue.homeTown ||
+            personalDetailsValue.workPermitOfOtherCountry ? (
+              <View style={styles.personalDetailsContainer}>
+                {personalDetailsValue.dateofbirth ? (
+                  <Text>{personalDetailsValue.dateofbirth}</Text>
+                ) : null}
+                {personalDetailsValue.gender ? (
+                  <Text>{personalDetailsValue.gender}</Text>
+                ) : null}
+
+                {personalDetailsValue.maritalStatus ? (
+                  <View style={styles.flexRowContainer}>
+                    <Text style={styles.mediumText}>Marital Status :</Text>
+                    <Text>{personalDetailsValue.maritalStatus}</Text>
+                  </View>
+                ) : null}
+                {personalDetailsValue.passportNumber ? (
+                  <View style={styles.flexRowContainer}>
+                    <Text style={styles.mediumText}>Passport Number</Text>
+                    <Text>{personalDetailsValue.passportNumber}</Text>
+                  </View>
+                ) : null}
+                {personalDetailsValue.differentlyAbled ||
+                personalDetailsValue.languages ||
+                personalDetailsValue.addPermanentAddress ||
+                personalDetailsValue.areaPinCode ||
+                personalDetailsValue.homeTown ? (
+                  <View style={styles.flexRowContainer}>
+                    <Text style={styles.mediumText}>Details :</Text>
+                    {personalDetailsValue.languages ? (
+                      <Text>{personalDetailsValue.languages}</Text>
+                    ) : null}
+                    {personalDetailsValue.differentlyAbled ? (
+                      <Text>{personalDetailsValue.differentlyAbled}</Text>
+                    ) : null}
+                    {personalDetailsValue.addPermanentAddress ? (
+                      <Text>{personalDetailsValue.addPermanentAddress}</Text>
+                    ) : null}
+                    {personalDetailsValue.areaPinCode ? (
+                      <Text>{personalDetailsValue.areaPinCode}</Text>
+                    ) : null}
+
+                    {personalDetailsValue.homeTown ? (
+                      <Text>{personalDetailsValue.homeTown}</Text>
+                    ) : null}
+                  </View>
+                ) : null}
+                {personalDetailsValue.workPermitOfOtherCountry ? (
+                  <View style={styles.flexRowContainer}>
+                    <Text style={styles.mediumText}>Work Permit</Text>
+                    <Text>{personalDetailsValue.workPermitOfOtherCountry}</Text>
+                  </View>
+                ) : null}
+              </View>
+            ) : null}
+          </View>
+
+          <View style={styles.flexRowContainer}>
+            {desiredCareerProfile.industry ? (
+              <View style={styles.flexColumnGap4}>
+                <Text style={styles.mediumText}>Industry</Text>
+                <Text>{desiredCareerProfile.industry}</Text>
+              </View>
+            ) : null}
+
+            {desiredCareerProfile.role ? (
+              <View style={styles.flexColumnGap4}>
+                <Text style={styles.mediumText}>Role</Text>
+                <Text>{desiredCareerProfile.role}</Text>
+              </View>
+            ) : null}
+
+            {desiredCareerProfile.employmentType ? (
+              <View style={styles.flexColumnGap4}>
+                <Text style={styles.mediumText}>Employment Type</Text>
+                <Text>{desiredCareerProfile.employmentType}</Text>
+              </View>
+            ) : null}
+
+            {desiredCareerProfile.availabilityToJoin ? (
+              <View style={styles.flexColumnGap4}>
+                <Text style={styles.mediumText}>Availability To Join</Text>
+                <Text>{desiredCareerProfile.availabilityToJoin}</Text>
+              </View>
+            ) : null}
+
+            {desiredCareerProfile.desiredLocation ? (
+              <View style={styles.flexColumnGap4}>
+                <Text style={styles.mediumText}>Desired Location</Text>
+                <Text>{desiredCareerProfile.desiredLocation}</Text>
+              </View>
+            ) : null}
+
+            {desiredCareerProfile.functionalArea ? (
+              <View style={styles.flexColumnGap4}>
+                <Text style={styles.mediumText}>Functional Area</Text>
+                <Text>{desiredCareerProfile.functionalArea}</Text>
+              </View>
+            ) : null}
+
+            {desiredCareerProfile.jobType ? (
+              <View style={styles.flexColumnGap4}>
+                <Text style={styles.mediumText}>Job Type</Text>
+                <Text>{desiredCareerProfile.jobType}</Text>
+              </View>
+            ) : null}
+
+            {desiredCareerProfile.desiredShift ? (
+              <View style={styles.flexColumnGap4}>
+                <Text style={styles.mediumText}>Desired Shift</Text>
+                <Text>{desiredCareerProfile.desiredShift}</Text>
+              </View>
+            ) : null}
+
+            {desiredCareerProfile.expectedSalary ? (
+              <View style={styles.flexColumnGap4}>
+                <Text style={styles.mediumText}>Expected Salary</Text>
+                <Text>{desiredCareerProfile.expectedSalary}</Text>
+              </View>
+            ) : null}
+
+            {desiredCareerProfile.desiredIndustry ? (
+              <View style={styles.flexColumnGap4}>
+                <Text style={styles.mediumText}>Desired Industry</Text>
+                <Text>{desiredCareerProfile.desiredIndustry}</Text>
+              </View>
+            ) : null}
+          </View>
+          {profileSummaryValue ? (
+            <View style={styles.flexColumnGap4}>
+              <View style={styles.headingContainer}>
+                <Text style={styles.heading}>CAREER OBJECTIVE</Text>
+                <View style={styles.headingLine}></View>
+              </View>
+              <Text style={styles.normalText}>
+                {profileSummaryValue}
+              </Text>
+            </View>
+          ) : null}
+
+          {educationData ? (
+            <View style={styles.withoutImageValueContent}>
+              <View style={styles.headingContainer}>
+                <Text style={styles.heading}>EDUCATION</Text>
+                <View style={styles.headingLine}></View>
+              </View>
+              {educationData.map((item, index) => {
+                return (
+                  <View key={index} style={styles.flexColumnGap4}>
+                    <View style={styles.justifyBetweenContainer}>
+                      <Text style={styles.mediumText}>
+                        {item.education}, {item.course}
+                      </Text>
+                      <Text>{item.passOutDate}</Text>
+                    </View>
+                    <ListItem>{item.university}</ListItem>
+                  </View>
+                );
+              })}
+            </View>
+          ) : null}
+
+          {employmentData ? (
+            <View style={styles.withoutImageValueContent}>
+              <View style={styles.headingContainer}>
+                <Text style={styles.heading}>WORK EXPERIENCE</Text>
+                <View style={styles.headingLine}></View>
+              </View>
+              {employmentData.map((item, index) => {
+                return (
+                  <View key={index} style={styles.flexColumnGap4}>
+                    <Text style={styles.mediumText}>{item.jobTitle}</Text>
+
+                    <View style={styles.justifyBetweenContainer}>
+                      <Text>{item.copmpany}</Text>
+                      <Text>
+                        {item.jobstartDate} - {item.jobendDate}
+                      </Text>
+                    </View>
+                    <Text style={styles.normalText}>
+                      {item.jobDescription}
+                    </Text>
+                  </View>
+                );
+              })}
+            </View>
+          ) : null}
+
+          {itSkillsData ? (
+            <View style={styles.withoutImageValueContent}>
+              <View style={styles.headingContainer}>
+                <Text style={styles.heading}>IT SKILLS</Text>
+                <View style={styles.headingLine}></View>
+              </View>
+              {itSkillsData.map((item, index) => {
+                return (
+                  <View key={index} style={styles.flexColumnGap4}>
+                    <Text style={styles.mediumText}>{item.skills}</Text>
+
+                    <View style={styles.justifyBetweenContainer}>
+                      <Text>{item.version}</Text>
+                      <Text>{item.lastUsed}</Text>
+                    </View>
+                    <Text style={styles.normalText}>
+                      {item.experience}
+                    </Text>
+                  </View>
+                );
+              })}
+            </View>
+          ) : null}
+
+          {/* {itSkillsData[0] ? (
+          <View style={styles.withoutImageValueContent}>
+            <View style={styles.headingContainer}>
+              <Text style={styles.heading}>SOCIAL LINKS</Text>
+              <View style={styles.headingLine}></View>
+            </View>
+            {websiteData.map((item, index) => {
+              return (
+                <Link key={index} style={styles.linkItem} src={item.link}>
+                  {item.label}
+                </Link>
+              );
+            })}
+          </View>
+        ) : null} */}
+
+          {skillsData ? (
+            <View style={styles.withoutImageValueContent}>
+              <View style={styles.headingContainer}>
+                <Text style={styles.heading}>SKILLS</Text>
+                <View style={styles.headingLine}></View>
+              </View>
+              <View style={styles.flexColumnGap4}>
+                {skillsData.map((item, index) => {
+                  return <ListItem key={index}>{item}</ListItem>;
+                })}
+              </View>
+            </View>
+          ) : null}
+
+          {projectsData ? (
+            <View style={styles.withoutImageValueContent}>
+              <View style={styles.headingContainer}>
+                <Text style={styles.heading}>PROJECTS</Text>
+                <View style={styles.headingLine}></View>
+              </View>
+              {projectsData.map((item, index) => {
+                return (
+                  <View key={index} style={styles.flexColumnGap4}>
+                    <Text style={styles.mediumText}>{item.projectTitle}</Text>
+
+                    <View style={styles.flexRowContainer}>
+                      <Text>{item.clientName}</Text>
+                      <Text>{item.projectStatus}</Text>
+                      <Text>
+                        {item.workStarted} - {item.workedTill}
+                      </Text>
+                    </View>
+                    <Text style={styles.normalText}>
+                      {item.projectDescription}
+                    </Text>
+                  </View>
+                );
+              })}
+            </View>
+          ) : null}
+
+          {onlineProfileData ? (
+            <View style={styles.flexColumnGap4}>
+<Text style={styles.mediumText}>Online Profile Data</Text>
+              <View style={styles.flexRowContainer}>
+              {onlineProfileData.map((item, index) => {
+                return (
+                  <Text style={styles.linkItem} key={index} >
+                    {item.label}
+                  </Text>
+                );
+              })}
+              </View>
+            </View>
+          ) : null}
+
+{workSampleData ? (
+            <View style={styles.flexColumnGap4}>
+<Text style={styles.mediumText}>Work Sample Data</Text>
+              <View style={styles.flexRowContainer}>
+              {workSampleData.map((item, index) => {
+                return (
+                  <Text style={styles.linkItem} key={index} >
+                    {item.label}
+                  </Text>
+                );
+              })}
+              </View>
+            </View>
+          ) : null}
+
+
+{whitePaperData ? (
+            <View style={styles.flexColumnGap4}>
+<Text style={styles.mediumText}>White Paper Data</Text>
+              <View style={styles.flexRowContainer}>
+              {whitePaperData.map((item, index) => {
+                return (
+                  <Text style={styles.linkItem} key={index} >
+                    {item.label}
+                  </Text>
+                );
+              })}
+              </View>
+            </View>
+          ) : null}
+
+
+{presentationData ? (
+            <View style={styles.flexColumnGap4}>
+<Text style={styles.mediumText}>Presentation Data</Text>
+              <View style={styles.flexRowContainer}>
+              {presentationData.map((item, index) => {
+                return (
+                  <Text style={styles.linkItem} key={index} >
+                    {item.label}
+                  </Text>
+                );
+              })}
+              </View>
+            </View>
+          ) : null}
+
+
+{patentData ? (
+            <View style={styles.flexColumnGap4}>
+<Text style={styles.mediumText}>Patent Data</Text>
+              <View style={styles.flexRowContainer}>
+              {patentData.map((item, index) => {
+                return (
+                  <Text style={styles.linkItem} key={index} >
+                    {item.label}
+                  </Text>
+                );
+              })}
+              </View>
+            </View>
+          ) : null}
+
+
+{certificationData ? (
+            <View style={styles.flexColumnGap4}>
+<Text style={styles.mediumText}>Certification Data</Text>
+              <View style={styles.flexRowContainer}>
+              {certificationData.map((item, index) => {
+                return (
+                  <Text style={styles.linkItem} key={index} >
+                    {item.label}
+                  </Text>
+                );
+              })}
+              </View>
+            </View>
+          ) : null}
+
+         
+        </Page>
+      </Document>
+    );
+  };
+  return (
+    <>
+      <Header />
+      <div className="page-content">
+        <FixedHeader />
+        <div className="content-block">
+          <div className="section-full browse-job content-inner-2">
+            <div className="container">
+              <Link
+                to={"/user/jobs-profile/"}
+                className="site-button right-arrow button-sm float-left mt-3"
+              >
+                Back
+              </Link>
+              <div className="row flex-nowrap">
+                <div className="col-xl-3 col-lg-4 col-md-4 col-sm-12 m-b30">
+                  <Listingsidebar />
+                </div>
+                {showSkeleton === true ? (
+                  <JobPageSkeleton />
+                ) : (
+                  <div className="col-xl-9 col-lg-8 col-md-8 col-sm-12">
+                    <div className="w-100 d-flex justify-content-center mb-2 ">
+                      
+                    <PDFDownloadLink
+                      onClick={handlePdfLink}
+                      document={<Resume6Download />}
+                      style={{
+                        textDecoration: "none",
+                        padding: "5px 8px",
+                        color: "black",
+                        fontWeight: 500,
+                        backgroundColor: "white",
+                        border: "1px solid #4A90E2",
+                        borderRadius: "4px",
+                        margin: "10px 0",
+                      }}
                       >
-                        <div className="modal-dialog my-0" role="document">
-                          <div className="modal-content">
-                            <div className="modal-header">
-                              <h5
-                                className="modal-title"
-                                id="ResumeheadlineModalLongTitle"
-                              >
-                                Resume Headline
-                              </h5>
-                              <button
-                                type="button"
-                                className="close"
-                                onClick={() => setResume(false)}
-                              >
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div className="modal-body">
-                              <p>
-                                It is the first thing recruiters notice in your
-                                profile. Write concisely what makes you unique
-                                and right person for the job you are looking
-                                for.
-                              </p>
-                              <form>
-                                <div className="row">
-                                  <div className="col-lg-12 col-md-12">
-                                    <div className="form-group">
-                                      <label htmlFor="resumeHeadline">
-                                        Resume Headline
-                                      </label>
-                                      <textarea
-                                        className="form-control"
-                                        placeholder="Type Description"
-                                        name="resumeHeadline"
-                                        id="resumeHeadline"
-                                        value={resumeHeadline}
-                                        onChange={handleChange}
-                                      ></textarea>
+                      Download PDF
+                    </PDFDownloadLink>
+                      </div>
+                    {resumeHeadline ? (
+                      <div
+                        id="resume_headline_bx"
+                        className=" job-bx bg-white m-b30"
+                      >
+                        <div className="d-flex">
+                          <h5 className="m-b15">Resume Headline</h5>
+                          <Link
+                            to={"#"}
+                            className="site-button add-btn button-sm"
+                            onClick={() => setResume(true)}
+                          >
+                            <i className="fa fa-pencil m-r5"></i> Edit
+                          </Link>
+                        </div>
+                        <p className="m-b0">{resumeHeadline}</p>
+
+                        <Modal
+                          show={resume}
+                          onHide={setResume}
+                          className="modal fade modal-bx-info editor"
+                        >
+                          <div className="modal-dialog my-0" role="document">
+                            <div className="modal-content">
+                              <div className="modal-header">
+                                <h5
+                                  className="modal-title"
+                                  id="ResumeheadlineModalLongTitle"
+                                >
+                                  Resume Headline
+                                </h5>
+                                <button
+                                  type="button"
+                                  className="close"
+                                  onClick={() => setResume(false)}
+                                >
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div className="modal-body">
+                                <p>
+                                  It is the first thing recruiters notice in
+                                  your profile. Write concisely what makes you
+                                  unique and right person for the job you are
+                                  looking for.
+                                </p>
+                                <form>
+                                  <div className="row">
+                                    <div className="col-lg-12 col-md-12">
+                                      <div className="form-group">
+                                        <label htmlFor="resumeHeadline">
+                                          Resume Headline
+                                        </label>
+                                        <textarea
+                                          className="form-control"
+                                          placeholder="Type Description"
+                                          name="resumeHeadline"
+                                          id="resumeHeadline"
+                                          value={resumeHeadline}
+                                          onChange={handleChange}
+                                        ></textarea>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              </form>
-                            </div>
-                            <div className="modal-footer">
-                              <button
-                                type="button"
-                                className="site-button"
-                                onClick={() => setResume(false)}
-                              >
-                                Cancel
-                              </button>
-                              <button type="button" className="site-button">
-                                Save
-                              </button>
+                                </form>
+                              </div>
+                              <div className="modal-footer">
+                                <button
+                                  type="button"
+                                  className="site-button"
+                                  onClick={() => setResume(false)}
+                                >
+                                  Cancel
+                                </button>
+                                <button type="button" className="site-button">
+                                  Save
+                                </button>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </Modal>
+                        </Modal>
+                      </div>
+                    ) : null}
+
+                    <div id="key_skills_bx" className="job-bx bg-white m-b30">
+                      <SkillsComponent />
                     </div>
-                  ) : null}
 
-                  <div id="key_skills_bx" className="job-bx bg-white m-b30">
-                    <SkillsComponent />
-                  </div>
+                    <div id="employment_bx" className="job-bx bg-white m-b30 ">
+                      <EmploymentComponent />
+                    </div>
 
-                  <div id="employment_bx" className="job-bx bg-white m-b30 ">
-                    <EmploymentComponent />
-                  </div>
-
-                  <div id="education_bx" className="job-bx bg-white m-b30">
-                    <EducationComponent />
-                    {/* <Link to={"#"} className="clearfix">
+                    <div id="education_bx" className="job-bx bg-white m-b30">
+                      <EducationComponent />
+                      {/* <Link to={"#"} className="clearfix">
                           Add Doctorate/PhD
                         </Link>
                         <Link to={"#"} className="clearfix">
@@ -722,213 +1449,220 @@ return (
                         <Link to={"#"} className="clearfix">
                           Add Graduation/Diploma
                         </Link> */}
-                  </div>
+                    </div>
 
-                  <div
-                    id="it_skills_bx"
-                    className="job-bx table-job-bx bg-white m-b30"
-                  >
-                    <ITSkillsComponent />
-                  </div>
-
-                  <div id="projects_bx" className="job-bx bg-white m-b30">
-                    <ProjectsComponent />
-                  </div>
-
-                  {profileSummaryValue ? (
                     <div
-                      id="profile_summary_bx"
-                      className="job-bx bg-white m-b30"
+                      id="it_skills_bx"
+                      className="job-bx table-job-bx bg-white m-b30"
                     >
-                      <div className="d-flex">
-                        <h5 className="m-b15">Profile Summary</h5>
-                        <Link
-                          to={"#"}
-                          onClick={() => setProfileSummary(true)}
-                          className="site-button add-btn button-sm"
-                        >
-                          <i className="fa fa-pencil m-r5"></i> Edit
-                        </Link>
-                      </div>
-                      <p className="m-b0">{profileSummaryValue}</p>
+                      <ITSkillsComponent />
+                    </div>
 
-                      <Modal
-                        className="modal fade modal-bx-info editor"
-                        show={profilesummary}
-                        onHide={setProfileSummary}
+                    <div id="projects_bx" className="job-bx bg-white m-b30">
+                      <ProjectsComponent />
+                    </div>
+
+                    {profileSummaryValue ? (
+                      <div
+                        id="profile_summary_bx"
+                        className="job-bx bg-white m-b30"
                       >
-                        <div className="modal-dialog my-0" role="document">
-                          <div className="modal-content">
-                            <div className="modal-header">
-                              <h5 className="modal-title">Profile Summary</h5>
-                              <button
-                                type="button"
-                                className="close"
-                                onClick={() => setProfileSummary(false)}
-                              >
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div className="modal-body">
-                              <p>
-                                Your Profile Summary should mention the
-                                highlights of your career and education, what
-                                your professional interests are, and what kind
-                                of a career you are looking for. Write a
-                                meaningful summary of more than 50 characters.
-                              </p>
-                              <form>
-                                <div className="row">
-                                  <div className="col-lg-12 col-md-12">
-                                    <div className="form-group">
-                                      <label htmlFor="profileSummaryValue">
-                                        Details of Project
-                                      </label>
-                                      <textarea
-                                        className="form-control"
-                                        placeholder="Type Description"
-                                        id="profileSummaryValue"
-                                        name="profileSummaryValue"
-                                        onChange={handleChange}
-                                        value={
-                                          jobsMyResumeData.profileSummaryValue
-                                        }
-                                      ></textarea>
+                        <div className="d-flex">
+                          <h5 className="m-b15">Profile Summary</h5>
+                          <Link
+                            to={"#"}
+                            onClick={() => setProfileSummary(true)}
+                            className="site-button add-btn button-sm"
+                          >
+                            <i className="fa fa-pencil m-r5"></i> Edit
+                          </Link>
+                        </div>
+                        <p className="m-b0">{profileSummaryValue}</p>
+
+                        <Modal
+                          className="modal fade modal-bx-info editor"
+                          show={profilesummary}
+                          onHide={setProfileSummary}
+                        >
+                          <div className="modal-dialog my-0" role="document">
+                            <div className="modal-content">
+                              <div className="modal-header">
+                                <h5 className="modal-title">Profile Summary</h5>
+                                <button
+                                  type="button"
+                                  className="close"
+                                  onClick={() => setProfileSummary(false)}
+                                >
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div className="modal-body">
+                                <p>
+                                  Your Profile Summary should mention the
+                                  highlights of your career and education, what
+                                  your professional interests are, and what kind
+                                  of a career you are looking for. Write a
+                                  meaningful summary of more than 50 characters.
+                                </p>
+                                <form>
+                                  <div className="row">
+                                    <div className="col-lg-12 col-md-12">
+                                      <div className="form-group">
+                                        <label htmlFor="profileSummaryValue">
+                                          Details of Project
+                                        </label>
+                                        <textarea
+                                          className="form-control"
+                                          placeholder="Type Description"
+                                          id="profileSummaryValue"
+                                          name="profileSummaryValue"
+                                          onChange={handleChange}
+                                          value={
+                                            jobsMyResumeData.profileSummaryValue
+                                          }
+                                        ></textarea>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              </form>
-                            </div>
-                            <div className="modal-footer">
-                              <button
-                                type="button"
-                                className="site-button"
-                                onClick={() => setProfileSummary(false)}
-                              >
-                                Cancel
-                              </button>
-                              <button
-                                onClick={() => setProfileSummary(false)}
-                                type="button"
-                                className="site-button"
-                              >
-                                Save
-                              </button>
+                                </form>
+                              </div>
+                              <div className="modal-footer">
+                                <button
+                                  type="button"
+                                  className="site-button"
+                                  onClick={() => setProfileSummary(false)}
+                                >
+                                  Cancel
+                                </button>
+                                <button
+                                  onClick={() => setProfileSummary(false)}
+                                  type="button"
+                                  className="site-button"
+                                >
+                                  Save
+                                </button>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </Modal>
-                    </div>
-                  ) : null}
+                        </Modal>
+                      </div>
+                    ) : null}
 
-                  <div
-                    id="accomplishments_bx"
-                    className="job-bx bg-white m-b30"
-                  >
-                    <h5 className="m-b10">Accomplishments</h5>
-                    <div className="list-row">
-                      <div className="list-line">
+                    <div
+                      id="accomplishments_bx"
+                      className="job-bx bg-white m-b30"
+                    >
+                      <h5 className="m-b10">Accomplishments</h5>
+                      <div className="list-row">
                         <div className="list-line">
-                          <div className="d-flex">
-                            <h6 className="font-14 m-b5">Online Profile</h6>
-                            <Link
-                              to={"#"}
-                              className="site-button add-btn button-sm"
-                              onClick={() => setOnlineProfile(true)}
+                          <div className="list-line">
+                            <div className="d-flex">
+                              <h6 className="font-14 m-b5">Online Profile</h6>
+                              <Link
+                                to={"#"}
+                                className="site-button add-btn button-sm"
+                                onClick={() => setOnlineProfile(true)}
+                              >
+                                <i className="fa fa-plus m-r5"></i> Add
+                              </Link>
+                            </div>
+                            {onlineProfileData ? (
+                              <div
+                                className="m-b0 d-flex flex-wrap align-items-center  "
+                                style={{ gap: "7px" }}
+                              >
+                                {onlineProfileData.map((item, index) => {
+                                  return (
+                                    <div
+                                      key={index}
+                                      className="d-flex flex-wrap  align-items-center "
+                                      style={{ gap: "20px" }}
+                                    >
+                                      <Link to={item.link}>{item.label}</Link>
+                                      <button
+                                        style={{ cursor: "pointer" }}
+                                        className="border-0"
+                                        onClick={() => {
+                                          editOnlineItem(index);
+                                        }}
+                                      >
+                                        <FaEdit />
+                                      </button>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            ) : null}
+
+                            <Modal
+                              className="modal fade modal-bx-info editor"
+                              show={onlineprofile}
+                              onHide={setOnlineProfile}
                             >
-                              <i className="fa fa-plus m-r5"></i> Add
-                            </Link>
-                          </div>
-                          {onlineProfileData ? (
-                            <div
-                              className="m-b0 d-flex flex-wrap align-items-center  "
-                              style={{ gap: "7px" }}
-                            >
-                              {onlineProfileData.map((item, index) => {
-                                return (
-                                  <div
-                                    key={index}
-                                    className="d-flex flex-wrap  align-items-center "
-                                    style={{ gap: "20px" }}
-                                  >
-                                    <Link to={item.link}>{item.label}</Link>
+                              <div
+                                className="modal-dialog my-0"
+                                role="document"
+                              >
+                                <div className="modal-content">
+                                  <div className="modal-header">
+                                    <h5 className="modal-title">
+                                      Online Profiles
+                                    </h5>
                                     <button
-                                      style={{ cursor: "pointer" }}
-                                      className="border-0"
+                                      type="button"
+                                      className="close"
                                       onClick={() => {
-                                        editOnlineItem(index);
+                                        setOnlineProfile(false);
+                                        dispatch(
+                                          setOnlineProfileValue({
+                                            label: "",
+                                            link: "",
+                                          })
+                                        );
+                                        setEditOnlineIndex(-1);
                                       }}
                                     >
-                                      <FaEdit />
+                                      <span aria-hidden="true">&times;</span>
                                     </button>
                                   </div>
-                                );
-                              })}
-                            </div>
-                          ) : null}
-
-                          <Modal
-                            className="modal fade modal-bx-info editor"
-                            show={onlineprofile}
-                            onHide={setOnlineProfile}
-                          >
-                            <div className="modal-dialog my-0" role="document">
-                              <div className="modal-content">
-                                <div className="modal-header">
-                                  <h5 className="modal-title">
-                                    Online Profiles
-                                  </h5>
-                                  <button
-                                    type="button"
-                                    className="close"
-                                    onClick={() => {
-                                      setOnlineProfile(false);
-                                      dispatch(
-                                        setOnlineProfileValue({
-                                          label: "",
-                                          link: "",
-                                        })
-                                      );
-                                      setEditOnlineIndex(-1);
-                                    }}
-                                  >
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div className="modal-body">
-                                  <form>
-                                    <div className="row">
-                                      <div className="col-lg-12 col-md-12">
-                                        <div className="form-group">
-                                          <label htmlFor="label">
-                                            Social Profile
-                                          </label>
-                                          <input
-                                            type="text"
-                                            className="form-control"
-                                            placeholder="Social Profile Name"
-                                            name="label"
-                                            id="label"
-                                            onChange={handleOnlineProfileChange}
-                                            value={onlineProfileValue.label}
-                                          />
+                                  <div className="modal-body">
+                                    <form>
+                                      <div className="row">
+                                        <div className="col-lg-12 col-md-12">
+                                          <div className="form-group">
+                                            <label htmlFor="label">
+                                              Social Profile
+                                            </label>
+                                            <input
+                                              type="text"
+                                              className="form-control"
+                                              placeholder="Social Profile Name"
+                                              name="label"
+                                              id="label"
+                                              onChange={
+                                                handleOnlineProfileChange
+                                              }
+                                              value={onlineProfileValue.label}
+                                            />
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div className="col-lg-12 col-md-12">
-                                        <div className="form-group">
-                                          <label htmlFor="link">URL</label>
-                                          <input
-                                            type="email"
-                                            className="form-control"
-                                            placeholder="www.google.com"
-                                            id="link"
-                                            name="link"
-                                            onChange={handleOnlineProfileChange}
-                                            value={onlineProfileValue.link}
-                                          />
+                                        <div className="col-lg-12 col-md-12">
+                                          <div className="form-group">
+                                            <label htmlFor="link">URL</label>
+                                            <input
+                                              type="email"
+                                              className="form-control"
+                                              placeholder="www.google.com"
+                                              id="link"
+                                              name="link"
+                                              onChange={
+                                                handleOnlineProfileChange
+                                              }
+                                              value={onlineProfileValue.link}
+                                            />
+                                          </div>
                                         </div>
-                                      </div>
-                                      {/* <div className="col-lg-12 col-md-12">
+                                        {/* <div className="col-lg-12 col-md-12">
                                             <div className="form-group">
                                               <label>Description</label>
                                               <textarea
@@ -937,145 +1671,148 @@ return (
                                               ></textarea>
                                             </div>
                                           </div> */}
-                                    </div>
-                                  </form>
-                                </div>
-                                <div className="modal-footer">
-                                  <button
-                                    type="button"
-                                    className="site-button"
-                                    onClick={() => {
-                                      setOnlineProfile(false);
-                                      dispatch(
-                                        setOnlineProfileValue({
-                                          label: "",
-                                          link: "",
-                                        })
-                                      );
-                                      setEditOnlineIndex(-1);
-                                    }}
-                                  >
-                                    Cancel
-                                  </button>
-                                  <button
-                                    onClick={handleAddOnlineProfile}
-                                    type="button"
-                                    className="site-button"
-                                  >
-                                    Save
-                                  </button>
-                                  <button
-                                    onClick={updateOnlineItem}
-                                    type="button"
-                                    className="site-button"
-                                  >
-                                    Update
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </Modal>
-                        </div>
-
-                        <div className="list-line">
-                          <div className="d-flex">
-                            <h6 className="font-14 m-b5">Work Sample</h6>
-                            <Link
-                              to={"#"}
-                              className="site-button add-btn button-sm"
-                              onClick={() => setWorkSample(true)}
-                            >
-                              <i className="fa fa-plus m-r5"></i> Add
-                            </Link>
-                          </div>
-                          {workSampleData ? (
-                            <div
-                              className="m-b0 d-flex align-items-center flex-wrap"
-                              style={{ gap: "7px" }}
-                            >
-                              {workSampleData.map((item, index) => {
-                                return (
-                                  <div
-                                    key={index}
-                                    className="d-flex flex-wrap  align-items-center "
-                                    style={{ gap: "20px" }}
-                                  >
-                                    <Link to={item.link}>{item.label}</Link>
+                                      </div>
+                                    </form>
+                                  </div>
+                                  <div className="modal-footer">
                                     <button
-                                      style={{ cursor: "pointer" }}
-                                      className="border-0"
+                                      type="button"
+                                      className="site-button"
                                       onClick={() => {
-                                        editWorkItem(index);
+                                        setOnlineProfile(false);
+                                        dispatch(
+                                          setOnlineProfileValue({
+                                            label: "",
+                                            link: "",
+                                          })
+                                        );
+                                        setEditOnlineIndex(-1);
                                       }}
                                     >
-                                      <FaEdit />
+                                      Cancel
+                                    </button>
+                                    <button
+                                      onClick={handleAddOnlineProfile}
+                                      type="button"
+                                      className="site-button"
+                                    >
+                                      Save
+                                    </button>
+                                    <button
+                                      onClick={updateOnlineItem}
+                                      type="button"
+                                      className="site-button"
+                                    >
+                                      Update
                                     </button>
                                   </div>
-                                );
-                              })}
-                            </div>
-                          ) : null}
-
-                          <Modal
-                            className="modal fade modal-bx-info editor"
-                            show={worksample}
-                            onHide={setWorkSample}
-                          >
-                            <div className="modal-dialog my-0" role="document">
-                              <div className="modal-content">
-                                <div className="modal-header">
-                                  <h5 className="modal-title">Work Sample</h5>
-                                  <button
-                                    type="button"
-                                    className="close"
-                                    onClick={() => {
-                                      setWorkSample(false);
-                                      dispatch(
-                                        setWorkSampleValue({
-                                          label: "",
-                                          link: "",
-                                        })
-                                      );
-                                      setEditWorkIndex(-1);
-                                    }}
-                                  >
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
                                 </div>
-                                <div className="modal-body">
-                                  <form>
-                                    <div className="row">
-                                      <div className="col-lg-12 col-md-12">
-                                        <div className="form-group">
-                                          <label htmlFor="label">
-                                            Work Title
-                                          </label>
-                                          <input
-                                            type="text"
-                                            className="form-control"
-                                            id="label"
-                                            name="label"
-                                            onChange={handleWorkSampleChange}
-                                            value={workSampleValue.label}
-                                            placeholder="Enter Title"
-                                          />
+                              </div>
+                            </Modal>
+                          </div>
+
+                          <div className="list-line">
+                            <div className="d-flex">
+                              <h6 className="font-14 m-b5">Work Sample</h6>
+                              <Link
+                                to={"#"}
+                                className="site-button add-btn button-sm"
+                                onClick={() => setWorkSample(true)}
+                              >
+                                <i className="fa fa-plus m-r5"></i> Add
+                              </Link>
+                            </div>
+                            {workSampleData ? (
+                              <div
+                                className="m-b0 d-flex align-items-center flex-wrap"
+                                style={{ gap: "7px" }}
+                              >
+                                {workSampleData.map((item, index) => {
+                                  return (
+                                    <div
+                                      key={index}
+                                      className="d-flex flex-wrap  align-items-center "
+                                      style={{ gap: "20px" }}
+                                    >
+                                      <Link to={item.link}>{item.label}</Link>
+                                      <button
+                                        style={{ cursor: "pointer" }}
+                                        className="border-0"
+                                        onClick={() => {
+                                          editWorkItem(index);
+                                        }}
+                                      >
+                                        <FaEdit />
+                                      </button>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            ) : null}
+
+                            <Modal
+                              className="modal fade modal-bx-info editor"
+                              show={worksample}
+                              onHide={setWorkSample}
+                            >
+                              <div
+                                className="modal-dialog my-0"
+                                role="document"
+                              >
+                                <div className="modal-content">
+                                  <div className="modal-header">
+                                    <h5 className="modal-title">Work Sample</h5>
+                                    <button
+                                      type="button"
+                                      className="close"
+                                      onClick={() => {
+                                        setWorkSample(false);
+                                        dispatch(
+                                          setWorkSampleValue({
+                                            label: "",
+                                            link: "",
+                                          })
+                                        );
+                                        setEditWorkIndex(-1);
+                                      }}
+                                    >
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div className="modal-body">
+                                    <form>
+                                      <div className="row">
+                                        <div className="col-lg-12 col-md-12">
+                                          <div className="form-group">
+                                            <label htmlFor="label">
+                                              Work Title
+                                            </label>
+                                            <input
+                                              type="text"
+                                              className="form-control"
+                                              id="label"
+                                              name="label"
+                                              onChange={handleWorkSampleChange}
+                                              value={workSampleValue.label}
+                                              placeholder="Enter Title"
+                                            />
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div className="col-lg-12 col-md-12">
-                                        <div className="form-group">
-                                          <label htmlFor="link">URL</label>
-                                          <input
-                                            type="text"
-                                            className="form-control"
-                                            name="link"
-                                            id="link"
-                                            onChange={handleWorkSampleChange}
-                                            value={workSampleValue.link}
-                                            placeholder="www.google.com"
-                                          />
+                                        <div className="col-lg-12 col-md-12">
+                                          <div className="form-group">
+                                            <label htmlFor="link">URL</label>
+                                            <input
+                                              type="text"
+                                              className="form-control"
+                                              name="link"
+                                              id="link"
+                                              onChange={handleWorkSampleChange}
+                                              value={workSampleValue.link}
+                                              placeholder="www.google.com"
+                                            />
+                                          </div>
                                         </div>
-                                      </div>
-                                      {/* <div className="col-lg-6 col-md-6">
+                                        {/* <div className="col-lg-6 col-md-6">
                                             <div className="form-group">
                                               <label>Duration From</label>
                                               <div className="row">
@@ -1192,150 +1929,154 @@ return (
                                               ></textarea>
                                             </div>
                                           </div> */}
-                                    </div>
-                                  </form>
-                                </div>
-                                <div className="modal-footer">
-                                  <button
-                                    type="button"
-                                    className="site-button"
-                                    onClick={() => {
-                                      setWorkSample(false);
-                                      dispatch(
-                                        setWorkSampleValue({
-                                          label: "",
-                                          link: "",
-                                        })
-                                      );
-                                      setEditWorkIndex(-1);
-                                    }}
-                                  >
-                                    Cancel
-                                  </button>
-                                  <button
-                                    onClick={handleAddWorkItem}
-                                    type="button"
-                                    className="site-button"
-                                  >
-                                    Save
-                                  </button>
-                                  <button
-                                    onClick={updateWorkItem}
-                                    type="button"
-                                    className="site-button"
-                                  >
-                                    Update
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </Modal>
-                        </div>
-
-                        <div className="list-line">
-                          <div className="d-flex">
-                            <h6 className="font-14 m-b5">
-                              White Paper / Research Publication / Journal Entry
-                            </h6>
-                            <Link
-                              to={"#"}
-                              className="site-button add-btn button-sm"
-                              onClick={() => setWhitePaper(true)}
-                            >
-                              <i className="fa fa-plus m-r5"></i> Add
-                            </Link>
-                          </div>
-                          {whitePaperData ? (
-                            <div
-                              className="m-b0 d-flex flex-wrap align-items-center "
-                              style={{ gap: "7px" }}
-                            >
-                              {whitePaperData.map((item, index) => {
-                                return (
-                                  <div
-                                    key={index}
-                                    className="d-flex flex-wrap  align-items-center "
-                                    style={{ gap: "20px" }}
-                                  >
-                                    <Link to={item.link}>{item.label}</Link>
+                                      </div>
+                                    </form>
+                                  </div>
+                                  <div className="modal-footer">
                                     <button
-                                      style={{ cursor: "pointer" }}
-                                      className="border-0"
+                                      type="button"
+                                      className="site-button"
                                       onClick={() => {
-                                        editWhitePaperItem(index);
+                                        setWorkSample(false);
+                                        dispatch(
+                                          setWorkSampleValue({
+                                            label: "",
+                                            link: "",
+                                          })
+                                        );
+                                        setEditWorkIndex(-1);
                                       }}
                                     >
-                                      <FaEdit />
+                                      Cancel
+                                    </button>
+                                    <button
+                                      onClick={handleAddWorkItem}
+                                      type="button"
+                                      className="site-button"
+                                    >
+                                      Save
+                                    </button>
+                                    <button
+                                      onClick={updateWorkItem}
+                                      type="button"
+                                      className="site-button"
+                                    >
+                                      Update
                                     </button>
                                   </div>
-                                );
-                              })}
-                            </div>
-                          ) : null}
-                          <Modal
-                            className="modal fade modal-bx-info editor"
-                            show={whitepaper}
-                            onHide={setWhitePaper}
-                          >
-                            <div className="modal-dialog my-0" role="document">
-                              <div className="modal-content">
-                                <div className="modal-header">
-                                  <h5
-                                    className="modal-title"
-                                    id="JournalentryModalLongTitle"
-                                  >
-                                    White Paper / Research Publication / Journal
-                                    Entry
-                                  </h5>
-                                  <button
-                                    type="button"
-                                    className="close"
-                                    onClick={() => {
-                                      setWhitePaper(false);
-                                      dispatch(
-                                        setWhitePaperValue({
-                                          label: "",
-                                          link: "",
-                                        })
-                                      );
-                                      setEditWhitePaperIndex(-1);
-                                    }}
-                                  >
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
                                 </div>
-                                <div className="modal-body">
-                                  <form>
-                                    <div className="row">
-                                      <div className="col-lg-12 col-md-12">
-                                        <div className="form-group">
-                                          <label htmlFor="label">Title</label>
-                                          <input
-                                            type="text"
-                                            className="form-control"
-                                            id="label"
-                                            name="label"
-                                            onChange={handleWhitePaperChange}
-                                            value={whitePaperValue.label}
-                                            placeholder="Enter Title"
-                                          />
+                              </div>
+                            </Modal>
+                          </div>
+
+                          <div className="list-line">
+                            <div className="d-flex">
+                              <h6 className="font-14 m-b5">
+                                White Paper / Research Publication / Journal
+                                Entry
+                              </h6>
+                              <Link
+                                to={"#"}
+                                className="site-button add-btn button-sm"
+                                onClick={() => setWhitePaper(true)}
+                              >
+                                <i className="fa fa-plus m-r5"></i> Add
+                              </Link>
+                            </div>
+                            {whitePaperData ? (
+                              <div
+                                className="m-b0 d-flex flex-wrap align-items-center "
+                                style={{ gap: "7px" }}
+                              >
+                                {whitePaperData.map((item, index) => {
+                                  return (
+                                    <div
+                                      key={index}
+                                      className="d-flex flex-wrap  align-items-center "
+                                      style={{ gap: "20px" }}
+                                    >
+                                      <Link to={item.link}>{item.label}</Link>
+                                      <button
+                                        style={{ cursor: "pointer" }}
+                                        className="border-0"
+                                        onClick={() => {
+                                          editWhitePaperItem(index);
+                                        }}
+                                      >
+                                        <FaEdit />
+                                      </button>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            ) : null}
+                            <Modal
+                              className="modal fade modal-bx-info editor"
+                              show={whitepaper}
+                              onHide={setWhitePaper}
+                            >
+                              <div
+                                className="modal-dialog my-0"
+                                role="document"
+                              >
+                                <div className="modal-content">
+                                  <div className="modal-header">
+                                    <h5
+                                      className="modal-title"
+                                      id="JournalentryModalLongTitle"
+                                    >
+                                      White Paper / Research Publication /
+                                      Journal Entry
+                                    </h5>
+                                    <button
+                                      type="button"
+                                      className="close"
+                                      onClick={() => {
+                                        setWhitePaper(false);
+                                        dispatch(
+                                          setWhitePaperValue({
+                                            label: "",
+                                            link: "",
+                                          })
+                                        );
+                                        setEditWhitePaperIndex(-1);
+                                      }}
+                                    >
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div className="modal-body">
+                                    <form>
+                                      <div className="row">
+                                        <div className="col-lg-12 col-md-12">
+                                          <div className="form-group">
+                                            <label htmlFor="label">Title</label>
+                                            <input
+                                              type="text"
+                                              className="form-control"
+                                              id="label"
+                                              name="label"
+                                              onChange={handleWhitePaperChange}
+                                              value={whitePaperValue.label}
+                                              placeholder="Enter Title"
+                                            />
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div className="col-lg-12 col-md-12">
-                                        <div className="form-group">
-                                          <label htmlFor="link">URL</label>
-                                          <input
-                                            type="text"
-                                            className="form-control"
-                                            id="link"
-                                            name="link"
-                                            onChange={handleWhitePaperChange}
-                                            value={whitePaperValue.link}
-                                            placeholder="www.google.com"
-                                          />
+                                        <div className="col-lg-12 col-md-12">
+                                          <div className="form-group">
+                                            <label htmlFor="link">URL</label>
+                                            <input
+                                              type="text"
+                                              className="form-control"
+                                              id="link"
+                                              name="link"
+                                              onChange={handleWhitePaperChange}
+                                              value={whitePaperValue.link}
+                                              placeholder="www.google.com"
+                                            />
+                                          </div>
                                         </div>
-                                      </div>
-                                      {/* <div className="col-lg-12 col-md-12">
+                                        {/* <div className="col-lg-12 col-md-12">
                                             <div className="form-group">
                                               <label>Published On</label>
                                               <div className="row">
@@ -1389,149 +2130,156 @@ return (
                                               ></textarea>
                                             </div>
                                           </div> */}
-                                    </div>
-                                  </form>
-                                </div>
-                                <div className="modal-footer">
-                                  <button
-                                    type="button"
-                                    className="site-button"
-                                    onClick={() => {
-                                      setWhitePaper(false);
-                                      dispatch(
-                                        setWhitePaperValue({
-                                          label: "",
-                                          link: "",
-                                        })
-                                      );
-                                      setEditWhitePaperIndex(-1);
-                                    }}
-                                  >
-                                    Cancel
-                                  </button>
-                                  <button
-                                    onClick={handleAddWhitePaperItem}
-                                    type="button"
-                                    className="site-button"
-                                  >
-                                    Save
-                                  </button>
-                                  <button
-                                    onClick={updateWhitePaperItem}
-                                    type="button"
-                                    className="site-button"
-                                  >
-                                    Update
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </Modal>
-                        </div>
-
-                        <div className="list-line">
-                          <div className="d-flex">
-                            <h6 className="font-14 m-b5">Presentation</h6>
-                            <Link
-                              to={"#"}
-                              className="site-button add-btn button-sm"
-                              onClick={() => setPresentation(true)}
-                            >
-                              <i className="fa fa-plus m-r5"></i> Add
-                            </Link>
-                          </div>
-                          {presentationData ? (
-                            <div
-                              className="m-b0 d-flex align-items-center flex-wrap"
-                              style={{ gap: "7px" }}
-                            >
-                              {presentationData.map((item, index) => {
-                                return (
-                                  <div
-                                    key={index}
-                                    className="d-flex flex-wrap  align-items-center "
-                                    style={{ gap: "20px" }}
-                                  >
-                                    <Link to={item.link}>{item.label}</Link>
+                                      </div>
+                                    </form>
+                                  </div>
+                                  <div className="modal-footer">
                                     <button
-                                      style={{ cursor: "pointer" }}
-                                      className="border-0"
+                                      type="button"
+                                      className="site-button"
                                       onClick={() => {
-                                        editPresentationItem(index);
+                                        setWhitePaper(false);
+                                        dispatch(
+                                          setWhitePaperValue({
+                                            label: "",
+                                            link: "",
+                                          })
+                                        );
+                                        setEditWhitePaperIndex(-1);
                                       }}
                                     >
-                                      <FaEdit />
+                                      Cancel
+                                    </button>
+                                    <button
+                                      onClick={handleAddWhitePaperItem}
+                                      type="button"
+                                      className="site-button"
+                                    >
+                                      Save
+                                    </button>
+                                    <button
+                                      onClick={updateWhitePaperItem}
+                                      type="button"
+                                      className="site-button"
+                                    >
+                                      Update
                                     </button>
                                   </div>
-                                );
-                              })}
-                            </div>
-                          ) : null}
-
-                          <Modal
-                            className="modal fade modal-bx-info editor"
-                            id="presentation"
-                            show={presentation}
-                            onHide={setPresentation}
-                          >
-                            <div className="modal-dialog my-0" role="document">
-                              <div className="modal-content">
-                                <div className="modal-header">
-                                  <h5
-                                    className="modal-title"
-                                    id="PresentationModalLongTitle"
-                                  >
-                                    Presentation
-                                  </h5>
-                                  <button
-                                    type="button"
-                                    className="close"
-                                    onClick={() => {
-                                      setPresentation(false);
-                                      dispatch(
-                                        setPresentationValue({
-                                          label: "",
-                                          link: "",
-                                        })
-                                      );
-                                      setEditPresentationIndex(-1);
-                                    }}
-                                  >
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
                                 </div>
-                                <div className="modal-body">
-                                  <form>
-                                    <div className="row">
-                                      <div className="col-lg-12 col-md-12">
-                                        <div className="form-group">
-                                          <label htmlFor="label">Title</label>
-                                          <input
-                                            type="text"
-                                            className="form-control"
-                                            id="label"
-                                            name="label"
-                                            onChange={handlePresentationChange}
-                                            value={presentationValue.label}
-                                            placeholder="Enter Title"
-                                          />
+                              </div>
+                            </Modal>
+                          </div>
+
+                          <div className="list-line">
+                            <div className="d-flex">
+                              <h6 className="font-14 m-b5">Presentation</h6>
+                              <Link
+                                to={"#"}
+                                className="site-button add-btn button-sm"
+                                onClick={() => setPresentation(true)}
+                              >
+                                <i className="fa fa-plus m-r5"></i> Add
+                              </Link>
+                            </div>
+                            {presentationData ? (
+                              <div
+                                className="m-b0 d-flex align-items-center flex-wrap"
+                                style={{ gap: "7px" }}
+                              >
+                                {presentationData.map((item, index) => {
+                                  return (
+                                    <div
+                                      key={index}
+                                      className="d-flex flex-wrap  align-items-center "
+                                      style={{ gap: "20px" }}
+                                    >
+                                      <Link to={item.link}>{item.label}</Link>
+                                      <button
+                                        style={{ cursor: "pointer" }}
+                                        className="border-0"
+                                        onClick={() => {
+                                          editPresentationItem(index);
+                                        }}
+                                      >
+                                        <FaEdit />
+                                      </button>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            ) : null}
+
+                            <Modal
+                              className="modal fade modal-bx-info editor"
+                              id="presentation"
+                              show={presentation}
+                              onHide={setPresentation}
+                            >
+                              <div
+                                className="modal-dialog my-0"
+                                role="document"
+                              >
+                                <div className="modal-content">
+                                  <div className="modal-header">
+                                    <h5
+                                      className="modal-title"
+                                      id="PresentationModalLongTitle"
+                                    >
+                                      Presentation
+                                    </h5>
+                                    <button
+                                      type="button"
+                                      className="close"
+                                      onClick={() => {
+                                        setPresentation(false);
+                                        dispatch(
+                                          setPresentationValue({
+                                            label: "",
+                                            link: "",
+                                          })
+                                        );
+                                        setEditPresentationIndex(-1);
+                                      }}
+                                    >
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div className="modal-body">
+                                    <form>
+                                      <div className="row">
+                                        <div className="col-lg-12 col-md-12">
+                                          <div className="form-group">
+                                            <label htmlFor="label">Title</label>
+                                            <input
+                                              type="text"
+                                              className="form-control"
+                                              id="label"
+                                              name="label"
+                                              onChange={
+                                                handlePresentationChange
+                                              }
+                                              value={presentationValue.label}
+                                              placeholder="Enter Title"
+                                            />
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div className="col-lg-12 col-md-12">
-                                        <div className="form-group">
-                                          <label htmlFor="link">URL</label>
-                                          <input
-                                            type="text"
-                                            className="form-control"
-                                            id="link"
-                                            name="link"
-                                            onChange={handlePresentationChange}
-                                            value={presentationValue.link}
-                                            placeholder="www.google.com"
-                                          />
+                                        <div className="col-lg-12 col-md-12">
+                                          <div className="form-group">
+                                            <label htmlFor="link">URL</label>
+                                            <input
+                                              type="text"
+                                              className="form-control"
+                                              id="link"
+                                              name="link"
+                                              onChange={
+                                                handlePresentationChange
+                                              }
+                                              value={presentationValue.link}
+                                              placeholder="www.google.com"
+                                            />
+                                          </div>
                                         </div>
-                                      </div>
-                                      {/* <div className="col-lg-12 col-md-12">
+                                        {/* <div className="col-lg-12 col-md-12">
                                             <div className="form-group">
                                               <label>Description</label>
                                               <textarea
@@ -1540,148 +2288,151 @@ return (
                                               ></textarea>
                                             </div>
                                           </div> */}
-                                    </div>
-                                  </form>
-                                </div>
-                                <div className="modal-footer">
-                                  <button
-                                    type="button"
-                                    className="site-button"
-                                    data-dismiss="modal"
-                                    onClick={() => {
-                                      setPresentation(false);
-                                      dispatch(
-                                        setPresentationValue({
-                                          label: "",
-                                          link: "",
-                                        })
-                                      );
-                                      setEditPresentationIndex(-1);
-                                    }}
-                                  >
-                                    Cancel
-                                  </button>
-                                  <button
-                                    onClick={handleAddPresentationItem}
-                                    type="button"
-                                    className="site-button"
-                                  >
-                                    Save
-                                  </button>
-                                  <button
-                                    onClick={updatePresentationItem}
-                                    type="button"
-                                    className="site-button"
-                                  >
-                                    Update
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </Modal>
-                        </div>
-
-                        <div className="list-line">
-                          <div className="d-flex">
-                            <h6 className="font-14 m-b5">Patent</h6>
-                            <Link
-                              to={"#"}
-                              className="site-button add-btn button-sm"
-                              onClick={() => setPatent(true)}
-                            >
-                              <i className="fa fa-plus m-r5"></i> Add
-                            </Link>
-                          </div>
-                          {patentData ? (
-                            <div
-                              className="m-b0 d-flex flex-wrap align-items-center "
-                              style={{ gap: "7px" }}
-                            >
-                              {patentData.map((item, index) => {
-                                return (
-                                  <div
-                                    key={index}
-                                    className="d-flex flex-wrap  align-items-center "
-                                    style={{ gap: "20px" }}
-                                  >
-                                    <Link to={item.link}>{item.label}</Link>
+                                      </div>
+                                    </form>
+                                  </div>
+                                  <div className="modal-footer">
                                     <button
-                                      style={{ cursor: "pointer" }}
-                                      className="border-0"
+                                      type="button"
+                                      className="site-button"
+                                      data-dismiss="modal"
                                       onClick={() => {
-                                        editPatentItem(index);
+                                        setPresentation(false);
+                                        dispatch(
+                                          setPresentationValue({
+                                            label: "",
+                                            link: "",
+                                          })
+                                        );
+                                        setEditPresentationIndex(-1);
                                       }}
                                     >
-                                      <FaEdit />
+                                      Cancel
+                                    </button>
+                                    <button
+                                      onClick={handleAddPresentationItem}
+                                      type="button"
+                                      className="site-button"
+                                    >
+                                      Save
+                                    </button>
+                                    <button
+                                      onClick={updatePresentationItem}
+                                      type="button"
+                                      className="site-button"
+                                    >
+                                      Update
                                     </button>
                                   </div>
-                                );
-                              })}
-                            </div>
-                          ) : null}
-                          <Modal
-                            className="modal fade modal-bx-info editor"
-                            show={patent}
-                            onHide={setPatent}
-                          >
-                            <div className="modal-dialog my-0" role="document">
-                              <div className="modal-content">
-                                <div className="modal-header">
-                                  <h5
-                                    className="modal-title"
-                                    id="PatentModalLongTitle"
-                                  >
-                                    Patent
-                                  </h5>
-                                  <button
-                                    type="button"
-                                    className="close"
-                                    onClick={() => {
-                                      setPatent(false);
-                                      dispatch(
-                                        setPatentValue({
-                                          label: "",
-                                          link: "",
-                                        })
-                                      );
-                                      setEditPatentIndex(-1);
-                                    }}
-                                  >
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
                                 </div>
-                                <div className="modal-body">
-                                  <form>
-                                    <div className="row">
-                                      <div className="col-lg-12 col-md-12">
-                                        <div className="form-group">
-                                          <label htmlFor="label">Title</label>
-                                          <input
-                                            type="text"
-                                            className="form-control"
-                                            id="label"
-                                            name="label"
-                                            onChange={handlePatentChange}
-                                            value={patentValue.label}
-                                            placeholder="Enter Title"
-                                          />
+                              </div>
+                            </Modal>
+                          </div>
+
+                          <div className="list-line">
+                            <div className="d-flex">
+                              <h6 className="font-14 m-b5">Patent</h6>
+                              <Link
+                                to={"#"}
+                                className="site-button add-btn button-sm"
+                                onClick={() => setPatent(true)}
+                              >
+                                <i className="fa fa-plus m-r5"></i> Add
+                              </Link>
+                            </div>
+                            {patentData ? (
+                              <div
+                                className="m-b0 d-flex flex-wrap align-items-center "
+                                style={{ gap: "7px" }}
+                              >
+                                {patentData.map((item, index) => {
+                                  return (
+                                    <div
+                                      key={index}
+                                      className="d-flex flex-wrap  align-items-center "
+                                      style={{ gap: "20px" }}
+                                    >
+                                      <Link to={item.link}>{item.label}</Link>
+                                      <button
+                                        style={{ cursor: "pointer" }}
+                                        className="border-0"
+                                        onClick={() => {
+                                          editPatentItem(index);
+                                        }}
+                                      >
+                                        <FaEdit />
+                                      </button>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            ) : null}
+                            <Modal
+                              className="modal fade modal-bx-info editor"
+                              show={patent}
+                              onHide={setPatent}
+                            >
+                              <div
+                                className="modal-dialog my-0"
+                                role="document"
+                              >
+                                <div className="modal-content">
+                                  <div className="modal-header">
+                                    <h5
+                                      className="modal-title"
+                                      id="PatentModalLongTitle"
+                                    >
+                                      Patent
+                                    </h5>
+                                    <button
+                                      type="button"
+                                      className="close"
+                                      onClick={() => {
+                                        setPatent(false);
+                                        dispatch(
+                                          setPatentValue({
+                                            label: "",
+                                            link: "",
+                                          })
+                                        );
+                                        setEditPatentIndex(-1);
+                                      }}
+                                    >
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div className="modal-body">
+                                    <form>
+                                      <div className="row">
+                                        <div className="col-lg-12 col-md-12">
+                                          <div className="form-group">
+                                            <label htmlFor="label">Title</label>
+                                            <input
+                                              type="text"
+                                              className="form-control"
+                                              id="label"
+                                              name="label"
+                                              onChange={handlePatentChange}
+                                              value={patentValue.label}
+                                              placeholder="Enter Title"
+                                            />
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div className="col-lg-12 col-md-12">
-                                        <div className="form-group">
-                                          <label htmlFor="link">URL</label>
-                                          <input
-                                            type="text"
-                                            className="form-control"
-                                            id="link"
-                                            name="link"
-                                            placeholder="www.google.com"
-                                            onChange={handlePatentChange}
-                                            value={patentValue.link}
-                                          />
+                                        <div className="col-lg-12 col-md-12">
+                                          <div className="form-group">
+                                            <label htmlFor="link">URL</label>
+                                            <input
+                                              type="text"
+                                              className="form-control"
+                                              id="link"
+                                              name="link"
+                                              placeholder="www.google.com"
+                                              onChange={handlePatentChange}
+                                              value={patentValue.link}
+                                            />
+                                          </div>
                                         </div>
-                                      </div>
-                                      {/* <div className="col-lg-12 col-md-12">
+                                        {/* <div className="col-lg-12 col-md-12">
                                             <div className="form-group">
                                               <label>Patent Office</label>
                                               <input
@@ -1794,152 +2545,159 @@ return (
                                               ></textarea>
                                             </div>
                                           </div> */}
-                                    </div>
-                                  </form>
-                                </div>
-                                <div className="modal-footer">
-                                  <button
-                                    type="button"
-                                    className="site-button"
-                                    onClick={() => {
-                                      setPatent(false);
-                                      dispatch(
-                                        setPatentValue({
-                                          label: "",
-                                          link: "",
-                                        })
-                                      );
-                                      setEditPatentIndex(-1);
-                                    }}
-                                  >
-                                    Cancel
-                                  </button>
-                                  <button
-                                    onClick={handleAddPatentItem}
-                                    type="button"
-                                    className="site-button"
-                                  >
-                                    Save
-                                  </button>
-                                  <button
-                                    onClick={updatePatentItem}
-                                    type="button"
-                                    className="site-button"
-                                  >
-                                    Update
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </Modal>
-                        </div>
-
-                        <div className="list-line">
-                          <div className="d-flex">
-                            <h6 className="font-14 m-b5">Certification</h6>
-                            <Link
-                              to={"#"}
-                              className="site-button add-btn button-sm"
-                              onClick={() => setCertification(true)}
-                            >
-                              <i className="fa fa-plus m-r5"></i> Add
-                            </Link>
-                          </div>
-                          {certificationData ? (
-                            <div
-                              className="m-b0 d-flex  flex-wrap align-items-center "
-                              style={{ gap: "7px" }}
-                            >
-                              {certificationData.map((item, index) => {
-                                return (
-                                  <div
-                                    key={index}
-                                    className="d-flex flex-wrap  align-items-center "
-                                    style={{ gap: "20px" }}
-                                  >
-                                    <Link to={item.link}>{item.label}</Link>
+                                      </div>
+                                    </form>
+                                  </div>
+                                  <div className="modal-footer">
                                     <button
-                                      style={{ cursor: "pointer" }}
-                                      className="border-0"
+                                      type="button"
+                                      className="site-button"
                                       onClick={() => {
-                                        editCertificationItem(index);
+                                        setPatent(false);
+                                        dispatch(
+                                          setPatentValue({
+                                            label: "",
+                                            link: "",
+                                          })
+                                        );
+                                        setEditPatentIndex(-1);
                                       }}
                                     >
-                                      <FaEdit />
+                                      Cancel
+                                    </button>
+                                    <button
+                                      onClick={handleAddPatentItem}
+                                      type="button"
+                                      className="site-button"
+                                    >
+                                      Save
+                                    </button>
+                                    <button
+                                      onClick={updatePatentItem}
+                                      type="button"
+                                      className="site-button"
+                                    >
+                                      Update
                                     </button>
                                   </div>
-                                );
-                              })}
-                            </div>
-                          ) : null}
-
-                          <Modal
-                            className="modal fade modal-bx-info editor"
-                            show={certification}
-                            onHide={setCertification}
-                          >
-                            <div className="modal-dialog my-0" role="document">
-                              <div className="modal-content">
-                                <div className="modal-header">
-                                  <h5
-                                    className="modal-title"
-                                    id="CertificationModalLongTitle"
-                                  >
-                                    Certification
-                                  </h5>
-                                  <button
-                                    type="button"
-                                    className="close"
-                                    onClick={() => {
-                                      setCertification(false);
-                                      dispatch(
-                                        setCertificationValue({
-                                          label: "",
-                                          link: "",
-                                        })
-                                      );
-                                      setEditCertificationIndex(-1);
-                                    }}
-                                  >
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
                                 </div>
-                                <div className="modal-body">
-                                  <form>
-                                    <div className="row">
-                                      <div className="col-lg-12 col-md-12">
-                                        <div className="form-group">
-                                          <label htmlFor="label">
-                                            Certification Name
-                                          </label>
-                                          <input
-                                            type="text"
-                                            className="form-control"
-                                            name="label"
-                                            id="label"
-                                            onChange={handleCertificationChange}
-                                            value={certificationValue.label}
-                                            placeholder="Enter Certification Name"
-                                          />
+                              </div>
+                            </Modal>
+                          </div>
+
+                          <div className="list-line">
+                            <div className="d-flex">
+                              <h6 className="font-14 m-b5">Certification</h6>
+                              <Link
+                                to={"#"}
+                                className="site-button add-btn button-sm"
+                                onClick={() => setCertification(true)}
+                              >
+                                <i className="fa fa-plus m-r5"></i> Add
+                              </Link>
+                            </div>
+                            {certificationData ? (
+                              <div
+                                className="m-b0 d-flex  flex-wrap align-items-center "
+                                style={{ gap: "7px" }}
+                              >
+                                {certificationData.map((item, index) => {
+                                  return (
+                                    <div
+                                      key={index}
+                                      className="d-flex flex-wrap  align-items-center "
+                                      style={{ gap: "20px" }}
+                                    >
+                                      <Link to={item.link}>{item.label}</Link>
+                                      <button
+                                        style={{ cursor: "pointer" }}
+                                        className="border-0"
+                                        onClick={() => {
+                                          editCertificationItem(index);
+                                        }}
+                                      >
+                                        <FaEdit />
+                                      </button>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            ) : null}
+
+                            <Modal
+                              className="modal fade modal-bx-info editor"
+                              show={certification}
+                              onHide={setCertification}
+                            >
+                              <div
+                                className="modal-dialog my-0"
+                                role="document"
+                              >
+                                <div className="modal-content">
+                                  <div className="modal-header">
+                                    <h5
+                                      className="modal-title"
+                                      id="CertificationModalLongTitle"
+                                    >
+                                      Certification
+                                    </h5>
+                                    <button
+                                      type="button"
+                                      className="close"
+                                      onClick={() => {
+                                        setCertification(false);
+                                        dispatch(
+                                          setCertificationValue({
+                                            label: "",
+                                            link: "",
+                                          })
+                                        );
+                                        setEditCertificationIndex(-1);
+                                      }}
+                                    >
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div className="modal-body">
+                                    <form>
+                                      <div className="row">
+                                        <div className="col-lg-12 col-md-12">
+                                          <div className="form-group">
+                                            <label htmlFor="label">
+                                              Certification Name
+                                            </label>
+                                            <input
+                                              type="text"
+                                              className="form-control"
+                                              name="label"
+                                              id="label"
+                                              onChange={
+                                                handleCertificationChange
+                                              }
+                                              value={certificationValue.label}
+                                              placeholder="Enter Certification Name"
+                                            />
+                                          </div>
                                         </div>
-                                      </div>
-                                      <div className="col-lg-12 col-md-12">
-                                        <div className="form-group">
-                                          <label htmlFor="link">
-                                            Certification Body
-                                          </label>
-                                          <input
-                                            type="text"
-                                            className="form-control"
-                                            id="link"
-                                            name="link"
-                                            onChange={handleCertificationChange}
-                                            value={certificationValue.link}
-                                            placeholder="Enter Certification Body"
-                                          />
+                                        <div className="col-lg-12 col-md-12">
+                                          <div className="form-group">
+                                            <label htmlFor="link">
+                                              Certification Body
+                                            </label>
+                                            <input
+                                              type="text"
+                                              className="form-control"
+                                              id="link"
+                                              name="link"
+                                              onChange={
+                                                handleCertificationChange
+                                              }
+                                              value={certificationValue.link}
+                                              placeholder="Enter Certification Body"
+                                            />
+                                          </div>
                                         </div>
-                                      </div>
-                                      {/* <div className="col-lg-6 col-md-6">
+                                        {/* <div className="col-lg-6 col-md-6">
                                             <div className="form-group">
                                               <label>Year Onlabel</label>
                                               <Form.Control as="select">
@@ -1964,64 +2722,67 @@ return (
                                               </Form.Control>
                                             </div>
                                           </div> */}
-                                    </div>
-                                  </form>
-                                </div>
-                                <div className="modal-footer">
-                                  <button
-                                    type="button"
-                                    className="site-button"
-                                    onClick={() => {
-                                      setCertification(false);
-                                      dispatch(
-                                        setCertificationValue({
-                                          label: "",
-                                          link: "",
-                                        })
-                                      );
-                                      setEditCertificationIndex(-1);
-                                    }}
-                                  >
-                                    Cancel
-                                  </button>
-                                  <button
-                                    onClick={handleAddCertificationItem}
-                                    type="button"
-                                    className="site-button"
-                                  >
-                                    Save
-                                  </button>
-                                  <button
-                                    onClick={updateCertificationItem}
-                                    type="button"
-                                    className="site-button"
-                                  >
-                                    Update
-                                  </button>
+                                      </div>
+                                    </form>
+                                  </div>
+                                  <div className="modal-footer">
+                                    <button
+                                      type="button"
+                                      className="site-button"
+                                      onClick={() => {
+                                        setCertification(false);
+                                        dispatch(
+                                          setCertificationValue({
+                                            label: "",
+                                            link: "",
+                                          })
+                                        );
+                                        setEditCertificationIndex(-1);
+                                      }}
+                                    >
+                                      Cancel
+                                    </button>
+                                    <button
+                                      onClick={handleAddCertificationItem}
+                                      type="button"
+                                      className="site-button"
+                                    >
+                                      Save
+                                    </button>
+                                    <button
+                                      onClick={updateCertificationItem}
+                                      type="button"
+                                      className="site-button"
+                                    >
+                                      Update
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </Modal>
+                            </Modal>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    id="desired_career_profile_bx"
-                    className="job-bx bg-white m-b30"
-                  >
-                    <DesiredCareerComponent />
-                  </div>
-                  <div
-                    id="personal_details_bx"
-                    className="job-bx bg-white m-b30"
-                  >
-                    <PersonalDetailsComponent />
-                  </div>
-                  <button className="site-button" onClick={handleUpdateResume}>
-                    Update
-                  </button>
-                  {/* <div
+                    <div
+                      id="desired_career_profile_bx"
+                      className="job-bx bg-white m-b30"
+                    >
+                      <DesiredCareerComponent />
+                    </div>
+                    <div
+                      id="personal_details_bx"
+                      className="job-bx bg-white m-b30"
+                    >
+                      <PersonalDetailsComponent />
+                    </div>
+                    <button
+                      className="site-button"
+                      onClick={handleUpdateResume}
+                    >
+                      Update
+                    </button>
+                    {/* <div
                       id="attach_resume_bx"
                       className="job-bx bg-white m-b30"
                     >
@@ -2059,15 +2820,15 @@ return (
                         .
                       </p>
                     </div> */}
-                </div>
-              )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <Footer />
-  </>
-);
+      <Footer />
+    </>
+  );
 }
 export default Jobmyresume;
