@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import { Modal } from "react-bootstrap";
@@ -12,6 +12,8 @@ function EmployeeCompanymanage() {
   const [company, setCompany] = useState(false);
   const token = localStorage.getItem("employeeLoginToken");
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
+  const [btn, setBtn] = useState("");
   useEffect(() => {
     axios({
       method: "GET",
@@ -21,15 +23,52 @@ function EmployeeCompanymanage() {
       },
     })
       .then((response) => {
-        console.log(response.data.data);
+        console.log(response.data.data, "draft");
         setData(response.data.data);
         setSkeleton(false);
+        setBtn("Publish");
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+  const fetchDraftJobs = () => {
+    axios({
+      method: "GET",
+      url: "https://jobsbooklet.in/api/employeer/job-lists?is_publish=0",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        console.log(response.data.data, "draft");
+        setData(response.data.data);
+        setBtn("Publish");
 
+        setSkeleton(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const fetchPublishedJobs = () => {
+    axios({
+      method: "GET",
+      url: "https://jobsbooklet.in/api/employeer/job-lists?is_publish=1",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((response) => {
+        console.log(response.data.data, "published");
+        setData(response.data.data);
+        setBtn("Published");
+        setSkeleton(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const handlePutReq = (id) => {
     console.log(id, "id");
     axios({
@@ -64,7 +103,26 @@ function EmployeeCompanymanage() {
                         Manage jobs
                       </h5>
                       <div className="float-right">
-                        <span className="select-title">Sort by freshness</span>
+                        <div
+                          style={{ gap: "7px" }}
+                          className="d-flex align-items-center justify-content-center "
+                        >
+                          <button
+                            onClick={fetchDraftJobs}
+                            className="site-button"
+                            style={{ fontSize: "14px" }}
+                          >
+                            Draft
+                          </button>
+                          <button
+                            onClick={fetchPublishedJobs}
+                            className="site-button"
+                            style={{ fontSize: "14px" }}
+                          >
+                            Published
+                          </button>
+                        </div>
+                        {/* <span className="select-title">Sort by freshness</span>
                         <select className="custom-btn">
                           <option>All</option>
                           <option>None</option>
@@ -72,7 +130,7 @@ function EmployeeCompanymanage() {
                           <option>Unread</option>
                           <option>Starred</option>
                           <option>Unstarred</option>
-                        </select>
+                        </select> */}
                       </div>
                     </div>
                     {skeleton === true ? (
@@ -162,7 +220,10 @@ function EmployeeCompanymanage() {
                                 >
                                   <button
                                     onClick={() => {
-                                      handlePutReq(item.job_detail.id);
+                                      // handlePutReq(item.job_detail.id);
+                                      navigate(
+                                        `/employee/company-post-jobs/${item.job_detail.id}`
+                                      );
                                     }}
                                     className="px-3 py-2 site-button text-white border-0"
                                     style={{
@@ -170,7 +231,7 @@ function EmployeeCompanymanage() {
                                       cursor: "pointer",
                                     }}
                                   >
-                                    Publish
+                                    {btn}
                                   </button>
                                   {/* <button
                                   className="px-3 site-button py-2  text-white border-0"
