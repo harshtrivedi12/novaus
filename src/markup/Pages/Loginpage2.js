@@ -73,7 +73,8 @@ function Login(props) {
         style={{
           backgroundImage: "url(" + loginbg + ")",
           backgroundSize: "cover",
-        }}>
+        }}
+      >
         <div className="section-full">
           <div className="container">
             <div className="row">
@@ -146,11 +147,13 @@ function Login(props) {
                               right: "0px",
                               zIndex: "11",
                               position: "absolute",
-                            }}>
+                            }}
+                          >
                             <i
                               className={
                                 showPassword ? "fa fa-eye-slash " : "fa fa-eye"
-                              }></i>
+                              }
+                            ></i>
                           </span>
                           <input
                             type={showPassword ? "text" : "password"} // Toggle password visibility
@@ -170,8 +173,9 @@ function Login(props) {
                       <div className="form-group text-center">
                         <Link
                           data-toggle="tab"
-                          to="/user/email-verification"
-                          className="forget-pass m-l5">
+                          to="/user/forgot-password"
+                          className="forget-pass m-l5"
+                        >
                           <i className="fa fa-unlock-alt"></i> Forgot Password
                         </Link>
                       </div>
@@ -184,25 +188,29 @@ function Login(props) {
                             <Link
                               to={""}
                               className="fa fa-linkedin link-btn mr-1"
-                              target="bank"></Link>
+                              target="bank"
+                            ></Link>
                           </li>
                           <li onClick={handleGoogleLogin}>
                             <Link
                               to={""}
                               className="fa fa-google link-btn mr-1"
-                              target="bank"></Link>
+                              target="bank"
+                            ></Link>
                           </li>
                         </ul>
                       </div>
                       <div className="text-center">
                         <button
                           onClick={handlePostRequest}
-                          className="site-button float-left">
+                          className="site-button float-left"
+                        >
                           login
                         </button>
                         <Link
                           to="/user/register-2"
-                          className="site-button-link forget-pass m-t15 float-right">
+                          className="site-button-link forget-pass m-t15 float-right"
+                        >
                           <i className="fa fa-unlock-alt"></i> Sign up
                         </Link>
                       </div>
@@ -210,7 +218,8 @@ function Login(props) {
                     <div className="form-group text-center">
                       <Link
                         to="/user/contact"
-                        className="site-button-link  m-t15 ">
+                        className="site-button-link  m-t15 "
+                      >
                         Need help click here
                       </Link>
                     </div>

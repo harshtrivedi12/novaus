@@ -122,6 +122,8 @@ import HowItWorksCandidates from "./markup/Pages/HowItWorksCandidates";
 import CompanyPage from "./markup/Pages/CompanyPageView";
 import EmailVerification from "./markup/Pages/EmailVerification";
 import NewPasswordSet from "./markup/Pages/NewPasswordSet";
+import ForgotPassword from "./markup/Pages/ForgotPassword";
+import ResetPassword from "./markup/Pages/ResetPassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -141,6 +143,8 @@ function App() {
           }
         />
         <Route path="login" element={<Loginpage2 />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="reset-password" element={<ResetPassword />} />
         <Route path="register" element={<Register1 />} />
         <Route path="register-2" element={<Register2 />} />
         <Route
@@ -992,7 +996,7 @@ function App() {
           element={
             <EmployeePrivateRoute>
               <EmployeeBlogdetail />
-            </EmployeePrivateRoute> 
+            </EmployeePrivateRoute>
           }
         />
         <Route path="candidate-listing" element={<EmployeeJobPage />} />
