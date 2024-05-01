@@ -17,9 +17,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <GoogleOAuthProvider clientId="976140565294-ouen8r344q4iaeq0ubrbq1e5tmcpkadb.apps.googleusercontent.com">
-          <App />
-        </GoogleOAuthProvider>
+        <App />
       </Router>
     </Provider>
   </React.StrictMode>,

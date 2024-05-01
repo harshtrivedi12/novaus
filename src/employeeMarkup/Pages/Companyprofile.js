@@ -146,27 +146,27 @@ function EmployeeCompanyprofile() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (companyData.country.id) {
-      setSelectedCountry(companyData.country.id);
-    } else {
-      setSelectedCountry(1);
-    }
-    if (companyData.state.id) {
-      setSelectedState(companyData.state.id);
-    } else {
-      setSelectedCountry(1);
-    }
+    // if (companyData.country.id) {
+    //   setSelectedCountry(companyData.country.id);
+    // } else {
+    //   setSelectedCountry(1);
+    // }
+    // if (companyData.state.id) {
+    //   setSelectedState(companyData.state.id);
+    // } else {
+    //   setSelectedCountry(1);
+    // }
 
-    if (companyData.city.id) {
-      setSelectedCities(companyData.city.id);
-    } else {
-      setSelectedCountry(1);
-    }
+    // if (companyData.city.id) {
+    //   setSelectedCities(companyData.city.id);
+    // } else {
+    //   setSelectedCountry(1);
+    // }
 
     setCompanyName(companyData.company_name);
     setTagline(companyData.tagline);
     setEmail(companyData.email);
-    setWebsite(companyData.website_link.id);
+    setWebsite(companyData.website_link);
     setDate(companyData.founded_date);
     setDescription(companyData.about);
 

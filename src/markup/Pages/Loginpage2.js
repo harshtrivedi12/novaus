@@ -8,6 +8,7 @@ import {
 
 import loginbg from "./../../images/bg6.jpg";
 import axios from "axios";
+import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 
 function Login(props) {
   const [email, setEmail] = useState("demo@example.com");
@@ -68,6 +69,7 @@ function Login(props) {
 
   return (
     <div className="page-wraper">
+      Document
       <div
         className="page-content bg-white login-style2"
         style={{
@@ -236,6 +238,7 @@ function Login(props) {
                   All rights reserved.
                 </span>
               </div>
+              <Page>hello</Page>
             </div>
           </div>
           {html && <div dangerouslySetInnerHTML={{ __html: html }}></div>}
