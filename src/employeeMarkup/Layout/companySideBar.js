@@ -1,16 +1,18 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
   setPostAJobData,
   setSkillsData,
 } from "../../store/reducers/postAJobSlice";
+import { fetchCompanyInfo } from "../../store/thunkFunctions/companyFunction";
 
 const CompanySideBar = ({ active }) => {
   const token = localStorage.getItem("employeeLoginToken");
   //   const [res.data.data, setres.data.dataa] = useState({})
+  const [logo, setLogo] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const postJob = async () => {
@@ -47,6 +49,30 @@ const CompanySideBar = ({ active }) => {
       });
   };
 
+  const getLogo = async () => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: "https://jobsbooklet.in/api/employeer/employeer-profile",
+        headers: {
+          Authorization: token,
+        },
+      });
+
+      setLogo(`https://novajobs.us${response.data.data.company_detail.logo}`); // This is the resolved value used as action.payload
+    } catch (error) {
+      // Using rejectWithValue to return a custom error payload
+    }
+  };
+
+  useEffect(() => {
+    getLogo();
+  }, []);
+
+  const companyData = useSelector(
+    (state) => state.companyDataSlice.companyData
+  );
+
   return (
     <div className="col-xl-3 col-lg-4 m-b30">
       <div className="sticky-top">
@@ -54,7 +80,7 @@ const CompanySideBar = ({ active }) => {
           <div className="candidate-detail text-center">
             <div className="canditate-des">
               <Link to={"#"}>
-                <img alt="" src={require("./../../images/logo/icon3.jpg")} />
+                <img alt="" src={logo} />
               </Link>
               <div
                 className="upload-link"

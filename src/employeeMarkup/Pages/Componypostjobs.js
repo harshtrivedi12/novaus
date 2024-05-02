@@ -35,7 +35,6 @@ function EmployeeComponypostjobs() {
     setSuggestions(false);
   };
 
-
   function renderSection(text) {
     const htmlText = text
       .split("\n\n")
@@ -136,7 +135,7 @@ function EmployeeComponypostjobs() {
           setPostAJobData({
             ...postAJobData,
             jobTitle: res.data.data.job_detail.job_title,
-            company: res.data.data.job_detail.country_id,
+            company: res.data.data.job_detail.companies.company_name,
             workplaceType: res.data.data.job_detail.workplace_type_id,
             jobType: res.data.data.job_detail.job_type_id,
             description: res.data.data.job_detail.job_description,
@@ -167,12 +166,11 @@ function EmployeeComponypostjobs() {
         Authorization: token,
       },
       data: {
-        keyword: "Job Description",
-        title: "PHP Developer",
-        workplace_type: "Remote",
-        job_type: "Full-Time",
-        company: "SVAP Infotech",
-        location: "Jaipur, Rajasthan",
+        keyword: postAJobData.jobTitle,
+        title: postAJobData.jobTitle,
+        workplace_type: postAJobData.workplaceType,
+        job_type: postAJobData.jobType,
+        company: postAJobData.company,
       },
     }).then((res) => {
       console.log(res.data.data.description);
@@ -348,7 +346,6 @@ function EmployeeComponypostjobs() {
 
     dispatch(setPostAJobData({ ...postAJobData, [name]: value }));
 
-
     if (name === "jobTitle") {
       // Validate  allow only characters
       if (!/^[a-zA-Z\s]*$/.test(value)) {
@@ -364,12 +361,11 @@ function EmployeeComponypostjobs() {
       }
     }
 
-
     dispatch(setPostAJobData({ ...postAJobData, [name]: value }));
   };
   const [errors, setErrors] = useState({
-    jobTitle: '',
-    company: '',
+    jobTitle: "",
+    company: "",
   });
   console.log(countries, "ciosda");
   return (
@@ -422,7 +418,6 @@ function EmployeeComponypostjobs() {
                               id="company"
                               name="company"
                               value={postAJobData.company}
-                              onChange={handleChange}
                             />
                           </div>
                           {errors.company && (

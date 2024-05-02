@@ -389,8 +389,6 @@
 // };
 // export default connect(mapStateToProps)(EmployeeRegister2);
 
-
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
@@ -423,7 +421,7 @@ function EmployeeRegister2(props) {
   const [percentage, setPercentage] = useState();
   const navigate = useNavigate();
   const [resumeUrl, setResumeUrl] = useState("");
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
   function handleChange(event) {
     setFile(event.target.files[0]);
   }
@@ -535,7 +533,9 @@ function EmployeeRegister2(props) {
           }}>
           <div className="row">
             <div className="col-xl-6 col-lg-7 col-md-8 col-sm-12 bg-white z-index2 relative p-a0 content-scroll skew-section left-bottom">
-              <div className="login-form style-2" style={{ display: 'flex', flexDirection: 'column' }}>
+              <div
+                className="login-form style-2"
+                style={{ display: "flex", flexDirection: "column" }}>
                 <div className="logo-header text-center p-tb30">
                   {/* <Link to={"./"}><img src={require("./../../images/logo.png")} alt="" /></Link> */}
                   <Link to={"./"}>
@@ -629,14 +629,22 @@ function EmployeeRegister2(props) {
                             </div>
                           </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-
                             <div className="input-group d-flex align-items-center">
-                              <span className="input-group-addon position-absolute"
+                              <span
+                                className="input-group-addon position-absolute"
                                 onClick={() => setShowPassword(!showPassword)}
-                                style={{ cursor: 'pointer', right: '0px', zIndex: '11', position: 'absolute' }
-                                }>
-
-                                <i className={showPassword ? "fa fa-eye-slash " : "fa fa-eye"}></i>
+                                style={{
+                                  cursor: "pointer",
+                                  right: "0px",
+                                  zIndex: "11",
+                                  position: "absolute",
+                                }}>
+                                <i
+                                  className={
+                                    showPassword
+                                      ? "fa fa-eye-slash "
+                                      : "fa fa-eye"
+                                  }></i>
                               </span>
                               <input
                                 type={showPassword ? "text" : "password"} // Toggle password visibility
@@ -645,7 +653,6 @@ function EmployeeRegister2(props) {
                                 placeholder="Type Your Password"
                                 defaultValue="Password"
                                 onChange={(e) => setPassword(e.target.value)}
-
                               />
                             </div>
                             <div className="text-danger">
@@ -658,19 +665,7 @@ function EmployeeRegister2(props) {
                             className="site-button dz-xs-flex m-r5">
                             Sign me up
                           </button> */}
-                            <span className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="check1"
-                                name="example1"
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="check1">
-                                Remember me
-                              </label>
-                            </span>
+
                             <span className="custom-control custom-checkbox mt-3">
                               <input
                                 type="checkbox"
@@ -680,9 +675,19 @@ function EmployeeRegister2(props) {
                               />
                               <label
                                 className="custom-control-label"
-                                htmlFor="check2"
-                              >
-                                Click here if you do not want to receive marketing emails from Glassdoor and affiliates
+                                htmlFor="check2">
+                                I agree to the{" "}
+                                {
+                                  <Link to={"/employee/privacy-rights"}>
+                                    Privacy Policy
+                                  </Link>
+                                }{" "}
+                                and{" "}
+                                {
+                                  <Link to={"/employee/term-of-use-nova-jobs"}>
+                                    Terms & Conditions
+                                  </Link>
+                                }{" "}
                               </label>
                             </span>
                             {/* <Link
@@ -727,10 +732,8 @@ function EmployeeRegister2(props) {
                         <div className="text-center ">
                           <button
                             type="submit"
-                            className="site-button dz-xs-flex m-r5"
-                          >
+                            className="site-button dz-xs-flex m-r5">
                             Create Account
-
                           </button>
                         </div>
                       </form>
@@ -741,7 +744,6 @@ function EmployeeRegister2(props) {
                           Sign In
                         </Link>
                       </div> */}
-
                     </div>
                   </div>
                 ) : (
@@ -815,7 +817,9 @@ function EmployeeRegister2(props) {
                       © Copyright by{" "} */}
                       {/* <i className="fa fa-heart m-lr5 text-red heart"></i> */}
                       Already have an account ?
-                      <a class="site-button-link " href="/employee/login"><i class="fa fa-unlock-alt"></i> Sign In</a>
+                      <a class="site-button-link " href="/employee/login">
+                        <i class="fa fa-unlock-alt"></i> Sign In
+                      </a>
                     </span>
                   </div>
                 </div>

@@ -7,6 +7,7 @@ import {
 } from "../../store/actions/AuthActions";
 import axios from "axios";
 import processVid from "../../gif process.mp4";
+import { DNA, InfinitySpin, MutatingDots } from "react-loader-spinner";
 var bnr = require("./../../images/background/bg6.jpg");
 
 function Register2(props) {
@@ -30,7 +31,8 @@ function Register2(props) {
   const [percentage, setPercentage] = useState();
   const navigate = useNavigate();
   const [resumeUrl, setResumeUrl] = useState("");
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
+  const [spinner, setSpinner] = useState(false);
   function handleChange(event) {
     setFile(event.target.files[0]);
   }
@@ -40,6 +42,7 @@ function Register2(props) {
   }
 
   function handleSubmit(event) {
+    setSpinner(true);
     event.preventDefault();
 
     const formData = new FormData();
@@ -55,7 +58,7 @@ function Register2(props) {
         },
       })
       .then((res) => {
-        alert("uploaded");
+        setSpinner(false);
         setResumeUrl(res.data.data[0].file_path);
         setAiBtn(false);
         console.log(resumeUrl, res, res.data.data[0].file_path);
@@ -138,14 +141,12 @@ function Register2(props) {
           style={{
             backgroundImage: `url(${bnr})`,
             height: "100vh",
-          }}
-        >
+          }}>
           <div className="row">
             <div className="col-xl-6 col-lg-7 col-md-8 col-sm-12 bg-white z-index2 relative p-a0 content-scroll skew-section left-bottom">
               <div
                 className="login-form style-2"
-                style={{ display: "flex", flexDirection: "column" }}
-              >
+                style={{ display: "flex", flexDirection: "column" }}>
                 <div className="logo-header text-center p-tb30">
                   {/* <Link to={"./"}><img src={require("./../../images/logo.png")} alt="" /></Link> */}
                   <Link to={"./"}>
@@ -254,15 +255,13 @@ function Register2(props) {
                                   right: "0px",
                                   zIndex: "11",
                                   position: "absolute",
-                                }}
-                              >
+                                }}>
                                 <i
                                   className={
                                     showPassword
                                       ? "fa fa-eye-slash "
                                       : "fa fa-eye"
-                                  }
-                                ></i>
+                                  }></i>
                               </span>
                               <input
                                 type={showPassword ? "text" : "password"} // Toggle password visibility
@@ -285,38 +284,18 @@ function Register2(props) {
                           >
                             Sign me up
                           </button> */}
-                            <span className="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="check1"
-                                name="example1"
-                                required
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="check1"
-                              >
-                                I confirm I represent HR/Personnel, Recruiting,
-                                Marketing, PR, or am an executive at my company
-                                and I agree to Terms of Use and acknowledge its
-                                Privacy Policy on behalf of my company
-                              </label>
-                            </span>
                             <span className="custom-control custom-checkbox mt-3">
-                              <input
-                                type="checkbox"
-                                className="custom-control-input"
-                                id="check2"
-                                name="example2"
-                                required
-                              />
                               <label
                                 className="custom-control-label"
-                                htmlFor="check2"
-                              >
-                                Click here if you do not want to receive
-                                marketing emails from affiliates
+                                htmlFor="check2">
+                                I agree to the{" "}
+                                {
+                                  <Link to={"/employee/term-of-use-nova-jobs"}>
+                                    Privacy Policy
+                                  </Link>
+                                }{" "}
+                                and Terms & Conditions I agree to the Privacy
+                                Policy and Terms & Conditions
                               </label>
                             </span>
                             {/* <Link
@@ -366,8 +345,7 @@ function Register2(props) {
                         <div className="text-center ">
                           <button
                             type="submit"
-                            className="site-button dz-xs-flex m-r5"
-                          >
+                            className="site-button dz-xs-flex m-r5">
                             Create Account
                           </button>
                         </div>
@@ -397,13 +375,25 @@ function Register2(props) {
                           </div>
                           <p>{percentage}</p>
                         </div>
-
-                        <button
-                          type="submit"
-                          className="site-button dz-xs-flex m-r5"
-                        >
-                          Upload Resume
-                        </button>
+                        {spinner ? (
+                          <MutatingDots
+                            visible={true}
+                            height="100"
+                            width="100"
+                            color="#1c2957"
+                            secondaryColor="#1c2957"
+                            radius="12.5"
+                            ariaLabel="mutating-dots-loading"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                          />
+                        ) : (
+                          <button
+                            type="submit"
+                            className="site-button dz-xs-flex m-r5">
+                            Upload Resume
+                          </button>
+                        )}
                       </form>
                     ) : (
                       <div>
@@ -411,8 +401,7 @@ function Register2(props) {
                           <video
                             width="200px"
                             loop={showVideo}
-                            autoPlay={showVideo}
-                          >
+                            autoPlay={showVideo}>
                             <source src={processVid} type="video/mp4" />
                           </video>
                         </div>
@@ -423,8 +412,7 @@ function Register2(props) {
                               className="site-button dz-xs-flex m-r5"
                               onClick={(e) => {
                                 navigate("/");
-                              }}
-                            >
+                              }}>
                               Go To Dashboard
                             </button>
                           </div>
@@ -433,8 +421,7 @@ function Register2(props) {
                             onClick={(e) => {
                               runAi(e);
                             }}
-                            className="site-button dz-xs-flex m-r5"
-                          >
+                            className="site-button dz-xs-flex m-r5">
                             {runAiButton}
                           </button>
                         )}
