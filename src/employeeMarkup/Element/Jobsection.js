@@ -1,5 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import moment from "moment/moment";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 const postBlog = [
   {
     image: require("./../../images/logo/icon1.png"),
@@ -22,64 +24,136 @@ const postBlog = [
 ];
 
 function Jobsection() {
+  const [data, setData] = useState([]);
+  const token = localStorage.getItem("employeeLoginToken");
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: "https://novajobs.us/api/employeer/job-seekers?page_size=10",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        console.log(res.data.data, "job seekers data");
+        setData(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  const navigate = useNavigate();
   return (
     <div className="section-full bg-white content-inner-2">
       <div className="container">
         <div className="d-flex job-title-bx section-head">
           <div className="mr-auto">
-            <h2 className="m-b5">Recent Jobs</h2>
-            <h6 className="fw4 m-b0">20+ Recently Added Jobs</h6>
+            <h2 className="m-b5">Candidates</h2>
           </div>
           <div className="align-self-end">
             <Link
-              to={"/employee/browse-job-list"}
+              to={"/employee/browse-candidates"}
               className="site-button button-sm"
             >
-              Browse All Jobs <i className="fa fa-long-arrow-right"></i>
+              Browse All Candidates <i className="fa fa-long-arrow-right"></i>
             </Link>
           </div>
         </div>
         <div className="row">
           <div className="col-lg-9">
             <ul className="post-job-bx browse-job">
-              {postBlog.map((item, index) => (
-                <li key={index}>
+              {data.map((item, index) => (
+                <li
+                  key={index}
+                  onClick={() =>
+                    navigate(`profilepage/${item?.jobskkers_detail?.id}`)
+                  }
+                  style={{ cursor: "pointer" }}
+                >
                   <div className="post-bx">
                     <div className="d-flex m-b30">
                       <div className="job-post-company">
                         <span>
-                          <img alt="" src={item.image} />
+                          <img
+                            alt="profile"
+                            src={item?.jobskkers_detail?.photo}
+                          />
                         </span>
                       </div>
                       <div className="job-post-info">
                         <h4>
-                          <Link to={"/employee/job-detail"}>
-                            Digital Marketing Executive
-                          </Link>
+                          {item?.jobskkers_detail?.first_name}{" "}
+                          {item?.jobskkers_detail?.last_name}
                         </h4>
                         <ul>
+                          <li>{item?.jobskkers_detail?.email}</li>
+                        </ul>
+                        <ul>
                           <li>
-                            <i className="fa fa-map-marker"></i> Sacramento,
-                            California
+                            <i className="fa fa-map-marker"></i>
+                            {item?.jobskkers_detail?.cities?.name}{" "}
+                            {item?.jobskkers_detail?.states?.name}{" "}
+                            {item?.jobskkers_detail?.countries?.name}
                           </li>
+
                           <li>
-                            <i className="fa fa-bookmark-o"></i> Full Time
-                          </li>
-                          <li>
-                            <i className="fa fa-clock-o"></i> Published 11
-                            months ago
+                            <i className="fa fa-clock-o"></i>{" "}
+                            {moment(
+                              item?.jobskkers_detail?.created_at
+                            ).fromNow()}
                           </li>
                         </ul>
+                        {item.jobskkers_detail.resume_score_percentage ? (
+                          <ul>
+                            <li>
+                              Resume Percentage :{" "}
+                              {item?.jobskkers_detail?.resume_score_percentage}
+                            </li>
+                          </ul>
+                        ) : null}
+                        {item.jobskkers_detail.skills_arr ? (
+                          <div
+                            className="job-time d-flex flex-column my-2 "
+                            style={{ gap: "12px" }}
+                          >
+                            <ul>
+                              <li>Skills :</li>
+                            </ul>
+                            <div className="row" style={{ gap: "7px" }}>
+                              {item.jobskkers_detail.skills_arr.map(
+                                (item, index) => {
+                                  return (
+                                    <ul key={index} className="job-time">
+                                      <Link to={"#"}>
+                                        <span>{item}</span>
+                                      </Link>
+                                    </ul>
+                                  );
+                                }
+                              )}
+                            </div>
+                          </div>
+                        ) : null}
                       </div>
                     </div>
                     <div className="d-flex">
-                      <div className="job-time mr-auto">
+                      <div className="job-time mr-auto d-flex">
+                        <ul>
+                          <li>Experience :</li>
+                        </ul>
                         <Link to={"#"}>
-                          <span>Full Time</span>
+                          <span>
+                            {item?.jobskkers_detail?.experience_in_month}
+                          </span>
                         </Link>
                       </div>
-                      <div className="salary-bx">
-                        <span>$1200 - $ 2500</span>
+                      <div
+                        className="d-flex align-items-center "
+                        style={{ gap: "7px" }}
+                      >
+                        <div className="salary-bx">
+                          <span>{item?.jobskkers_detail?.expected_salary}</span>
+                        </div>
                       </div>
                     </div>
                     <label className="like-btn">

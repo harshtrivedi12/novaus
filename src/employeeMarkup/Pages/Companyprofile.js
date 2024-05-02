@@ -15,7 +15,7 @@ function EmployeeCompanyprofile() {
   const companyData = useSelector(
     (state) => state.companyDataSlice.companyData
   );
-  console.log(companyData, "hey");
+  let companyDetail = companyData?.company_detail;
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -60,7 +60,7 @@ function EmployeeCompanyprofile() {
     })
       .then((res) => {
         setCountries(res.data.data);
-        console.log(res.data.data);
+        console.log(res.data.data, "country");
       })
       .catch((error) => {
         console.log(error);
@@ -77,7 +77,7 @@ function EmployeeCompanyprofile() {
     })
       .then((res) => {
         setStates(res.data.data);
-        console.log(res.data.data);
+        console.log(res.data.data, "state");
       })
       .catch((error) => {
         console.log(error);
@@ -94,12 +94,31 @@ function EmployeeCompanyprofile() {
       .then((res) => {
         console.log(selectedStates);
         setCities(res.data.data);
-        console.log(res.data.data);
+        console.log(res.data.data, "cities");
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  const [industries, setIndustries] = useState([]);
+
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: "https://novajobs.us/api/employeer/company-industry",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        console.log(res.data.data, "industry");
+        setIndustries(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const updateCompanyData = async (e) => {
     axios({
@@ -129,10 +148,11 @@ function EmployeeCompanyprofile() {
         twitter_link: twitter,
         google_link: googleBusiness,
         linkedin_link: linkdin,
+        company_industry_id: industry,
       },
     })
       .then((res) => {
-        console.log(res);
+        console.log(res, "data updated");
       })
       .catch((error) => {
         console.log(error);
@@ -146,37 +166,22 @@ function EmployeeCompanyprofile() {
   }, [dispatch]);
 
   useEffect(() => {
-    // if (companyData.country.id) {
-    //   setSelectedCountry(companyData.country.id);
-    // } else {
-    //   setSelectedCountry(1);
-    // }
-    // if (companyData.state.id) {
-    //   setSelectedState(companyData.state.id);
-    // } else {
-    //   setSelectedCountry(1);
-    // }
-
-    // if (companyData.city.id) {
-    //   setSelectedCities(companyData.city.id);
-    // } else {
-    //   setSelectedCountry(1);
-    // }
-
-    setCompanyName(companyData.company_name);
-    setTagline(companyData.tagline);
-    setEmail(companyData.email);
-    setWebsite(companyData.website_link);
-    setDate(companyData.founded_date);
-    setDescription(companyData.about);
-
+    setCompanyName(companyDetail?.company_name);
+    setTagline(companyDetail?.tagline);
+    setEmail(companyDetail?.email);
+    setWebsite(companyDetail?.website_link);
+    setDate(companyDetail?.founded_date);
+    setDescription(companyDetail?.about);
+    setSelectedCountry(companyDetail?.country?.name);
+    setSelectedCities(companyDetail?.city?.name);
+    setSelectedState(companyDetail?.state?.name);
     // setIndustry(companyData.country.id)
-    setNumber(companyData.phone);
-    setAddress(companyData.address);
-    setlinkdin(companyData.linkedin_link);
-    setTwitter(companyData.twitter_link);
-    setGoogleBusiness(companyData.google_link);
-    setGlassdor(companyData.facebook_link);
+    setNumber(companyDetail?.phone);
+    setAddress(companyDetail?.address);
+    setlinkdin(companyDetail?.linkedin_link);
+    setTwitter(companyDetail?.twitter_link);
+    setGoogleBusiness(companyDetail?.google_link);
+    setGlassdor(companyDetail?.facebook_link);
   }, [companyData]);
 
   return (
@@ -196,7 +201,8 @@ function EmployeeCompanyprofile() {
                       </h5>
                       <Link
                         to={"/employee/company-profile"}
-                        className="site-button right-arrow button-sm float-right">
+                        className="site-button right-arrow button-sm float-right"
+                      >
                         Back
                       </Link>
                     </div>
@@ -275,17 +281,25 @@ function EmployeeCompanyprofile() {
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
                             <label>Industry</label>
-                            <Form.Control
-                              as="select"
-                              custom
-                              className="custom-select"
-                              onChange={(e) => {
-                                setIndustry(e.target.value);
-                              }}
-                              value={industry}>
-                              <option>Web Designer</option>
-                              <option>Web Developer1</option>
-                            </Form.Control>
+                            {industries ? (
+                              <Form.Control
+                                as="select"
+                                custom
+                                className="custom-select"
+                                onChange={(e) => {
+                                  setIndustry(e.target.value);
+                                }}
+                                value={industry}
+                              >
+                                {industries.map((item, index) => {
+                                  return (
+                                    <option key={index} value={item.id}>
+                                      {item.name}
+                                    </option>
+                                  );
+                                })}
+                              </Form.Control>
+                            ) : null}
                           </div>
                         </div>
 
@@ -297,7 +311,8 @@ function EmployeeCompanyprofile() {
                               onChange={(e) => {
                                 setDescription(e.target.value);
                               }}
-                              value={description}></textarea>
+                              value={description}
+                            ></textarea>
                           </div>
                         </div>
                       </div>
@@ -330,10 +345,13 @@ function EmployeeCompanyprofile() {
                               value={selectedCountry}
                               onChange={(e) =>
                                 setSelectedCountry(e.target.value)
-                              }>
-                              <option value=""></option>
+                              }
+                            >
+                              <option value="">{selectedCountry}</option>
                               {countries.map((item) => (
-                                <option value={item.id}>{item.name}</option>
+                                <option key={item.id} value={item.id}>
+                                  {item.name}
+                                </option>
                               ))}
                             </select>
                           </div>
@@ -348,10 +366,13 @@ function EmployeeCompanyprofile() {
                                 value={selectedStates}
                                 onChange={(e) =>
                                   setSelectedState(e.target.value)
-                                }>
-                                <option value=""></option>
+                                }
+                              >
+                                <option value="">{selectedStates}</option>
                                 {states.map((item) => (
-                                  <option value={item.id}>{item.name}</option>
+                                  <option key={item.id} value={item.id}>
+                                    {item.name}
+                                  </option>
                                 ))}
                               </select>
                             ) : null}
@@ -367,11 +388,14 @@ function EmployeeCompanyprofile() {
                                 value={selectedCities}
                                 onChange={(e) => {
                                   setSelectedCities(e.target.value);
-                                }}>
-                                <option value=""></option>
+                                }}
+                              >
+                                <option value="">{selectedCities}</option>
 
                                 {cities.map((item) => (
-                                  <option value={item.id}>{item.name}</option>
+                                  <option key={item.id} value={item.id}>
+                                    {item.name}
+                                  </option>
                                 ))}
                               </select>
                             ) : null}
@@ -506,7 +530,8 @@ function EmployeeCompanyprofile() {
                           e.preventDefault();
 
                           updateCompanyData();
-                        }}>
+                        }}
+                      >
                         Update Setting
                       </button>
                     </form>

@@ -1,138 +1,51 @@
-import React from "react";
-import { Link, useParams  } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 function Jobcategories() {
-  const { id } = useParams();
+  const token = localStorage.getItem("employeeLoginToken");
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: "https://novajobs.us/api/employeer/job-categories",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        console.log(res.data.data);
+        setData(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <div className="row sp20">
-      <div className="col-lg-3 col-md-6 col-sm-6">
-        <div className="icon-bx-wraper">
-          <div className="icon-content">
-            <div className="icon-md text-primary m-b20">
-              <i className="ti-location-pin"></i>
-            </div>
-            <Link to={`/employee/company-manage-job/jobs/jobsDesign-art-multimedia`} className="dez-tilte">
-              Design, Art & Multimedia
-            </Link>
-           <p className="m-a0">198 Open Positions</p>
-            <div className="rotate-icon">
-              <i className="ti-location-pin"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-lg-3 col-md-6 col-sm-6">
-        <div className="icon-bx-wraper">
-          <div className="icon-content">
-            <div className="icon-md text-primary m-b20">
-              <i className="ti-wand"></i>
-            </div>
-              <Link to={`/employee/company-manage-job/jobs/jobseducation-training`} className="dez-tilte">
-              Education Training
-            </Link>
-            <p className="m-a0">198 Open Positions</p>
-            <div className="rotate-icon">
-              <i className="ti-wand"></i>
+      {data.map((item, index) => {
+        return (
+          <div key={index} className="col-lg-3 col-md-6 col-sm-6">
+            <div className="icon-bx-wraper">
+              <div className="icon-content">
+                <div className="icon-md text-primary m-b20">
+                  <i className="ti-location-pin"></i>
+                </div>
+                <Link
+                  to={`/employee/company-manage-job/jobs/jobsDesign-art-multimedia`}
+                  className="dez-tilte"
+                >
+                  {item.name}
+                </Link>
+                <div className="rotate-icon">
+                  <i className="ti-location-pin"></i>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="col-lg-3 col-md-6 col-sm-6">
-        <div className="icon-bx-wraper">
-          <div className="icon-content">
-            <div className="icon-md text-primary m-b20">
-              <i className="ti-wallet"></i>
-            </div>
-              <Link to={`/employee/company-manage-job/jobs/jobsaccounting-finance`} className="dez-tilte">
-              Accounting / Finance
-            </Link>
-            <p className="m-a0">198 Open Positions</p>
-            <div className="rotate-icon">
-              <i className="ti-wallet"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-lg-3 col-md-6 col-sm-6">
-        <div className="icon-bx-wraper">
-          <div className="icon-content">
-            <div className="icon-md text-primary m-b20">
-              <i className="ti-cloud-up"></i>
-            </div>
-              <Link to={`/employee/company-manage-job/jobs/jobshuman-resource`} className="dez-tilte">
-              Human Resource
-            </Link>
-            <p className="m-a0">198 Open Positions</p>
-            <div className="rotate-icon">
-              <i className="ti-cloud-up"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-lg-3 col-md-6 col-sm-6">
-        <div className="icon-bx-wraper">
-          <div className="icon-content">
-            <div className="icon-md text-primary m-b20">
-              <i className="ti-bar-chart"></i>
-            </div>
-              <Link to={`/employee/company-manage-job/jobs/jobstelecomunications`} className="dez-tilte">
-              Telecommunications
-            </Link>
-            <p className="m-a0">198 Open Positions</p>
-            <div className="rotate-icon">
-              <i className="ti-bar-chart"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-lg-3 col-md-6 col-sm-6">
-        <div className="icon-bx-wraper">
-          <div className="icon-content">
-            <div className="icon-md text-primary m-b20">
-              <i className="ti-tablet"></i>
-            </div>
-              <Link to={`/employee/company-manage-job/jobs/jobsrestaurent-food-service`} className="dez-tilte">
-              Restaurant / Food Service
-            </Link>
-            <p className="m-a0">198 Open Positions</p>
-            <div className="rotate-icon">
-              <i className="ti-tablet"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-lg-3 col-md-6 col-sm-6">
-        <div className="icon-bx-wraper">
-          <div className="icon-content">
-            <div className="icon-md text-primary m-b20">
-              <i className="ti-camera"></i>
-            </div>
-              <Link to={`/employee/company-manage-job/jobs/jobsconstruction-facilities`} className="dez-tilte">
-              Construction / Facilities
-            </Link>
-            <p className="m-a0">198 Open Positions</p>
-            <div className="rotate-icon">
-              <i className="ti-camera"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-lg-3 col-md-6 col-sm-6">
-        <div className="icon-bx-wraper">
-          <div className="icon-content">
-            <div className="icon-md text-primary m-b20">
-              <i className="ti-panel"></i>
-            </div>
-              <Link to={`/employee/company-manage-job/jobs/jobshealth`} className="dez-tilte">
-              Health
-            </Link>
-            <p className="m-a0">198 Open Positions</p>
-            <div className="rotate-icon">
-              <i className="ti-panel"></i>
-            </div>
-          </div>
-        </div>
-      </div>
+        );
+      })}
+
       <div className="col-lg-12 text-center m-t30">
         <button className="site-button radius-xl">All Categories</button>
       </div>

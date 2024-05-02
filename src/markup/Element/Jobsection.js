@@ -45,7 +45,7 @@ function Jobsection() {
           },
         }
       );
-      dispatch(setJobApplicationData(response.data.data));
+      dispatch(setJobApplicationData(response.data.data, "res"));
       setSkeleton(false);
     } catch (error) {
       console.log(error);

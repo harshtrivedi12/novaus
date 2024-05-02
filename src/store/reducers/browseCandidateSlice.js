@@ -7,6 +7,7 @@ const initialState = {
     counry_id: "",
     city_id: "",
     state_id: "",
+    search_input: "",
   },
   browseCandidateData: [],
 };

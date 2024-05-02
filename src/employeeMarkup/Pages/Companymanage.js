@@ -43,7 +43,7 @@ function EmployeeCompanymanage() {
       .then((response) => {
         console.log(response.data.data, "draft");
         setData(response.data.data);
-        setBtn("Publish");
+        setBtn("View");
 
         setSkeleton(false);
       })

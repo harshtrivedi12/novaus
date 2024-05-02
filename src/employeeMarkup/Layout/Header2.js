@@ -229,6 +229,9 @@ class EmployeeHeader2 extends Component {
                           <Link
                             to={"/employee/browse-candidates"}
                             className="dez-page"
+                            onClick={() => {
+                              localStorage.removeItem("profession_title");
+                            }}
                           >
                             Browse Candidates
                           </Link>

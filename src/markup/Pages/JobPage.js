@@ -440,8 +440,8 @@ function JobPage() {
   }
 
 
-  if (jobApplicationValues.country_id) {
-    params.append("location", jobApplicationValues.country_id);
+  if (jobApplicationValues.state_id) {
+    params.append("location", jobApplicationValues.state_id);
   } else if (selectedLocation) {
     params.append("location", selectedLocation);
   }

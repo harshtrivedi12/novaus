@@ -176,6 +176,7 @@ function Jobmyresume() {
       },
     }).then((res) => {
       let data = res.data.data.ai_resume_parse_data;
+      console.log(data);
       dispatch(setResumeHeadline(data.jobsMyResumeData.resumeHeadline));
       dispatch(setSkillsData(data.jobsMyResumeData.skillsData));
       dispatch(setEmploymentData(data.jobsMyResumeData.employmentData));
@@ -709,6 +710,23 @@ function Jobmyresume() {
         gap: "4px",
         flexWrap: "wrap",
       },
+
+      flexRowContainerGap7: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        gap: "15px",
+        flexWrap: "wrap",
+      },
+
+
+
+      flexColumnContainer : {
+        display : "flex",
+        flexDirection : "column",
+         gap : "7px",
+         marginBottom : "0px"
+      },
       mediumText: {
         fontFamily: "Poppins-semi",
       },
@@ -770,8 +788,9 @@ function Jobmyresume() {
         marginBottom: "0px",
       },
       listItem: {
+        display: "flex",
         flexDirection: "row",
-        paddingLeft: "15px",
+        gap: "7px",
       },
       listItemContent: {
         flex: 1,
@@ -795,101 +814,101 @@ function Jobmyresume() {
       },
     });
 
-    const parseInline = (text) => {
-      text = text.replace(/<span class="ql-cursor">.*?<\/span>/g, "");
+    // const parseInline = (text) => {
+    //   text = text.replace(/<span class="ql-cursor">.*?<\/span>/g, "");
 
-      const parts = text.split(/(<\/?(?:em|strong|u|br ?\/?)>)/g);
+    //   const parts = text.split(/(<\/?(?:em|strong|u|br ?\/?)>)/g);
 
-      let combinedStyles = [];
+    //   let combinedStyles = [];
 
-      for (let i = 0; i < parts.length; i++) {
-        let part = parts[i];
-        if (part === "<strong>" || part === "<em>" || part === "<u>") {
-          let nextPart = parts[i + 2];
-          if (
-            (part === "<strong>" && nextPart === "<em>") ||
-            (part === "<em>" && nextPart === "<strong>")
-          ) {
-            combinedStyles.push(
-              <Text key={`bold-italic-${i}`} style={styles.boldItalic}>
-                {parts[i + 3]}
-              </Text>
-            );
-            i += 4;
-          } else if (part === "<strong>") {
-            combinedStyles.push(
-              <Text key={`bold-${i}`} style={styles.bold}>
-                {parts[i + 1]}
-              </Text>
-            );
-            i += 2;
-          } else if (part === "<em>") {
-            combinedStyles.push(
-              <Text key={`italic-${i}`} style={styles.italic}>
-                {parts[i + 1]}
-              </Text>
-            );
-            i += 2;
-          } else if (part === "<u>") {
-            combinedStyles.push(
-              <Text key={`underline-${i}`} style={styles.underline}>
-                {parts[i + 1]}
-              </Text>
-            );
-            i += 2;
-          }
-        } else if (!part.match(/^<\/?(?:em|strong|u|br ?\/?)>$/)) {
-          // It's just text or ignored tags
-          combinedStyles.push(<Text key={`text-${i}`}>{part}</Text>);
-        }
-      }
+    //   for (let i = 0; i < parts.length; i++) {
+    //     let part = parts[i];
+    //     if (part === "<strong>" || part === "<em>" || part === "<u>") {
+    //       let nextPart = parts[i + 2];
+    //       if (
+    //         (part === "<strong>" && nextPart === "<em>") ||
+    //         (part === "<em>" && nextPart === "<strong>")
+    //       ) {
+    //         combinedStyles.push(
+    //           <Text key={`bold-italic-${i}`} style={styles.boldItalic}>
+    //             {parts[i + 3]}
+    //           </Text>
+    //         );
+    //         i += 4;
+    //       } else if (part === "<strong>") {
+    //         combinedStyles.push(
+    //           <Text key={`bold-${i}`} style={styles.bold}>
+    //             {parts[i + 1]}
+    //           </Text>
+    //         );
+    //         i += 2;
+    //       } else if (part === "<em>") {
+    //         combinedStyles.push(
+    //           <Text key={`italic-${i}`} style={styles.italic}>
+    //             {parts[i + 1]}
+    //           </Text>
+    //         );
+    //         i += 2;
+    //       } else if (part === "<u>") {
+    //         combinedStyles.push(
+    //           <Text key={`underline-${i}`} style={styles.underline}>
+    //             {parts[i + 1]}
+    //           </Text>
+    //         );
+    //         i += 2;
+    //       }
+    //     } else if (!part.match(/^<\/?(?:em|strong|u|br ?\/?)>$/)) {
+    //       // It's just text or ignored tags
+    //       combinedStyles.push(<Text key={`text-${i}`}>{part}</Text>);
+    //     }
+    //   }
 
-      return combinedStyles.filter((component) => component != null);
-    };
+    //   return combinedStyles.filter((component) => component != null);
+    // };
 
-    const parseHtml = (html) => {
-      const regex =
-        /<p>(.*?)<\/p>|<li>(.*?)<\/li>|<ul>(.*?)<\/ul>|<ol>(.*?)<\/ol>/g;
-      let match;
-      const output = [];
+    // const parseHtml = (html) => {
+    //   const regex =
+    //     /<p>(.*?)<\/p>|<li>(.*?)<\/li>|<ul>(.*?)<\/ul>|<ol>(.*?)<\/ol>/g;
+    //   let match;
+    //   const output = [];
 
-      while ((match = regex.exec(html))) {
-        if (match[1]) {
-          output.push(
-            <Text key={match.index} style={styles.paragraph}>
-              {parseInline(match[1])}
-            </Text>
-          );
-        } else if (match[2]) {
-          output.push(
-            <View key={match.index} style={styles.listItem}>
-              <Text>{"\u2022 "}</Text>
-              {parseInline(match[2])}
-            </View>
-          );
-        } else if (match[3]) {
-          const listItems = match[3];
-          const listItemRegex = /<li>(.*?)<\/li>/g;
-          let listItemMatch;
-          const listContent = [];
-          while ((listItemMatch = listItemRegex.exec(listItems))) {
-            listContent.push(
-              <View key={listItemMatch.index} style={styles.listItem}>
-                <Text>{"\u2022 "}</Text>
-                {parseInline(listItemMatch[1])}
-              </View>
-            );
-          }
-          output.push(
-            <View key={match.index} style={styles.list}>
-              {listContent}
-            </View>
-          );
-        } else if (match[4]) {
-        }
-      }
-      return output;
-    };
+    //   while ((match = regex.exec(html))) {
+    //     if (match[1]) {
+    //       output.push(
+    //         <Text key={match.index} style={styles.paragraph}>
+    //           {parseInline(match[1])}
+    //         </Text>
+    //       );
+    //     } else if (match[2]) {
+    //       output.push(
+    //         <View key={match.index} style={styles.listItem}>
+    //           <Text>{"\u2022 "}</Text>
+    //           {parseInline(match[2])}
+    //         </View>
+    //       );
+    //     } else if (match[3]) {
+    //       const listItems = match[3];
+    //       const listItemRegex = /<li>(.*?)<\/li>/g;
+    //       let listItemMatch;
+    //       const listContent = [];
+    //       while ((listItemMatch = listItemRegex.exec(listItems))) {
+    //         listContent.push(
+    //           <View key={listItemMatch.index} style={styles.listItem}>
+    //             <Text>{"\u2022 "}</Text>
+    //             {parseInline(listItemMatch[1])}
+    //           </View>
+    //         );
+    //       }
+    //       output.push(
+    //         <View key={match.index} style={styles.list}>
+    //           {listContent}
+    //         </View>
+    //       );
+    //     } else if (match[4]) {
+    //     }
+    //   }
+    //   return output;
+    // };
     const ListItem = ({ children }) => (
       <View style={styles.listItem}>
         <Text style={styles.bullet}>•</Text>
@@ -929,7 +948,7 @@ function Jobmyresume() {
 
 : null}
 
-            {personalDetailsValue.dateofbirth ||
+            {personalDetailsValue.dateOfBirth ||
             personalDetailsValue.gender ||
             personalDetailsValue.maritalStatus ||
             personalDetailsValue.passportNumber ||
@@ -939,132 +958,169 @@ function Jobmyresume() {
             personalDetailsValue.areaPinCode ||
             personalDetailsValue.homeTown ||
             personalDetailsValue.workPermitOfOtherCountry ? (
-              <View style={styles.personalDetailsContainer}>
-                {personalDetailsValue.dateofbirth ? (
-                  <Text>{personalDetailsValue.dateofbirth}</Text>
+              <View style={styles.flexRowContainerGap7}>
+                {personalDetailsValue.dateOfBirth ? (
+                  <View style={styles.flexColumnContainer}>
+                    <Text style={styles.mediumText}>Date Of Birth :</Text>
+                    <Text>{personalDetailsValue.dateOfBirth}</Text>
+                  </View>
                 ) : null}
                 {personalDetailsValue.gender ? (
-                  <Text>{personalDetailsValue.gender}</Text>
+                  <View style={styles.flexColumnContainer}>
+                    <Text style={styles.mediumText}>Gender :</Text>
+                    <Text>{personalDetailsValue.gender}</Text>
+                  </View>
                 ) : null}
 
                 {personalDetailsValue.maritalStatus ? (
-                  <View style={styles.flexRowContainer}>
+                  <View style={styles.flexColumnContainer}>
                     <Text style={styles.mediumText}>Marital Status :</Text>
                     <Text>{personalDetailsValue.maritalStatus}</Text>
                   </View>
                 ) : null}
                 {personalDetailsValue.passportNumber ? (
-                  <View style={styles.flexRowContainer}>
+                  <View style={styles.flexColumnContainer}>
                     <Text style={styles.mediumText}>Passport Number</Text>
                     <Text>{personalDetailsValue.passportNumber}</Text>
                   </View>
                 ) : null}
-                {personalDetailsValue.differentlyAbled ||
-                personalDetailsValue.languages ||
-                personalDetailsValue.addPermanentAddress ||
-                personalDetailsValue.areaPinCode ||
-                personalDetailsValue.homeTown ? (
-                  <View style={styles.flexRowContainer}>
-                    <Text style={styles.mediumText}>Details :</Text>
-                    {personalDetailsValue.languages ? (
-                      <Text>{personalDetailsValue.languages}</Text>
-                    ) : null}
-                    {personalDetailsValue.differentlyAbled ? (
-                      <Text>{personalDetailsValue.differentlyAbled}</Text>
-                    ) : null}
-                    {personalDetailsValue.addPermanentAddress ? (
-                      <Text>{personalDetailsValue.addPermanentAddress}</Text>
-                    ) : null}
-                    {personalDetailsValue.areaPinCode ? (
-                      <Text>{personalDetailsValue.areaPinCode}</Text>
-                    ) : null}
-
-                    {personalDetailsValue.homeTown ? (
-                      <Text>{personalDetailsValue.homeTown}</Text>
-                    ) : null}
-                  </View>
-                ) : null}
+              
                 {personalDetailsValue.workPermitOfOtherCountry ? (
-                  <View style={styles.flexRowContainer}>
+                  <View style={styles.flexColumnContainer}>
                     <Text style={styles.mediumText}>Work Permit</Text>
                     <Text>{personalDetailsValue.workPermitOfOtherCountry}</Text>
                   </View>
                 ) : null}
               </View>
             ) : null}
-          </View>
+              {personalDetailsValue.differentlyAbled ||
+                personalDetailsValue.languages ||
+                personalDetailsValue.addPermanentAddress ||
+                personalDetailsValue.areaPinCode ||
+                personalDetailsValue.homeTown ? (
+                  <View style={styles.flexColumnContainer}>
+                    <Text style={styles.mediumText}>Details :</Text>
+                    <View style={styles.flexRowContainerGap7}>
 
-          <View style={styles.flexRowContainer}>
-            {desiredCareerProfile.industry ? (
-              <View style={styles.flexColumnGap4}>
+                    {personalDetailsValue.languages ? (
+                    <View style={styles.flexColumnContainer}>
+                    <Text style={styles.mediumText}>Languages</Text>
+                    <Text>{personalDetailsValue.languages}</Text>
+                  </View>
+                    ) : null}
+                    {personalDetailsValue.differentlyAbled ? (
+                         <View style={styles.flexColumnContainer}>
+                         <Text style={styles.mediumText}>Differently Abled</Text>
+                         <Text>{personalDetailsValue.differentlyAbled}</Text>
+                       </View>
+                    ) : null}
+                    {personalDetailsValue.addPermanentAddress ? (
+                       <View style={styles.flexColumnContainer}>
+                       <Text style={styles.mediumText}>Add Permanent Address</Text>
+                       <Text>{personalDetailsValue.addPermanentAddress}</Text>
+                     </View>
+                    ) : null}
+                    {personalDetailsValue.areaPinCode ? (
+                        <View style={styles.flexColumnContainer}>
+                        <Text style={styles.mediumText}>Area Pincode</Text>
+                        <Text>{personalDetailsValue.areaPinCode}</Text>
+                      </View>
+                    ) : null}
+
+                    {personalDetailsValue.homeTown ? (
+                        <View style={styles.flexColumnContainer}>
+                        <Text style={styles.mediumText}>HomeTown</Text>
+                        <Text>{personalDetailsValue.homeTown}</Text>
+                      </View>
+                    ) : null}
+                  </View>
+                    </View>
+                ) : null}
+
+{desiredCareerProfile ? 
+<View style={styles.flexColumnContainer}>
+  <Text style={styles.mediumText}>Desired Career Profile:</Text>
+  <View style={styles.flexRowContainerGap7}>
+
+{desiredCareerProfile.industry ? (
+  <View style={styles.flexColumnContainer}>
                 <Text style={styles.mediumText}>Industry</Text>
                 <Text>{desiredCareerProfile.industry}</Text>
               </View>
             ) : null}
 
             {desiredCareerProfile.role ? (
-              <View style={styles.flexColumnGap4}>
+              <View style={styles.flexColumnContainer}>
                 <Text style={styles.mediumText}>Role</Text>
                 <Text>{desiredCareerProfile.role}</Text>
               </View>
             ) : null}
 
             {desiredCareerProfile.employmentType ? (
-              <View style={styles.flexColumnGap4}>
+              <View style={styles.flexColumnContainer}>
                 <Text style={styles.mediumText}>Employment Type</Text>
                 <Text>{desiredCareerProfile.employmentType}</Text>
               </View>
             ) : null}
 
             {desiredCareerProfile.availabilityToJoin ? (
-              <View style={styles.flexColumnGap4}>
+              <View style={styles.flexColumnContainer}>
                 <Text style={styles.mediumText}>Availability To Join</Text>
                 <Text>{desiredCareerProfile.availabilityToJoin}</Text>
               </View>
             ) : null}
 
+            </View>
+            <View style={styles.flexRowContainerGap7}>
+
             {desiredCareerProfile.desiredLocation ? (
-              <View style={styles.flexColumnGap4}>
+              <View style={styles.flexColumnContainer}>
                 <Text style={styles.mediumText}>Desired Location</Text>
                 <Text>{desiredCareerProfile.desiredLocation}</Text>
               </View>
             ) : null}
 
             {desiredCareerProfile.functionalArea ? (
-              <View style={styles.flexColumnGap4}>
+              <View style={styles.flexColumnContainer}>
                 <Text style={styles.mediumText}>Functional Area</Text>
                 <Text>{desiredCareerProfile.functionalArea}</Text>
               </View>
             ) : null}
 
             {desiredCareerProfile.jobType ? (
-              <View style={styles.flexColumnGap4}>
+              <View style={styles.flexColumnContainer}>
                 <Text style={styles.mediumText}>Job Type</Text>
                 <Text>{desiredCareerProfile.jobType}</Text>
               </View>
             ) : null}
 
             {desiredCareerProfile.desiredShift ? (
-              <View style={styles.flexColumnGap4}>
+              <View style={styles.flexColumnContainer}>
                 <Text style={styles.mediumText}>Desired Shift</Text>
                 <Text>{desiredCareerProfile.desiredShift}</Text>
               </View>
             ) : null}
 
             {desiredCareerProfile.expectedSalary ? (
-              <View style={styles.flexColumnGap4}>
+              <View style={styles.flexColumnContainer}>
                 <Text style={styles.mediumText}>Expected Salary</Text>
                 <Text>{desiredCareerProfile.expectedSalary}</Text>
               </View>
             ) : null}
 
             {desiredCareerProfile.desiredIndustry ? (
-              <View style={styles.flexColumnGap4}>
+              <View style={styles.flexColumnContainer}>
                 <Text style={styles.mediumText}>Desired Industry</Text>
                 <Text>{desiredCareerProfile.desiredIndustry}</Text>
               </View>
             ) : null}
+            </View>
           </View>
+: null}
+</View>
+
+
+  
           {profileSummaryValue ? (
             <View style={styles.flexColumnGap4}>
               <View style={styles.headingContainer}>

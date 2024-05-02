@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "./../Layout/Header";
 import Footer from "./../Layout/Footer";
@@ -8,18 +8,18 @@ import Jobcategories from "./../Element/Jobcategories";
 import Featureblog from "./../Element/Featureblog";
 import Jobsection from "./../Element/Jobsection";
 import Owltestimonial from "./../Element/Owlblog1";
+import axios from "axios";
 
 //Images
 var bnr2 = require("./../../images/background/bg4.jpg");
 var bnr3 = require("./../../images/lines.png");
-
 function EmployeeHomepage() {
   return (
     <div className="page-wraper">
       <Header />
       <div className="page-content">
         <IndexBanner />
-        <div className="section-full job-categories content-inner-2 bg-white">
+        {/* <div className="section-full job-categories content-inner-2 bg-white">
           <div className="container">
             <div className="section-head d-flex head-counter clearfix">
               <div className="mr-auto">
@@ -47,7 +47,7 @@ function EmployeeHomepage() {
             </div>
             <Jobcategories />
           </div>
-        </div>
+        </div> */}
         <Featureblog />
         <Jobsection />
         <div

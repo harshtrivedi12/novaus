@@ -69,7 +69,6 @@ function Login(props) {
 
   return (
     <div className="page-wraper">
-      Document
       <div
         className="page-content bg-white login-style2"
         style={{

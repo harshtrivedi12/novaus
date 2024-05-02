@@ -96,7 +96,7 @@ import EmployeeBlogdetailgridsidebar from "./employeeMarkup/Pages/Blogdetailgrid
 import EmployeeBlogleftimg from "./employeeMarkup/Pages/Blogleftimg";
 import EmployeeBlogdetail from "./employeeMarkup/Pages/Blogdetail";
 import JobPage from "./markup/Pages/JobPage";
-import ProfilePage from "./markup/Pages/ProfilePage";
+import ProfilePage from "./employeeMarkup/Pages/ProfilePage";
 import SkillTest from "./markup/Pages/SkillTest";
 import EducationPage from "./markup/Pages/EducationPage";
 import EmployeeCategorycompanyjob from "./employeeMarkup/Pages/Categorycompanyjob";
