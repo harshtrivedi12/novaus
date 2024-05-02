@@ -130,12 +130,11 @@ function EmployeeComponypostjobs() {
       },
     })
       .then((res) => {
-        console.log(res.data.data.screen_questions, "jijadsjklkadslj");
+        console.log(res.data.data.companies.company_name, "joy");
         dispatch(
           setPostAJobData({
-            ...postAJobData,
             jobTitle: res.data.data.job_detail.job_title,
-            company: res.data.data.job_detail.companies.company_name,
+            company: res.data.data.companies.company_name,
             workplaceType: res.data.data.job_detail.workplace_type_id,
             jobType: res.data.data.job_detail.job_type_id,
             description: res.data.data.job_detail.job_description,

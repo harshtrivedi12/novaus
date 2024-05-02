@@ -24,7 +24,7 @@ const initialState = {
     workplaceType: "",
     location: "",
     jobType: "",
-    description: "fdffd",
+    description: "",
     education: "",
     qualificationSetting: "",
     selectedCity: "",
@@ -38,7 +38,7 @@ const postAJobSlice = createSlice({
   initialState,
   reducers: {
     setPostAJobData: (state, action) => {
-      console.log(action.payload);
+      console.log(action.payload, "Joy");
       state.postAJobData = action.payload;
     },
     setSkillsValues: (state, action) => {
@@ -64,24 +64,23 @@ const postAJobSlice = createSlice({
       console.log(category, "category in slice file");
       const questions =
         state.selectedScreeningQuestions.screen_question_keywords;
-      
-        const index =
-          state.selectedScreeningQuestions.screen_question_keywords.findIndex(
-            (item) => item.id === category.id
-          );
-        console.log(index);
-        console.log(index, "index");
-        if (index === -1) {
-          state.selectedScreeningQuestions.screen_question_keywords.push(
-            category
-          );
-        } else {
-          state.selectedScreeningQuestions.screen_question_keywords.splice(
-            index,
-            1
-          );
-        }
-      
+
+      const index =
+        state.selectedScreeningQuestions.screen_question_keywords.findIndex(
+          (item) => item.id === category.id
+        );
+      console.log(index);
+      console.log(index, "index");
+      if (index === -1) {
+        state.selectedScreeningQuestions.screen_question_keywords.push(
+          category
+        );
+      } else {
+        state.selectedScreeningQuestions.screen_question_keywords.splice(
+          index,
+          1
+        );
+      }
     },
     setSelctedScreeningQuestionGet: (state, action) => {
       console.log(action.payload, "item");
