@@ -423,7 +423,19 @@ function Register2(props) {
                     <span>
                       {/* {" "}
                       © Copyright by{" "} */}
-                      {/* <i className="fa fa-heart m-lr5 text-red heart"></i> */}
+                      {/*   <img
+                    src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                    alt=""
+                    style={{
+                      width: "40px",
+                    }}
+                  />  <img
+                    src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                    alt=""
+                    style={{
+                      width: "40px",
+                    }}
+                  /> */}
                       Already have an account ?
                       <a class="site-button-link " href="/user/login">
                         <i class="fa fa-unlock-alt"></i> Sign In

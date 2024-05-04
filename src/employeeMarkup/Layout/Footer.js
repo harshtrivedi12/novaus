@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import india from "../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png";
 
 function EmployeeFooter() {
   return (
@@ -25,8 +26,7 @@ function EmployeeFooter() {
                   <form
                     className="dzSubscribe"
                     action="script/mailchamp.php"
-                    method="post"
-                  >
+                    method="post">
                     <div className="dzSubscribeMsg"></div>
                     <div className="input-group">
                       <input
@@ -41,8 +41,7 @@ function EmployeeFooter() {
                           name="submit"
                           value="Submit"
                           type="submit"
-                          className="site-button radius-xl"
-                        >
+                          className="site-button radius-xl">
                           Subscribe
                         </button>
                       </span>
@@ -53,32 +52,28 @@ function EmployeeFooter() {
                   <li>
                     <Link
                       to={""}
-                      className="site-button white facebook circle "
-                    >
+                      className="site-button white facebook circle ">
                       <i className="fa fa-facebook"></i>
                     </Link>
                   </li>
                   <li>
                     <Link
                       to={""}
-                      className="site-button white google-plus circle "
-                    >
+                      className="site-button white google-plus circle ">
                       <i className="fa fa-google-plus"></i>
                     </Link>
                   </li>
                   <li>
                     <Link
                       to={""}
-                      className="site-button white linkedin circle "
-                    >
+                      className="site-button white linkedin circle ">
                       <i className="fa fa-linkedin"></i>
                     </Link>
                   </li>
                   <li>
                     <Link
                       to={""}
-                      className="site-button white instagram circle "
-                    >
+                      className="site-button white instagram circle ">
                       <i className="fa fa-instagram"></i>
                     </Link>
                   </li>
@@ -131,11 +126,13 @@ function EmployeeFooter() {
                     <Link to={""}>Support</Link>
                   </li>
                 </ul> */}
-                <div className='row'>
-                  <div className='col-xl-4 col-lg-4 col-sm-4 col-12'>
+                <div className="row">
+                  <div className="col-xl-4 col-lg-4 col-sm-4 col-12">
                     <ul className="list-2 w10 list-line">
                       <li>
-                        <Link to={"/employee/privacy-rights"}>Privacy Rights</Link>
+                        <Link to={"/employee/privacy-rights"}>
+                          Privacy Rights
+                        </Link>
                       </li>
                       <li>
                         <Link to={"/employee/term-of-use-nova-jobs"}>
@@ -167,13 +164,10 @@ function EmployeeFooter() {
                           Data Sharing Helps
                         </Link>
                       </li>
-
                     </ul>
-
                   </div>
-                  <div className='col-xl-4 col-lg-4 col-sm-4 col-12'>
+                  <div className="col-xl-4 col-lg-4 col-sm-4 col-12">
                     <ul className="list-2 w10 list-line">
-
                       <li>
                         <Link to={"/employee/safeguard-from-email-scams"}>
                           Email Scams
@@ -199,18 +193,15 @@ function EmployeeFooter() {
                           Information of NovaUs Jobs
                         </Link>
                       </li>
-
                     </ul>
-
                   </div>
-                  <div className='col-xl-4 col-lg-4 col-sm-4 col-12'>
+                  <div className="col-xl-4 col-lg-4 col-sm-4 col-12">
                     <ul className="list-2 w10 list-line">
                       <li>
                         <Link
                           to={
                             "/employee/international-transfer-of-personal-information"
-                          }
-                        >
+                          }>
                           International Transfer
                         </Link>
                       </li>
@@ -225,7 +216,8 @@ function EmployeeFooter() {
                         </Link>
                       </li>
                       <li>
-                        <Link to={"/employee/retention-period-resume-visibility"}>
+                        <Link
+                          to={"/employee/retention-period-resume-visibility"}>
                           Retention Period
                         </Link>
                       </li>
@@ -240,12 +232,12 @@ function EmployeeFooter() {
                         </Link>
                       </li>
                       <li>
-                        <Link to={"/employee/security-center-account-management"}>
+                        <Link
+                          to={"/employee/security-center-account-management"}>
                           Security Center Account Management
                         </Link>
                       </li>
                     </ul>
-
                   </div>
                 </div>
                 {/* <ul className="list-2 list-line">
@@ -308,7 +300,13 @@ function EmployeeFooter() {
               <span>
                 {" "}
                 © Copyright by{" "}
-                <i className="fa fa-heart m-lr5 text-red heart"></i>
+                <img
+                  src={india}
+                  alt=""
+                  style={{
+                    width: "40px",
+                  }}
+                />
                 <Link to={""}>Nova Jobs </Link> All rights reserved.
               </span>
             </div>

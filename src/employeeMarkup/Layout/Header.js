@@ -199,13 +199,7 @@ class EmployeeHeader extends Component {
                             <span className="new-page">New</span>
                           </Link>
                         </li>
-                        <li>
-                          <Link
-                            to={"/employee/company-post-jobs"}
-                            className="dez-page">
-                            Post A Jobs <span className="new-page">New</span>
-                          </Link>
-                        </li>
+
                         <li>
                           <Link
                             to={"/employee/company-manage-job"}

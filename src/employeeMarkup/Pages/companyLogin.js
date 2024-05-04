@@ -5,6 +5,7 @@ import {
   loadingToggleAction,
   loginAction,
 } from "../../store/actions/AuthActions";
+import india from "../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png";
 
 // image
 //import logo from "../../images/logo-full-white.png";
@@ -67,8 +68,7 @@ function EmployeesCompanyLogin(props) {
         style={{
           backgroundImage: "url(" + loginbg + ")",
           backgroundSize: "cover",
-        }}
-      >
+        }}>
         <div className="section-full">
           <div className="container">
             <div className="row">
@@ -171,14 +171,12 @@ function EmployeesCompanyLogin(props) {
                       <div className="text-center">
                         <button
                           onClick={handlePostRequest}
-                          className="site-button float-left"
-                        >
+                          className="site-button float-left">
                           login
                         </button>
                         <Link
                           to="register-2"
-                          className="site-button-link forget-pass m-t15 float-right"
-                        >
+                          className="site-button-link forget-pass m-t15 float-right">
                           <i className="fa fa-unlock-alt"></i> Sign up
                         </Link>
                       </div>
@@ -195,7 +193,13 @@ function EmployeesCompanyLogin(props) {
               <div className="col-lg-12 text-center">
                 <span className="float-left">
                   © Copyright by{" "}
-                  <i className="fa fa-heart m-lr5 text-red heart"></i>
+                  <img
+                    src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                    alt=""
+                    style={{
+                      width: "40px",
+                    }}
+                  />
                   <Link to={"#"}>Nova Jobs </Link>{" "}
                 </span>
                 <span className="float-right">All rights reserved.</span>

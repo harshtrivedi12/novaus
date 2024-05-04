@@ -240,7 +240,20 @@ function Login(props) {
               <div className="col-lg-12 text-center">
                 <span className="float-left text-white">
                   © Copyright by{" "}
-                  <i className="fa fa-heart m-lr5 text-red heart"></i>
+                  <img
+                    src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                    alt=""
+                    style={{
+                      width: "40px",
+                    }}
+                  />{" "}
+                  <img
+                    src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                    alt=""
+                    style={{
+                      width: "40px",
+                    }}
+                  />
                   <span className="text-white">Nova Jobs </span>
                   <Link style={{ color: "white" }} to={"#"}>
                     Powered By Hyper V Solutions
@@ -250,7 +263,6 @@ function Login(props) {
                   All rights reserved.
                 </span>
               </div>
-              <Page>hello</Page>
             </div>
           </div>
           {html && <div dangerouslySetInnerHTML={{ __html: html }}></div>}

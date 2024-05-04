@@ -39,8 +39,7 @@ function ForgotPassword(props) {
         style={{
           backgroundImage: "url(" + loginbg + ")",
           backgroundSize: "cover",
-        }}
-      >
+        }}>
         <div className="section-full">
           <div className="container">
             <div className="row">
@@ -106,8 +105,7 @@ function ForgotPassword(props) {
                       <div className="mt-4 ">
                         <button
                           onClick={handlePostRequest}
-                          className="site-button float-left"
-                        >
+                          className="site-button float-left">
                           Submit
                         </button>
                       </div>
@@ -115,8 +113,7 @@ function ForgotPassword(props) {
                     <div className="form-group text-center">
                       <Link
                         to="/user/login"
-                        className="site-button-link  m-t15 "
-                      >
+                        className="site-button-link  m-t15 ">
                         Back to Login
                       </Link>
                     </div>
@@ -132,7 +129,20 @@ function ForgotPassword(props) {
               <div className="col-lg-12 text-center">
                 <span className="float-left text-white">
                   © Copyright by{" "}
-                  <i className="fa fa-heart m-lr5 text-red heart"></i>
+                  <img
+                    src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                    alt=""
+                    style={{
+                      width: "40px",
+                    }}
+                  />{" "}
+                  <img
+                    src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                    alt=""
+                    style={{
+                      width: "40px",
+                    }}
+                  />
                   <span className="text-white">Nova Jobs </span>
                   <Link style={{ color: "white" }} to={"#"}>
                     Powered By Hyper V Solutions

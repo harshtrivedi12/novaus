@@ -275,7 +275,13 @@ function CompanyRegister(props) {
                     <span>
                       {" "}
                       © Copyright by{" "}
-                      <i className="fa fa-heart m-lr5 text-red heart"></i>
+                      <img
+                        src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                        alt=""
+                        style={{
+                          width: "40px",
+                        }}
+                      />
                       <Link to={""}>Nova Jobs </Link> All rights reserved.
                     </span>
                   </div>

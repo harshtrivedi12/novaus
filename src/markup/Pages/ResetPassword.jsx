@@ -59,8 +59,7 @@ function ResetPassword(props) {
         style={{
           backgroundImage: "url(" + loginbg + ")",
           backgroundSize: "cover",
-        }}
-      >
+        }}>
         <div className="section-full">
           <div className="container">
             <div className="row">
@@ -133,13 +132,11 @@ function ResetPassword(props) {
                               right: "0px",
                               zIndex: "11",
                               position: "absolute",
-                            }}
-                          >
+                            }}>
                             <i
                               className={
                                 showPassword ? "fa fa-eye-slash " : "fa fa-eye"
-                              }
-                            ></i>
+                              }></i>
                           </span>
                           <input
                             type={showPassword ? "text" : "password"} // Toggle password visibility
@@ -160,14 +157,12 @@ function ResetPassword(props) {
                       <div className="text-center">
                         <button
                           onClick={handlePostRequest}
-                          className="site-button float-left"
-                        >
+                          className="site-button float-left">
                           Reset Password
                         </button>
                         <Link
                           to="/user/login"
-                          className="site-button-link forget-pass m-t15 float-right"
-                        >
+                          className="site-button-link forget-pass m-t15 float-right">
                           <i className="fa fa-unlock-alt"></i> Back To Login
                         </Link>
                       </div>
@@ -184,7 +179,20 @@ function ResetPassword(props) {
               <div className="col-lg-12 text-center">
                 <span className="float-left text-white">
                   © Copyright by{" "}
-                  <i className="fa fa-heart m-lr5 text-red heart"></i>
+                  <img
+                    src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                    alt=""
+                    style={{
+                      width: "40px",
+                    }}
+                  />{" "}
+                  <img
+                    src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                    alt=""
+                    style={{
+                      width: "40px",
+                    }}
+                  />
                   <span className="text-white">Nova Jobs </span>
                   <Link style={{ color: "white" }} to={"#"}>
                     Powered By Hyper V Solutions

@@ -10,8 +10,7 @@ function EmployeeLoginpage3() {
             <div className="col-lg-6 col-md-7 box-skew d-flex">
               <div
                 className="login-2 p-a30 seth d-flex align-self-center m-auto wow fadeInRight"
-                data-wow-delay="0.8s"
-              >
+                data-wow-delay="0.8s">
                 <div className="tab-content nav">
                   <form id="login" className="tab-pane active col-12 p-a0 ">
                     <p className="font-weight-600 text-center">
@@ -46,16 +45,14 @@ function EmployeeLoginpage3() {
                       <Link
                         data-toggle="tab"
                         to="#forgot-password"
-                        className="site-button-link forget-pass pull-right m-t15"
-                      >
+                        className="site-button-link forget-pass pull-right m-t15">
                         <i className="fa fa-unlock-alt"></i> Forgot Password
                       </Link>
                     </div>
                   </form>
                   <form
                     id="forgot-password"
-                    className="tab-pane fade col-12 p-a0"
-                  >
+                    className="tab-pane fade col-12 p-a0">
                     <p>We will send you an email to reset your password. </p>
                     <div className="form-group">
                       <label>E-Mail address *</label>
@@ -73,8 +70,7 @@ function EmployeeLoginpage3() {
                       <Link
                         className="site-button outline gray"
                         data-toggle="tab"
-                        to="#login"
-                      >
+                        to="#login">
                         Back
                       </Link>
                       <button className="site-button pull-right">Submit</button>
@@ -138,7 +134,20 @@ function EmployeeLoginpage3() {
               <span className="float-left text-black-light">
                 {" "}
                 © Copyright by{" "}
-                <i className="fa fa-heart m-lr5 text-red heart"></i>
+                <img
+                  src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                  alt=""
+                  style={{
+                    width: "40px",
+                  }}
+                />{" "}
+                <img
+                  src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                  alt=""
+                  style={{
+                    width: "40px",
+                  }}
+                />
                 <Link to={"#"} className="text-primary">
                   Nova Jobs{" "}
                 </Link>

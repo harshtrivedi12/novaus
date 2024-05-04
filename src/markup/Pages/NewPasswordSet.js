@@ -45,34 +45,33 @@ function NewPasswordSet(props) {
             });
     };
     return (
-        <div className="page-wraper">
-            <div
-                className="page-content bg-white login-style2"
-                style={{
-                    backgroundImage: "url(" + loginbg + ")",
-                    backgroundSize: "cover",
-                }}
-            >
-                <div className="section-full">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-6 col-md-6 d-flex">
-                                <div className="text-white max-w400 align-self-center">
-                                    <div className="logo">
-                                        {/* <Link to={"/"}><img src={logo2} alt="" /></Link> */}
-                                        <Link to={"/"}>
-                                            <img
-                                                src={require("./../../images/logo/NovaUS.png")}
-                                                alt=""
-                                            />
-                                        </Link>
-                                    </div>
-                                    <h2 className="m-b10">Please Set Yor New Password</h2>
-                                    <p className="m-b30">
-                                        Lorem Ipsum is simply dummy text of the printing and
-                                        typesetting industry has been the industry.
-                                    </p>
-                                    {/* <ul className="list-inline m-a0">
+      <div className="page-wraper">
+        <div
+          className="page-content bg-white login-style2"
+          style={{
+            backgroundImage: "url(" + loginbg + ")",
+            backgroundSize: "cover",
+          }}>
+          <div className="section-full">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-6 col-md-6 d-flex">
+                  <div className="text-white max-w400 align-self-center">
+                    <div className="logo">
+                      {/* <Link to={"/"}><img src={logo2} alt="" /></Link> */}
+                      <Link to={"/"}>
+                        <img
+                          src={require("./../../images/logo/NovaUS.png")}
+                          alt=""
+                        />
+                      </Link>
+                    </div>
+                    <h2 className="m-b10">Please Set Yor New Password</h2>
+                    <p className="m-b30">
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry has been the industry.
+                    </p>
+                    {/* <ul className="list-inline m-a0">
                                         <li>
                                             <Link to={""} className="m-r10 text-white ">
                                                 <i className="fa fa-google-plus"></i>
@@ -85,92 +84,103 @@ function NewPasswordSet(props) {
                                         </li>
 
                                     </ul> */}
-                                </div>
-                            </div>
-                            <div className="col-lg-6 col-md-6">
-                                <div className="login-2 submit-resume p-a30 seth">
-                                    <div className="nav">
-                                        <form className="col-12 p-a0 ">
-                                            <p className="font-weight-600">
-                                                Set Your New Password Here
-                                            </p>
-                                            {props.errorMessage && (
-                                                <div className="bg-red-300 text-red-900 border border-red-900 p-1 my-2">
-                                                    {props.errorMessage}
-                                                </div>
-                                            )}
-                                            {props.successMessage && (
-                                                <div className="bg-green-300 text-green-900 border border-green-900 p-1 my-2">
-                                                    {props.successMessage}
-                                                </div>
-                                            )}
-
-                                            <div className="form-group">
-                                                <label>Password *</label>
-                                                <div className="input-group">
-                                                    <input
-                                                        type="password"
-                                                        className="form-control"
-                                                        value={password}
-                                                        placeholder="Type Your Password"
-                                                        onChange={(e) => setPassword(e.target.value)}
-                                                    />
-                                                    {errors.password && (
-                                                        <div className="text-danger fs-12">
-                                                            {errors.password}
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
-                                                <label>Confirm Password *</label>
-                                                <div className="input-group">
-                                                    <input
-                                                        type="password"
-                                                        className="form-control"
-                                                        value={password}
-                                                        placeholder="Type Your Password"
-                                                        onChange={(e) => setPassword(e.target.value)}
-                                                    />
-                                                    {errors.password && (
-                                                        <div className="text-danger fs-12">
-                                                            {errors.password}
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                            <div className="text-center">
-                                                <button
-                                                    onClick={handlePostRequest}
-                                                    className="site-button float-left"
-                                                >
-                                                    Submit
-                                                </button>
-
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-                <footer className="login-footer">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-12 text-center">
-                                <span className="float-left">
-                                    © Copyright by{" "}
-                                    <i className="fa fa-heart m-lr5 text-red heart"></i>
-                                    <Link to={"#"}>Nova Jobs </Link>{" "}
-                                </span>
-                                <span className="float-right">All rights reserved.</span>
-                            </div>
+                <div className="col-lg-6 col-md-6">
+                  <div className="login-2 submit-resume p-a30 seth">
+                    <div className="nav">
+                      <form className="col-12 p-a0 ">
+                        <p className="font-weight-600">
+                          Set Your New Password Here
+                        </p>
+                        {props.errorMessage && (
+                          <div className="bg-red-300 text-red-900 border border-red-900 p-1 my-2">
+                            {props.errorMessage}
+                          </div>
+                        )}
+                        {props.successMessage && (
+                          <div className="bg-green-300 text-green-900 border border-green-900 p-1 my-2">
+                            {props.successMessage}
+                          </div>
+                        )}
+
+                        <div className="form-group">
+                          <label>Password *</label>
+                          <div className="input-group">
+                            <input
+                              type="password"
+                              className="form-control"
+                              value={password}
+                              placeholder="Type Your Password"
+                              onChange={(e) => setPassword(e.target.value)}
+                            />
+                            {errors.password && (
+                              <div className="text-danger fs-12">
+                                {errors.password}
+                              </div>
+                            )}
+                          </div>
                         </div>
+                        <div className="form-group">
+                          <label>Confirm Password *</label>
+                          <div className="input-group">
+                            <input
+                              type="password"
+                              className="form-control"
+                              value={password}
+                              placeholder="Type Your Password"
+                              onChange={(e) => setPassword(e.target.value)}
+                            />
+                            {errors.password && (
+                              <div className="text-danger fs-12">
+                                {errors.password}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <button
+                            onClick={handlePostRequest}
+                            className="site-button float-left">
+                            Submit
+                          </button>
+                        </div>
+                      </form>
                     </div>
-                </footer>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+          <footer className="login-footer">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-12 text-center">
+                  <span className="float-left">
+                    © Copyright by{" "}
+                    <img
+                      src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                      alt=""
+                      style={{
+                        width: "40px",
+                      }}
+                    />{" "}
+                    <img
+                      src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                      alt=""
+                      style={{
+                        width: "40px",
+                      }}
+                    />
+                    <Link to={"#"}>Nova Jobs </Link>{" "}
+                  </span>
+                  <span className="float-right">All rights reserved.</span>
+                </div>
+              </div>
+            </div>
+          </footer>
         </div>
+      </div>
     );
 }
 

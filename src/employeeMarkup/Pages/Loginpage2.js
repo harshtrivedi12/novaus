@@ -257,7 +257,13 @@ function EmployeeLogin(props) {
               <div className="col-lg-12 text-center">
                 <span className="float-left">
                   © Copyright by{" "}
-                  <i className="fa fa-heart m-lr5 text-red heart"></i>
+                  <img
+                    src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                    alt=""
+                    style={{
+                      width: "40px",
+                    }}
+                  />{" "}
                   <Link to={"#"}>Nova Jobs </Link>{" "}
                 </span>
                 <span className="float-right">All rights reserved.</span>

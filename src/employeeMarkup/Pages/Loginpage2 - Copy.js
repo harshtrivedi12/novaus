@@ -8,8 +8,7 @@ function EmployeeLoginpage2() {
     <>
       <div
         className="page-content bg-white login-style2"
-        style={{ backgroundImage: `url(${bnr})`, backgroundSize: "cover" }}
-      >
+        style={{ backgroundImage: `url(${bnr})`, backgroundSize: "cover" }}>
         <div className="section-full">
           <div className="container">
             <div className="row">
@@ -96,16 +95,14 @@ function EmployeeLoginpage2() {
                         <Link
                           data-toggle="tab"
                           to="#forgot-password"
-                          className="site-button-link forget-pass m-t15 float-right"
-                        >
+                          className="site-button-link forget-pass m-t15 float-right">
                           <i className="fa fa-unlock-alt"></i> Forgot Password
                         </Link>
                       </div>
                     </form>
                     <form
                       id="forgot-password"
-                      className="tab-pane fade  col-12 p-a0"
-                    >
+                      className="tab-pane fade  col-12 p-a0">
                       <p>We will send you an email to reset your password. </p>
                       <div className="form-group">
                         <label>E-Mail address *</label>
@@ -123,8 +120,7 @@ function EmployeeLoginpage2() {
                         <Link
                           className="site-button outline gray"
                           data-toggle="tab"
-                          to="#login"
-                        >
+                          to="#login">
                           Back
                         </Link>
                         <button className="site-button pull-right">
@@ -144,7 +140,13 @@ function EmployeeLoginpage2() {
               <div className="col-lg-12 text-center">
                 <span className="float-left">
                   © Copyright by{" "}
-                  <i className="fa fa-heart m-lr5 text-red heart"></i>
+                  <img
+                    src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                    alt=""
+                    style={{
+                      width: "40px",
+                    }}
+                  />{" "}
                   <Link to={"#"}>Nova Jobs </Link>{" "}
                 </span>
                 <span className="float-right">All rights reserved.</span>

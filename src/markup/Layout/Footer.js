@@ -1,8 +1,8 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-
-function Footer(){
-	return (
+import React from "react";
+import { Link } from "react-router-dom";
+import india from "../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png";
+function Footer() {
+  return (
     <footer className="site-footer">
       <div className="footer-top">
         <div className="container">
@@ -24,8 +24,7 @@ function Footer(){
                   <form
                     className="dzSubscribe"
                     action="script/mailchamp.php"
-                    method="post"
-                  >
+                    method="post">
                     <div className="dzSubscribeMsg"></div>
                     <div className="input-group">
                       <input
@@ -40,8 +39,7 @@ function Footer(){
                           name="submit"
                           value="Submit"
                           type="submit"
-                          className="site-button radius-xl"
-                        >
+                          className="site-button radius-xl">
                           Subscribe
                         </button>
                       </span>
@@ -52,32 +50,28 @@ function Footer(){
                   <li>
                     <Link
                       to={""}
-                      className="site-button white facebook circle "
-                    >
+                      className="site-button white facebook circle ">
                       <i className="fa fa-facebook"></i>
                     </Link>
                   </li>
                   <li>
                     <Link
                       to={""}
-                      className="site-button white google-plus circle "
-                    >
+                      className="site-button white google-plus circle ">
                       <i className="fa fa-google-plus"></i>
                     </Link>
                   </li>
                   <li>
                     <Link
                       to={""}
-                      className="site-button white linkedin circle "
-                    >
+                      className="site-button white linkedin circle ">
                       <i className="fa fa-linkedin"></i>
                     </Link>
                   </li>
                   <li>
                     <Link
                       to={""}
-                      className="site-button white instagram circle "
-                    >
+                      className="site-button white instagram circle ">
                       <i className="fa fa-instagram"></i>
                     </Link>
                   </li>
@@ -92,11 +86,13 @@ function Footer(){
             <div className="col-col-xl-7  col-lg7col-xl-7  col-md-8 col-sm-8 col-12">
               <div className="widget border-0">
                 <h5 className="m-b30 F-heading">Frequently Asked Questions</h5>
-                <div className='row'>
-                  <div className='col-xl-4 col-lg-4 col-sm-4 col-12'>
+                <div className="row">
+                  <div className="col-xl-4 col-lg-4 col-sm-4 col-12">
                     <ul className="list-2 w10 list-line">
                       <li>
-                        <Link to={"/employee/privacy-rights"}>Privacy Rights</Link>
+                        <Link to={"/employee/privacy-rights"}>
+                          Privacy Rights
+                        </Link>
                       </li>
                       <li>
                         <Link to={"/employee/term-of-use-nova-jobs"}>
@@ -128,13 +124,10 @@ function Footer(){
                           Data Sharing Helps
                         </Link>
                       </li>
-
                     </ul>
-
                   </div>
-                  <div className='col-xl-4 col-lg-4 col-sm-4 col-12'>
+                  <div className="col-xl-4 col-lg-4 col-sm-4 col-12">
                     <ul className="list-2 w10 list-line">
-
                       <li>
                         <Link to={"/employee/safeguard-from-email-scams"}>
                           Email Scams
@@ -160,53 +153,51 @@ function Footer(){
                           Information of NovaUs Jobs
                         </Link>
                       </li>
-
                     </ul>
-
                   </div>
-                  <div className='col-xl-4 col-lg-4 col-sm-4 col-12'>
+                  <div className="col-xl-4 col-lg-4 col-sm-4 col-12">
                     <ul className="list-2 w10 list-line">
                       <li>
-                    <Link
-                      to={
-                        "/employee/international-transfer-of-personal-information"
-                      }
-                    >
-                      International Transfer
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={"/employee/online-interview-scams"}>
-                      Online Interview Scams
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={"/employee/resume-security"}>
-                      Resume Security
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={"/employee/retention-period-resume-visibility"}>
-                      Retention Period
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={"/employee/scope-privacy-notice"}>
-                      Scope Privacy Notice
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={"/employee/security-bug-reporting"}>
-                      Security Bug Reporting
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={"/employee/security-center-account-management"}>
-                      Security Center Account Management
-                    </Link>
-                  </li>
-                </ul>
-
+                        <Link
+                          to={
+                            "/employee/international-transfer-of-personal-information"
+                          }>
+                          International Transfer
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to={"/employee/online-interview-scams"}>
+                          Online Interview Scams
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to={"/employee/resume-security"}>
+                          Resume Security
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to={"/employee/retention-period-resume-visibility"}>
+                          Retention Period
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to={"/employee/scope-privacy-notice"}>
+                          Scope Privacy Notice
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to={"/employee/security-bug-reporting"}>
+                          Security Bug Reporting
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to={"/employee/security-center-account-management"}>
+                          Security Center Account Management
+                        </Link>
+                      </li>
+                    </ul>
                   </div>
                 </div>
                 {/* <ul className="list-2 w10 list-line">
@@ -346,7 +337,13 @@ function Footer(){
               <span>
                 {" "}
                 © Copyright by{" "}
-                <i className="fa fa-heart m-lr5 text-red heart"></i>
+                <img
+                  src={india}
+                  alt=""
+                  style={{
+                    width: "40px",
+                  }}
+                />{" "}
                 <Link to={""} className="NovaUs">
                   NovaUs Jobs{" "}
                 </Link>{" "}
