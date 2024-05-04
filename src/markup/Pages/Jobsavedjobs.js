@@ -95,7 +95,7 @@ function Jobsavedjobs() {
                     </div>
                   </div>
                 </div> */}
-                <Profilesidebar />
+                <Profilesidebar data={"saved-jobs"} />
                 <div className="col-xl-9 col-lg-8 m-b30">
                   <SavedJobs />
                 </div>

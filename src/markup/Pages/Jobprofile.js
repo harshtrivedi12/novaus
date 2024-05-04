@@ -28,11 +28,13 @@ function Jobprofile() {
     const { name, value } = e.target;
     dispatch(setJobProfileValues({ ...jobProfileValues, [name]: value }));
 
-
     if (name === "professional_title") {
       // Validate professional title: allow only characters
       if (!/^[a-zA-Z\s]*$/.test(value)) {
-        setErrors({ ...errors, professional_title: "Please add only characters." });
+        setErrors({
+          ...errors,
+          professional_title: "Please add only characters.",
+        });
       } else {
         setErrors({ ...errors, professional_title: "" });
       }
@@ -53,8 +55,7 @@ function Jobprofile() {
       } else {
         setErrors({ ...errors, email: "" });
       }
-    }
-    else if (name === "first_name") {
+    } else if (name === "first_name") {
       if (!/^[a-zA-Z\s]*$/.test(value)) {
         setErrors({ ...errors, first_name: "Please add only characters." });
       } else {
@@ -72,8 +73,7 @@ function Jobprofile() {
       } else {
         setErrors({ ...errors, languages: "" });
       }
-    }
-    else if (name === "age") {
+    } else if (name === "age") {
       // Validate age: allow only numeric characters and maximum length of 10
       if (!/^\d{0,10}$/.test(value)) {
         setErrors({
@@ -114,10 +114,9 @@ function Jobprofile() {
     languages: "",
     age: "",
     current_salary: "",
-    expected_salary: ""
+    expected_salary: "",
   });
   const token = localStorage.getItem("jobSeekerLoginToken");
-
 
   const getReq = () => {
     axios({
@@ -313,7 +312,7 @@ function Jobprofile() {
           <div className="section-full bg-white browse-job p-t50 p-b20">
             <div className="container">
               <div className="row">
-                <Profilesidebar />
+                <Profilesidebar data={"profile"} />
                 <div className="col-xl-9 col-lg-8 m-b30">
                   <div className="job-bx job-profile">
                     <div className="job-bx-title clearfix">
@@ -322,8 +321,7 @@ function Jobprofile() {
                       </h5>
                       <Link
                         to={"./"}
-                        className="site-button right-arrow button-sm float-right"
-                      >
+                        className="site-button right-arrow button-sm float-right">
                         Back
                       </Link>
                     </div>
@@ -336,8 +334,7 @@ function Jobprofile() {
                             </label>
                             <div
                               className="position-relative form-control"
-                              style={{ cursor: "pointer" }}
-                            >
+                              style={{ cursor: "pointer" }}>
                               <div
                                 style={{
                                   display: "flex",
@@ -345,8 +342,7 @@ function Jobprofile() {
                                   alignItems: "center",
                                   gap: "7px",
                                   zIndex: "2",
-                                }}
-                              >
+                                }}>
                                 <FaImage />
                                 Change Image
                               </div>
@@ -419,11 +415,11 @@ function Jobprofile() {
                               name="professional_title"
                               value={jobProfileValues.professional_title}
                             />
-
-
                           </div>
                           {errors.professional_title && (
-                            <p className="text-danger">{errors.professional_title}</p>
+                            <p className="text-danger">
+                              {errors.professional_title}
+                            </p>
                           )}
                         </div>
                         <div className="col-lg-6 col-md-6">
@@ -476,7 +472,9 @@ function Jobprofile() {
                             />
                           </div>
                           {errors.current_salary && (
-                            <p className="text-danger">{errors.current_salary}</p>
+                            <p className="text-danger">
+                              {errors.current_salary}
+                            </p>
                           )}
                         </div>
                         <div className="col-12">
@@ -495,7 +493,9 @@ function Jobprofile() {
                             />
                           </div>
                           {errors.expected_salary && (
-                            <p className="text-danger">{errors.expected_salary}</p>
+                            <p className="text-danger">
+                              {errors.expected_salary}
+                            </p>
                           )}
                         </div>
                         <div className="col-lg-12 col-md-12">
@@ -506,10 +506,8 @@ function Jobprofile() {
                               name="description"
                               onChange={handleChange}
                               value={jobProfileValues.description}
-                              className="form-control"
-                            ></textarea>
+                              className="form-control"></textarea>
                           </div>
-
                         </div>
                       </div>
                       <div className="job-bx-title clearfix">
@@ -530,9 +528,10 @@ function Jobprofile() {
                               onChange={handleChange}
                               value={jobProfileValues.phone}
                             />
-
                           </div>
-                          {errors.phone && <p className="text-danger">{errors.phone}</p>}
+                          {errors.phone && (
+                            <p className="text-danger">{errors.phone}</p>
+                          )}
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
@@ -547,7 +546,9 @@ function Jobprofile() {
                               value={jobProfileValues.email}
                             />
                           </div>
-                          {errors.email && <p className="text-danger">{errors.email}</p>}
+                          {errors.email && (
+                            <p className="text-danger">{errors.email}</p>
+                          )}
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
@@ -559,8 +560,7 @@ function Jobprofile() {
                               id="country_id"
                               name="country_id"
                               onChange={handleChange}
-                              value={jobProfileValues.country_id}
-                            >
+                              value={jobProfileValues.country_id}>
                               {countries.map((item, index) => {
                                 return (
                                   <option key={index} value={item.id}>
@@ -592,8 +592,7 @@ function Jobprofile() {
                                 id="state_id"
                                 name="state_id"
                                 onChange={handleChange}
-                                value={jobProfileValues.state_id}
-                              >
+                                value={jobProfileValues.state_id}>
                                 {states.map((item, index) => {
                                   return (
                                     <option key={index} value={item.id}>
@@ -616,8 +615,7 @@ function Jobprofile() {
                                 id="city_id"
                                 name="city_id"
                                 onChange={handleChange}
-                                value={jobProfileValues.city_id}
-                              >
+                                value={jobProfileValues.city_id}>
                                 {cities.map((item, index) => {
                                   return (
                                     <option key={index} value={item.id}>
@@ -632,8 +630,7 @@ function Jobprofile() {
                       </div>
                       <button
                         onClick={handleSubmit}
-                        className="site-button m-b30"
-                      >
+                        className="site-button m-b30">
                         Save Setting
                       </button>
                     </form>

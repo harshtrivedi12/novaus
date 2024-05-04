@@ -196,7 +196,7 @@ function Jobsappliedjob() {
                     </div>
                   </div>
                 </div> */}
-                <Profilesidebar />
+                <Profilesidebar data={"applied-jobs"} />
                 <div className="col-xl-9 col-lg-8 m-b30 browse-job">
                   <div className="job-bx-title  clearfix">
                     <h5 className="font-weight-700 pull-left text-uppercase">
@@ -292,12 +292,10 @@ function Jobsappliedjob() {
                                       </p>
                                       <div
                                         className="d-flex align-items-center  w-50 justify-content-end "
-                                        style={{ gap: "7px" }}
-                                      >
+                                        style={{ gap: "7px" }}>
                                         <Link
                                           to={"/user/jobs-my-resume"}
-                                          className="site-button button-sm float-right"
-                                        >
+                                          className="site-button button-sm float-right">
                                           Job Details
                                         </Link>
                                         <button
@@ -305,24 +303,20 @@ function Jobsappliedjob() {
                                             handleShow();
                                             handleSelectJob(item);
                                           }}
-                                          className="site-button button-sm float-right"
-                                        >
+                                          className="site-button button-sm float-right">
                                           Apply
                                         </button>
                                         <Modal
                                           show={show}
                                           onHide={handleClose}
                                           backdrop="static"
-                                          keyboard={false}
-                                        >
+                                          keyboard={false}>
                                           <Modal.Header
                                             closeButton
                                             style={{ backgroundColor: "#ffff" }}
-                                            className="mt-4"
-                                          >
+                                            className="mt-4">
                                             <Modal.Title
-                                              style={{ color: "#000" }}
-                                            >
+                                              style={{ color: "#000" }}>
                                               <p>
                                                 {" "}
                                                 Apply to {selectedJob?.company}
@@ -332,14 +326,12 @@ function Jobsappliedjob() {
                                           <Modal.Body>
                                             <Tab.Container
                                               id="tabs-example"
-                                              activeKey={activeTab}
-                                            >
+                                              activeKey={activeTab}>
                                               <div
                                                 style={{
                                                   fontSize: "20px",
                                                   paddingBottom: "10px",
-                                                }}
-                                              >
+                                                }}>
                                                 Screening questions
                                               </div>
                                               <Tab.Content>
@@ -369,8 +361,7 @@ function Jobsappliedjob() {
                                                                       style={{
                                                                         paddingBottom:
                                                                           "30px",
-                                                                      }}
-                                                                    >
+                                                                      }}>
                                                                       <h5>
                                                                         {
                                                                           ques?.name
@@ -440,8 +431,7 @@ function Jobsappliedjob() {
                                                       <select
                                                         class="form-control"
                                                         id="englishProficiency"
-                                                        required
-                                                      >
+                                                        required>
                                                         <option value="">
                                                           Select an option
                                                         </option>
@@ -466,8 +456,7 @@ function Jobsappliedjob() {
                                                       <select
                                                         class="form-control"
                                                         id="salaryRange"
-                                                        required
-                                                      >
+                                                        required>
                                                         <option value="">
                                                           Select an option
                                                         </option>
@@ -501,8 +490,7 @@ function Jobsappliedjob() {
                                                       <select
                                                         class="form-control"
                                                         id="workLocation"
-                                                        required
-                                                      >
+                                                        required>
                                                         <option value="">
                                                           Select an option
                                                         </option>
@@ -554,8 +542,7 @@ function Jobsappliedjob() {
                                                       <select
                                                         class="form-control"
                                                         id="immediateStart"
-                                                        required
-                                                      >
+                                                        required>
                                                         <option value="">
                                                           Select an option
                                                         </option>
@@ -572,8 +559,7 @@ function Jobsappliedjob() {
                                             {activeTab !== "contact-info" && (
                                               <button
                                                 className="site-button mr-2"
-                                                onClick={handlePrev}
-                                              >
+                                                onClick={handlePrev}>
                                                 Previous
                                               </button>
                                             )}

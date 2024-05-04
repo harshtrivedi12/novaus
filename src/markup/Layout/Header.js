@@ -139,7 +139,7 @@ class UserHeader extends Component {
                     {localStorage.getItem("jobSeekerLoginToken") ? (
                       <li>
                         <Link to={"#"}>
-                          For Candidates <i className="fa fa-chevron-down"></i>
+                          Dashborad <i className="fa fa-chevron-down"></i>
                         </Link>
                         <ul className="sub-menu">
                           <li>
@@ -256,7 +256,7 @@ class UserHeader extends Component {
                         </li>
                       </ul>
                     </li> */}
-                    {localStorage.getItem("jobSeekerLoginToken") ? (
+                    {/* {localStorage.getItem("jobSeekerLoginToken") ? (
                       <li>
                         <Link to={"#"}>
                           Pages <i className="fa fa-chevron-down"></i>
@@ -391,13 +391,13 @@ class UserHeader extends Component {
                               </li>
                             </ul>
                           </li>
-                          {/* <li><Link to={'#'} className="dez-page">Login <i className="fa fa-angle-right"></i></Link>
+                          <li><Link to={'#'} className="dez-page">Login <i className="fa fa-angle-right"></i></Link>
 													<ul className="sub-menu">
 														<li><Link to={"/login"} className="dez-page">login 1</Link></li>
 														<li><Link to={"/login-2"} className="dez-page">login 2 <span className="new-page">New</span></Link></li>
 														<li><Link to={"/login-3"} className="dez-page">login 3 <span className="new-page">New</span></Link></li>
 													</ul>
-												</li> */}
+												</li>
                           <li>
                             <Link to={"#"} className="dez-page">
                               register <i className="fa fa-angle-right"></i>
@@ -433,8 +433,8 @@ class UserHeader extends Component {
                           </li>
                         </ul>
                       </li>
-                    ) : null}
-                    {localStorage.getItem("jobSeekerLoginToken") ? (
+                    ) : null} */}
+                    {/* {localStorage.getItem("jobSeekerLoginToken") ? (
                       <li>
                         <Link to={"#"}>
                           Blog <i className="fa fa-chevron-down"></i>
@@ -484,7 +484,7 @@ class UserHeader extends Component {
                           </li>
                         </ul>
                       </li>
-                    ) : null}
+                    ) : null} */}
                   </ul>
                 </div>
               </div>

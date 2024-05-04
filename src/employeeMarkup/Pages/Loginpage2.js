@@ -10,15 +10,15 @@ import {
 //import logo from "../../images/logo-full-white.png";
 import loginbg from "./../../images/bg6.jpg";
 import axios from "axios";
-// import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-// import logo2 from './../../images/logo-white2.png';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function EmployeeLogin(props) {
   const [email, setEmail] = useState("demo@example.com");
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
   const [password, setPassword] = useState("123456");
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //   function onLogin(e) {
@@ -42,8 +42,18 @@ function EmployeeLogin(props) {
   //   }
 
   // const history = useHistory();
+  const notify = (data) => toast.warning(data);
+
   const handlePostRequest = async (e) => {
     e.preventDefault();
+    if (password === "") {
+      notify("Password is required");
+      if (email === "") {
+        notify("Email is required");
+      }
+      return;
+    }
+
     const reqBody = {
       email: email,
       password: password,
@@ -67,13 +77,13 @@ function EmployeeLogin(props) {
   };
   return (
     <div className="page-wraper">
+      <ToastContainer />
       <div
         className="page-content bg-white login-style2"
         style={{
           backgroundImage: "url(" + loginbg + ")",
           backgroundSize: "cover",
-        }}
-      >
+        }}>
         <div className="section-full">
           <div className="container">
             <div className="row">
@@ -88,10 +98,9 @@ function EmployeeLogin(props) {
                       />
                     </Link>
                   </div>
-                  <h2 className="m-b10">Login To You Now</h2>
+                  <h2 className="m-b10"> Sign up or Login To Dashboard</h2>
                   <p className="m-b30">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry has been the industry.
+                    Welcome To One Stop Ai Powered Staffing Solution
                   </p>
                   <ul className="list-inline m-a0">
                     {/* <li>
@@ -160,12 +169,19 @@ function EmployeeLogin(props) {
                       <div className="form-group">
                         <label>Password *</label>
                         <div className="input-group d-flex align-items-center">
-                          <span className="input-group-addon position-absolute"
+                          <span
+                            className="input-group-addon position-absolute"
                             onClick={() => setShowPassword(!showPassword)}
-                            style={{ cursor: 'pointer', right: '0px', zIndex: '11', position: 'absolute' }
-                            }>
-
-                            <i className={showPassword ? "fa fa-eye-slash " : "fa fa-eye"}></i>
+                            style={{
+                              cursor: "pointer",
+                              right: "0px",
+                              zIndex: "11",
+                              position: "absolute",
+                            }}>
+                            <i
+                              className={
+                                showPassword ? "fa fa-eye-slash " : "fa fa-eye"
+                              }></i>
                           </span>
                           <input
                             type={showPassword ? "text" : "password"} // Toggle password visibility
@@ -173,24 +189,20 @@ function EmployeeLogin(props) {
                             value={password}
                             placeholder="Type Your Password"
                             onChange={(e) => setPassword(e.target.value)}
-
                           />
                         </div>
 
-                          {errors.password && (
-                            <div className="text-danger fs-12">
-                              {errors.password}
-                            </div>
-                          )}
-
-
+                        {errors.password && (
+                          <div className="text-danger fs-12">
+                            {errors.password}
+                          </div>
+                        )}
                       </div>
                       <div className="form-group text-center">
                         <Link
                           data-toggle="tab"
                           to="#forgot-password"
-                          className="forget-pass m-l5"
-                        >
+                          className="forget-pass m-l5">
                           <i className="fa fa-unlock-alt"></i> Forgot Password
                         </Link>
                       </div>
@@ -203,38 +215,33 @@ function EmployeeLogin(props) {
                             <Link
                               to={""}
                               className="fa fa-linkedin link-btn mr-1"
-                              target="bank"
-                            ></Link>
+                              target="bank"></Link>
                           </li>
-                          <li>
+                          <li onClick="">
                             <Link
                               to={""}
-                              className="fa fa-google-plus  gplus-btn"
-                              target="bank"
-                            ></Link>
+                              className="fa fa-google link-btn mr-1"
+                              target="bank"></Link>
                           </li>
                         </ul>
                       </div>
                       <div className="text-center">
                         <button
                           onClick={handlePostRequest}
-                          className="site-button float-left"
-                        >
+                          className="site-button float-left">
                           login
                         </button>
                         <Link
                           to="/employee/register-2"
-                          className="site-button-link forget-pass m-t15 float-right"
-                        >
+                          className="site-button-link forget-pass m-t15 float-right">
                           <i className="fa fa-unlock-alt"></i> Sign up
                         </Link>
                       </div>
                     </form>
                     <div className="form-group text-center">
                       <Link
-                        to="/employee/contact"
-                        className="site-button-link  m-t15 "
-                      >
+                        to="mailto:mailto:contact@novajobs.us"
+                        className="site-button-link  m-t15 ">
                         Need help click here
                       </Link>
                     </div>

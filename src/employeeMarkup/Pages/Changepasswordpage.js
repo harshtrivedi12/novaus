@@ -6,17 +6,17 @@ import CompanySideBar from "../Layout/companySideBar";
 
 function EmployeeChangepasswordpage() {
   const [showOldPassword, setShowOldPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [changePassword, setChangePassword] = useState({
     old_password: "",
     new_password: "",
-    confirm_password: ""
-  })
+    confirm_password: "",
+  });
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setChangePassword({ ...changePassword, [name]: value })
-  }
+    const { name, value } = e.target;
+    setChangePassword({ ...changePassword, [name]: value });
+  };
   return (
     <>
       <Header2 />
@@ -34,8 +34,7 @@ function EmployeeChangepasswordpage() {
                       </h5>
                       <Link
                         to={"/employee/jobs-cv-manager"}
-                        className="site-button right-arrow button-sm float-right"
-                      >
+                        className="site-button right-arrow button-sm float-right">
                         Back
                       </Link>
                     </div>
@@ -45,19 +44,35 @@ function EmployeeChangepasswordpage() {
                           <div className="form-group">
                             <label htmlFor="old_password">Old Password</label>
 
-
                             <div className="input-group d-flex align-items-center">
-                              <span className="input-group-addon position-absolute"
-                                onClick={() => setShowOldPassword(!showOldPassword)}
-                                style={{ cursor: 'pointer', right: '0px', zIndex: '11', position: 'absolute' }
-                                }>
-
-                                <i className={showOldPassword ? "fa fa-eye-slash" : "fa fa-eye"}></i>
+                              <span
+                                className="input-group-addon position-absolute"
+                                onClick={() =>
+                                  setShowOldPassword(!showOldPassword)
+                                }
+                                style={{
+                                  cursor: "pointer",
+                                  right: "0px",
+                                  zIndex: "11",
+                                  position: "absolute",
+                                }}>
+                                <i
+                                  className={
+                                    showOldPassword
+                                      ? "fa fa-eye-slash"
+                                      : "fa fa-eye"
+                                  }></i>
                               </span>
-                              <input type={showOldPassword ? "text" : "password"}
-                                style={{ marginRight: '0px' }}
-                                className="form-control position-relative " onChange={handleChange}
-                                id="old_password" name="old_password" autoComplete="false" />
+                              <input
+                                type={showOldPassword ? "text" : "password"}
+                                style={{ marginRight: "0px" }}
+                                required
+                                className="form-control position-relative "
+                                onChange={handleChange}
+                                id="old_password"
+                                name="old_password"
+                                autoComplete="false"
+                              />
                             </div>
                           </div>
                         </div>
@@ -65,41 +80,73 @@ function EmployeeChangepasswordpage() {
                           <div className="form-group">
                             <label htmlFor="new_password">New Password </label>
                             <div className="input-group d-flex align-items-center">
-                              <span className="input-group-addon position-absolute"
-                                onClick={() => setShowNewPassword(!showNewPassword)}
-                                style={{ cursor: 'pointer', right: '0px', zIndex: '11', position: 'absolute' }
-                                }>
-
-                                <i className={showNewPassword ? "fa fa-eye-slash" : "fa fa-eye"}></i>
+                              <span
+                                className="input-group-addon position-absolute"
+                                onClick={() =>
+                                  setShowNewPassword(!showNewPassword)
+                                }
+                                style={{
+                                  cursor: "pointer",
+                                  right: "0px",
+                                  zIndex: "11",
+                                  position: "absolute",
+                                }}>
+                                <i
+                                  className={
+                                    showNewPassword
+                                      ? "fa fa-eye-slash"
+                                      : "fa fa-eye"
+                                  }></i>
                               </span>
-                              <input type={showNewPassword ? "text" : "password"}
-                                style={{ marginRight: '0px' }}
-                                className="form-control position-relative " onChange={handleChange}
-                                id="new_password" name="new_password" autoComplete="false" />
+                              <input
+                                type={showNewPassword ? "text" : "password"}
+                                required
+                                style={{ marginRight: "0px" }}
+                                className="form-control position-relative "
+                                onChange={handleChange}
+                                id="new_password"
+                                name="new_password"
+                                autoComplete="false"
+                              />
                             </div>
                           </div>
                         </div>
                         <div className="col-lg-6">
-
                           <div className="form-group ">
-                            <label htmlFor="confirm_password">Confirm New Password</label>
+                            <label htmlFor="confirm_password">
+                              Confirm New Password
+                            </label>
                             <div className="input-group d-flex align-items-center">
-                              <span className="input-group-addon position-absolute"
-                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                style={{ cursor: 'pointer', right: '0px', zIndex: '11', position: 'absolute' }
-                                }>
-
-                                <i className={showConfirmPassword ? "fa fa-eye-slash" : "fa fa-eye"}></i>
+                              <span
+                                className="input-group-addon position-absolute"
+                                onClick={() =>
+                                  setShowConfirmPassword(!showConfirmPassword)
+                                }
+                                style={{
+                                  cursor: "pointer",
+                                  right: "0px",
+                                  zIndex: "11",
+                                  position: "absolute",
+                                }}>
+                                <i
+                                  className={
+                                    showConfirmPassword
+                                      ? "fa fa-eye-slash"
+                                      : "fa fa-eye"
+                                  }></i>
                               </span>
-                              <input type={showConfirmPassword ? "text" : "password"}
-                                style={{ marginRight: '0px' }}
-                                className="form-control position-relative " onChange={handleChange}
-                                id="confirm_password" name="confirm_password" autoComplete="false" />
+                              <input
+                                type={showConfirmPassword ? "text" : "password"}
+                                style={{ marginRight: "0px" }}
+                                className="form-control position-relative "
+                                onChange={handleChange}
+                                id="confirm_password"
+                                name="confirm_password"
+                                autoComplete="false"
+                                required
+                              />
                             </div>
-
-
                           </div>
-
                         </div>
                         <div className="col-lg-12 m-b10">
                           <button className="site-button">

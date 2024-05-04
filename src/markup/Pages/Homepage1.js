@@ -54,8 +54,7 @@ function Homepage() {
         <Jobsection />
         <div
           className="section-full p-tb70 overlay-black-dark text-white text-center bg-img-fix"
-          style={{ backgroundImage: "url(" + bnr2 + ")" }}
-        >
+          style={{ backgroundImage: "url(" + bnr2 + ")" }}>
           <div className="container">
             <div className="section-head text-center text-white">
               <h2 className="m-b5">Testimonials</h2>
@@ -71,8 +70,7 @@ function Homepage() {
             backgroundPosition: "bottom",
             backgroundRepeat: "no-repeat",
             backgroundSize: "100%",
-          }}
-        >
+          }}>
           <div className="container">
             <div className="section-head text-black text-center">
               <h2 className="m-b0">Membership Plans</h2>
@@ -87,8 +85,7 @@ function Homepage() {
                   <div className="col-sm-12 col-md-4 col-lg-4 p-lr0">
                     <div
                       className="pricingtable-wrapper style2 bg-white"
-                      style={{ height: "350px" }}
-                    >
+                      style={{ height: "350px" }}>
                       <div className="pricingtable-inner">
                         <div className="pricingtable-price">
                           <h4 className="font-weight-300 m-t10 m-b0">Basic</h4>
@@ -103,8 +100,7 @@ function Homepage() {
                         <div className="m-t20">
                           <Link
                             to={"/user/register-2"}
-                            className="site-button radius-xl"
-                          >
+                            className="site-button radius-xl">
                             <span className="p-lr30">Sign Up</span>
                           </Link>
                         </div>
@@ -114,8 +110,7 @@ function Homepage() {
                   <div className="col-sm-12 col-md-4 col-lg-4 p-lr0">
                     <div
                       className="pricingtable-wrapper style2 bg-primary text-white"
-                      style={{ height: "350px" }}
-                    >
+                      style={{ height: "350px" }}>
                       <div className="pricingtable-inner">
                         <div className="pricingtable-price">
                           <h4 className="font-weight-300 m-t10 m-b0">
@@ -133,8 +128,7 @@ function Homepage() {
                         <div className="m-t20">
                           <Link
                             to={"/user/register-2"}
-                            className="site-button white radius-xl"
-                          >
+                            className="site-button white radius-xl">
                             <span className="text-primary p-lr30">Sign Up</span>
                           </Link>
                         </div>

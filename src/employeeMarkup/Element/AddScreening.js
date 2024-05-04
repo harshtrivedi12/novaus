@@ -39,67 +39,6 @@ const AddScreening = () => {
   useEffect(() => {
     screeningQuestion();
   }, []);
-  // const screeningQuestions = [
-  //   {
-  //     name: "Education",
-  //     questions: [
-  //       { question: "What is your highest level of education?", type: "input" },
-  //       {
-  //         question:
-  //           "Did you attend any specialized training or certification programs?",
-  //         type: "checkbox",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "Employment History",
-  //     questions: [
-  //       { question: "What is your current job title?", type: "input" },
-  //       { question: "List your previous employers.", type: "input" },
-  //       {
-  //         question: "What was your job role in your previous employment?",
-  //         type: "input",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "Skills",
-  //     questions: [
-  //       {
-  //         question: "What programming languages are you proficient in?",
-  //         type: "checkbox",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "References",
-  //     questions: [
-  //       {
-  //         question:
-  //           "Please provide the contact information for your references.",
-  //         type: "input",
-  //       },
-  //       {
-  //         question: "How long have you known your primary reference?",
-  //         type: "input",
-  //       },
-  //       {
-  //         question: "Can you provide a reference from your previous employer?",
-  //         type: "checkbox",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "Personal Information",
-  //     questions: [
-  //       { question: "What is your date of birth?", type: "input" },
-  //       {
-  //         question: "Are you legally eligible to work in this country?",
-  //         type: "checkbox",
-  //       },
-  //     ],
-  //   },
-  // ];
 
   const [expanded, setExpanded] = useState({});
   useEffect(() => {
@@ -153,8 +92,7 @@ const AddScreening = () => {
         {screeningQuestions.map((category, index) => (
           <div
             key={index}
-            style={{ display: "inline-block", marginRight: "10px" }}
-          >
+            style={{ display: "inline-block", marginRight: "10px" }}>
             <button
               className="d-flex justify-content-center align-items-center"
               onClick={() => {
@@ -179,8 +117,7 @@ const AddScreening = () => {
                 borderColor: "#9d9d9d",
                 cursor: "pointer",
                 outline: "none",
-              }}
-            >
+              }}>
               {expanded[category.name] ? <FaCheck /> : <FaPlus />}{" "}
               <span className="ml-2">{category.name}</span>
             </button>

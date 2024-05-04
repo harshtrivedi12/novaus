@@ -67,8 +67,7 @@ function CompanyLogin(props) {
         style={{
           backgroundImage: "url(" + loginbg + ")",
           backgroundSize: "cover",
-        }}
-      >
+        }}>
         <div className="section-full">
           <div className="container">
             <div className="row">
@@ -85,8 +84,8 @@ function CompanyLogin(props) {
                   </div>
                   <h2 className="m-b10">Login To You Now</h2>
                   <p className="m-b30">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry has been the industry.
+                    Welcome To One Stop Ai Powered Staffing Solution <br />
+                    Sign up or Login To Dashboard
                   </p>
                   <ul className="list-inline m-a0">
                     <li>
@@ -171,14 +170,12 @@ function CompanyLogin(props) {
                       <div className="text-center">
                         <button
                           onClick={handlePostRequest}
-                          className="site-button float-left"
-                        >
+                          className="site-button float-left">
                           login
                         </button>
                         <Link
                           to="register-2"
-                          className="site-button-link forget-pass m-t15 float-right"
-                        >
+                          className="site-button-link forget-pass m-t15 float-right">
                           <i className="fa fa-unlock-alt"></i> Sign up
                         </Link>
                       </div>

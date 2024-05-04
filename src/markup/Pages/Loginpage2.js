@@ -9,6 +9,7 @@ import {
 import loginbg from "./../../images/bg6.jpg";
 import axios from "axios";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+import { toast, ToastContainer } from "react-toastify";
 
 function Login(props) {
   const [email, setEmail] = useState("demo@example.com");
@@ -18,8 +19,18 @@ function Login(props) {
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const notify = (data) => toast.warning(data);
 
   const handlePostRequest = async (e) => {
+    e.preventDefault();
+    if (password === "") {
+      notify("Password is required");
+      if (email === "") {
+        notify("Email is required");
+      }
+      return;
+    }
+
     e.preventDefault();
     const reqBody = {
       email: email,
@@ -69,13 +80,14 @@ function Login(props) {
 
   return (
     <div className="page-wraper">
+      <ToastContainer />
+
       <div
         className="page-content bg-white login-style2"
         style={{
           backgroundImage: "url(" + loginbg + ")",
           backgroundSize: "cover",
-        }}
-      >
+        }}>
         <div className="section-full">
           <div className="container">
             <div className="row">
@@ -89,10 +101,10 @@ function Login(props) {
                       />
                     </Link>
                   </div>
-                  <h2 className="m-b10">Login To You Now</h2>
+                  <h2 className="m-b10"> Sign up or Login To Dashboard</h2>
+
                   <p className="m-b30">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry has been the industry.
+                    Welcome To One Stop Ai Powered Staffing Solution
                   </p>
                   <ul className="list-inline m-a0">
                     <li>
@@ -148,13 +160,11 @@ function Login(props) {
                               right: "0px",
                               zIndex: "11",
                               position: "absolute",
-                            }}
-                          >
+                            }}>
                             <i
                               className={
                                 showPassword ? "fa fa-eye-slash " : "fa fa-eye"
-                              }
-                            ></i>
+                              }></i>
                           </span>
                           <input
                             type={showPassword ? "text" : "password"} // Toggle password visibility
@@ -174,9 +184,8 @@ function Login(props) {
                       <div className="form-group text-center">
                         <Link
                           data-toggle="tab"
-                          to="/user/forgot-password"
-                          className="forget-pass m-l5"
-                        >
+                          to="/user/email-verification"
+                          className="forget-pass m-l5">
                           <i className="fa fa-unlock-alt"></i> Forgot Password
                         </Link>
                       </div>
@@ -189,38 +198,33 @@ function Login(props) {
                             <Link
                               to={""}
                               className="fa fa-linkedin link-btn mr-1"
-                              target="bank"
-                            ></Link>
+                              target="bank"></Link>
                           </li>
                           <li onClick={handleGoogleLogin}>
                             <Link
                               to={""}
                               className="fa fa-google link-btn mr-1"
-                              target="bank"
-                            ></Link>
+                              target="bank"></Link>
                           </li>
                         </ul>
                       </div>
                       <div className="text-center">
                         <button
                           onClick={handlePostRequest}
-                          className="site-button float-left"
-                        >
+                          className="site-button float-left">
                           login
                         </button>
                         <Link
                           to="/user/register-2"
-                          className="site-button-link forget-pass m-t15 float-right"
-                        >
+                          className="site-button-link forget-pass m-t15 float-right">
                           <i className="fa fa-unlock-alt"></i> Sign up
                         </Link>
                       </div>
                     </form>
                     <div className="form-group text-center">
                       <Link
-                        to="/user/contact"
-                        className="site-button-link  m-t15 "
-                      >
+                        to="mailto:mailto:contact@novajobs.us"
+                        className="site-button-link  m-t15 ">
                         Need help click here
                       </Link>
                     </div>

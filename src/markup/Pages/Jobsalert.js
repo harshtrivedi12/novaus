@@ -39,7 +39,7 @@ function Jobsalert() {
           <div className="section-full bg-white p-t50 p-b20">
             <div className="container">
               <div className="row">
-                <Profilesidebar />
+                <Profilesidebar data={"alerts-jobs"} />
                 {/* <div className="col-xl-3 col-lg-4 m-b30">
                   <div className="sticky-top">
                     <div className="candidate-info">
@@ -160,8 +160,7 @@ function Jobsalert() {
                               </Link>
                               <Link
                                 to={"#"}
-                                onClick={() => handleDeleteClick(contact.id)}
-                              >
+                                onClick={() => handleDeleteClick(contact.id)}>
                                 <i className="ti-trash"></i>
                               </Link>
                             </td>
@@ -196,8 +195,7 @@ function Jobsalert() {
                   <Modal
                     show={company}
                     onHide={setCompany}
-                    className=" fade modal-bx-info"
-                  >
+                    className=" fade modal-bx-info">
                     <div role="document">
                       <div className="modal-content">
                         <div className="modal-header">
@@ -211,8 +209,7 @@ function Jobsalert() {
                           <button
                             type="button"
                             className="close"
-                            onClick={() => setCompany(false)}
-                          >
+                            onClick={() => setCompany(false)}>
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
@@ -240,8 +237,7 @@ function Jobsalert() {
                           <button
                             type="button"
                             className="btn btn-secondary"
-                            onClick={() => setCompany(false)}
-                          >
+                            onClick={() => setCompany(false)}>
                             Close
                           </button>
                         </div>

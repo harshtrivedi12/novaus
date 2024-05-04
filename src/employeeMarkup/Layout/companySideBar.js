@@ -80,7 +80,14 @@ const CompanySideBar = ({ active }) => {
           <div className="candidate-detail text-center">
             <div className="canditate-des">
               <Link to={"#"}>
-                <img alt="" src={logo} />
+                <img
+                  alt=""
+                  src={logo}
+                  style={{
+                    width: "100%",
+                    aspectRatio: 1,
+                  }}
+                />
               </Link>
               <div
                 className="upload-link"

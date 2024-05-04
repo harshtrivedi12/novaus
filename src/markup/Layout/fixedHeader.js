@@ -149,8 +149,7 @@ const FixedHeader = () => {
   return (
     <div
       className="overlay-black-dark profile-edit p-t50 p-b20"
-      style={{ backgroundImage: "url(" + bnr + ")" }}
-    >
+      style={{ backgroundImage: "url(" + bnr + ")" }}>
       <div className="container">
         <div className="row">
           <div className="col-lg-8 col-md-7 candidate-info">
@@ -161,7 +160,12 @@ const FixedHeader = () => {
                 <div className="canditate-des text-center">
                   <Link to={"#"}>
                     {fixedHeaderValues.photo ? (
-                      <img src={fullImageUrl} />
+                      <img
+                        src={fullImageUrl}
+                        style={{
+                          height: "100px",
+                        }}
+                      />
                     ) : (
                       <img
                         alt=""
@@ -193,8 +197,7 @@ const FixedHeader = () => {
                       <Link
                         to={"#"}
                         onClick={() => setBasicDetails(true)}
-                        className="m-l15 font-16 text-white"
-                      ></Link>
+                        className="m-l15 font-16 text-white"></Link>
                     </h4>
                   ) : null}
                   {fixedHeaderValues.professional_title ? (
@@ -236,8 +239,7 @@ const FixedHeader = () => {
                         style={{
                           width: `${fixedHeaderValues.n_profile_strength}%`,
                         }}
-                        role="progressbar"
-                      ></div>
+                        role="progressbar"></div>
                     </div>
                   </div>
                 </div>
@@ -262,8 +264,7 @@ const FixedHeader = () => {
       <Modal
         className="modal fade browse-job modal-bx-info editor"
         show={basicdetails}
-        onHide={setBasicDetails}
-      >
+        onHide={setBasicDetails}>
         <div className="modal-dialog my-0" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -273,8 +274,7 @@ const FixedHeader = () => {
               <button
                 type="button"
                 className="close"
-                onClick={() => setBasicDetails(false)}
-              >
+                onClick={() => setBasicDetails(false)}>
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -304,8 +304,7 @@ const FixedHeader = () => {
                             />
                             <label
                               className="custom-control-label"
-                              htmlFor="fresher"
-                            >
+                              htmlFor="fresher">
                               Fresher
                             </label>
                           </div>
@@ -320,8 +319,7 @@ const FixedHeader = () => {
                             />
                             <label
                               className="custom-control-label"
-                              htmlFor="experienced"
-                            >
+                              htmlFor="experienced">
                               Experienced
                             </label>
                           </div>
@@ -407,8 +405,7 @@ const FixedHeader = () => {
               <button
                 type="button"
                 className="site-button"
-                onClick={() => setBasicDetails(false)}
-              >
+                onClick={() => setBasicDetails(false)}>
                 Cancel
               </button>
               <button type="button" className="site-button">

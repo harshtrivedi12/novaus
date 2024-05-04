@@ -124,6 +124,7 @@ import EmailVerification from "./markup/Pages/EmailVerification";
 import NewPasswordSet from "./markup/Pages/NewPasswordSet";
 import ForgotPassword from "./markup/Pages/ForgotPassword";
 import ResetPassword from "./markup/Pages/ResetPassword";
+import ResumeSecurity from "./markup/Pages/ResumeSecurity";
 
 function App() {
   const dispatch = useDispatch();
@@ -821,6 +822,14 @@ function App() {
           element={
             <EmployeePrivateRoute>
               <TermOfUse />
+            </EmployeePrivateRoute>
+          }
+        />
+        <Route
+          path="resume-security"
+          element={
+            <EmployeePrivateRoute>
+              <ResumeSecurity />
             </EmployeePrivateRoute>
           }
         />

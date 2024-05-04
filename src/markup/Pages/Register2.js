@@ -196,33 +196,11 @@ function Register2(props) {
                               {errors.email && <div>{errors.email}</div>}
                             </div> */}
                           </div>
-                          <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <input
-                              value={company}
-                              onChange={(e) => setCompany(e.target.value)}
-                              className="form-control"
-                              placeholder="Company"
-                              required
-                            />
-                            {/* <div className="text-danger">
-                              {errors.email && <div>{errors.email}</div>}
-                            </div> */}
-                          </div>
-                          <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <input
-                              value={jobtitle}
-                              onChange={(e) => setJobTitle(e.target.value)}
-                              className="form-control"
-                              placeholder="Official Job Title"
-                              required
-                            />
-                            {/* <div className="text-danger">
-                              {errors.email && <div>{errors.email}</div>}
-                            </div> */}
-                          </div>
+
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <input
                               value={phone}
+                              type="number"
                               className="form-control"
                               defaultValue="Password"
                               placeholder="Phone Number"
@@ -238,6 +216,7 @@ function Register2(props) {
                               value={email}
                               onChange={(e) => setEmail(e.target.value)}
                               className="form-control"
+                              type="email"
                               placeholder="Work Email Address"
                               required
                             />
@@ -284,18 +263,28 @@ function Register2(props) {
                           >
                             Sign me up
                           </button> */}
+
                             <span className="custom-control custom-checkbox mt-3">
+                              <input
+                                type="checkbox"
+                                className="custom-control-input"
+                                id="terms"
+                                name="terms"
+                                required
+                              />
                               <label
                                 className="custom-control-label"
-                                htmlFor="check2">
+                                htmlFor="terms">
                                 I agree to the{" "}
                                 {
-                                  <Link to={"/employee/term-of-use-nova-jobs"}>
+                                  <Link to={"/employee/privacy-rights"}>
                                     Privacy Policy
                                   </Link>
                                 }{" "}
-                                and Terms & Conditions I agree to the Privacy
-                                Policy and Terms & Conditions
+                                and{" "}
+                                <Link to={"/employee/term-of-use-nova-jobs"}>
+                                  Terms & conditions{" "}
+                                </Link>
                               </label>
                             </span>
                             {/* <Link

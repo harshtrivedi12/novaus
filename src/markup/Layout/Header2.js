@@ -75,8 +75,7 @@ class UserHeader2 extends Component {
                   data-target="#navbarNavDropdown"
                   aria-controls="navbarNavDropdown"
                   aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
+                  aria-label="Toggle navigation">
                   <span></span>
                   <span></span>
                   <span></span>
@@ -102,8 +101,7 @@ class UserHeader2 extends Component {
 
                 <div
                   className="header-nav navbar-collapse collapse myNavbar justify-content-start"
-                  id="navbarNavDropdown"
-                >
+                  id="navbarNavDropdown">
                   <ul className="nav navbar-nav">
                     <li className="">
                       <Link to={"/user"}>Home </Link>
@@ -113,13 +111,12 @@ class UserHeader2 extends Component {
                         localStorage.removeItem("selectedLocation");
                         localStorage.removeItem("title_keyword");
                       }}
-                      className=""
-                    >
+                      className="">
                       <Link to={"/user/job-application"}>Job Page</Link>
                     </li>
                     <li>
                       <Link to={"#"}>
-                        For Candidates <i className="fa fa-chevron-down"></i>
+                        Dashboard<i className="fa fa-chevron-down"></i>
                       </Link>
                       <ul className="sub-menu">
                         <li>
@@ -130,16 +127,14 @@ class UserHeader2 extends Component {
                         <li>
                           <Link
                             to={"/user/jobs-my-resume"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             My Resume <span className="new-page">New</span>
                           </Link>
                         </li>
                         <li>
                           <Link
                             to={"/user/jobs-applied-job"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Applied Job <span className="new-page">New</span>
                           </Link>
                         </li>
@@ -151,24 +146,21 @@ class UserHeader2 extends Component {
                         <li>
                           <Link
                             to={"/user/jobs-saved-jobs"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Saved Job <span className="new-page">New</span>
                           </Link>
                         </li>
                         <li>
                           <Link
                             to={"/user/jobs-cv-manager"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             CV Manager <span className="new-page">New</span>
                           </Link>
                         </li>
                         <li>
                           <Link
                             to={"/user/jobs-change-password"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Change Password{" "}
                             <span className="new-page">New</span>
                           </Link>
@@ -183,8 +175,7 @@ class UserHeader2 extends Component {
                         <li>
                           <Link
                             to={"/user/company-profile"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Company Profile{" "}
                             <span className="new-page">New</span>
                           </Link>
@@ -192,8 +183,7 @@ class UserHeader2 extends Component {
                         <li>
                           <Link
                             to={"/user/company-resume"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Employer Resume{" "}
                             <span className="new-page">New</span>
                           </Link>
@@ -201,38 +191,34 @@ class UserHeader2 extends Component {
                         <li>
                           <Link
                             to={"/user/company-post-jobs"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Post A Jobs <span className="new-page">New</span>
                           </Link>
                         </li>
                         <li>
                           <Link
                             to={"/user/company-manage-job"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Manage jobs <span className="new-page">New</span>
                           </Link>
                         </li>
                         <li>
                           <Link
                             to={"/user/company-transactions"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Transactions <span className="new-page">New</span>
                           </Link>
                         </li>
                         <li>
                           <Link
                             to={"/user/browse-candidates"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Browse Candidates
                           </Link>
                         </li>
-                      </ul>
-                    </li> */}
-                    <li>
+                      </ul> */}
+                    {/* </li> */}
+                    {/* <li>
                       <Link to={"#"}>
                         Pages <i className="fa fa-chevron-down"></i>
                       </Link>
@@ -422,8 +408,8 @@ class UserHeader2 extends Component {
                           </Link>
                         </li>
                       </ul>
-                    </li>
-                    <li>
+                    </li> */}
+                    {/* <li>
                       <Link to={"#"}>
                         Blog <i className="fa fa-chevron-down"></i>
                       </Link>
@@ -436,24 +422,21 @@ class UserHeader2 extends Component {
                         <li>
                           <Link
                             to={"/user/blog-classic-sidebar"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Classic Sidebar
                           </Link>
                         </li>
                         <li>
                           <Link
                             to={"/user/blog-detailed-grid"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Detailed Grid
                           </Link>
                         </li>
                         <li>
                           <Link
                             to={"/user/blog-detailed-grid-sidebar"}
-                            className="dez-page"
-                          >
+                            className="dez-page">
                             Detailed Grid Sidebar
                           </Link>
                         </li>
@@ -468,7 +451,7 @@ class UserHeader2 extends Component {
                           </Link>
                         </li>
                       </ul>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </div>
@@ -480,15 +463,13 @@ class UserHeader2 extends Component {
           show={this.state.show}
           onHide={this.handleClose}
           className=" lead-form-modal"
-          centered
-        >
+          centered>
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <button
                 type="button"
                 className="close"
-                onClick={this.handleClose}
-              >
+                onClick={this.handleClose}>
                 <span aria-hidden="true">&times;</span>
               </button>
               <div className="modal-body row m-a0 clearfix">
@@ -498,8 +479,7 @@ class UserHeader2 extends Component {
                     backgroundImage: "url(" + bnr3 + ")",
                     backgroundPosition: "center",
                     backgroundSize: "cover",
-                  }}
-                >
+                  }}>
                   <div className="form-info text-white align-self-center">
                     <h3 className="m-b15">Login To You Now</h3>
                     <p className="m-b15">
@@ -556,8 +536,7 @@ class UserHeader2 extends Component {
                       <div className="clearfix">
                         <button
                           type="button"
-                          className="btn-primary site-button btn-block"
-                        >
+                          className="btn-primary site-button btn-block">
                           Submit{" "}
                         </button>
                       </div>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
-import axios from "axios"
+import axios from "axios";
 import Profilesidebar from "../Element/Profilesidebar";
 function Changepasswordpage() {
   const [showOldPassword, setShowOldPassword] = useState(false);
@@ -51,7 +51,7 @@ function Changepasswordpage() {
           <div className="section-full bg-white browse-job p-t50 p-b20">
             <div className="container">
               <div className="row">
-                <Profilesidebar />
+                <Profilesidebar data={"password"} />
                 {/* <div className="col-xl-3 col-lg-4 m-b30">
 
                   <div className="sticky-top">
@@ -132,8 +132,7 @@ function Changepasswordpage() {
                       </h5>
                       <Link
                         to={"/user/jobs-cv-manager"}
-                        className="site-button right-arrow button-sm float-right"
-                      >
+                        className="site-button right-arrow button-sm float-right">
                         Back
                       </Link>
                     </div>
@@ -154,15 +153,13 @@ function Changepasswordpage() {
                                   right: "0px",
                                   zIndex: "11",
                                   position: "absolute",
-                                }}
-                              >
+                                }}>
                                 <i
                                   className={
                                     showOldPassword
                                       ? "fa fa-eye-slash"
                                       : "fa fa-eye"
-                                  }
-                                ></i>
+                                  }></i>
                               </span>
                               <input
                                 type={showOldPassword ? "text" : "password"}
@@ -172,6 +169,7 @@ function Changepasswordpage() {
                                 id="old_password"
                                 name="old_password"
                                 autoComplete="false"
+                                required
                               />
                             </div>
                           </div>
@@ -190,15 +188,13 @@ function Changepasswordpage() {
                                   right: "0px",
                                   zIndex: "11",
                                   position: "absolute",
-                                }}
-                              >
+                                }}>
                                 <i
                                   className={
                                     showNewPassword
                                       ? "fa fa-eye-slash"
                                       : "fa fa-eye"
-                                  }
-                                ></i>
+                                  }></i>
                               </span>
                               <input
                                 type={showNewPassword ? "text" : "password"}
@@ -208,6 +204,7 @@ function Changepasswordpage() {
                                 id="new_password"
                                 name="new_password"
                                 autoComplete="false"
+                                required
                               />
                             </div>
                           </div>
@@ -228,15 +225,13 @@ function Changepasswordpage() {
                                   right: "0px",
                                   zIndex: "11",
                                   position: "absolute",
-                                }}
-                              >
+                                }}>
                                 <i
                                   className={
                                     showConfirmPassword
                                       ? "fa fa-eye-slash"
                                       : "fa fa-eye"
-                                  }
-                                ></i>
+                                  }></i>
                               </span>
                               <input
                                 type={showConfirmPassword ? "text" : "password"}
@@ -246,6 +241,7 @@ function Changepasswordpage() {
                                 id="confirm_password"
                                 name="confirm_password"
                                 autoComplete="false"
+                                required
                               />
                             </div>
                           </div>
@@ -253,8 +249,7 @@ function Changepasswordpage() {
                         <div className="col-lg-12 m-b10">
                           <button
                             onClick={handleSubmit}
-                            className="site-button"
-                          >
+                            className="site-button">
                             Update Password
                           </button>
                         </div>
