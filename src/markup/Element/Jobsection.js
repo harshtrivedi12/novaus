@@ -6,6 +6,7 @@ import { setJobApplicationData } from "../../store/reducers/jobApplicationSlice"
 import moment from "moment";
 import JobPageSkeleton from "../skeleton/jobPage";
 import TwoBoxWithLinesSkeleton from "../skeleton/twoBoxLines";
+import { ToastContainer, toast } from "react-toastify";
 
 const postBlog = [
   {
@@ -56,6 +57,10 @@ function Jobsection() {
     fetchJobApplicationData();
   }, []);
 
+  const showToastMessage = () => {
+    toast("Login To Continue");
+  };
+
   const toggleFabJobs = async (id) => {
     try {
       await axios({
@@ -79,6 +84,7 @@ function Jobsection() {
 
   return (
     <div className="section-full bg-white content-inner-2">
+      <ToastContainer />
       {skeleton === true ? (
         <TwoBoxWithLinesSkeleton />
       ) : (
@@ -143,17 +149,32 @@ function Jobsection() {
                             <span> {item.job_workplace_types.name}</span>
                           </div>
                         </div>
-                        <label className="like-btn" labl>
-                          <input
-                            type="checkbox"
-                            defaultChecked={item.job_detail.is_job_favorite}
-                            name={item.job_detail.id}
+                        {localStorage.getItem("jobSeekerLoginToken") ? (
+                          <label className="like-btn" labl>
+                            <input
+                              type="checkbox"
+                              defaultChecked={item.job_detail.is_job_favorite}
+                              name={item.job_detail.id}
+                              onClick={() => {
+                                toggleFabJobs(item.job_detail.id);
+                              }}
+                            />
+                            <span className="checkmark"></span>
+                          </label>
+                        ) : (
+                          <label
+                            className="like-btn"
                             onClick={() => {
-                              toggleFabJobs(item.job_detail.id);
-                            }}
-                          />
-                          <span className="checkmark"></span>
-                        </label>
+                              showToastMessage();
+                            }}>
+                            <input
+                              type="checkbox"
+                              defaultChecked={false}
+                              disabled
+                            />
+                            <span className="checkmark"></span>
+                          </label>
+                        )}
                       </div>
                     </li>
                   ))}

@@ -324,14 +324,7 @@ function App() {
             </UserPrivateRoute>
           }
         />
-        <Route
-          path="job-detail/:id"
-          element={
-            <UserPrivateRoute>
-              <Jobdetail />
-            </UserPrivateRoute>
-          }
-        />
+        <Route path="job-detail/:id" element={<Jobdetail />} />
         <Route
           path="companies"
           element={
