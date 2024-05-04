@@ -425,7 +425,6 @@ function JobPage() {
         console.log(err);
       });
   };
- 
 
   const selectedLocation = localStorage.getItem("selectedLocation");
   const title_keyword = localStorage.getItem("title_keyword");
@@ -438,7 +437,6 @@ function JobPage() {
   } else if (title_keyword) {
     params.append("title_keywords", title_keyword);
   }
-
 
   if (jobApplicationValues.state_id) {
     params.append("location", jobApplicationValues.state_id);
@@ -818,7 +816,7 @@ function JobPage() {
                                               className="d-flex flex-row mb-0 "
                                               style={{
                                                 gap: "7px",
-                                                fontWeight: "700",
+                                                fontWeight: "500",
                                               }}>
                                               {job.companies.company_name}
                                               <p
@@ -827,37 +825,33 @@ function JobPage() {
                                                   navigate(
                                                     `/user/company/${job.companies.id}`
                                                   );
-                                                }}>
-                                                {job.companies.company_name}
-                                              </p>
+                                                }}></p>
                                             </div>
-                                            <div
-                                              className="d-flex mb-0 "
+
+                                            <span
                                               style={{
-                                                fontSize: "13px",
-                                                gap: "3px",
+                                                marginBottom: "0px",
+                                                fontSize: "12px",
+                                                fontWeight: "500",
                                               }}>
-                                              <p
-                                                style={{
-                                                  fontWeight: "600",
-                                                  marginBottom: "0px",
-                                                }}>
-                                                Skills required:
-                                              </p>
-                                              <div
-                                                className="d-flex flex-row mb-0 "
-                                                style={{ gap: "7px" }}>
-                                                {job.job_detail.skills_arr.map(
-                                                  (item, index) => (
-                                                    <p
-                                                      className="mb-0 "
-                                                      key={index}>
-                                                      {item}
-                                                    </p>
-                                                  )
-                                                )}
-                                              </div>
-                                            </div>
+                                              Skills required:
+                                            </span>
+                                            <span
+                                              className="d-flex flex-row mb-0 "
+                                              style={{ gap: "7px" }}>
+                                              {job.job_detail.skills_arr.map(
+                                                (item, index) => (
+                                                  <span
+                                                    style={{
+                                                      fontSize: "12px",
+                                                    }}
+                                                    className="mb-0 "
+                                                    key={index}>
+                                                    {item}
+                                                  </span>
+                                                )
+                                              )}
+                                            </span>
 
                                             <div
                                               className=" gap-0 align-items-center joblist"
