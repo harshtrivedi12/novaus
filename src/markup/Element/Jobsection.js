@@ -150,7 +150,7 @@ function Jobsection() {
                           </div>
                         </div>
                         {localStorage.getItem("jobSeekerLoginToken") ? (
-                          <label className="like-btn" labl>
+                          <label className="like-btn" >
                             <input
                               type="checkbox"
                               defaultChecked={item.job_detail.is_job_favorite}

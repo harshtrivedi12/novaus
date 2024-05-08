@@ -125,6 +125,7 @@ import NewPasswordSet from "./markup/Pages/NewPasswordSet";
 import ForgotPassword from "./markup/Pages/ForgotPassword";
 import ResetPassword from "./markup/Pages/ResetPassword";
 import ResumeSecurity from "./markup/Pages/ResumeSecurity";
+import LandingPage from "./employeeMarkup/Pages/LandingPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -1001,6 +1002,7 @@ function App() {
             </EmployeePrivateRoute>
           }
         />
+        <Route path="home" element={<LandingPage />} />
         <Route path="candidate-listing" element={<EmployeeJobPage />} />
         <Route path="*" element={<EmployeeError404 />} />
       </Route>
