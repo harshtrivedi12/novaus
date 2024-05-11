@@ -18,8 +18,7 @@ function Homepage2(){
       <div className="page-content">
         <div
           className="dez-bnr-inr dez-bnr-inr-md overlay-black-dark"
-          style={{ backgroundImage: "url(" + bnr1 + ")" }}
-        >
+          style={{ backgroundImage: "url(" + bnr1 + ")" }}>
           <div className="container">
             <div className="dez-bnr-inr-entry align-m text-white">
               <div className=" job-search-form">
@@ -52,7 +51,7 @@ function Homepage2(){
           <div className="container">
             <div className="section-head text-center">
               <h2 className="m-b5">Popular Categories</h2>
-              <h5 className="fw4">20+ Catetories work waiting for you</h5>
+              <h5 className="fw4">20+ Categories work waiting for you</h5>
             </div>
 
             <Jobcategories />
@@ -60,8 +59,7 @@ function Homepage2(){
         </div>
         <div
           className="section-full content-inner-2 call-to-action overlay-black-dark text-white text-center bg-img-fix"
-          style={{ backgroundImage: "url(" + bnr2 + ")" }}
-        >
+          style={{ backgroundImage: "url(" + bnr2 + ")" }}>
           <div className="container">
             <div className="row">
               <div className="col-lg-12">
@@ -74,8 +72,7 @@ function Homepage2(){
                 </p>
                 <Link
                   to={"/register-2"}
-                  className="site-button m-t20 outline outline-2 radius-xl"
-                >
+                  className="site-button m-t20 outline outline-2 radius-xl">
                   Create an Account
                 </Link>
               </div>
@@ -85,8 +82,7 @@ function Homepage2(){
         <Jobsection />
         <div
           className="section-full p-tb70 overlay-black-dark text-white text-center bg-img-fix"
-          style={{ backgroundImage: "url(" + bnr3 + ")" }}
-        >
+          style={{ backgroundImage: "url(" + bnr3 + ")" }}>
           <div className="container">
             <div className="section-head text-center text-white">
               <h2 className="m-b5">Testimonials</h2>

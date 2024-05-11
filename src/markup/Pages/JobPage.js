@@ -501,7 +501,7 @@ function JobPage() {
   return (
     <>
       <Header />
-      <FixedHeader />
+      {localStorage.getItem("jobSeekerLoginToken") ? <FixedHeader /> : null}
 
       <div>
         {showSkeleton === true ? (
@@ -1046,20 +1046,33 @@ function JobPage() {
                                 </p>
                               )}
                               <div className="d-flex justify-content-start align-items-center">
-                                {selectedJob.job_detail.is_job_applied ? (
-                                  <button
-                                    className="radius-xl site-button"
-                                    // onClick={handleShow}
-                                  >
-                                    View Status
-                                  </button>
+                                {localStorage.getItem("jobSeekerLoginToken") ? (
+                                  <>
+                                    {selectedJob.job_detail.is_job_applied ? (
+                                      <button
+                                        className="radius-xl site-button"
+                                        // onClick={handleShow}
+                                      >
+                                        View Status
+                                      </button>
+                                    ) : (
+                                      <button
+                                        className="radius-xl site-button"
+                                        onClick={handleShow}>
+                                        Apply
+                                      </button>
+                                    )}
+                                  </>
                                 ) : (
-                                  <button
-                                    className="radius-xl site-button"
-                                    onClick={handleShow}>
-                                    Apply
-                                  </button>
+                                  <>
+                                    <button
+                                      className="radius-xl site-button"
+                                      onClick={() => navigate("/user/login")}>
+                                      Apply
+                                    </button>
+                                  </>
                                 )}
+
                                 <Modal
                                   show={show}
                                   onHide={handleClose}

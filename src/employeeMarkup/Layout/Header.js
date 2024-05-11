@@ -106,7 +106,9 @@ class EmployeeHeader extends Component {
                     <li className="">
                       <Link to={"/employee"}>Home </Link>
                     </li>
-
+                    <li className="">
+                      <Link to={"/services"}>services </Link>
+                    </li>
                     {/* <ul className="sub-menu">
                         <li>
                           <Link to={"./"} className="dez-page">

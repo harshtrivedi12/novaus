@@ -136,6 +136,9 @@ class UserHeader extends Component {
                       className="">
                       <Link to={"/user/job-application"}>Job Page</Link>
                     </li>
+                    <li className="">
+                      <Link to={"/services"}>services </Link>
+                    </li>
                     {localStorage.getItem("jobSeekerLoginToken") ? (
                       <li>
                         <Link to={"#"}>

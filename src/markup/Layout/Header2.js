@@ -106,6 +106,9 @@ class UserHeader2 extends Component {
                     <li className="">
                       <Link to={"/user"}>Home </Link>
                     </li>
+                    <li className="">
+                      <Link to={"/services"}>services </Link>
+                    </li>
                     <li
                       onClick={() => {
                         localStorage.removeItem("selectedLocation");
@@ -113,6 +116,9 @@ class UserHeader2 extends Component {
                       }}
                       className="">
                       <Link to={"/user/job-application"}>Job Page</Link>
+                    </li>
+                    <li className="">
+                      <Link to={"/services"}>services </Link>
                     </li>
                     <li>
                       <Link to={"#"}>

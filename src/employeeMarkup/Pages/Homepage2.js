@@ -51,7 +51,7 @@ function EmployeeHomepage2() {
           <div className="container">
             <div className="section-head text-center">
               <h2 className="m-b5">Popular Categories</h2>
-              <h5 className="fw4">20+ Catetories work wating for you</h5>
+              <h5 className="fw4">20+ Categories work wating for you</h5>
             </div>
 
             <Jobcategories />

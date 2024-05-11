@@ -133,17 +133,11 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
+      <Route path="services" element={<LandingPage />} />
       <Route path="/*" element={<Error404 />} />
 
       <Route path="/user">
-        <Route
-          path=""
-          element={
-            <UserPrivateRoute>
-              <Homepage />
-            </UserPrivateRoute>
-          }
-        />
+        <Route path="" element={<Homepage />} />
         <Route path="login" element={<Loginpage2 />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="reset-password" element={<ResetPassword />} />
@@ -173,14 +167,7 @@ function App() {
             </UserPrivateRoute>
           }
         />
-        <Route
-          path="job-application"
-          element={
-            <UserPrivateRoute>
-              <JobPage />
-            </UserPrivateRoute>
-          }
-        />
+        <Route path="job-application" element={<JobPage />} />
         <Route
           path="applicant-job"
           element={
@@ -1002,7 +989,7 @@ function App() {
             </EmployeePrivateRoute>
           }
         />
-        <Route path="home" element={<LandingPage />} />
+
         <Route path="candidate-listing" element={<EmployeeJobPage />} />
         <Route path="*" element={<EmployeeError404 />} />
       </Route>

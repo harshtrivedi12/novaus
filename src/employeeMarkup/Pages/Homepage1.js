@@ -24,7 +24,7 @@ function EmployeeHomepage() {
             <div className="section-head d-flex head-counter clearfix">
               <div className="mr-auto">
                 <h2 className="m-b5">Popular Categories</h2>
-                <h6 className="fw3">20+ Catetories work wating for you</h6>
+                <h6 className="fw3">20+ Categories work wating for you</h6>
               </div>
               <div className="head-counter-bx">
                 <h2 className="m-b5 counter">
@@ -52,8 +52,7 @@ function EmployeeHomepage() {
         <Jobsection />
         <div
           className="section-full p-tb70 overlay-black-dark text-white text-center bg-img-fix"
-          style={{ backgroundImage: "url(" + bnr2 + ")" }}
-        >
+          style={{ backgroundImage: "url(" + bnr2 + ")" }}>
           <div className="container">
             <div className="section-head text-center text-white">
               <h2 className="m-b5">Testimonials</h2>
@@ -69,8 +68,7 @@ function EmployeeHomepage() {
             backgroundPosition: "bottom",
             backgroundRepeat: "no-repeat",
             backgroundSize: "100%",
-          }}
-        >
+          }}>
           <div className="container">
             <div className="section-head text-black text-center">
               <h2 className="m-b0">Membership Plans</h2>
@@ -99,8 +97,7 @@ function EmployeeHomepage() {
                         <div className="m-t20">
                           <Link
                             to={"/employee/register"}
-                            className="site-button radius-xl"
-                          >
+                            className="site-button radius-xl">
                             <span className="p-lr30">Sign Up</span>
                           </Link>
                         </div>
@@ -127,8 +124,7 @@ function EmployeeHomepage() {
                         <div className="m-t20">
                           <Link
                             to={"/employee/register"}
-                            className="site-button white radius-xl"
-                          >
+                            className="site-button white radius-xl">
                             <span className="text-primary p-lr30">Sign Up</span>
                           </Link>
                         </div>
@@ -155,8 +151,7 @@ function EmployeeHomepage() {
                         <div className="m-t20">
                           <Link
                             to={"/employee/register"}
-                            className="site-button radius-xl"
-                          >
+                            className="site-button radius-xl">
                             <span className="p-lr30">Sign Up</span>
                           </Link>
                         </div>
