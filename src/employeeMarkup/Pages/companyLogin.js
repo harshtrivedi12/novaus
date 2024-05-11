@@ -200,9 +200,10 @@ function EmployeesCompanyLogin(props) {
                       width: "40px",
                     }}
                   />
-                  <Link to={"#"}>Nova Jobs </Link>{" "}
                 </span>
-                <span className="float-right">“Hyper V Solutions” |</span>
+                <span className="float-right">
+                  “Hyper V Solutions” | All Rights Reserved
+                </span>
               </div>
             </div>
           </div>

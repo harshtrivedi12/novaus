@@ -344,8 +344,7 @@ function Footer() {
                     width: "40px",
                   }}
                 />{" "}
-                <Link to={""} className="NovaUs"></Link> “Hyper V Solutions” |
-                All Rights Reserved
+                “Hyper V Solutions” | All Rights Reserved
               </span>
             </div>
           </div>
