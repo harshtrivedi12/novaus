@@ -307,8 +307,7 @@ function EmployeeFooter() {
                     width: "40px",
                   }}
                 />
-                <Link to={""}>Nova Jobs </Link> “Hyper V Solutions” | All Rights
-                Reserved
+                <Link to={""}>Nova Jobs </Link> | All Rights Reserved
               </span>
             </div>
           </div>

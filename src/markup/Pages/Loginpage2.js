@@ -260,7 +260,7 @@ function Login(props) {
                   </Link>
                 </span>
                 <span className="float-right text-white">
-                  All rights reserved.
+                  “Hyper V Solutions” | All Rights Reserved
                 </span>
               </div>
             </div>

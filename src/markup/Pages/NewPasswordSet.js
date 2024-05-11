@@ -174,7 +174,9 @@ function NewPasswordSet(props) {
                     />
                     <Link to={"#"}>Nova Jobs </Link>{" "}
                   </span>
-                  <span className="float-right">All rights reserved.</span>
+                  <span className="float-right">
+                    “Hyper V Solutions” | All Rights Reserved
+                  </span>
                 </div>
               </div>
             </div>

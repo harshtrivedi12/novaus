@@ -344,10 +344,8 @@ function Footer() {
                     width: "40px",
                   }}
                 />{" "}
-                <Link to={""} className="NovaUs">
-                  NovaUs Jobs{" "}
-                </Link>{" "}
-                All rights reserved.
+                <Link to={""} className="NovaUs"></Link> “Hyper V Solutions” |
+                All Rights Reserved
               </span>
             </div>
           </div>
