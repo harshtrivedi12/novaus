@@ -5,7 +5,7 @@ import {
   loadingToggleAction,
   loginAction,
 } from "../../store/actions/AuthActions";
-import india from "../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png";
+import india from "../../images/WhatsApp_Image_2024-05-11_at_19.51.05-removebg-preview.png";
 
 // image
 //import logo from "../../images/logo-full-white.png";
@@ -194,7 +194,7 @@ function EmployeesCompanyLogin(props) {
                 <span className="float-left">
                   © Copyright by{" "}
                   <img
-                    src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                    src="../../images/WhatsApp_Image_2024-05-11_at_19.51.05-removebg-preview.png"
                     alt=""
                     style={{
                       width: "40px",

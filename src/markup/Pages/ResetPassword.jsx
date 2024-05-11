@@ -180,14 +180,14 @@ function ResetPassword(props) {
                 <span className="float-left text-white">
                   © Copyright by{" "}
                   <img
-                    src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                    src="../../images/WhatsApp_Image_2024-05-11_at_19.51.05-removebg-preview.png"
                     alt=""
                     style={{
                       width: "40px",
                     }}
                   />{" "}
                   <img
-                    src="../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png"
+                    src="../../images/WhatsApp_Image_2024-05-11_at_19.51.05-removebg-preview.png"
                     alt=""
                     style={{
                       width: "40px",

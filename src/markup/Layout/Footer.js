@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import india from "../../images/Navy Blue Gradient Marketing Agency Instagram Post_prev_ui.png";
+import india from "../../images/WhatsApp_Image_2024-05-11_at_19.51.05-removebg-preview.png";
 function Footer() {
   return (
     <footer className="site-footer">
