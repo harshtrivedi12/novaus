@@ -38,7 +38,7 @@ function CompanyRegister(props) {
     }
 
     axios
-      .post("https://jobsbooklet.in/api/jobseeker/resume-upload", formData, {
+      .post("https://novajobs.us/api/jobseeker/resume-upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -67,7 +67,7 @@ function CompanyRegister(props) {
     console.log(body);
     try {
       axios({
-        url: "https://jobsbooklet.in/api/jobseeker/auth/signup",
+        url: "https://novajobs.us/api/jobseeker/auth/signup",
         headers: {
           "Content-Type": "application/json",
         },

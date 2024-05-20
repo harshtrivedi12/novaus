@@ -476,9 +476,9 @@ function App() {
         <Route
           path="email-verification"
           element={
-            <UserPrivateRoute>
-              <EmailVerification />
-            </UserPrivateRoute>
+            // <UserPrivateRoute>
+            <EmailVerification />
+            // </UserPrivateRoute>
           }
         />
         <Route
@@ -801,157 +801,157 @@ function App() {
         <Route
           path="term-of-use-nova-jobs"
           element={
-            <EmployeePrivateRoute>
-              <TermOfUse />
-            </EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
+            <TermOfUse />
+            // </EmployeePrivateRoute>
           }
         />
         <Route
           path="resume-security"
           element={
-            <EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
               <ResumeSecurity />
-            </EmployeePrivateRoute>
+            // </EmployeePrivateRoute>
           }
         />
         <Route
           path="data-privacy-framework"
           element={
-            <EmployeePrivateRoute>
-              <DataPrivacyFramework />
-            </EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
+            <DataPrivacyFramework />
+            // </EmployeePrivateRoute>
           }
         />
 
         <Route
           path="cooking-advertising-overview"
           element={
-            <EmployeePrivateRoute>
-              <CookingAdvertising />
-            </EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
+            <CookingAdvertising />
+            // </EmployeePrivateRoute>
           }
         />
         <Route
           path="data-sharing-helps-you"
           element={
-            <EmployeePrivateRoute>
-              <DataSharingHelps />
-            </EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
+            <DataSharingHelps />
+            // </EmployeePrivateRoute>
           }
         />
 
         <Route
           path="scope-privacy-notice"
           element={
-            <EmployeePrivateRoute>
-              <ScopePrivacyNotice />
-            </EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
+            <ScopePrivacyNotice />
+            // </EmployeePrivateRoute>
           }
         />
         <Route
           path="information-novaus-jobs"
           element={
-            <EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
               <InformationNovaUsJobs />
-            </EmployeePrivateRoute>
+            // </EmployeePrivateRoute>
           }
         />
 
         <Route
           path="retention-period-resume-visibility"
           element={
-            <EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
               <RetentionPeriod />
-            </EmployeePrivateRoute>
+            // </EmployeePrivateRoute>
           }
         />
         <Route
           path="cookies-digital-advertising"
           element={
-            <EmployeePrivateRoute>
-              <CookiesDigitalAdvertising />
-            </EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
+            <CookiesDigitalAdvertising />
+            // </EmployeePrivateRoute>
           }
         />
         <Route
           path="privacy-rights"
           element={
-            <EmployeePrivateRoute>
-              <PrivacyRights />
-            </EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
+            <PrivacyRights />
+            // </EmployeePrivateRoute>
           }
         />
 
         <Route
           path="international-transfer-of-personal-information"
           element={
-            <EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
               <InternationalTransfer />
-            </EmployeePrivateRoute>
+            // </EmployeePrivateRoute>
           }
         />
         <Route
           path="general-contact-information"
           element={
-            <EmployeePrivateRoute>
-              <GeneralContactInformation />
-            </EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
+            <GeneralContactInformation />
+            // </EmployeePrivateRoute>
           }
         />
         <Route
           path="security-center-account-management"
           element={
-            <EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
               <SecurityCenterAccountManagement />
-            </EmployeePrivateRoute>
+            // </EmployeePrivateRoute>
           }
         />
         <Route
           path="safeguard-from-email-scams"
           element={
-            <EmployeePrivateRoute>
-              <EmailScams />
-            </EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
+            <EmailScams />
+            // </EmployeePrivateRoute>
           }
         />
         <Route
           path="online-interview-scams"
           element={
-            <EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
               <OnlineInterviewScams />
-            </EmployeePrivateRoute>
+            // </EmployeePrivateRoute>
           }
         />
         <Route
           path="security-bug-reporting"
           element={
-            <EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
               <SecurityBugReporting />
-            </EmployeePrivateRoute>
+            // </EmployeePrivateRoute>
           }
         />
         <Route
           path="accessibility-center"
           element={
-            <EmployeePrivateRoute>
-              <AccessibilityCenter />
-            </EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
+            <AccessibilityCenter />
+            // </EmployeePrivateRoute>
           }
         />
         <Route
           path="howitworks-for-employee"
           element={
-            <EmployeePrivateRoute>
-              <HowItWorksEmployee />
-            </EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
+            <HowItWorksEmployee />
+            // </EmployeePrivateRoute>
           }
         />
         <Route
           path="howitworks-for-candidates"
           element={
-            <EmployeePrivateRoute>
-              <HowItWorksCandidates />
-            </EmployeePrivateRoute>
+            // <EmployeePrivateRoute>
+            <HowItWorksCandidates />
+            // </EmployeePrivateRoute>
           }
         />
         <Route

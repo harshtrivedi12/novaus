@@ -17,7 +17,7 @@ function EmployeeCompanymanage() {
   useEffect(() => {
     axios({
       method: "GET",
-      url: "https://jobsbooklet.in/api/employeer/job-lists?is_publish=0",
+      url: "https://novajobs.us/api/employeer/job-lists?is_publish=0",
       headers: {
         Authorization: token,
       },
@@ -35,7 +35,7 @@ function EmployeeCompanymanage() {
   const fetchDraftJobs = () => {
     axios({
       method: "GET",
-      url: "https://jobsbooklet.in/api/employeer/job-lists?is_publish=0",
+      url: "https://novajobs.us/api/employeer/job-lists?is_publish=0",
       headers: {
         Authorization: token,
       },
@@ -54,7 +54,7 @@ function EmployeeCompanymanage() {
   const fetchPublishedJobs = () => {
     axios({
       method: "GET",
-      url: "https://jobsbooklet.in/api/employeer/job-lists?is_publish=1",
+      url: "https://novajobs.us/api/employeer/job-lists?is_publish=1",
       headers: {
         Authorization: token,
       },
@@ -73,7 +73,7 @@ function EmployeeCompanymanage() {
     console.log(id, "id");
     axios({
       method: "PUT",
-      url: `https://jobsbooklet.in/api/employeer/job-post/${id}`,
+      url: `https://novajobs.us/api/employeer/job-post/${id}`,
       headers: {
         Authorization: token,
       },

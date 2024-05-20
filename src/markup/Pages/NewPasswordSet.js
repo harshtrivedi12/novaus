@@ -25,24 +25,24 @@ function NewPasswordSet(props) {
             password: password,
         };
         await axios({
-            method: "POST",
-            url: "https://jobsbooklet.in/api/jobseeker/auth/login",
-            headers: {
-                "Content-Type": "Application/json",
-            },
-            data: reqBody,
+          method: "POST",
+          url: "https://novajobs.us/api/jobseeker/auth/login",
+          headers: {
+            "Content-Type": "Application/json",
+          },
+          data: reqBody,
         })
-            .then((response) => {
-                console.log(response, "login");
-                localStorage.setItem(
-                    "jobSeekerLoginToken",
-                    response?.data?.data?.token
-                );
-                navigate("/user");
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+          .then((response) => {
+            console.log(response, "login");
+            localStorage.setItem(
+              "jobSeekerLoginToken",
+              response?.data?.data?.token
+            );
+            navigate("/user");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
     };
     return (
       <div className="page-wraper">

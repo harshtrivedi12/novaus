@@ -39,14 +39,15 @@ function Jobsection() {
   const fetchJobApplicationData = async () => {
     try {
       const response = await axios.get(
-        "https://jobsbooklet.in/api/jobseeker/job-lists?page_size=7",
+        "https://novajobs.us/api/jobseeker/job-lists?page_size=7&is_publish=1",
         {
           headers: {
             Authorization: token,
           },
         }
       );
-      dispatch(setJobApplicationData(response.data.data, "res"));
+      console.log(response, "res");
+      dispatch(setJobApplicationData(response.data.data));
       setSkeleton(false);
     } catch (error) {
       console.log(error);
@@ -64,7 +65,7 @@ function Jobsection() {
   const toggleFabJobs = async (id) => {
     try {
       await axios({
-        url: "https://jobsbooklet.in/api/jobseeker/job-favorites",
+        url: "https://novajobs.us/api/jobseeker/job-favorites",
         method: "POST",
         headers: { Authorization: token },
         data: {

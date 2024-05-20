@@ -8,11 +8,12 @@ import {
 import axios from "axios";
 import processVid from "../../gif process.mp4";
 import { DNA, InfinitySpin, MutatingDots } from "react-loader-spinner";
-var bnr = require("./../../images/background/bg6.jpg");
+import validator from "validator";
+// var bnr = require("./../../images/background/bg6.jpg");
+import bnr from "../../images/login/loginbg.jpeg";
 
 function Register2(props) {
-  let errorsObj = { email: "", password: "" };
-  const [errors, setErrors] = useState(errorsObj);
+  const [errors, setErrors] = useState({});
   const [email, setEmail] = useState("");
   const [runAiButton, setRunAiButton] = useState("Run Ai");
   const [password, setPassword] = useState("");
@@ -33,6 +34,65 @@ function Register2(props) {
   const [resumeUrl, setResumeUrl] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [spinner, setSpinner] = useState(false);
+
+  const [registerValues, setRegisterValues] = useState({
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: "",
+    password: "",
+    jobTitle: "",
+  });
+  console.log(registerValues, "values");
+  const handleRegisterChange = (e) => {
+    const { name, value } = e.target;
+    setRegisterValues({ ...registerValues, [name]: value });
+    // first name
+    if (
+      name === "firstName" &&
+      !validator.matches(value, /^(?!\d)[a-zA-Z0-9]{3,}$/)
+    ) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        firstName:
+          "First Name must be at least 3 characters long and not start with a number.",
+      }));
+    } else if (name === "firstName") {
+      const newErrors = { ...errors };
+      delete newErrors.firstName;
+      setErrors(newErrors);
+    }
+    // lastName
+
+    if (
+      name === "lastName" &&
+      !validator.matches(value, /^(?!\d)[a-zA-Z0-9]{3,}$/)
+    ) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        lastName:
+          "Last Name must be at least 3 characters long and not start with a number.",
+      }));
+    } else if (name === "lastName") {
+      const newErrors = { ...errors };
+      delete newErrors.lastName;
+      setErrors(newErrors);
+    }
+
+    // phone number
+
+    if (name === "phone" && !validator.matches(value, /^\d{7,10}$/)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phone: "Phone Number must be between 7 and 10 digits.",
+      }));
+    } else if (name === "phone") {
+      const newErrors = { ...errors };
+      delete newErrors.phone;
+      setErrors(newErrors);
+    }
+  };
+
   function handleChange(event) {
     setFile(event.target.files[0]);
   }
@@ -51,7 +111,7 @@ function Register2(props) {
     }
 
     axios
-      .post("https://jobsbooklet.in/api/jobseeker/resume-upload", formData, {
+      .post("https://novajobs.us/api/jobseeker/resume-upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: token,
@@ -74,18 +134,18 @@ function Register2(props) {
   async function onSignUp(e) {
     e.preventDefault();
     const body = {
-      first_name: firstName,
-      last_name: LastName,
-      company: company,
-      jobtitle: jobtitle,
-      email: email,
-      phone: phone,
-      password: password,
+      first_name: registerValues.firstName,
+      last_name: registerValues.lastName,
+      company: registerValues.company,
+      jobtitle: registerValues.jobTitle,
+      email: registerValues.email,
+      phone: registerValues.phone,
+      password: registerValues.password,
     };
     console.log(body);
     try {
       axios({
-        url: "https://jobsbooklet.in/api/jobseeker/auth/signup",
+        url: "https://novajobs.us/api/jobseeker/auth/signup",
         headers: {
           "Content-Type": "application/json",
         },
@@ -113,7 +173,7 @@ function Register2(props) {
     console.log(resumeUrl);
     await axios({
       method: "post",
-      url: "https://jobsbooklet.in/api/jobseeker/file-based-ai",
+      url: "https://novajobs.us/api/jobseeker/file-based-ai",
       data: {
         keyword: "Rate this resume content in percentage ?",
         file_location: resumeUrl,
@@ -140,13 +200,15 @@ function Register2(props) {
           className="bg-img-fix"
           style={{
             backgroundImage: `url(${bnr})`,
-            height: "100vh",
-          }}>
+            height: "100%",
+          }}
+        >
           <div className="row">
             <div className="col-xl-6 col-lg-7 col-md-8 col-sm-12 bg-white z-index2 relative p-a0 content-scroll skew-section left-bottom">
               <div
                 className="login-form style-2"
-                style={{ display: "flex", flexDirection: "column" }}>
+                style={{ display: "flex", flexDirection: "column" }}
+              >
                 <div className="logo-header text-center p-tb30">
                   {/* <Link to={"./"}><img src={require("./../../images/logo.png")} alt="" /></Link> */}
                   <Link to={"./"}>
@@ -174,8 +236,10 @@ function Register2(props) {
                         <div className="row">
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <input
-                              value={firstName}
-                              onChange={(e) => setFirstName(e.target.value)}
+                              name="firstName"
+                              id="firstName"
+                              value={registerValues.firstName}
+                              onChange={handleRegisterChange}
                               className="form-control"
                               placeholder="First Name"
                               required
@@ -186,8 +250,10 @@ function Register2(props) {
                           </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <input
-                              value={LastName}
-                              onChange={(e) => setLastName(e.target.value)}
+                              name="lastName"
+                              id="lastName"
+                              value={registerValues.lastName}
+                              onChange={handleRegisterChange}
                               className="form-control"
                               placeholder="Last Name"
                               required
@@ -199,13 +265,15 @@ function Register2(props) {
 
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <input
-                              value={phone}
+                              id="phone"
+                              name="phone"
+                              value={registerValues.phone}
                               type="number"
                               className="form-control"
                               defaultValue="Password"
                               placeholder="Phone Number"
                               required
-                              onChange={(e) => setPhone(e.target.value)}
+                              onChange={handleRegisterChange}
                             />
                             {/* <div className="text-danger">
                               {errors.password && <div>{errors.password}</div>}
@@ -213,10 +281,28 @@ function Register2(props) {
                           </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <input
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
+                              type="text"
+                              name="jobTitle"
+                              id="jobTitle"
+                              onChange={handleRegisterChange}
+                              value={registerValues.jobTitle}
                               className="form-control"
+                              placeholder="Job Title"
+                              required
+                            />
+                            {/* <div className="text-danger">
+                              {errors.email && <div>{errors.email}</div>}
+                            </div> */}
+                          </div>
+
+                          <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <input
                               type="email"
+                              name="email"
+                              id="email"
+                              value={registerValues.email}
+                              onChange={handleRegisterChange}
+                              className="form-control"
                               placeholder="Work Email Address"
                               required
                             />
@@ -234,27 +320,28 @@ function Register2(props) {
                                   right: "0px",
                                   zIndex: "11",
                                   position: "absolute",
-                                }}>
+                                }}
+                              >
                                 <i
                                   className={
                                     showPassword
                                       ? "fa fa-eye-slash "
                                       : "fa fa-eye"
-                                  }></i>
+                                  }
+                                ></i>
                               </span>
                               <input
                                 type={showPassword ? "text" : "password"} // Toggle password visibility
+                                name="password"
+                                id="password"
                                 className="form-control position-relative"
-                                value={password}
+                                value={registerValues.password}
                                 placeholder="Type Your Password"
                                 defaultValue="Password"
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={handleRegisterChange}
                                 required
                               />
                             </div>
-                            {/* <div className="text-danger">
-                              {errors.password && <div>{errors.password}</div>}
-                            </div> */}
                           </div>
                           <div className="form-group text-left ">
                             {/* <button
@@ -274,7 +361,8 @@ function Register2(props) {
                               />
                               <label
                                 className="custom-control-label"
-                                htmlFor="terms">
+                                htmlFor="terms"
+                              >
                                 I agree to the{" "}
                                 {
                                   <Link to={"/employee/privacy-rights"}>
@@ -287,66 +375,35 @@ function Register2(props) {
                                 </Link>
                               </label>
                             </span>
-                            {/* <Link
-                            data-toggle="tab"
-                            to="#forgot-password"
-                            className="forget-pass m-l5"
-                          >
-                            <i className="fa fa-unlock-alt"></i> Forgot Password
-                          </Link> */}
                           </div>
-                          {/* <div className="dz-social clearfix">
-                          <h5 className="form-title m-t5 pull-left">
-                            Sign In With
-                          </h5>
-                          <ul className="dez-social-icon dez-border pull-right dez-social-icon-lg text-white">
-                             <li>
-                              <Link
-                                to={""}
-                                className="fa fa-facebook  fb-btn mr-1"
-                                target="bank"
-                              ></Link>
-                            </li>
-                             <li>
-                              <Link
-                                to={""}
-                                className="fa fa-twitter  tw-btn mr-1"
-                                target="bank"
-                              ></Link>
-                            </li>
-                            <li>
-                              <Link
-                                to={""}
-                                className="fa fa-linkedin link-btn mr-1"
-                                target="bank"
-                              ></Link>
-                            </li>
-                            <li>
-                              <Link
-                                to={""}
-                                className="fa fa-google-plus  gplus-btn"
-                                target="bank"
-                              ></Link>
-                            </li>
-                          </ul>
-                        </div> */}
+                        </div>
+
+                        <div className="text-danger mb-3 ">
+                          {errors.firstName && (
+                            <div className="text-center ">
+                              {errors.firstName}
+                            </div>
+                          )}
+
+                          {errors.lastName && (
+                            <div className="text-center ">
+                              {errors.lastName}
+                            </div>
+                          )}
+
+                          {errors.phone && (
+                            <div className="text-center ">{errors.phone}</div>
+                          )}
                         </div>
                         <div className="text-center ">
                           <button
                             type="submit"
-                            className="site-button dz-xs-flex m-r5">
+                            className="site-button dz-xs-flex m-r5"
+                          >
                             Create Account
                           </button>
                         </div>
                       </form>
-                      {/* <div className="text-center bottom">
-                        <Link
-                          to="/login"
-                          className="site-button button-md btn-block text-white"
-                        >
-                          Sign In
-                        </Link>
-                      </div> */}
                     </div>
                   </div>
                 ) : (
@@ -379,7 +436,8 @@ function Register2(props) {
                         ) : (
                           <button
                             type="submit"
-                            className="site-button dz-xs-flex m-r5">
+                            className="site-button dz-xs-flex m-r5"
+                          >
                             Upload Resume
                           </button>
                         )}
@@ -390,7 +448,8 @@ function Register2(props) {
                           <video
                             width="200px"
                             loop={showVideo}
-                            autoPlay={showVideo}>
+                            autoPlay={showVideo}
+                          >
                             <source src={processVid} type="video/mp4" />
                           </video>
                         </div>
@@ -401,7 +460,8 @@ function Register2(props) {
                               className="site-button dz-xs-flex m-r5"
                               onClick={(e) => {
                                 navigate("/");
-                              }}>
+                              }}
+                            >
                               Go To Dashboard
                             </button>
                           </div>
@@ -410,7 +470,8 @@ function Register2(props) {
                             onClick={(e) => {
                               runAi(e);
                             }}
-                            className="site-button dz-xs-flex m-r5">
+                            className="site-button dz-xs-flex m-r5"
+                          >
                             {runAiButton}
                           </button>
                         )}

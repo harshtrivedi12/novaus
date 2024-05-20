@@ -16,7 +16,7 @@ function EmployeeApplicantsJobPage() {
     const jobData = async () => {
       await axios({
         method: "get",
-        url: "https://jobsbooklet.in/api/employeer/jobs-applicants",
+        url: "https://novajobs.us/api/employeer/jobs-applicants",
         headers: {
           Authorization: token,
         },
