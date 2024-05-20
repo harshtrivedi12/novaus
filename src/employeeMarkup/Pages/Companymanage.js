@@ -26,7 +26,7 @@ function EmployeeCompanymanage() {
         console.log(response.data.data, "draft");
         setData(response.data.data);
         setSkeleton(false);
-        setBtn("Publish");
+        setBtn("View");
       })
       .catch((err) => {
         console.log(err);

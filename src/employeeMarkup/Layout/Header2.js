@@ -201,13 +201,13 @@ class EmployeeHeader2 extends Component {
                           </Link>
                         </li>
 
-                        <li>
+                        {/* <li>
                           <Link
                             to={"/employee/company-manage-job/jobs"}
                             className="dez-page">
                             Manage jobs <span className="new-page">New</span>
                           </Link>
-                        </li>
+                        </li> */}
                         <li>
                           <Link
                             to={"/employee/company-transactions"}
