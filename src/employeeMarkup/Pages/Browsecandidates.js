@@ -90,7 +90,7 @@ function EmployeeBrowsecandidates() {
   const getCountry = () => {
     axios({
       method: "GET",
-      url: "https://jobsbooklet.in/api/employeer/countries",
+      url: "https://novajobs.us/api/employeer/countries",
       headers: {
         Authorization: token,
       },
@@ -108,7 +108,7 @@ function EmployeeBrowsecandidates() {
   const getState = () => {
     axios({
       method: "GET",
-      url: `https://jobsbooklet.in/api/employeer/stats/231`,
+      url: `https://novajobs.us/api/employeer/stats/231`,
       headers: {
         Authorization: token,
       },
@@ -126,7 +126,7 @@ function EmployeeBrowsecandidates() {
   const getCities = () => {
     axios({
       method: "GET",
-      url: `https://jobsbooklet.in/api/employeer/cities/${browseCandidateValues.state_id}`,
+      url: `https://novajobs.us/api/employeer/cities/${browseCandidateValues.state_id}`,
       headers: {
         Authorization: token,
       },
@@ -182,7 +182,7 @@ function EmployeeBrowsecandidates() {
   useEffect(() => {
     axios({
       method: "GET",
-      url: "https://jobsbooklet.in/api/employeer/experience-level",
+      url: "https://novajobs.us/api/employeer/experience-level",
       headers: {
         Authorization: token,
       },
@@ -196,7 +196,7 @@ function EmployeeBrowsecandidates() {
   useEffect(() => {
     axios({
       method: "GET",
-      url: "https://jobsbooklet.in/api/employeer/salary-range",
+      url: "https://novajobs.us/api/employeer/salary-range",
       headers: {
         Authorization: token,
       },

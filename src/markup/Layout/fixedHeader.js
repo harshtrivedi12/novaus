@@ -41,7 +41,7 @@ const FixedHeader = () => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: "https://jobsbooklet.in/api/jobseeker/user-profile",
+      url: "https://novajobs.us/api/jobseeker/user-profile",
       headers: {
         Authorization: token,
       },
@@ -84,7 +84,7 @@ const FixedHeader = () => {
   const getCountry = () => {
     axios({
       method: "GET",
-      url: "https://jobsbooklet.in/api/jobseeker/countries",
+      url: "https://novajobs.us/api/jobseeker/countries",
       headers: {
         Authorization: token,
       },
@@ -101,7 +101,7 @@ const FixedHeader = () => {
   const getState = () => {
     axios({
       method: "GET",
-      url: `https://jobsbooklet.in/api/jobseeker/stats/${fixedHeaderValues.country_id}`,
+      url: `https://novajobs.us/api/jobseeker/stats/${fixedHeaderValues.country_id}`,
       headers: {
         Authorization: token,
       },

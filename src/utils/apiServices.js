@@ -1,5 +1,5 @@
 import axios from "axios";
-export const baseUrl = "https://jobsbooklet.in";
+export const baseUrl = "https://novajobs.us";
 export const postRequest = async (url, body, token) => {
   console.log(url);
   console.log(body, "body");

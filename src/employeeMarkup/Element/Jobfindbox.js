@@ -27,7 +27,7 @@
 //   useEffect(() => {
 //     axios({
 //       method: "GET",
-//       url: "https://jobsbooklet.in/api/employeer/experience-level",
+//       url: "https://novajobs.us/api/employeer/experience-level",
 //       headers: {
 //         Authorization: token,
 //       },
@@ -42,7 +42,7 @@
 //   useEffect(() => {
 //     axios({
 //       method: "GET",
-//       url: "https://jobsbooklet.in/api/employeer/salary-range",
+//       url: "https://novajobs.us/api/employeer/salary-range",
 //       headers: {
 //         Authorization: token,
 //       },

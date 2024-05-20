@@ -8,7 +8,7 @@ import {
 
 // image
 //import logo from "../../images/logo-full-white.png";
-import loginbg from "./../../images/bg6.jpg";
+import loginbg from "./../../images/login/loginbg.jpeg";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -60,7 +60,7 @@ function EmployeeLogin(props) {
     };
     await axios({
       method: "POST",
-      url: "https://jobsbooklet.in/api/employeer/auth/login",
+      url: "https://novajobs.us/api/employeer/auth/login",
       headers: {
         "Content-Type": "Application/json",
       },
@@ -82,21 +82,23 @@ function EmployeeLogin(props) {
         className="page-content bg-white login-style2"
         style={{
           backgroundImage: "url(" + loginbg + ")",
-          backgroundSize: "cover",
-        }}>
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "fill",
+        }}
+      >
         <div className="section-full">
           <div className="container">
             <div className="row">
               <div className="col-lg-6 col-md-6 d-flex">
-                <div className="text-white max-w400 align-self-center">
+                <div className=" max-w400 align-self-center">
                   <div className="logo">
                     {/* <Link to={"/"}><img src={logo2} alt="" /></Link> */}
-                    <Link to={"/"}>
+                    {/* <Link to={"/"}>
                       <img
                         src={require("./../../images/logo/NovaUS.png")}
                         alt=""
                       />
-                    </Link>
+                    </Link> */}
                   </div>
                   <h2 className="m-b10"> Sign up or Login To Dashboard</h2>
                   <p className="m-b30">
@@ -177,11 +179,13 @@ function EmployeeLogin(props) {
                               right: "0px",
                               zIndex: "11",
                               position: "absolute",
-                            }}>
+                            }}
+                          >
                             <i
                               className={
                                 showPassword ? "fa fa-eye-slash " : "fa fa-eye"
-                              }></i>
+                              }
+                            ></i>
                           </span>
                           <input
                             type={showPassword ? "text" : "password"} // Toggle password visibility
@@ -202,7 +206,8 @@ function EmployeeLogin(props) {
                         <Link
                           data-toggle="tab"
                           to="#forgot-password"
-                          className="forget-pass m-l5">
+                          className="forget-pass m-l5"
+                        >
                           <i className="fa fa-unlock-alt"></i> Forgot Password
                         </Link>
                       </div>
@@ -215,25 +220,29 @@ function EmployeeLogin(props) {
                             <Link
                               to={""}
                               className="fa fa-linkedin link-btn mr-1"
-                              target="bank"></Link>
+                              target="bank"
+                            ></Link>
                           </li>
                           <li onClick="">
                             <Link
                               to={""}
                               className="fa fa-google link-btn mr-1"
-                              target="bank"></Link>
+                              target="bank"
+                            ></Link>
                           </li>
                         </ul>
                       </div>
                       <div className="text-center">
                         <button
                           onClick={handlePostRequest}
-                          className="site-button float-left">
+                          className="site-button float-left"
+                        >
                           login
                         </button>
                         <Link
                           to="/employee/register-2"
-                          className="site-button-link forget-pass m-t15 float-right">
+                          className="site-button-link forget-pass m-t15 float-right"
+                        >
                           <i className="fa fa-unlock-alt"></i> Sign up
                         </Link>
                       </div>
@@ -241,7 +250,8 @@ function EmployeeLogin(props) {
                     <div className="form-group text-center">
                       <Link
                         to="mailto:mailto:contact@novajobs.us"
-                        className="site-button-link  m-t15 ">
+                        className="site-button-link  m-t15 "
+                      >
                         Need help click here
                       </Link>
                     </div>

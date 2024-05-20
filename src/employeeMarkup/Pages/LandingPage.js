@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import "../../css/landingPage.css";
 import img from "../../images/360_F_309586333_FU8eARHr7QnC1TSPmvrIdqWp0qoRGMDM-removebg-preview.png";
-import img2 from "../../images/WhatsApp_Image_2024-05-08_at_11.14.27-removebg-preview.png";
-import img3 from "../../images/WhatsApp_Image_2024-05-08_at_11.14.26-removebg-preview.png";
-import img4 from "../../images/WhatsApp_Image_2024-05-08_at_11.14.27__1_-removebg-preview.png";
-import img5 from "../../images/WhatsApp_Image_2024-05-08_at_11.14.27__2_-removebg-preview.png";
-import img6 from "../../images/WhatsApp_Image_2024-05-08_at_11.14.26__1_-removebg-preview.png";
+// import img2 from "../../images/WhatsApp_Image_2024-05-08_at_11.14.27-removebg-preview.png";
+// import img3 from "../../images/WhatsApp_Image_2024-05-08_at_11.14.26-removebg-preview.png";
+// import img4 from "../../images/WhatsApp_Image_2024-05-08_at_11.14.27__1_-removebg-preview.png";
+// import img5 from "../../images/WhatsApp_Image_2024-05-08_at_11.14.27__2_-removebg-preview.png";
+// import img6 from "../../images/WhatsApp_Image_2024-05-08_at_11.14.26__1_-removebg-preview.png";
+import img7 from "../../images/services/1.jpeg"
+import img2 from "../../images/services/2.jpeg";
+import img3 from "../../images/services/3.jpeg";
+import img4 from "../../images/services/4.jpeg";
+import img5 from "../../images/services/5.jpeg";
+import img6 from "../../images/services/6.jpeg";
 import { Tab, Nav, Form, Modal } from "react-bootstrap";
 import Header from "./../Layout/Header";
 import Footer from "./../Layout/Footer";
@@ -153,7 +159,7 @@ const LandingPage = () => {
             </button>
           </div>
           <div className="service-div">
-            <img src={img6} alt="" />
+            <img src={img5} alt="" />
             <p>Ai-Based CV Services:</p>
             <ul>
               <li>Live CV Score</li>
@@ -167,7 +173,7 @@ const LandingPage = () => {
         </div>{" "}
         <div className="services-row">
           <div className="service-div">
-            <img src={img5} alt="" />
+            <img src={img6} alt="" />
             <p>Robust Vendor Panel:</p>
             <ul>
               <li>Bulk CV upload</li>
@@ -179,7 +185,7 @@ const LandingPage = () => {
             </button>
           </div>
           <div className="service-div">
-            <img src={img5} alt="" />
+            <img src={img7} alt="" />
             <p>Ai-Based Add-ONS:</p>
             <ul>
               <li>Robust Wallet</li>

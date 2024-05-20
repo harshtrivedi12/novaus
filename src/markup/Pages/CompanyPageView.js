@@ -20,7 +20,7 @@ const CompanyPage = () => {
   const handleGetRequest = () => {
     axios({
       method: "GET",
-      url: `https://jobsbooklet.in/api/jobseeker/companies/${id}`,
+      url: `https://novajobs.us/api/jobseeker/companies/${id}`,
 
       headers: {
         Authorization: token,
@@ -38,7 +38,7 @@ const CompanyPage = () => {
   const handleGetJobRequest = () => {
     axios({
       method: "GET",
-      url: "https://jobsbooklet.in/api/jobseeker/job-lists?company_id=1",
+      url: "https://novajobs.us/api/jobseeker/job-lists?company_id=1",
 
       headers: {
         Authorization: token,

@@ -47,7 +47,7 @@ function CompanyLogin(props) {
     };
     await axios({
       method: "POST",
-      url: "https://jobsbooklet.in/api/jobseeker/auth/login",
+      url: "https://novajobs.us/api/jobseeker/auth/login",
       headers: {
         "Content-Type": "Application/json",
       },
