@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { TypeAnimation } from "react-type-animation";
+import "../../css/indexBanner.css";
+
 var bnr1 = require("./../../images/main-slider/slide2.jpg");
 
 function IndexBanner() {
@@ -9,10 +11,10 @@ function IndexBanner() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const focusHandler = function() {
+    const focusHandler = function () {
       this.parentElement.parentElement.classList.add("focused");
     };
-    const blurHandler = function() {
+    const blurHandler = function () {
       if (this.value === "") {
         this.parentElement.parentElement.classList.remove("filled");
         this.parentElement.parentElement.classList.remove("focused");
@@ -22,14 +24,14 @@ function IndexBanner() {
     };
 
     let inputSelector = document.querySelectorAll("input, textarea");
-    inputSelector.forEach(input => {
+    inputSelector.forEach((input) => {
       input.addEventListener("focus", focusHandler);
       input.addEventListener("blur", blurHandler);
     });
 
     // Cleanup function similar to componentWillUnmount
     return () => {
-      inputSelector.forEach(input => {
+      inputSelector.forEach((input) => {
         input.removeEventListener("focus", focusHandler);
         input.removeEventListener("blur", blurHandler);
       });
@@ -43,27 +45,48 @@ function IndexBanner() {
 
   const handleFindCandidateClick = (e) => {
     e.preventDefault();
-    navigate('/employee/browse-candidates');
+    navigate("/employee/browse-candidates");
   };
 
-
   return (
-    <div className="dez-bnr-inr dez-bnr-inr-md" style={{ backgroundImage: `url(${bnr1})` }}>
+    <div
+      className="dez-bnr-inr dez-bnr-inr-md"
+      style={{ backgroundImage: `url(${bnr1})` }}
+    >
       <div className="container">
         <div className="dez-bnr-inr-entry align-m">
           <div className="find-job-bx ">
             <div className="d-flex align-items-center " style={{ gap: "7px" }}>
-              <Link to="/#" className="site-button button-sm">Find Jobs</Link>
-              <Link to="/#" className="site-button button-sm">Resume AI Score</Link>
-              <Link to="/#" className="site-button button-sm">SignUp Free</Link>
-              <Link to="/#" className="site-button button-sm">My Dashboard</Link>
+              {/* <Link to={"/#"} className="site-button button-sm">
+                  Find Jobs
+                </Link>
+                <Link to={"/#"} className="site-button button-sm">
+                  Resume AI Score
+                </Link>
+                <Link to={"/#"} className="site-button button-sm">
+                  SignUp Free
+                </Link>
+                <Link to={"/#"} className="site-button button-sm">
+                  My Dashboard
+                </Link> */}
+              <div className="hover-3d">
+                <h2>NovaJobs.US, An AI-Enabled 360 Degree Job Portal</h2>
+              </div>
             </div>
+
             <h2>
               <TypeAnimation
                 sequence={[
-                  " Search Jobs", 1000, "Check Resume Ai Score", 1000, 
-                  " Make Ai Resume", 1000, "Connect with Employers", 1000, 
-                  "Get Hired..!!", 1000
+                  " Search Jobs",
+                  1000,
+                  "Check Resume Ai Score",
+                  1000,
+                  " Make Ai Resume",
+                  1000,
+                  "Connect with Employers",
+                  1000,
+                  "Get Hired..!!",
+                  1000,
                 ]}
                 wrapper="span"
                 speed={50}
@@ -85,7 +108,9 @@ function IndexBanner() {
                         value={professionTitle}
                       />
                       <div className="input-group-append">
-                        <span className="input-group-text"><i className="fa fa-search"></i></span>
+                        <span className="input-group-text">
+                          <i className="fa fa-search"></i>
+                        </span>
                       </div>
                     </div>
                   </div>

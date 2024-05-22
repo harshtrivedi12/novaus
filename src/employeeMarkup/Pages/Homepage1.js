@@ -9,6 +9,13 @@ import Featureblog from "./../Element/Featureblog";
 import Jobsection from "./../Element/Jobsection";
 import Owltestimonial from "./../Element/Owlblog1";
 import axios from "axios";
+import {
+  FaRegEdit,
+  FaRegFileAlt,
+  FaRegFilePdf,
+  FaRegUser,
+  FaStar,
+} from "react-icons/fa";
 
 //Images
 var bnr2 = require("./../../images/background/bg4.jpg");
@@ -48,11 +55,174 @@ function EmployeeHomepage() {
             <Jobcategories />
           </div>
         </div> */}
+        <div
+          className="section-full p-tb70 overlay-black-dark text-white text-center bg-img-fix"
+          style={{ backgroundImage: "url(" + bnr2 + ")" }}
+        >
+          <div className="container">
+            <div className="section-head text-center text-white">
+              <div className="two-box-container " style={{ color: "white" }}>
+                <div className="red-box">
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "7px",
+                      alignItems: "flex-start",
+                      textAlign: "left",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: "12px",
+                      }}
+                    >
+                      <FaStar />
+                      <h3
+                        style={{
+                          fontSize: "17px",
+                          color: "white",
+                          fontWeight: "600",
+                          marginBottom: "0px",
+                        }}
+                      >
+                        Looking For a Job
+                      </h3>
+                    </div>
+                    <p
+                      style={{
+                        margin: "0px",
+                        padding: "0px",
+                        fontSize: "14px",
+                      }}
+                    >
+                      List Your Profile, Check Your Resume Score, Search Jobs,
+                      with advance filters and power of AI
+                    </p>
+                    <Link
+                      to={"/user/job-application"}
+                      style={{ color: "white" }}
+                    >
+                      Apply Now
+                    </Link>
+                  </div>
+                </div>
+                <div className="blue-box">
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "7px",
+                      alignItems: "flex-start",
+                      textAlign: "left",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: "12px",
+                      }}
+                    >
+                      <FaRegEdit />
+
+                      <h3
+                        style={{
+                          fontSize: "17px",
+                          color: "white",
+                          fontWeight: "600",
+                          marginBottom: "0px",
+                        }}
+                      >
+                        Are you an Employer?
+                      </h3>
+                    </div>
+
+                    <p
+                      style={{
+                        margin: "0px",
+                        padding: "0px",
+                        fontSize: "14px",
+                      }}
+                    >
+                      List Your Company, Post Jobs, SearchList your company,
+                      Post Jobs, Search Talent, with advanced filters and power
+                      of AI{" "}
+                    </p>
+                    <Link
+                      to={"/employee/register-2"}
+                      style={{ color: "white" }}
+                    >
+                      Search Talent
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="d-flex flex-column bg-white align-items-center"
+          style={{ gap: "20px", padding: "20px" }}
+        >
+          <h2
+            className="m-0 "
+            style={{
+              fontSize: "28px",
+              fontWeight: "600",
+              lineHeight: "1.3em",
+              textAlign: "center",
+              color: "#09213c",
+            }}
+          >
+            Why You Choose us Among
+            <br />
+            other Job Sites.
+          </h2>
+          {/* <p
+            style={{ textAlign: "center", lineHeight: "1.4em", margin: "0px" }}
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque unde
+            fugiat aspernatur officia?
+            <br /> Eveniet cumque saepe, praesentium consectetur recusandae
+            dignissimos et quia molestiae.
+          </p> */}
+
+          <div className="two-box-container">
+            <div className="card">
+              <div className="card-icon">
+                <FaRegFileAlt />
+              </div>
+              <h3>Check Resume Score</h3>
+              <p>Our AI gives immediate score on your Resume.</p>
+            </div>
+            <div className="card">
+              <div className="card-icon">
+                <FaRegFilePdf />
+              </div>
+              <h3>Build Your Public Profile</h3>
+              <p>Add Your Details to reach leading companies.</p>
+            </div>
+            <div className="card">
+              <div className="card-icon">
+                <FaRegUser />
+              </div>
+              <h3>AI Skill Testing Tool</h3>
+              <p>AI Skill testing tool & Earn Badge.</p>
+            </div>
+          </div>
+        </div>
         <Featureblog />
         <Jobsection />
         <div
           className="section-full p-tb70 overlay-black-dark text-white text-center bg-img-fix"
-          style={{ backgroundImage: "url(" + bnr2 + ")" }}>
+          style={{ backgroundImage: "url(" + bnr2 + ")" }}
+        >
           <div className="container">
             <div className="section-head text-center text-white">
               <h2 className="m-b5">Testimonials</h2>
@@ -68,7 +238,8 @@ function EmployeeHomepage() {
             backgroundPosition: "bottom",
             backgroundRepeat: "no-repeat",
             backgroundSize: "100%",
-          }}>
+          }}
+        >
           <div className="container">
             <div className="section-head text-black text-center">
               <h2 className="m-b0">Membership Plans</h2>
@@ -97,7 +268,8 @@ function EmployeeHomepage() {
                         <div className="m-t20">
                           <Link
                             to={"/employee/register"}
-                            className="site-button radius-xl">
+                            className="site-button radius-xl"
+                          >
                             <span className="p-lr30">Sign Up</span>
                           </Link>
                         </div>
@@ -124,7 +296,8 @@ function EmployeeHomepage() {
                         <div className="m-t20">
                           <Link
                             to={"/employee/register"}
-                            className="site-button white radius-xl">
+                            className="site-button white radius-xl"
+                          >
                             <span className="text-primary p-lr30">Sign Up</span>
                           </Link>
                         </div>
@@ -151,7 +324,8 @@ function EmployeeHomepage() {
                         <div className="m-t20">
                           <Link
                             to={"/employee/register"}
-                            className="site-button radius-xl">
+                            className="site-button radius-xl"
+                          >
                             <span className="p-lr30">Sign Up</span>
                           </Link>
                         </div>

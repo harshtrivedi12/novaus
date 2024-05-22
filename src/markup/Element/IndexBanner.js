@@ -2,6 +2,7 @@ import React, { Component, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { TypeAnimation } from 'react-type-animation';
+import "../../css/indexBanner.css";
 var bnr1 = require("./../../images/main-slider/slide2.jpg");
 
 class IndexBanner extends Component {
@@ -56,7 +57,7 @@ class IndexBanner extends Component {
                 className="d-flex align-items-center "
                 style={{ gap: "7px" }}
               >
-                <Link to={"/#"} className="site-button button-sm">
+                {/* <Link to={"/#"} className="site-button button-sm">
                   Find Jobs
                 </Link>
                 <Link to={"/#"} className="site-button button-sm">
@@ -67,30 +68,34 @@ class IndexBanner extends Component {
                 </Link>
                 <Link to={"/#"} className="site-button button-sm">
                   My Dashboard
-                </Link>
+                </Link> */}
+                <div className="hover-3d">
+                  <h2>NovaJobs.US, An AI-Enabled 360 Degree Job Portal</h2>
+                </div>
               </div>
               {/* <h2>
                 Search Between More Then <br />{" "}
                 <span className="text-primary">50,000</span> Open Jobs.
               </h2> */}
-              <h2>  <TypeAnimation
-                sequence={[
-
-                  ' Search Jobs',
-                  1000,
-                  'Check Resume Ai Score',
-                  1000,
-                  ' Make Ai Resume',
-                  1000,
-                  'Connect with Employers',
-                  1000,
-                  'Get Hired..!!',
-                  1000
-                ]}
-                wrapper="span"
-                speed={50}
-                repeat={Infinity}
-              />
+              <h2>
+                {" "}
+                <TypeAnimation
+                  sequence={[
+                    " Search Jobs",
+                    1000,
+                    "Check Resume Ai Score",
+                    1000,
+                    " Make Ai Resume",
+                    1000,
+                    "Connect with Employers",
+                    1000,
+                    "Get Hired..!!",
+                    1000,
+                  ]}
+                  wrapper="span"
+                  speed={50}
+                  repeat={Infinity}
+                />
               </h2>
               <form className="dezPlaceAni">
                 <div className="row">

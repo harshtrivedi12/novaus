@@ -136,8 +136,8 @@ function Register2(props) {
     const body = {
       first_name: registerValues.firstName,
       last_name: registerValues.lastName,
-      company: registerValues.company,
-      jobtitle: registerValues.jobTitle,
+      company_name: registerValues.company,
+      proffesional_title: registerValues.jobTitle,
       email: registerValues.email,
       phone: registerValues.phone,
       password: registerValues.password,
@@ -290,9 +290,6 @@ function Register2(props) {
                               placeholder="Job Title"
                               required
                             />
-                            {/* <div className="text-danger">
-                              {errors.email && <div>{errors.email}</div>}
-                            </div> */}
                           </div>
 
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">

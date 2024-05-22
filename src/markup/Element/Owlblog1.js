@@ -70,15 +70,17 @@ class owltestimonial extends Component {
     return (
       <Slider
         className="blog-carousel-center owl-carousel owl-none "
-        {...settings}>
+        {...settings}
+      >
         {postBlog.map((item, index) => (
           <div className="item p-3" key={index}>
             <div className="testimonial-5">
               <div
                 className="testimonial-text"
                 style={{
-                  height: "100%",
-                }}>
+                  height: "300px",
+                }}
+              >
                 <p>{item.comment}</p>
               </div>
               <div className="testimonial-detail clearfix">
@@ -95,7 +97,8 @@ class owltestimonial extends Component {
                 </div>
                 <strong
                   className="testimonial-name "
-                  style={{ color: "white" }}>
+                  style={{ color: "white" }}
+                >
                   {item.name}
                 </strong>
                 <span className="testimonial-position">{item.location}</span>

@@ -30,11 +30,13 @@ const LandingPage = () => {
         show={show}
         onHide={handleClose}
         backdrop="static"
-        keyboard={false}>
+        keyboard={false}
+      >
         <Modal.Header
           closeButton
           style={{ backgroundColor: "#ffff" }}
-          className="mt-4">
+          className="mt-4"
+        >
           <Modal.Title style={{ color: "#000" }}>
             <p>Contact Form</p>
           </Modal.Title>
@@ -43,70 +45,69 @@ const LandingPage = () => {
           <div class="row">
             <div class="col">
               <div data-mdb-input-init class="form-outline">
-                <input type="text" id="form8Example3" class="form-control" />
                 <label class="form-label" for="form8Example3">
                   First name
                 </label>
+                <input type="text" id="form8Example3" class="form-control" />
               </div>
             </div>
             <div class="col">
               <div data-mdb-input-init class="form-outline">
-                <input type="text" id="form8Example4" class="form-control" />
                 <label class="form-label" for="form8Example4">
                   Last name
                 </label>
+                <input type="text" id="form8Example4" class="form-control" />
               </div>
             </div>
             <div class="col-12">
               <div data-mdb-input-init class="form-outline">
-                <input type="email" id="form8Example5" class="form-control" />
                 <label class="form-label" for="form8Example5">
                   Email address
                 </label>
+                <input type="email" id="form8Example5" class="form-control" />
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
               <div data-mdb-input-init class="form-outline">
-                <input type="number" id="form8Example1" class="form-control" />
                 <label class="form-label" for="form8Example1">
                   Phone No.
                 </label>
+                <input type="number" id="form8Example1" class="form-control" />
               </div>
             </div>
             <div class="col">
               <div data-mdb-input-init class="form-outline">
-                <input type="email" id="form8Example2" class="form-control" />
                 <label class="form-label" for="form8Example2">
                   Company Name{" "}
                 </label>
+                <input type="email" id="form8Example2" class="form-control" />
               </div>
             </div>
             <div class="col-12">
               <div data-mdb-input-init class="form-outline">
-                <input type="email" id="form8Example2" class="form-control" />
                 <label class="form-label" for="form8Example2">
                   Designation{" "}
                 </label>
+                <input type="email" id="form8Example2" class="form-control" />
               </div>
             </div>
           </div>
           <div class="">
             <div data-mdb-input-init class="form-outline mb-4">
-              <textarea
-                class="form-control"
-                id="form6Example7"
-                rows="4"></textarea>
               <label class="form-label" for="form6Example7">
                 Remark
               </label>
+              <textarea
+                class="form-control"
+                id="form6Example7"
+                rows="4"
+              ></textarea>
             </div>
+            <button className="site-button">Submit</button>
           </div>
         </Modal.Body>
-        <Modal.Footer>
-          We will reach you back on when we get your response
-        </Modal.Footer>
       </Modal>
       <div className="banner">
         <div className="banner-text">

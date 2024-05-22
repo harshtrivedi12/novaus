@@ -84,7 +84,7 @@ function SkillTest() {
                     <div className="col-xl-3 col-lg-4 m-b30">
                       <div className="sticky-top">
                         <div className="candidate-info">
-                          <div className="candidate-detail text-center">
+                          {/* <div className="candidate-detail text-center">
                             <div className="canditate-des">
                               <Link to={""}>
                                 <img
@@ -112,7 +112,7 @@ function SkillTest() {
                                 </p>
                               </div>
                             </div>
-                          </div>
+                          </div> */}
                           <ul>
                             <li>
                               <Link to={"/user/jobs-profile"}>

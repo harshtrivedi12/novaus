@@ -9,6 +9,7 @@ import axios from "axios";
 import processVid from "../../gif process.mp4";
 // var bnr = require("./../../images/background/bg6.jpg");
 import bnr from "../../images/login/loginbg.jpeg";
+import validator from "validator";
 
 function EmployeeRegister2(props) {
   let errorsObj = { email: "", password: "" };
@@ -32,6 +33,65 @@ function EmployeeRegister2(props) {
   const navigate = useNavigate();
   const [resumeUrl, setResumeUrl] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const [registerValues, setRegisterValues] = useState({
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: "",
+    password: "",
+    // jobTitle: "",
+  });
+  console.log(registerValues, "values");
+  const handleRegisterChange = (e) => {
+    const { name, value } = e.target;
+    setRegisterValues({ ...registerValues, [name]: value });
+    // first name
+    if (
+      name === "firstName" &&
+      !validator.matches(value, /^(?!\d)[a-zA-Z0-9]{3,}$/)
+    ) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        firstName:
+          "First Name must be at least 3 characters long and not start with a number.",
+      }));
+    } else if (name === "firstName") {
+      const newErrors = { ...errors };
+      delete newErrors.firstName;
+      setErrors(newErrors);
+    }
+    // lastName
+
+    if (
+      name === "lastName" &&
+      !validator.matches(value, /^(?!\d)[a-zA-Z0-9]{3,}$/)
+    ) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        lastName:
+          "Last Name must be at least 3 characters long and not start with a number.",
+      }));
+    } else if (name === "lastName") {
+      const newErrors = { ...errors };
+      delete newErrors.lastName;
+      setErrors(newErrors);
+    }
+
+    // phone number
+
+    if (name === "phone" && !validator.matches(value, /^\d{7,10}$/)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phone: "Phone Number must be between 7 and 10 digits.",
+      }));
+    } else if (name === "phone") {
+      const newErrors = { ...errors };
+      delete newErrors.phone;
+      setErrors(newErrors);
+    }
+  };
+
   function handleChange(event) {
     setFile(event.target.files[0]);
   }
@@ -73,13 +133,13 @@ function EmployeeRegister2(props) {
   async function onSignUp(e) {
     e.preventDefault();
     const body = {
-      first_name: firstName,
-      last_name: LastName,
-      company: company,
-      jobtitle: jobtitle,
-      email: email,
-      phone: phone,
-      password: password,
+      first_name: registerValues.firstName,
+      last_name: registerValues.lastName,
+      company_name: registerValues.company,
+      // jobtitle: registerValues.jobTitle,
+      email: registerValues.email,
+      phone: registerValues.phone,
+      password: registerValues.password,
     };
     console.log(body);
     try {
@@ -175,72 +235,79 @@ function EmployeeRegister2(props) {
                         <div className="row">
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <input
-                              value={firstName}
-                              onChange={(e) => setFirstName(e.target.value)}
+                              name="firstName"
+                              id="firstName"
+                              value={registerValues.firstName}
+                              onChange={handleRegisterChange}
                               className="form-control"
                               placeholder="First Name"
+                              required
                             />
-                            <div className="text-danger">
+                            {/* <div className="text-danger">
                               {errors.email && <div>{errors.email}</div>}
-                            </div>
+                            </div> */}
                           </div>
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <input
-                              value={LastName}
-                              onChange={(e) => setLastName(e.target.value)}
+                              name="lastName"
+                              id="lastName"
+                              value={registerValues.lastName}
+                              onChange={handleRegisterChange}
                               className="form-control"
                               placeholder="Last Name"
+                              required
                             />
-                            <div className="text-danger">
+                            {/* <div className="text-danger">
                               {errors.email && <div>{errors.email}</div>}
-                            </div>
+                            </div> */}
                           </div>
+
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <input
-                              value={company}
-                              onChange={(e) => setCompany(e.target.value)}
-                              className="form-control"
-                              placeholder="Company"
-                            />
-                            <div className="text-danger">
-                              {errors.email && <div>{errors.email}</div>}
-                            </div>
-                          </div>
-                          <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <input
-                              value={jobtitle}
-                              onChange={(e) => setJobTitle(e.target.value)}
-                              className="form-control"
-                              placeholder="Official Job Title"
-                            />
-                            <div className="text-danger">
-                              {errors.email && <div>{errors.email}</div>}
-                            </div>
-                          </div>
-                          <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <input
-                              value={phone}
+                              id="phone"
+                              name="phone"
+                              value={registerValues.phone}
+                              type="number"
                               className="form-control"
                               defaultValue="Password"
                               placeholder="Phone Number"
-                              onChange={(e) => setPhone(e.target.value)}
+                              required
+                              onChange={handleRegisterChange}
                             />
-                            <div className="text-danger">
+                            {/* <div className="text-danger">
                               {errors.password && <div>{errors.password}</div>}
-                            </div>
+                            </div> */}
                           </div>
+                          {/* <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <input
+                              type="text"
+                              name="jobTitle"
+                              id="jobTitle"
+                              onChange={handleRegisterChange}
+                              value={registerValues.jobTitle}
+                              className="form-control"
+                              placeholder="Job Title"
+                              required
+                            />
+                          
+                          </div> */}
+
                           <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <input
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
+                              type="email"
+                              name="email"
+                              id="email"
+                              value={registerValues.email}
+                              onChange={handleRegisterChange}
                               className="form-control"
                               placeholder="Work Email Address"
+                              required
                             />
-                            <div className="text-danger">
+                            {/* <div className="text-danger">
                               {errors.email && <div>{errors.email}</div>}
-                            </div>
+                            </div> */}
                           </div>
-                          <div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                          <div className="form-group  col-12">
                             <div className="input-group d-flex align-items-center">
                               <span
                                 className="input-group-addon position-absolute"
@@ -262,21 +329,22 @@ function EmployeeRegister2(props) {
                               </span>
                               <input
                                 type={showPassword ? "text" : "password"} // Toggle password visibility
+                                name="password"
+                                id="password"
                                 className="form-control position-relative"
-                                value={password}
+                                value={registerValues.password}
                                 placeholder="Type Your Password"
                                 defaultValue="Password"
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={handleRegisterChange}
+                                required
                               />
-                            </div>
-                            <div className="text-danger">
-                              {errors.password && <div>{errors.password}</div>}
                             </div>
                           </div>
                           <div className="form-group text-left ">
                             {/* <button
                             type="submit"
-                            className="site-button dz-xs-flex m-r5">
+                            className="site-button dz-xs-flex m-r5"
+                          >
                             Sign me up
                           </button> */}
 
@@ -284,12 +352,13 @@ function EmployeeRegister2(props) {
                               <input
                                 type="checkbox"
                                 className="custom-control-input"
-                                id="check2"
-                                name="example2"
+                                id="terms"
+                                name="terms"
+                                required
                               />
                               <label
                                 className="custom-control-label"
-                                htmlFor="check2"
+                                htmlFor="terms"
                               >
                                 I agree to the{" "}
                                 {
@@ -298,51 +367,30 @@ function EmployeeRegister2(props) {
                                   </Link>
                                 }{" "}
                                 and{" "}
-                                {
-                                  <Link to={"/employee/term-of-use-nova-jobs"}>
-                                    Terms & Conditions
-                                  </Link>
-                                }{" "}
+                                <Link to={"/employee/term-of-use-nova-jobs"}>
+                                  Terms & conditions{" "}
+                                </Link>
                               </label>
                             </span>
-                            {/* <Link
-                            data-toggle="tab"
-                            to="#forgot-password"
-                            className="forget-pass m-l5">
-                            <i className="fa fa-unlock-alt"></i> Forgot Password
-                          </Link> */}
                           </div>
-                          {/* <div className="dz-social clearfix">
-                          <h5 className="form-title m-t5 pull-left">
-                            Sign In With
-                          </h5>
-                          <ul className="dez-social-icon dez-border pull-right dez-social-icon-lg text-white">
-                             <li>
-                              <Link
-                                to={""}
-                                className="fa fa-facebook  fb-btn mr-1"
-                                target="bank"></Link>
-                            </li>
-                             <li>
-                              <Link
-                                to={""}
-                                className="fa fa-twitter  tw-btn mr-1"
-                                target="bank"></Link>
-                            </li>
-                            <li>
-                              <Link
-                                to={""}
-                                className="fa fa-linkedin link-btn mr-1"
-                                target="bank"></Link>
-                            </li>
-                            <li>
-                              <Link
-                                to={""}
-                                className="fa fa-google-plus  gplus-btn"
-                                target="bank"></Link>
-                            </li>
-                          </ul>
-                        </div> */}
+                        </div>
+
+                        <div className="text-danger mb-3 ">
+                          {errors.firstName && (
+                            <div className="text-center ">
+                              {errors.firstName}
+                            </div>
+                          )}
+
+                          {errors.lastName && (
+                            <div className="text-center ">
+                              {errors.lastName}
+                            </div>
+                          )}
+
+                          {errors.phone && (
+                            <div className="text-center ">{errors.phone}</div>
+                          )}
                         </div>
                         <div className="text-center ">
                           <button
