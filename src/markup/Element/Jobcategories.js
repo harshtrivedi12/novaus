@@ -62,10 +62,10 @@ function Jobcategories() {
             style={{ cursor: "pointer" }}
           >
             <div className="icon-bx-wraper">
-              <div className="icon-content">
+              <div className="icon-content ">
                 <div
-                  className="icon-md text-primary"
-                  style={{ marginBottom: "50px" }}
+                  className="icon-20px text-primary"
+                  style={{ marginBottom: "50px" ,fontSize: "40px" }}
                 >
                   {React.createElement(iconMap[item.id] || FaCarSide)}
                 </div>

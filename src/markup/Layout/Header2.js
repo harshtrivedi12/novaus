@@ -160,7 +160,7 @@ class UserHeader2 extends Component {
                           <Link
                             to={"/user/jobs-cv-manager"}
                             className="dez-page">
-                            CV Manager <span className="new-page">New</span>
+                            Resume Manager <span className="new-page">New</span>
                           </Link>
                         </li>
                         <li>

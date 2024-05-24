@@ -84,3 +84,31 @@ body {
     height: 100px;
     margin: 30px;
 }
+
+
+/* Default size for small screens */
+.custom-modal-header .btn-close {
+    font-size: 42px;
+  }
+  
+  /* Medium screens and up */
+  @media (min-width: 768px) {
+    .custom-modal-header .btn-close {
+        font-size: 42px;
+    }
+  }
+  
+  /* Large screens and up */
+  @media (min-width: 992px) {
+    .custom-modal-header .btn-close {
+        font-size: 42px;
+    }
+  }
+  
+  /* Extra large screens and up */
+  @media (min-width: 1200px) {
+    .custom-modal-header .btn-close {
+        font-size: 42px;
+    }
+  }
+  

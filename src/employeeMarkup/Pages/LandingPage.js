@@ -31,15 +31,19 @@ const LandingPage = () => {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
+        
       >
-        <Modal.Header
-          closeButton
-          style={{ backgroundColor: "#ffff" }}
-          className="mt-4"
-        >
+         <Modal.Header
+        
+        style={{ backgroundColor: "#fff" }}
+        className="mt-4 custom-modal-header"
+      >
           <Modal.Title style={{ color: "#000" }}>
             <p>Contact Form</p>
           </Modal.Title>
+          <button type="button" className="close" onClick={handleClose} style={{ fontSize: "44px", padding: "10px" }}>
+                <span aria-hidden="true">&times;</span>
+                 </button>
         </Modal.Header>
         <Modal.Body>
           <div class="row">

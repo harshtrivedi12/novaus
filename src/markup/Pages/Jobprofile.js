@@ -291,10 +291,10 @@ function Jobprofile() {
   const resizeFile = (file) => {
     Resizer.imageFileResizer(
       file,
-      300,
-      300,
+      400,
+      400,
       "JPEG",
-      100,
+      200,
       0,
       (uri) => {
         console.log(uri);
@@ -326,9 +326,9 @@ function Jobprofile() {
                       </Link>
                     </div>
                     <form>
-                      <div className="row m-b30">
-                        <div className="col-12">
-                          <div className="form-group">
+                      <div className="row m-b30 ">
+                        <div className="col-12 ">
+                          <div className="form-group ">
                             <label htmlFor="changeImage">
                               Change Your Image
                             </label>
@@ -336,7 +336,8 @@ function Jobprofile() {
                               className="position-relative form-control"
                               style={{ cursor: "pointer" }}>
                               <div
-                                style={{
+                                style={{ 
+                                  backgroundImage:'cover',
                                   display: "flex",
                                   justifyContent: "center",
                                   alignItems: "center",
@@ -345,6 +346,9 @@ function Jobprofile() {
                                 }}>
                                 <FaImage />
                                 Change Image
+                              <label htmlFor="changeImage">
+                               {profileImageValue ? profileImageValue.name : "Change Your Image"}
+                             </label>
                               </div>
                               <input
                                 type="file"
@@ -354,6 +358,7 @@ function Jobprofile() {
                                   resizeFile(e.target.files[0]);
                                 }}
                                 style={{
+                                  backgroundImage:'cover',
                                   position: "absolute",
                                   top: "0px",
                                   left: "0px",

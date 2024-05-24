@@ -10,7 +10,7 @@ function EmployeeChangepasswordpage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [changePassword, setChangePassword] = useState({
     old_password: "",
-    new_password: "",
+    new_password: "", 
     confirm_password: "",
   });
   const handleChange = (e) => {
