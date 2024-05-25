@@ -83,7 +83,7 @@ function EmployeeLogin(props) {
         style={{
           backgroundImage: "url(" + loginbg + ")",
           backgroundRepeat: "no-repeat",
-          backgroundSize: "fill",
+          backgroundSize: "cover",
           
         }}
       >

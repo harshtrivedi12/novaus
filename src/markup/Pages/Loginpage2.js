@@ -88,7 +88,8 @@ function Login(props) {
           backgroundImage: "url(" + loginbg + ")",
           // backgroundSize: "100%",
           backgroundRepeat: "no-repeat",
-          backgroundSize: "fill",
+          
+          backgroundSize: "cover",
           
         }}
       >
