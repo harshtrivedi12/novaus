@@ -127,7 +127,7 @@ const LandingPage = () => {
         <div className="services-row">
           <div className="service-div">
             <img src={img2} alt="" />
-            <p>Ai-Based Job Portal:</p>
+            <p>AI-Based Job Portal:</p>
             <ul>
               <li>Jobseeker Login</li>
               <li>Employer Login</li>
@@ -139,7 +139,7 @@ const LandingPage = () => {
           </div>
           <div className="service-div">
             <img src={img3} alt="" className="img-3" />
-            <p>Ai-Based Skill Test:</p>
+            <p>AI-Based Skill Test:</p>
             <ul>
               <li>Timer Based</li>
               <li>Immediate Result</li>
@@ -153,7 +153,7 @@ const LandingPage = () => {
         <div className="services-row">
           <div className="service-div">
             <img src={img4} alt="" />
-            <p>Ai-Based Functionality:</p>
+            <p>AI-Based Functionality:</p>
             <ul>
               <li>Auto Job Match</li>
               <li>Skill Based Match</li>
@@ -191,7 +191,7 @@ const LandingPage = () => {
           </div>
           <div className="service-div">
             <img src={img7} alt="" />
-            <p>Ai-Based Add-ONS:</p>
+            <p>AI-Based Add-ONS:</p>
             <ul>
               <li>Robust Wallet</li>
               <li>Secure Chats</li>

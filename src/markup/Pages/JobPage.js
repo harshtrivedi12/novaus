@@ -1038,7 +1038,7 @@ function JobPage() {
                                           aria-hidden="true"
                                         ></i>
 
-                                        {"  "}
+                                        {" "}
                                         {
                                           selectedJob.companies.company_size
                                             .range

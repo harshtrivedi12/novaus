@@ -89,6 +89,7 @@ function Login(props) {
           // backgroundSize: "100%",
           backgroundRepeat: "no-repeat",
           backgroundSize: "fill",
+          
         }}
       >
         <div className="section-full">
@@ -104,12 +105,15 @@ function Login(props) {
                       />
                     </Link> */}
                   </div>
-                  <h2 className="m-b10"> Sign up or Login To Dashboard</h2>
-
-                  <p className="m-b30">
+                  <h2 className="m-b10 text-white"> Sign up or Login To Dashboard</h2>
+                  <p className="m-b30" style={{ 
+                      fontWeight:"bolder",  color:"white" , fontSize:"20px"
+                    }}>
                     Welcome To One Stop Ai Powered Staffing Solution
                   </p>
-                  <ul className="list-inline m-a0">
+                  <ul className="list-inline m-r10 text-white " style={{ 
+                      fontWeight:"bolder", fontSize:"30px" , 
+                    }}>
                     <li>
                       <Link to={""} className="m-r10 text-white ">
                         <i className="fa fa-linkedin"></i>
@@ -254,7 +258,7 @@ function Login(props) {
                     src="../../images/WhatsApp_Image_2024-05-11_at_19.51.05-removebg-preview.png"
                     alt=""
                     style={{
-                      width: "40px",
+                      width: "40px", 
                     }}
                   />{" "}
                   <img
@@ -265,11 +269,11 @@ function Login(props) {
                     }}
                   />
                   <span className="">Nova Jobs </span>
-                  <Link style={{ color: "" }} to={"#"}>
+                  <Link style={{ color: "white" }} to={"#"}>
                     Powered By Hyper V Solutions
                   </Link>
                 </span>
-                <span className="float-right ">
+                <span className="float-right text-white">
                   “Hyper V Solutions” | All Rights Reserved
                 </span>
               </div>

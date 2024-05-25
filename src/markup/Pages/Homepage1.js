@@ -111,8 +111,8 @@ function Homepage() {
                     <Link
                       to={"/user/job-application"}
                       style={{ color: "white" }}
-                    >
-                      Apply Now
+                    ><button type="button" className="btn text-white" style={{backgroundColor:"#080F3A"}}>Apply Now</button>
+                      
                     </Link>
                   </div>
                 </div>
@@ -155,15 +155,14 @@ function Homepage() {
                         fontSize: "14px",
                       }}
                     >
-                      List Your Company, Post Jobs, SearchList your company,
-                      Post Jobs, Search Talent, with advanced filters and power
+                      List Your Company, Post Jobs, Search Talent, with advanced filters and power
                       of AI{" "}
                     </p>
                     <Link
                       to={"/employee/register-2"}
                       style={{ color: "white" }}
-                    >
-                      Search Talent
+                    ><button type="button" class="btn btn-danger">Search Talent</button>
+                      
                     </Link>
                   </div>
                 </div>
@@ -306,14 +305,14 @@ function Homepage() {
                           Jumpstart your AI Powered career transformation with
                           our free Plan, all at no cost.
                         </p>
-                        <div className="m-t20">
+                       {/* <div className="m-t20">
                           <Link
                             to={"/user/register-2"}
                             className="site-button radius-xl"
                           >
                             <span className="p-lr30">Sign Up</span>
                           </Link>
-                        </div>
+                        </div>*/}
                       </div>
                     </div>
                   </div>
@@ -324,7 +323,7 @@ function Homepage() {
                     >
                       <div className="pricingtable-inner">
                         <div className="pricingtable-price">
-                          <h4 className="font-weight-300 m-t10 m-b0">
+                          <h4 className="font-weight-300 m-t40 m-b0">
                             Freemium
                           </h4>
                           <div className="pricingtable-bx">
@@ -336,14 +335,14 @@ function Homepage() {
                         <p>
                           Explore our freemium plan, with pay as you go option.
                         </p>
-                        <div className="m-t20">
+                      {/*  <div className="m-t20">
                           <Link
                             to={"/user/register-2"}
                             className="site-button white radius-xl"
                           >
                             <span className="text-primary p-lr30">Sign Up</span>
                           </Link>
-                        </div>
+                        </div>*/}
                       </div>
                     </div>
                   </div>

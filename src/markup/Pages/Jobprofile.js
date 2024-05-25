@@ -335,21 +335,21 @@ function Jobprofile() {
                             <div
                               className="position-relative form-control"
                               style={{ cursor: "pointer" }}>
-                              <div
-                                style={{ 
-                                  backgroundImage:'cover',
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  alignItems: "center",
-                                  gap: "7px",
-                                  zIndex: "2",
-                                }}>
-                                <FaImage />
-                                Change Image
-                              <label htmlFor="changeImage">
-                               {profileImageValue ? profileImageValue.name : "Change Your Image"}
-                             </label>
-                              </div>
+                                <div style={{ 
+                                  backgroundImage: 'cover',
+                                  display: 'flex',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  gap: '7px',
+                                  zIndex: '2',
+                                  }}>
+                          <FaImage />
+                           <span>Change Image</span>
+                            </div>
+                            <label htmlFor="changeImage">
+                             {profileImageValue ? profileImageValue.name : "Change Your Image"}
+                              </label>
+                              
                               <input
                                 type="file"
                                 name="changeImage"

@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SBELogo from "../../assests/SBE-Logo.png";
+import NewDBELogo from '../../assests/New-dbe-logo.png';
+
 import india from "../../images/WhatsApp_Image_2024-05-11_at_19.51.05-removebg-preview.png";
 function Footer() {
   return (
@@ -333,7 +336,7 @@ function Footer() {
       <div className="footer-bottom">
         <div className="container">
           <div className="row">
-            <div className="col-lg-12 text-center">
+            <div className="col-lg-12 text-center ">
               <span>
                 {" "}
                 © Copyright by{" "}
@@ -345,6 +348,10 @@ function Footer() {
                   }}
                 />{" "}
                 “Hyper V Solutions” | All Rights Reserved
+              </span>
+              <span className="float-right">
+              <span className="m-2"><img src={SBELogo} alt="SBE Logo" style={{height:'50px'}}/></span>
+              <span className="m-2"><img src={NewDBELogo} alt="SBE Logo" style={{height:'50px'}}/></span>
               </span>
             </div>
           </div>

@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import india from "../../images/WhatsApp_Image_2024-05-11_at_19.51.05-removebg-preview.png";
+import SBELogo from "../../assests/SBE-Logo.png";
+import NewDBELogo from '../../assests/New-dbe-logo.png';
 
 function EmployeeFooter() {
   return (
@@ -308,6 +310,10 @@ function EmployeeFooter() {
                   }}
                 />
                 <Link to={""}>Nova Jobs </Link> | All Rights Reserved
+              </span>
+              <span className="float-right">
+              <span className="m-2"><img src={SBELogo} alt="SBE Logo" style={{height:'50px'}}/></span>
+              <span className="m-2"><img src={NewDBELogo} alt="SBE Logo" style={{height:'50px'}}/></span>
               </span>
             </div>
           </div>

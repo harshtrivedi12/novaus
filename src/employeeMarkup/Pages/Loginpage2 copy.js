@@ -46,6 +46,8 @@ function EmployeeLogin(props) {
         style={{
           backgroundImage: "url(" + loginbg + ")",
           backgroundSize: "cover",
+          width:'1920px',
+          height:'108px'
         }}>
         <div className="section-full">
           <div className="container">

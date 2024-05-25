@@ -84,6 +84,7 @@ function EmployeeLogin(props) {
           backgroundImage: "url(" + loginbg + ")",
           backgroundRepeat: "no-repeat",
           backgroundSize: "fill",
+          
         }}
       >
         <div className="section-full">
@@ -100,23 +101,28 @@ function EmployeeLogin(props) {
                       />
                     </Link> */}
                   </div>
-                  <h2 className="m-b10"> Sign up or Login To Dashboard</h2>
-                  <p className="m-b30">
+                  <h2 className="m-b10 text-white"> Sign up or Login To Dashboard</h2>
+                  <p className="m-b30" style={{ 
+                      fontWeight:"bolder",  color:"white"
+                    }}>
                     Welcome To One Stop Ai Powered Staffing Solution
                   </p>
-                  <ul className="list-inline m-a0">
+                  <ul className="list-inline m-r10 text-white " style={{ 
+                      fontWeight:"bolder", fontSize:"30px" , 
+                    }}>
                     {/* <li>
                       <Link to={""} className="m-r10 text-white ">
                         <i className="fa fa-facebook"></i>
                       </Link>
                     </li> */}
-                    <li>
-                      <Link to={""} className="m-r10 text-white ">
+                    {/*<li>
+                      <Link to={""} className="m-r10 text-black fs-4">
                         <i className="fa fa-google-plus"></i>
                       </Link>
-                    </li>
+                  </li>*/}
                     <li>
-                      <Link to={""} className="m-r10 text-white ">
+                      <Link to={""} className="m-r10 text-white"
+                    >
                         <i className="fa fa-linkedin"></i>
                       </Link>
                     </li>
@@ -264,17 +270,17 @@ function EmployeeLogin(props) {
         <footer className="login-footer">
           <div className="container">
             <div className="row">
-              <div className="col-lg-12 text-center">
-                <span className="float-left">
+              <div className="col-lg-12 text-center text-white">
+                <span className="float-left ">
                   © Copyright by{" "}
                   <img
                     src="../../images/WhatsApp_Image_2024-05-11_at_19.51.05-removebg-preview.png"
                     alt=""
-                    style={{
+                    style={{ 
                       width: "40px",
                     }}
                   />{" "}
-                  <Link to={"#"}>Nova Jobs </Link>{" "}
+                  <Link to={"#"} style={{color:"white",fontWeight:"bold"}}>Nova Jobs </Link>{" "}
                 </span>
                 <span className="float-right">
                   “Hyper V Solutions” | All Rights Reserved

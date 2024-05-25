@@ -79,9 +79,9 @@ function IndexBanner() {
                 sequence={[
                   " Search Jobs",
                   1000,
-                  "Check Resume Ai Score",
+                  "Check Resume AI Score",
                   1000,
-                  " Make Ai Resume",
+                  " Make AI Resume",
                   1000,
                   "Connect with Employers",
                   1000,

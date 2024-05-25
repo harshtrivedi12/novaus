@@ -106,7 +106,7 @@ function EmployeeHomepage() {
                       to={"/user/job-application"}
                       style={{ color: "white" }}
                     >
-                      Apply Now
+                     <button type="button" className="btn text-white" style={{backgroundColor:"#080F3A"}}>Apply Now</button>
                     </Link>
                   </div>
                 </div>
@@ -149,15 +149,14 @@ function EmployeeHomepage() {
                         fontSize: "14px",
                       }}
                     >
-                      List Your Company, Post Jobs, SearchList your company,
-                      Post Jobs, Search Talent, with advanced filters and power
+                      List Your Company, Post Jobs, Search Talent, with advanced filters and power
                       of AI{" "}
                     </p>
                     <Link
                       to={"/employee/register-2"}
                       style={{ color: "white" }}
                     >
-                      Search Talent
+                      <button type="button" class="btn btn-danger">Search Talent</button>
                     </Link>
                   </div>
                 </div>

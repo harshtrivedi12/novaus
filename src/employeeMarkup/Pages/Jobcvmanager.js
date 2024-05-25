@@ -131,7 +131,7 @@ function EmployeeJobcvmanager() {
                               className="fa fa-id-card-o"
                               aria-hidden="true"
                             ></i>
-                            <span>CV Manager</span>
+                            <span> Resume Manager</span>
                           </Link>
                         </li>
                         <li>
@@ -157,7 +157,7 @@ function EmployeeJobcvmanager() {
                   <div className="job-bx browse-job clearfix">
                     <div className="job-bx-title clearfix">
                       <h5 className="font-weight-700 pull-left text-uppercase">
-                        CV Manager
+                      Resume Manager
                       </h5>
                       <div className="float-right">
                         <span className="select-title">Sort by freshness</span>

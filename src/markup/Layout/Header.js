@@ -82,7 +82,9 @@ class UserHeader extends Component {
                   <span></span>
                   <span></span>
                 </button>
-                <div className="extra-nav">
+                {/* <div>
+                      {localStorage.getItem("jobSeekerLoginToken") ? null : (
+                        <div className="extra-nav">
                   <button
                     style={{ color: "white" }}
                     className="site-button"
@@ -90,6 +92,22 @@ class UserHeader extends Component {
                     Partner With Us
                   </button>
                 </div>
+                      )}
+                    </div> */}
+                    <div>
+                      {localStorage.getItem("jobSeekerLoginToken") ? (
+                          null 
+                      ) : (
+                        <div className="extra-nav">
+                  <button
+                    style={{ color: "white" }}
+                    className="site-button"
+                  >
+                    Partner With Us
+                  </button>
+                </div>
+                      )}
+                    </div>
 
                 <div
                   className="header-nav navbar-collapse collapse myNavbar justify-content-start"
@@ -220,15 +238,32 @@ class UserHeader extends Component {
                         </Link>
                       )}
                     </li>
-                    <li>
-                      <Link
+                    {/* <li>
+                      {localStorage.getItem("jobSeekerLoginToken") ? null : (
+                        <Link
                         style={{ color: "white" }}
                         to={"/employee/login"}
                         className="site-button"
                       >
                         Employers / Post Job
                       </Link>
+                      )}
+                    </li> */}
+                    <li>
+                      {localStorage.getItem("jobSeekerLoginToken") ? (
+                        ""
+                      ) : (
+                        <Link
+                        style={{ color: "white" }}
+                        to={"/employee/login"}
+                        className="site-button"
+                      >
+                        Employers / Post Job
+                      </Link>
+                      )}
                     </li>
+                    
+                    
                   </ul>
                 </div>
               </div>
