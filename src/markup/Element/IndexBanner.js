@@ -3,6 +3,8 @@ import { Link, Navigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { TypeAnimation } from 'react-type-animation';
 import "../../css/indexBanner.css";
+import SBELogo from "../../assests/SBE-Logo.png";
+import NewDBELogo from '../../assests/New-dbe-logo.png';
 var bnr1 = require("./../../images/main-slider/slide2.jpg");
 
 class IndexBanner extends Component {
@@ -53,32 +55,20 @@ class IndexBanner extends Component {
         <div className="container">
           <div className="dez-bnr-inr-entry align-m">
             <div className="find-job-bx ">
+            <span className=" d-flex justify-content-around mb-4 " style={{width:'280px'}}>
+                  <span className="m-2 hoverlogo-3d"><img src={SBELogo} alt="SBE Logo" style={{height:'90px'}}/></span>
+                  <span className="m-2 hoverlogo-3d"><img src={NewDBELogo} alt="SBE Logo" style={{height:'90px'}}/></span>
+                </span>
               <div
                 className="d-flex align-items-center "
                 style={{ gap: "7px" }}
               >
-                {/* <Link to={"/#"} className="site-button button-sm">
-                  Find Jobs
-                </Link>
-                <Link to={"/#"} className="site-button button-sm">
-                  Resume AI Score
-                </Link>
-                <Link to={"/#"} className="site-button button-sm">
-                  SignUp Free
-                </Link>
-                <Link to={"/#"} className="site-button button-sm">
-                  My Dashboard
-                </Link> */}
+                
                 <div className="hover-3d">
                   <h2>NovaJobs.US, An AI-Enabled 360 Degree Job Portal</h2>
                 </div>
               </div>
-              {/* <h2>
-                Search Between More Then <br />{" "}
-                <span className="text-primary">50,000</span> Open Jobs.
-              </h2> */}
               <h2>
-                {" "}
                 <TypeAnimation
                   sequence={[
                     " Search Jobs",
@@ -121,7 +111,7 @@ class IndexBanner extends Component {
                       </div>
                     </div>
                   </div>
-                  {/* <div className="col-lg-3 col-md-6">
+                    {/* <div className="col-lg-3 col-md-6">
                     <div className="form-group">
                       <label>Email address</label>
                       <div className="input-group">

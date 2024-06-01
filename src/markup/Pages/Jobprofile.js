@@ -117,6 +117,10 @@ function Jobprofile() {
     expected_salary: "",
   });
   const token = localStorage.getItem("jobSeekerLoginToken");
+  const [fileUploaded, setFileUploaded] = useState(false);
+  const [uploadedFileName, setUploadedFileName] = useState('');
+  const [fileError, setFileError] = useState('');
+  
 
   const getReq = () => {
     axios({
@@ -289,20 +293,41 @@ function Jobprofile() {
   }, [jobProfileValues.state_id]);
 
   const resizeFile = (file) => {
-    Resizer.imageFileResizer(
-      file,
-      400,
-      400,
-      "JPEG",
-      200,
-      0,
-      (uri) => {
-        console.log(uri);
-        dispatch(setProfileImageValue(uri));
-      },
-      "file"
-    );
+    if (file) {
+      Resizer.imageFileResizer(
+        file,
+        400,
+        400,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          dispatch(setProfileImageValue(uri));
+        },
+        "blob"
+      );
+    } else {
+      setFileError("No file selected");
+    }
   };
+
+  
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setUploadedFileName(file.name);
+      setFileUploaded(true);
+      setFileError('');
+      
+      // Resize the image before dispatching
+      resizeFile(file);
+    } else {
+      setFileError('Please select a file.');
+    }
+  };
+
+
   return (
     <>
       <Header2 />
@@ -328,49 +353,34 @@ function Jobprofile() {
                     <form>
                       <div className="row m-b30 ">
                         <div className="col-12 ">
-                          <div className="form-group ">
-                            <label htmlFor="changeImage">
-                              Change Your Image
-                            </label>
-                            <div
-                              className="position-relative form-control"
-                              style={{ cursor: "pointer" }}>
-                                <div style={{ 
-                                  backgroundImage: 'cover',
-                                  display: 'flex',
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                  gap: '7px',
-                                  zIndex: '2',
-                                  }}>
-                          <FaImage />
-                           <span>Change Image</span>
-                            </div>
-                            <label htmlFor="changeImage">
-                             {profileImageValue ? profileImageValue.name : "Change Your Image"}
-                              </label>
-                              
-                              <input
-                                type="file"
-                                name="changeImage"
-                                id="changeImage"
-                                onChange={(e) => {
-                                  resizeFile(e.target.files[0]);
-                                }}
-                                style={{
-                                  backgroundImage:'cover',
-                                  position: "absolute",
-                                  top: "0px",
-                                  left: "0px",
-                                  zIndex: "5",
-                                  width: "100%",
-                                  height: "100%",
-                                  cursor: "pointer",
-                                  opacity: "0",
-                                }}
-                              />
-                            </div>
-                          </div>
+                     
+                        <div className="form-group">
+      <label>Change Your Image</label>
+      <div className="custom-file ">
+        <input
+          type="file"
+          className="custom-file-input b "
+          id="customFile"
+          accept="image/*"
+          onChange={handleImageChange}
+          style={{
+            display:'none'
+
+          }}
+        />
+        <label
+          className="custom-file-label "
+          htmlFor="customFile"
+        >
+          {fileUploaded ? "Change" : "Upload"} Image
+        </label>
+      </div>
+      {uploadedFileName && <span>{uploadedFileName}</span>}
+      {fileError && (
+        <span style={{ color: "red" }}>{fileError}</span>
+      )}
+    </div>
+
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">

@@ -20,7 +20,7 @@ const FixedHeader = () => {
   );
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    // dispatch(setProfileImageValue(file));
+     dispatch(setProfileImageValue(file));
     console.log(file);
 
     if (file) {

@@ -347,7 +347,7 @@ function Footer() {
                     width: "40px",
                   }}
                 />{" "}
-                “Hyper V Solutions” | All Rights Reserved
+                Hyper V Solutions | All Rights Reserved
               </span>
               <span className="float-right">
               <span className="m-2"><img src={SBELogo} alt="SBE Logo" style={{height:'50px'}}/></span>
