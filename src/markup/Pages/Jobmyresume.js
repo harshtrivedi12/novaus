@@ -175,43 +175,51 @@ function Jobmyresume() {
         "Content-Type": "application/json",
       },
     }).then((res) => {
-      let data = res.data.data.ai_resume_parse_data;
-      console.log(data);
-      dispatch(setResumeHeadline(data.jobsMyResumeData.resumeHeadline));
-      dispatch(setSkillsData(data.jobsMyResumeData.skillsData));
-      dispatch(setEmploymentData(data.jobsMyResumeData.employmentData));
-      dispatch(setEducationData(data.jobsMyResumeData.educationData));
-      dispatch(setItSkillsData(data.jobsMyResumeData.itSkillsData));
-      dispatch(setProjectsData(data.jobsMyResumeData.projectsData));
+      console.log(res);
+      let data = res?.data?.data?.ai_resume_parse_data;
+      dispatch(setResumeHeadline(data?.jobsMyResumeData?.resumeHeadline));
+      dispatch(setSkillsData(data?.jobsMyResumeData?.skillsData || []));
+      dispatch(setEmploymentData(data?.jobsMyResumeData?.employmentData || []));
+      dispatch(setEducationData(data?.jobsMyResumeData?.educationData || []));
+      dispatch(setItSkillsData(data?.jobsMyResumeData?.itSkillsData || []));
+      dispatch(setProjectsData(data?.jobsMyResumeData?.projectsData || []));
       dispatch(
-        setProfileSummaryValue(data.jobsMyResumeData.profileSummaryValue)
+        setProfileSummaryValue(data?.jobsMyResumeData?.profileSummaryValue)
       );
       dispatch(
         setOnlineProfileData(
-          data.jobsMyResumeData.accomplishments.onlineProfileData
+          data.jobsMyResumeData?.accomplishments?.onlineProfileData || []
         )
       );
       dispatch(
-        setWorkSampleData(data.jobsMyResumeData.accomplishments.workSampleData)
+        setWorkSampleData(
+          data?.jobsMyResumeData?.accomplishments?.workSampleData || []
+        )
       );
       dispatch(
-        setWhitePaperData(data.jobsMyResumeData.accomplishments.whitePaperData)
+        setWhitePaperData(
+          data?.jobsMyResumeData?.accomplishments?.whitePaperData || []
+        )
       );
-      dispatch(setPatentData(data.jobsMyResumeData.accomplishments.patentData));
+      dispatch(
+        setPatentData(data?.jobsMyResumeData?.accomplishments?.patentData || [])
+      );
       dispatch(
         setPresentationData(
-          data.jobsMyResumeData.accomplishments.presentationData
+          data?.jobsMyResumeData?.accomplishments?.presentationData || []
         )
       );
       dispatch(
         setCertificationData(
-          data.jobsMyResumeData.accomplishments.certificationData
+          data?.jobsMyResumeData?.accomplishments?.certificationData || []
         )
       );
       dispatch(
-        setDesiredCareerProfile(data.jobsMyResumeData.desiredCareerProfile)
+        setDesiredCareerProfile(data?.jobsMyResumeData?.desiredCareerProfile)
       );
-      dispatch(setPersonalDetailsValue(data.jobsMyResumeData.personalDetails));
+      dispatch(
+        setPersonalDetailsValue(data?.jobsMyResumeData?.personalDetails)
+      );
       setShowSkeleton(false);
     });
   };
@@ -607,7 +615,9 @@ function Jobmyresume() {
       },
       data: reqBody,
     })
-      .then((response) => {})
+      .then((response) => {
+        console.log(response);
+      })
       .catch((err) => {
         console.log(err);
       });
