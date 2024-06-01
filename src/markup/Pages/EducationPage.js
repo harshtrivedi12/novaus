@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { useTimer } from "react-timer-hook";
 import { submit } from "redux-form";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import resultImage from "../../images/result/result.avif";
 function EducationPage() {
   const dispatch = useDispatch();
@@ -60,6 +61,8 @@ function EducationPage() {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
@@ -19,6 +20,8 @@ function Jobcategories() {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   }, []);
   return (

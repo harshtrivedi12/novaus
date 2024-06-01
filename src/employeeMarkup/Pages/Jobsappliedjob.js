@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 
 const postBlog = [
   { title: "PHP Web Developer" },

@@ -4,7 +4,7 @@
 // import Footer from "./../Layout/Footer";
 // import { FaTimes } from "react-icons/fa";
 // import { useDispatch, useSelector } from "react-redux";
-// import axios from "axios";
+// import axios from "axios";import { showToastError } from "../../utils/toastify";
 // import { setJobsData } from "../../store/reducers/jobDataSlice";
 // import moment from "moment";
 // import FixedHeader from "../../employeeMarkup/Layout/fixedHeader";
@@ -423,7 +423,7 @@ import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import { FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import axios from "axios";import { showToastError } from "../../utils/toastify";
 import { setJobsData } from "../../store/reducers/jobDataSlice";
 import moment from "moment";
 import FixedHeader from "../Layout/fixedHeader";

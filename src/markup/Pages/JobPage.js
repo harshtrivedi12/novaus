@@ -8,6 +8,7 @@ import Modal from "react-bootstrap/Modal";
 import { Tab, Nav, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import FixedHeader from "../Layout/fixedHeader";
 import {
   setJobApplicationData,
@@ -287,6 +288,8 @@ function JobPage() {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
 
@@ -359,6 +362,8 @@ function JobPage() {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
 
@@ -423,6 +428,8 @@ function JobPage() {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
 
@@ -1036,9 +1043,7 @@ function JobPage() {
                                         <i
                                           class="fa fa-users"
                                           aria-hidden="true"
-                                        ></i>
-
-                                        {" "}
+                                        ></i>{" "}
                                         {
                                           selectedJob.companies.company_size
                                             .range

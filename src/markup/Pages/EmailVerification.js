@@ -8,6 +8,7 @@ import {
 
 import loginbg from "./../../images/bg6.jpg";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 
 function EmailVerification(props) {
   const [email, setEmail] = useState("demo@example.com");
@@ -41,6 +42,8 @@ function EmailVerification(props) {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
   return (
@@ -50,7 +53,8 @@ function EmailVerification(props) {
         style={{
           backgroundImage: "url(" + loginbg + ")",
           backgroundSize: "cover",
-        }}>
+        }}
+      >
         <div className="section-full">
           <div className="container">
             <div className="row">
@@ -124,7 +128,8 @@ function EmailVerification(props) {
                       <div className="text-center">
                         <button
                           onClick={handlePostRequest}
-                          className="site-button float-left">
+                          className="site-button float-left"
+                        >
                           Submit
                         </button>
                       </div>

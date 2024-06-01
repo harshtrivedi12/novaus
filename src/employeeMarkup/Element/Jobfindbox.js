@@ -5,7 +5,7 @@
 //   setBrowseCandidateData,
 //   setBrowseCandidateValues,
 // } from "../../store/reducers/browseCandidateSlice";
-// import axios from "axios";
+// import axios from "axios";import { showToastError } from "../../utils/toastify";
 // import { FaSearch } from "react-icons/fa";
 
 // const Jobfindbox = () => {

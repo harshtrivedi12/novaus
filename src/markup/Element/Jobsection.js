@@ -1,4 +1,5 @@
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -117,7 +118,8 @@ function Jobsection() {
                           <div className="job-post-info">
                             <h4>
                               <Link
-                                to={`/user/job-detail/${item.job_detail.id}`}>
+                                to={`/user/job-detail/${item.job_detail.id}`}
+                              >
                                 {item.job_detail.job_title}
                               </Link>
                             </h4>
@@ -151,7 +153,7 @@ function Jobsection() {
                           </div>
                         </div>
                         {localStorage.getItem("jobSeekerLoginToken") ? (
-                          <label className="like-btn" >
+                          <label className="like-btn">
                             <input
                               type="checkbox"
                               defaultChecked={item.job_detail.is_job_favorite}
@@ -167,7 +169,8 @@ function Jobsection() {
                             className="like-btn"
                             onClick={() => {
                               showToastMessage();
-                            }}>
+                            }}
+                          >
                             <input
                               type="checkbox"
                               defaultChecked={false}

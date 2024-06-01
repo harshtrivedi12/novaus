@@ -8,6 +8,7 @@ import {
 
 import loginbg from "../../images/login/loginbg.jpeg";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -53,7 +54,8 @@ function Login(props) {
         navigate("/user");
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
   const [html, setHtml] = useState("");
@@ -75,6 +77,7 @@ function Login(props) {
       })
       .catch((error, res) => {
         console.error("Error during API request:", error);
+        showToastError(error?.response?.data?.message);
       });
   };
 
@@ -88,9 +91,8 @@ function Login(props) {
           backgroundImage: "url(" + loginbg + ")",
           // backgroundSize: "100%",
           backgroundRepeat: "no-repeat",
-          
+
           backgroundSize: "cover",
-          
         }}
       >
         <div className="section-full">
@@ -106,15 +108,27 @@ function Login(props) {
                       />
                     </Link> */}
                   </div>
-                  <h2 className="m-b10 text-white"> Sign up or Login To Dashboard</h2>
-                  <p className="m-b30" style={{ 
-                      fontWeight:"bolder",  color:"white" , fontSize:"20px"
-                    }}>
+                  <h2 className="m-b10 text-white">
+                    {" "}
+                    Sign up or Login To Dashboard
+                  </h2>
+                  <p
+                    className="m-b30"
+                    style={{
+                      fontWeight: "bolder",
+                      color: "white",
+                      fontSize: "20px",
+                    }}
+                  >
                     Welcome To One Stop Ai Powered Staffing Solution
                   </p>
-                  <ul className="list-inline m-r10 text-white " style={{ 
-                      fontWeight:"bolder", fontSize:"30px" , 
-                    }}>
+                  <ul
+                    className="list-inline m-r10 text-white "
+                    style={{
+                      fontWeight: "bolder",
+                      fontSize: "30px",
+                    }}
+                  >
                     <li>
                       <Link to={""} className="m-r10 text-white ">
                         <i className="fa fa-linkedin"></i>
@@ -259,7 +273,7 @@ function Login(props) {
                     src="../../images/WhatsApp_Image_2024-05-11_at_19.51.05-removebg-preview.png"
                     alt=""
                     style={{
-                      width: "40px", 
+                      width: "40px",
                     }}
                   />{" "}
                   <img

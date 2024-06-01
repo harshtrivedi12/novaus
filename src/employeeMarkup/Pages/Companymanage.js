@@ -5,6 +5,7 @@ import Footer from "./../Layout/Footer";
 import { Modal } from "react-bootstrap";
 import CompanySideBar from "../Layout/companySideBar";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import JobPageSkeleton from "../../markup/skeleton/jobPage";
 import moment from "moment";
 function EmployeeCompanymanage() {
@@ -30,6 +31,8 @@ function EmployeeCompanymanage() {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   }, []);
   const fetchDraftJobs = () => {
@@ -49,6 +52,8 @@ function EmployeeCompanymanage() {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
   const fetchPublishedJobs = () => {
@@ -67,6 +72,8 @@ function EmployeeCompanymanage() {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
   const handlePutReq = (id) => {
