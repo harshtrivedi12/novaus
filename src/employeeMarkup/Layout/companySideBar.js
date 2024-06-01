@@ -1,4 +1,5 @@
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -93,7 +94,8 @@ const CompanySideBar = ({ active }) => {
                 className="upload-link"
                 title="update"
                 data-toggle="tooltip"
-                data-placement="right">
+                data-placement="right"
+              >
                 <input type="file" className="update-flie" />
                 <i className="fa fa-pencil"></i>
               </div>
@@ -108,7 +110,8 @@ const CompanySideBar = ({ active }) => {
             <li>
               <Link
                 to={"/employee/company-profile"}
-                className={active === "company" ? "active" : null}>
+                className={active === "company" ? "active" : null}
+              >
                 <i className="fa fa-user-o" aria-hidden="true"></i>
                 <span>Company Profile</span>
               </Link>
@@ -126,7 +129,8 @@ const CompanySideBar = ({ active }) => {
             <li>
               <Link
                 className={active === "transactions" ? "active" : null}
-                to={"/employee/company-transactions"}>
+                to={"/employee/company-transactions"}
+              >
                 <i className="fa fa-random" aria-hidden="true"></i>
                 <span>Transactions</span>
               </Link>
@@ -134,7 +138,8 @@ const CompanySideBar = ({ active }) => {
             <li>
               <Link
                 to={"/employee/company-manage-job/jobs"}
-                className={active === "company-manage-job" ? "active" : null}>
+                className={active === "company-manage-job" ? "active" : null}
+              >
                 <i className="fa fa-briefcase" aria-hidden="true"></i>
                 <span>Manage jobs</span>
               </Link>
@@ -142,7 +147,8 @@ const CompanySideBar = ({ active }) => {
             <li>
               <Link
                 to={"/employee/company-resume"}
-                className={active === "company-resume" ? "active" : null}>
+                className={active === "company-resume" ? "active" : null}
+              >
                 <i className="fa fa-id-card-o" aria-hidden="true"></i>
                 <span>Resume</span>
               </Link>
@@ -150,7 +156,8 @@ const CompanySideBar = ({ active }) => {
             <li>
               <Link
                 to={"/employee/jobs-change-password"}
-                className={active === "jobs-change-password" ? "active" : null}>
+                className={active === "jobs-change-password" ? "active" : null}
+              >
                 <i className="fa fa-key" aria-hidden="true"></i>
                 <span>Change Password</span>
               </Link>

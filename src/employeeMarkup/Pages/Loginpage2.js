@@ -10,6 +10,7 @@ import {
 //import logo from "../../images/logo-full-white.png";
 import loginbg from "./../../images/login/loginbg.jpeg";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -73,6 +74,8 @@ function EmployeeLogin(props) {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
   return (
@@ -84,7 +87,6 @@ function EmployeeLogin(props) {
           backgroundImage: "url(" + loginbg + ")",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
-          
         }}
       >
         <div className="section-full">
@@ -101,15 +103,26 @@ function EmployeeLogin(props) {
                       />
                     </Link> */}
                   </div>
-                  <h2 className="m-b10 text-white"> Sign up or Login To Dashboard</h2>
-                  <p className="m-b30" style={{ 
-                      fontWeight:"bolder",  color:"white"
-                    }}>
+                  <h2 className="m-b10 text-white">
+                    {" "}
+                    Sign up or Login To Dashboard
+                  </h2>
+                  <p
+                    className="m-b30"
+                    style={{
+                      fontWeight: "bolder",
+                      color: "white",
+                    }}
+                  >
                     Welcome To One Stop Ai Powered Staffing Solution
                   </p>
-                  <ul className="list-inline m-r10 text-white " style={{ 
-                      fontWeight:"bolder", fontSize:"30px" , 
-                    }}>
+                  <ul
+                    className="list-inline m-r10 text-white "
+                    style={{
+                      fontWeight: "bolder",
+                      fontSize: "30px",
+                    }}
+                  >
                     {/* <li>
                       <Link to={""} className="m-r10 text-white ">
                         <i className="fa fa-facebook"></i>
@@ -121,8 +134,7 @@ function EmployeeLogin(props) {
                       </Link>
                   </li>*/}
                     <li>
-                      <Link to={""} className="m-r10 text-white"
-                    >
+                      <Link to={""} className="m-r10 text-white">
                         <i className="fa fa-linkedin"></i>
                       </Link>
                     </li>
@@ -276,11 +288,13 @@ function EmployeeLogin(props) {
                   <img
                     src="../../images/WhatsApp_Image_2024-05-11_at_19.51.05-removebg-preview.png"
                     alt=""
-                    style={{ 
+                    style={{
                       width: "40px",
                     }}
                   />{" "}
-                  <Link to={"#"} style={{color:"white",fontWeight:"bold"}}>Nova Jobs </Link>{" "}
+                  <Link to={"#"} style={{ color: "white", fontWeight: "bold" }}>
+                    Nova Jobs{" "}
+                  </Link>{" "}
                 </span>
                 <span className="float-right">
                   “Hyper V Solutions” | All Rights Reserved

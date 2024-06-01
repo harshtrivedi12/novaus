@@ -6,6 +6,7 @@ import {
   signupAction,
 } from "../../store/actions/AuthActions";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import processVid from "../../gif process.mp4";
 // var bnr = require("./../../images/background/bg6.jpg");
 import bnr from "../../images/login/loginbg.jpeg";
@@ -190,6 +191,8 @@ function EmployeeRegister2(props) {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
   return (

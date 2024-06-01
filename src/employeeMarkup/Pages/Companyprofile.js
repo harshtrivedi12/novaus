@@ -5,6 +5,7 @@ import Footer from "./../Layout/Footer";
 import { Form } from "react-bootstrap";
 // import GoogleMaps from "simple-react-google-maps";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import { fetchCompanyInfo } from "../../store/thunkFunctions/companyFunction";
 import { useDispatch, useSelector } from "react-redux";
 import { get } from "react-scroll/modules/mixins/scroller";
@@ -117,6 +118,8 @@ function EmployeeCompanyprofile() {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   }, []);
 

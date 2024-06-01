@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header2 from "./../Layout/Header2";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import Footer from "./../Layout/Footer";
 import Profilesidebar from "./../Element/Profilesidebar";
 import FixedHeader from "../Layout/fixedHeader";
@@ -154,6 +155,8 @@ function Jobprofile() {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
   useEffect(() => {
@@ -193,6 +196,8 @@ function Jobprofile() {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
   const [countries, setCountries] = useState([
@@ -346,7 +351,8 @@ function Jobprofile() {
                       </h5>
                       <Link
                         to={"./"}
-                        className="site-button right-arrow button-sm float-right">
+                        className="site-button right-arrow button-sm float-right"
+                      >
                         Back
                       </Link>
                     </div>
@@ -521,7 +527,8 @@ function Jobprofile() {
                               name="description"
                               onChange={handleChange}
                               value={jobProfileValues.description}
-                              className="form-control"></textarea>
+                              className="form-control"
+                            ></textarea>
                           </div>
                         </div>
                       </div>
@@ -575,7 +582,8 @@ function Jobprofile() {
                               id="country_id"
                               name="country_id"
                               onChange={handleChange}
-                              value={jobProfileValues.country_id}>
+                              value={jobProfileValues.country_id}
+                            >
                               {countries.map((item, index) => {
                                 return (
                                   <option key={index} value={item.id}>
@@ -607,7 +615,8 @@ function Jobprofile() {
                                 id="state_id"
                                 name="state_id"
                                 onChange={handleChange}
-                                value={jobProfileValues.state_id}>
+                                value={jobProfileValues.state_id}
+                              >
                                 {states.map((item, index) => {
                                   return (
                                     <option key={index} value={item.id}>
@@ -630,7 +639,8 @@ function Jobprofile() {
                                 id="city_id"
                                 name="city_id"
                                 onChange={handleChange}
-                                value={jobProfileValues.city_id}>
+                                value={jobProfileValues.city_id}
+                              >
                                 {cities.map((item, index) => {
                                   return (
                                     <option key={index} value={item.id}>
@@ -645,7 +655,8 @@ function Jobprofile() {
                       </div>
                       <button
                         onClick={handleSubmit}
-                        className="site-button m-b30">
+                        className="site-button m-b30"
+                      >
                         Save Setting
                       </button>
                     </form>

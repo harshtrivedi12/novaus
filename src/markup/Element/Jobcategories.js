@@ -1,4 +1,5 @@
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import React, { useEffect, useState } from "react";
 import {
   FaAccessibleIcon,
@@ -65,7 +66,7 @@ function Jobcategories() {
               <div className="icon-content ">
                 <div
                   className="icon-20px text-primary"
-                  style={{ marginBottom: "50px" ,fontSize: "40px" }}
+                  style={{ marginBottom: "50px", fontSize: "40px" }}
                 >
                   {React.createElement(iconMap[item.id] || FaCarSide)}
                 </div>

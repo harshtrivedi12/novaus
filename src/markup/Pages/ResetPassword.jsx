@@ -8,6 +8,7 @@ import {
 
 import loginbg from "./../../images/bg6.jpg";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 
 function ResetPassword(props) {
   let errorsObj = { email: "", password: "" };
@@ -49,6 +50,8 @@ function ResetPassword(props) {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
 
@@ -59,7 +62,8 @@ function ResetPassword(props) {
         style={{
           backgroundImage: "url(" + loginbg + ")",
           backgroundSize: "cover",
-        }}>
+        }}
+      >
         <div className="section-full">
           <div className="container">
             <div className="row">
@@ -132,11 +136,13 @@ function ResetPassword(props) {
                               right: "0px",
                               zIndex: "11",
                               position: "absolute",
-                            }}>
+                            }}
+                          >
                             <i
                               className={
                                 showPassword ? "fa fa-eye-slash " : "fa fa-eye"
-                              }></i>
+                              }
+                            ></i>
                           </span>
                           <input
                             type={showPassword ? "text" : "password"} // Toggle password visibility
@@ -157,12 +163,14 @@ function ResetPassword(props) {
                       <div className="text-center">
                         <button
                           onClick={handlePostRequest}
-                          className="site-button float-left">
+                          className="site-button float-left"
+                        >
                           Reset Password
                         </button>
                         <Link
                           to="/user/login"
-                          className="site-button-link forget-pass m-t15 float-right">
+                          className="site-button-link forget-pass m-t15 float-right"
+                        >
                           <i className="fa fa-unlock-alt"></i> Back To Login
                         </Link>
                       </div>

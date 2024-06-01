@@ -8,6 +8,7 @@ import Listingsidebar from "./../Element/Listingsidebar";
 import Profilesidebar from "../Element/Profilesidebar";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import { useDispatch } from "react-redux";
 import {
   Page,
@@ -175,43 +176,51 @@ function Jobmyresume() {
         "Content-Type": "application/json",
       },
     }).then((res) => {
-      let data = res.data.data.ai_resume_parse_data;
-      console.log(data);
-      dispatch(setResumeHeadline(data.jobsMyResumeData.resumeHeadline));
-      dispatch(setSkillsData(data.jobsMyResumeData.skillsData));
-      dispatch(setEmploymentData(data.jobsMyResumeData.employmentData));
-      dispatch(setEducationData(data.jobsMyResumeData.educationData));
-      dispatch(setItSkillsData(data.jobsMyResumeData.itSkillsData));
-      dispatch(setProjectsData(data.jobsMyResumeData.projectsData));
+      console.log(res);
+      let data = res?.data?.data?.ai_resume_parse_data;
+      dispatch(setResumeHeadline(data?.jobsMyResumeData?.resumeHeadline));
+      dispatch(setSkillsData(data?.jobsMyResumeData?.skillsData || []));
+      dispatch(setEmploymentData(data?.jobsMyResumeData?.employmentData || []));
+      dispatch(setEducationData(data?.jobsMyResumeData?.educationData || []));
+      dispatch(setItSkillsData(data?.jobsMyResumeData?.itSkillsData || []));
+      dispatch(setProjectsData(data?.jobsMyResumeData?.projectsData || []));
       dispatch(
-        setProfileSummaryValue(data.jobsMyResumeData.profileSummaryValue)
+        setProfileSummaryValue(data?.jobsMyResumeData?.profileSummaryValue)
       );
       dispatch(
         setOnlineProfileData(
-          data.jobsMyResumeData.accomplishments.onlineProfileData
+          data.jobsMyResumeData?.accomplishments?.onlineProfileData || []
         )
       );
       dispatch(
-        setWorkSampleData(data.jobsMyResumeData.accomplishments.workSampleData)
+        setWorkSampleData(
+          data?.jobsMyResumeData?.accomplishments?.workSampleData || []
+        )
       );
       dispatch(
-        setWhitePaperData(data.jobsMyResumeData.accomplishments.whitePaperData)
+        setWhitePaperData(
+          data?.jobsMyResumeData?.accomplishments?.whitePaperData || []
+        )
       );
-      dispatch(setPatentData(data.jobsMyResumeData.accomplishments.patentData));
+      dispatch(
+        setPatentData(data?.jobsMyResumeData?.accomplishments?.patentData || [])
+      );
       dispatch(
         setPresentationData(
-          data.jobsMyResumeData.accomplishments.presentationData
+          data?.jobsMyResumeData?.accomplishments?.presentationData || []
         )
       );
       dispatch(
         setCertificationData(
-          data.jobsMyResumeData.accomplishments.certificationData
+          data?.jobsMyResumeData?.accomplishments?.certificationData || []
         )
       );
       dispatch(
-        setDesiredCareerProfile(data.jobsMyResumeData.desiredCareerProfile)
+        setDesiredCareerProfile(data?.jobsMyResumeData?.desiredCareerProfile)
       );
-      dispatch(setPersonalDetailsValue(data.jobsMyResumeData.personalDetails));
+      dispatch(
+        setPersonalDetailsValue(data?.jobsMyResumeData?.personalDetails)
+      );
       setShowSkeleton(false);
     });
   };
@@ -607,9 +616,13 @@ function Jobmyresume() {
       },
       data: reqBody,
     })
-      .then((response) => {})
+      .then((response) => {
+        console.log(response);
+      })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
 
@@ -719,13 +732,11 @@ function Jobmyresume() {
         flexWrap: "wrap",
       },
 
-
-
-      flexColumnContainer : {
-        display : "flex",
-        flexDirection : "column",
-         gap : "7px",
-         marginBottom : "0px"
+      flexColumnContainer: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "7px",
+        marginBottom: "0px",
       },
       mediumText: {
         fontFamily: "Poppins-semi",
@@ -938,15 +949,12 @@ function Jobmyresume() {
               </View>
             ) : null} */}
 
-
-{resumeHeadline ? 
-
-<View style={styles.flexColumnGap4}>
-  <Text style={styles.heading}>Resume Headline</Text>
-  <Text>{resumeHeadline}</Text>
-</View>
-
-: null}
+            {resumeHeadline ? (
+              <View style={styles.flexColumnGap4}>
+                <Text style={styles.heading}>Resume Headline</Text>
+                <Text>{resumeHeadline}</Text>
+              </View>
+            ) : null}
 
             {personalDetailsValue.dateOfBirth ||
             personalDetailsValue.gender ||
@@ -984,7 +992,7 @@ function Jobmyresume() {
                     <Text>{personalDetailsValue.passportNumber}</Text>
                   </View>
                 ) : null}
-              
+
                 {personalDetailsValue.workPermitOfOtherCountry ? (
                   <View style={styles.flexColumnContainer}>
                     <Text style={styles.mediumText}>Work Permit</Text>
@@ -993,143 +1001,139 @@ function Jobmyresume() {
                 ) : null}
               </View>
             ) : null}
-              {personalDetailsValue.differentlyAbled ||
-                personalDetailsValue.languages ||
-                personalDetailsValue.addPermanentAddress ||
-                personalDetailsValue.areaPinCode ||
-                personalDetailsValue.homeTown ? (
-                  <View style={styles.flexColumnContainer}>
-                    <Text style={styles.mediumText}>Details :</Text>
-                    <View style={styles.flexRowContainerGap7}>
-
-                    {personalDetailsValue.languages ? (
+            {personalDetailsValue.differentlyAbled ||
+            personalDetailsValue.languages ||
+            personalDetailsValue.addPermanentAddress ||
+            personalDetailsValue.areaPinCode ||
+            personalDetailsValue.homeTown ? (
+              <View style={styles.flexColumnContainer}>
+                <Text style={styles.mediumText}>Details :</Text>
+                <View style={styles.flexRowContainerGap7}>
+                  {personalDetailsValue.languages ? (
                     <View style={styles.flexColumnContainer}>
-                    <Text style={styles.mediumText}>Languages</Text>
-                    <Text>{personalDetailsValue.languages}</Text>
-                  </View>
-                    ) : null}
-                    {personalDetailsValue.differentlyAbled ? (
-                         <View style={styles.flexColumnContainer}>
-                         <Text style={styles.mediumText}>Differently Abled</Text>
-                         <Text>{personalDetailsValue.differentlyAbled}</Text>
-                       </View>
-                    ) : null}
-                    {personalDetailsValue.addPermanentAddress ? (
-                       <View style={styles.flexColumnContainer}>
-                       <Text style={styles.mediumText}>Add Permanent Address</Text>
-                       <Text>{personalDetailsValue.addPermanentAddress}</Text>
-                     </View>
-                    ) : null}
-                    {personalDetailsValue.areaPinCode ? (
-                        <View style={styles.flexColumnContainer}>
-                        <Text style={styles.mediumText}>Area Pincode</Text>
-                        <Text>{personalDetailsValue.areaPinCode}</Text>
-                      </View>
-                    ) : null}
-
-                    {personalDetailsValue.homeTown ? (
-                        <View style={styles.flexColumnContainer}>
-                        <Text style={styles.mediumText}>HomeTown</Text>
-                        <Text>{personalDetailsValue.homeTown}</Text>
-                      </View>
-                    ) : null}
-                  </View>
+                      <Text style={styles.mediumText}>Languages</Text>
+                      <Text>{personalDetailsValue.languages}</Text>
                     </View>
-                ) : null}
+                  ) : null}
+                  {personalDetailsValue.differentlyAbled ? (
+                    <View style={styles.flexColumnContainer}>
+                      <Text style={styles.mediumText}>Differently Abled</Text>
+                      <Text>{personalDetailsValue.differentlyAbled}</Text>
+                    </View>
+                  ) : null}
+                  {personalDetailsValue.addPermanentAddress ? (
+                    <View style={styles.flexColumnContainer}>
+                      <Text style={styles.mediumText}>
+                        Add Permanent Address
+                      </Text>
+                      <Text>{personalDetailsValue.addPermanentAddress}</Text>
+                    </View>
+                  ) : null}
+                  {personalDetailsValue.areaPinCode ? (
+                    <View style={styles.flexColumnContainer}>
+                      <Text style={styles.mediumText}>Area Pincode</Text>
+                      <Text>{personalDetailsValue.areaPinCode}</Text>
+                    </View>
+                  ) : null}
 
-{desiredCareerProfile ? 
-<View style={styles.flexColumnContainer}>
-  <Text style={styles.mediumText}>Desired Career Profile:</Text>
-  <View style={styles.flexRowContainerGap7}>
-
-{desiredCareerProfile.industry ? (
-  <View style={styles.flexColumnContainer}>
-                <Text style={styles.mediumText}>Industry</Text>
-                <Text>{desiredCareerProfile.industry}</Text>
+                  {personalDetailsValue.homeTown ? (
+                    <View style={styles.flexColumnContainer}>
+                      <Text style={styles.mediumText}>HomeTown</Text>
+                      <Text>{personalDetailsValue.homeTown}</Text>
+                    </View>
+                  ) : null}
+                </View>
               </View>
             ) : null}
 
-            {desiredCareerProfile.role ? (
+            {desiredCareerProfile ? (
               <View style={styles.flexColumnContainer}>
-                <Text style={styles.mediumText}>Role</Text>
-                <Text>{desiredCareerProfile.role}</Text>
+                <Text style={styles.mediumText}>Desired Career Profile:</Text>
+                <View style={styles.flexRowContainerGap7}>
+                  {desiredCareerProfile.industry ? (
+                    <View style={styles.flexColumnContainer}>
+                      <Text style={styles.mediumText}>Industry</Text>
+                      <Text>{desiredCareerProfile.industry}</Text>
+                    </View>
+                  ) : null}
+
+                  {desiredCareerProfile.role ? (
+                    <View style={styles.flexColumnContainer}>
+                      <Text style={styles.mediumText}>Role</Text>
+                      <Text>{desiredCareerProfile.role}</Text>
+                    </View>
+                  ) : null}
+
+                  {desiredCareerProfile.employmentType ? (
+                    <View style={styles.flexColumnContainer}>
+                      <Text style={styles.mediumText}>Employment Type</Text>
+                      <Text>{desiredCareerProfile.employmentType}</Text>
+                    </View>
+                  ) : null}
+
+                  {desiredCareerProfile.availabilityToJoin ? (
+                    <View style={styles.flexColumnContainer}>
+                      <Text style={styles.mediumText}>
+                        Availability To Join
+                      </Text>
+                      <Text>{desiredCareerProfile.availabilityToJoin}</Text>
+                    </View>
+                  ) : null}
+                </View>
+                <View style={styles.flexRowContainerGap7}>
+                  {desiredCareerProfile.desiredLocation ? (
+                    <View style={styles.flexColumnContainer}>
+                      <Text style={styles.mediumText}>Desired Location</Text>
+                      <Text>{desiredCareerProfile.desiredLocation}</Text>
+                    </View>
+                  ) : null}
+
+                  {desiredCareerProfile.functionalArea ? (
+                    <View style={styles.flexColumnContainer}>
+                      <Text style={styles.mediumText}>Functional Area</Text>
+                      <Text>{desiredCareerProfile.functionalArea}</Text>
+                    </View>
+                  ) : null}
+
+                  {desiredCareerProfile.jobType ? (
+                    <View style={styles.flexColumnContainer}>
+                      <Text style={styles.mediumText}>Job Type</Text>
+                      <Text>{desiredCareerProfile.jobType}</Text>
+                    </View>
+                  ) : null}
+
+                  {desiredCareerProfile.desiredShift ? (
+                    <View style={styles.flexColumnContainer}>
+                      <Text style={styles.mediumText}>Desired Shift</Text>
+                      <Text>{desiredCareerProfile.desiredShift}</Text>
+                    </View>
+                  ) : null}
+
+                  {desiredCareerProfile.expectedSalary ? (
+                    <View style={styles.flexColumnContainer}>
+                      <Text style={styles.mediumText}>Expected Salary</Text>
+                      <Text>{desiredCareerProfile.expectedSalary}</Text>
+                    </View>
+                  ) : null}
+
+                  {desiredCareerProfile.desiredIndustry ? (
+                    <View style={styles.flexColumnContainer}>
+                      <Text style={styles.mediumText}>Desired Industry</Text>
+                      <Text>{desiredCareerProfile.desiredIndustry}</Text>
+                    </View>
+                  ) : null}
+                </View>
               </View>
             ) : null}
-
-            {desiredCareerProfile.employmentType ? (
-              <View style={styles.flexColumnContainer}>
-                <Text style={styles.mediumText}>Employment Type</Text>
-                <Text>{desiredCareerProfile.employmentType}</Text>
-              </View>
-            ) : null}
-
-            {desiredCareerProfile.availabilityToJoin ? (
-              <View style={styles.flexColumnContainer}>
-                <Text style={styles.mediumText}>Availability To Join</Text>
-                <Text>{desiredCareerProfile.availabilityToJoin}</Text>
-              </View>
-            ) : null}
-
-            </View>
-            <View style={styles.flexRowContainerGap7}>
-
-            {desiredCareerProfile.desiredLocation ? (
-              <View style={styles.flexColumnContainer}>
-                <Text style={styles.mediumText}>Desired Location</Text>
-                <Text>{desiredCareerProfile.desiredLocation}</Text>
-              </View>
-            ) : null}
-
-            {desiredCareerProfile.functionalArea ? (
-              <View style={styles.flexColumnContainer}>
-                <Text style={styles.mediumText}>Functional Area</Text>
-                <Text>{desiredCareerProfile.functionalArea}</Text>
-              </View>
-            ) : null}
-
-            {desiredCareerProfile.jobType ? (
-              <View style={styles.flexColumnContainer}>
-                <Text style={styles.mediumText}>Job Type</Text>
-                <Text>{desiredCareerProfile.jobType}</Text>
-              </View>
-            ) : null}
-
-            {desiredCareerProfile.desiredShift ? (
-              <View style={styles.flexColumnContainer}>
-                <Text style={styles.mediumText}>Desired Shift</Text>
-                <Text>{desiredCareerProfile.desiredShift}</Text>
-              </View>
-            ) : null}
-
-            {desiredCareerProfile.expectedSalary ? (
-              <View style={styles.flexColumnContainer}>
-                <Text style={styles.mediumText}>Expected Salary</Text>
-                <Text>{desiredCareerProfile.expectedSalary}</Text>
-              </View>
-            ) : null}
-
-            {desiredCareerProfile.desiredIndustry ? (
-              <View style={styles.flexColumnContainer}>
-                <Text style={styles.mediumText}>Desired Industry</Text>
-                <Text>{desiredCareerProfile.desiredIndustry}</Text>
-              </View>
-            ) : null}
-            </View>
           </View>
-: null}
-</View>
 
-
-  
           {profileSummaryValue ? (
             <View style={styles.flexColumnGap4}>
               <View style={styles.headingContainer}>
                 <Text style={styles.heading}>CAREER OBJECTIVE</Text>
                 <View style={styles.headingLine}></View>
               </View>
-              <Text style={styles.normalText}>
-                {profileSummaryValue}
-              </Text>
+              <Text style={styles.normalText}>{profileSummaryValue}</Text>
             </View>
           ) : null}
 
@@ -1172,9 +1176,7 @@ function Jobmyresume() {
                         {item.jobstartDate} - {item.jobendDate}
                       </Text>
                     </View>
-                    <Text style={styles.normalText}>
-                      {item.jobDescription}
-                    </Text>
+                    <Text style={styles.normalText}>{item.jobDescription}</Text>
                   </View>
                 );
               })}
@@ -1196,9 +1198,7 @@ function Jobmyresume() {
                       <Text>{item.version}</Text>
                       <Text>{item.lastUsed}</Text>
                     </View>
-                    <Text style={styles.normalText}>
-                      {item.experience}
-                    </Text>
+                    <Text style={styles.normalText}>{item.experience}</Text>
                   </View>
                 );
               })}
@@ -1264,99 +1264,93 @@ function Jobmyresume() {
 
           {onlineProfileData ? (
             <View style={styles.flexColumnGap4}>
-<Text style={styles.mediumText}>Online Profile Data</Text>
+              <Text style={styles.mediumText}>Online Profile Data</Text>
               <View style={styles.flexRowContainer}>
-              {onlineProfileData.map((item, index) => {
-                return (
-                  <Text style={styles.linkItem} key={index} >
-                    {item.label}
-                  </Text>
-                );
-              })}
+                {onlineProfileData.map((item, index) => {
+                  return (
+                    <Text style={styles.linkItem} key={index}>
+                      {item.label}
+                    </Text>
+                  );
+                })}
               </View>
             </View>
           ) : null}
 
-{workSampleData ? (
+          {workSampleData ? (
             <View style={styles.flexColumnGap4}>
-<Text style={styles.mediumText}>Work Sample Data</Text>
+              <Text style={styles.mediumText}>Work Sample Data</Text>
               <View style={styles.flexRowContainer}>
-              {workSampleData.map((item, index) => {
-                return (
-                  <Text style={styles.linkItem} key={index} >
-                    {item.label}
-                  </Text>
-                );
-              })}
+                {workSampleData.map((item, index) => {
+                  return (
+                    <Text style={styles.linkItem} key={index}>
+                      {item.label}
+                    </Text>
+                  );
+                })}
               </View>
             </View>
           ) : null}
 
-
-{whitePaperData ? (
+          {whitePaperData ? (
             <View style={styles.flexColumnGap4}>
-<Text style={styles.mediumText}>White Paper Data</Text>
+              <Text style={styles.mediumText}>White Paper Data</Text>
               <View style={styles.flexRowContainer}>
-              {whitePaperData.map((item, index) => {
-                return (
-                  <Text style={styles.linkItem} key={index} >
-                    {item.label}
-                  </Text>
-                );
-              })}
+                {whitePaperData.map((item, index) => {
+                  return (
+                    <Text style={styles.linkItem} key={index}>
+                      {item.label}
+                    </Text>
+                  );
+                })}
               </View>
             </View>
           ) : null}
 
-
-{presentationData ? (
+          {presentationData ? (
             <View style={styles.flexColumnGap4}>
-<Text style={styles.mediumText}>Presentation Data</Text>
+              <Text style={styles.mediumText}>Presentation Data</Text>
               <View style={styles.flexRowContainer}>
-              {presentationData.map((item, index) => {
-                return (
-                  <Text style={styles.linkItem} key={index} >
-                    {item.label}
-                  </Text>
-                );
-              })}
+                {presentationData.map((item, index) => {
+                  return (
+                    <Text style={styles.linkItem} key={index}>
+                      {item.label}
+                    </Text>
+                  );
+                })}
               </View>
             </View>
           ) : null}
 
-
-{patentData ? (
+          {patentData ? (
             <View style={styles.flexColumnGap4}>
-<Text style={styles.mediumText}>Patent Data</Text>
+              <Text style={styles.mediumText}>Patent Data</Text>
               <View style={styles.flexRowContainer}>
-              {patentData.map((item, index) => {
-                return (
-                  <Text style={styles.linkItem} key={index} >
-                    {item.label}
-                  </Text>
-                );
-              })}
+                {patentData.map((item, index) => {
+                  return (
+                    <Text style={styles.linkItem} key={index}>
+                      {item.label}
+                    </Text>
+                  );
+                })}
               </View>
             </View>
           ) : null}
 
-
-{certificationData ? (
+          {certificationData ? (
             <View style={styles.flexColumnGap4}>
-<Text style={styles.mediumText}>Certification Data</Text>
+              <Text style={styles.mediumText}>Certification Data</Text>
               <View style={styles.flexRowContainer}>
-              {certificationData.map((item, index) => {
-                return (
-                  <Text style={styles.linkItem} key={index} >
-                    {item.label}
-                  </Text>
-                );
-              })}
+                {certificationData.map((item, index) => {
+                  return (
+                    <Text style={styles.linkItem} key={index}>
+                      {item.label}
+                    </Text>
+                  );
+                })}
               </View>
             </View>
           ) : null}
-
-         
         </Page>
       </Document>
     );
@@ -1384,24 +1378,23 @@ function Jobmyresume() {
                 ) : (
                   <div className="col-xl-9 col-lg-8 col-md-8 col-sm-12">
                     <div className="w-100 d-flex justify-content-center mb-2 ">
-                      
-                    <PDFDownloadLink
-                      onClick={handlePdfLink}
-                      document={<Resume6Download />}
-                      style={{
-                        textDecoration: "none",
-                        padding: "5px 8px",
-                        color: "black",
-                        fontWeight: 500,
-                        backgroundColor: "white",
-                        border: "1px solid #4A90E2",
-                        borderRadius: "4px",
-                        margin: "10px 0",
-                      }}
+                      <PDFDownloadLink
+                        onClick={handlePdfLink}
+                        document={<Resume6Download />}
+                        style={{
+                          textDecoration: "none",
+                          padding: "5px 8px",
+                          color: "black",
+                          fontWeight: 500,
+                          backgroundColor: "white",
+                          border: "1px solid #4A90E2",
+                          borderRadius: "4px",
+                          margin: "10px 0",
+                        }}
                       >
-                      Download PDF
-                    </PDFDownloadLink>
-                      </div>
+                        Download PDF
+                      </PDFDownloadLink>
+                    </div>
                     {resumeHeadline ? (
                       <div
                         id="resume_headline_bx"

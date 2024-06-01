@@ -1,4 +1,5 @@
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import moment from "moment/moment";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -40,6 +41,8 @@ function Jobsection() {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   }, []);
   const navigate = useNavigate();

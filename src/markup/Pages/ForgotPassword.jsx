@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import loginbg from "./../../images/bg6.jpg";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 
 function ForgotPassword(props) {
   const [email, setEmail] = useState("demo@example.com");
@@ -29,6 +30,8 @@ function ForgotPassword(props) {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
 
@@ -39,7 +42,8 @@ function ForgotPassword(props) {
         style={{
           backgroundImage: "url(" + loginbg + ")",
           backgroundSize: "cover",
-        }}>
+        }}
+      >
         <div className="section-full">
           <div className="container">
             <div className="row">
@@ -105,7 +109,8 @@ function ForgotPassword(props) {
                       <div className="mt-4 ">
                         <button
                           onClick={handlePostRequest}
-                          className="site-button float-left">
+                          className="site-button float-left"
+                        >
                           Submit
                         </button>
                       </div>
@@ -113,7 +118,8 @@ function ForgotPassword(props) {
                     <div className="form-group text-center">
                       <Link
                         to="/user/login"
-                        className="site-button-link  m-t15 ">
+                        className="site-button-link  m-t15 "
+                      >
                         Back to Login
                       </Link>
                     </div>

@@ -68,7 +68,7 @@ function Homepage() {
           <div className="container">
             <div className="section-head text-center text-white">
               <div className="two-box-container " style={{ color: "white" }}>
-                <div className="bg-danger box">
+                <div className="bg-danger red-box">
                   <div
                     style={{
                       display: "flex",

@@ -19,6 +19,7 @@ import {
 import ReactQuill from "react-quill";
 import QualificationSetting from "../Element/qualificationSettingsEditor";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import { useEffect } from "react";
 import CompanySideBar from "../Layout/companySideBar";
 function EmployeeComponypostjobs() {

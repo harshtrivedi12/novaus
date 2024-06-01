@@ -8,6 +8,7 @@ import Modal from "react-bootstrap/Modal";
 import { Tab, Nav, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import FixedHeader from "../Layout/fixedHeader";
 
 import moment from "moment";
@@ -229,6 +230,8 @@ function EmployeeBrowsecandidates() {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   }, []);
 
@@ -331,7 +334,8 @@ function EmployeeBrowsecandidates() {
       <div className="page-content bg-white">
         <div
           className="dez-bnr-inr overlay-black-middle"
-          style={{ backgroundImage: "url(" + bnr + ")" }}>
+          style={{ backgroundImage: "url(" + bnr + ")" }}
+        >
           <PageTitle motherName="Home" activeName="Browse Candidates" />
         </div>
         <div className="section-full browse-job-find">
@@ -351,7 +355,8 @@ function EmployeeBrowsecandidates() {
                             name="education"
                             onChange={handleChange}
                             value={browseCandidateValues.education}
-                            autoComplete="false">
+                            autoComplete="false"
+                          >
                             <option value="">Choose Education</option>
                             {educations.map((item) => {
                               return (
@@ -381,14 +386,16 @@ function EmployeeBrowsecandidates() {
                           name="experience"
                           onChange={handleChange}
                           value={browseCandidateValues.experience}
-                          autoComplete="false">
+                          autoComplete="false"
+                        >
                           <option value="">Choose Experience</option>
                           {experienceValue.map((item, index) => {
                             return (
                               <option
                                 className="form-control"
                                 key={index}
-                                value={item.id}>
+                                value={item.id}
+                              >
                                 {item.name}
                               </option>
                             );
@@ -413,7 +420,8 @@ function EmployeeBrowsecandidates() {
                           name="state_id"
                           onChange={handleChange}
                           value={browseCandidateValues.state_id}
-                          autoComplete="false">
+                          autoComplete="false"
+                        >
                           <option value="">Choose A State</option>
                           {states.map((item, index) => {
                             return (
@@ -442,7 +450,8 @@ function EmployeeBrowsecandidates() {
                           name="salary"
                           onChange={handleChange}
                           value={browseCandidateValues.salary}
-                          autoComplete="false">
+                          autoComplete="false"
+                        >
                           <option value="">Choose Your Salary</option>
                           {salaryValue.map((item, index) => {
                             return (
@@ -463,13 +472,15 @@ function EmployeeBrowsecandidates() {
                 </div>
                 <div
                   className="row d-flex justify-content-center mb-3 "
-                  style={{ gap: "12px" }}>
+                  style={{ gap: "12px" }}
+                >
                   <div
                     className=" w-75 d-flex flex-column   p-2 "
                     style={{
                       backgroundColor: "#f5f5f5",
                       alignItems: "center",
-                    }}>
+                    }}
+                  >
                     <input
                       type="text"
                       name="search_input"
@@ -488,7 +499,8 @@ function EmployeeBrowsecandidates() {
                       handleGetReq();
                     }}
                     className="border-0 site-button d-flex align-items-center "
-                    style={{ cursor: "pointer", outline: "none", gap: "7px" }}>
+                    style={{ cursor: "pointer", outline: "none", gap: "7px" }}
+                  >
                     <FaSearch />
                     Search
                   </button>
@@ -517,23 +529,27 @@ function EmployeeBrowsecandidates() {
                                 maxHeight: "calc(100vh - 200px)",
                                 overflowY: "auto",
                                 boxShadow: "0 0 10px 0 rgba(0, 24, 128, 0.1)",
-                              }}>
+                              }}
+                            >
                               {browseCandidateData.map((item, index) => (
                                 <div key={index}>
                                   <li>
                                     <Link
                                       to="#"
-                                      onClick={() => handleSelectJob(item)}>
+                                      onClick={() => handleSelectJob(item)}
+                                    >
                                       <div
                                         style={{
                                           display: "flex",
                                           width: "100%",
                                           position: "relative",
-                                        }}>
+                                        }}
+                                      >
                                         <div
                                           style={{
                                             width: "30%",
-                                          }}>
+                                          }}
+                                        >
                                           <img
                                             src={testImg}
                                             alt=""
@@ -547,7 +563,8 @@ function EmployeeBrowsecandidates() {
                                           style={{
                                             width: "80%",
                                             overflow: "hidden",
-                                          }}>
+                                          }}
+                                        >
                                           {item.jobskkers_detail.first_name ||
                                             (item.jobskkers_detail
                                               .last_name && (
@@ -556,7 +573,8 @@ function EmployeeBrowsecandidates() {
                                                 style={{
                                                   color: "#1c2957",
                                                   fontSize: "20px",
-                                                }}>
+                                                }}
+                                              >
                                                 {
                                                   item.jobskkers_detail
                                                     .first_name
@@ -570,12 +588,14 @@ function EmployeeBrowsecandidates() {
                                           {item.jobskkers_detail.skills_arr ? (
                                             <div
                                               className="d-flex flex-row mb-0 "
-                                              style={{ gap: "7px" }}>
+                                              style={{ gap: "7px" }}
+                                            >
                                               {item.jobskkers_detail.skills_arr.map(
                                                 (item, index) => (
                                                   <p
                                                     className="mb-0 "
-                                                    key={index}>
+                                                    key={index}
+                                                  >
                                                     {item}
                                                   </p>
                                                 )
@@ -587,12 +607,14 @@ function EmployeeBrowsecandidates() {
                                             style={{
                                               gap: "0px",
                                               height: "auto",
-                                            }}>
+                                            }}
+                                          >
                                             {item.jobskkers_detail.email && (
                                               <p
                                                 style={{
                                                   margin: "0px",
-                                                }}>
+                                                }}
+                                              >
                                                 {item.jobskkers_detail.email}
                                               </p>
                                             )}
@@ -600,7 +622,8 @@ function EmployeeBrowsecandidates() {
                                               <p
                                                 style={{
                                                   margin: "0px",
-                                                }}>
+                                                }}
+                                              >
                                                 {item.jobskkers_detail.phone}
                                               </p>
                                             )}
@@ -609,7 +632,8 @@ function EmployeeBrowsecandidates() {
                                               style={{
                                                 justifyContent: "start",
                                                 gap: "10px",
-                                              }}>
+                                              }}
+                                            >
                                               <div>
                                                 {item.jobskkers_detail
                                                   .state_id && (
@@ -617,7 +641,8 @@ function EmployeeBrowsecandidates() {
                                                     style={{
                                                       margin: "0px",
                                                       fontWeight: 700,
-                                                    }}>
+                                                    }}
+                                                  >
                                                     {
                                                       item?.jobskkers_detail
                                                         ?.states?.name
@@ -632,7 +657,8 @@ function EmployeeBrowsecandidates() {
                                                     style={{
                                                       margin: "0px",
                                                       fontWeight: 700,
-                                                    }}>
+                                                    }}
+                                                  >
                                                     {
                                                       item?.jobskkers_detail
                                                         ?.cities?.name
@@ -648,7 +674,8 @@ function EmployeeBrowsecandidates() {
                                                   style={{
                                                     margin: "0px",
                                                     fontWeight: "600",
-                                                  }}>
+                                                  }}
+                                                >
                                                   {moment(
                                                     item.jobskkers_detail
                                                       .created_at
@@ -672,10 +699,12 @@ function EmployeeBrowsecandidates() {
                       <div className="col-xl-8 col-lg-7 m-b30 job-bx ">
                         <div
                           className="d-flex flex-column "
-                          style={{ gap: "12px" }}>
+                          style={{ gap: "12px" }}
+                        >
                           <div className="candidate-title">
                             <Link
-                              to={`/employee/profilepage/${selectedJob.jobskkers_detail.id}`}>
+                              to={`/employee/profilepage/${selectedJob.jobskkers_detail.id}`}
+                            >
                               <h3 className="mb-1">
                                 {selectedJob.jobskkers_detail.first_name}{" "}
                                 {selectedJob.jobskkers_detail.last_name}
@@ -692,11 +721,13 @@ function EmployeeBrowsecandidates() {
                               {selectedJob.jobskkers_detail.skills_arr ? (
                                 <div
                                   className="d-flex flex-column "
-                                  style={{ gap: "7px" }}>
+                                  style={{ gap: "7px" }}
+                                >
                                   <h5 className="mb-0">Skills:</h5>
                                   <div
                                     className="row m-0 "
-                                    style={{ gap: "12px" }}>
+                                    style={{ gap: "12px" }}
+                                  >
                                     {selectedJob.jobskkers_detail.skills_arr.map(
                                       (item, index) => (
                                         <p key={index} className="mb-0">
@@ -714,11 +745,13 @@ function EmployeeBrowsecandidates() {
                             selectedJob.jobskkers_detail.country_id ? (
                               <div
                                 className="d-flex flex-column"
-                                style={{ marginTop: "7px", gap: "7px" }}>
+                                style={{ marginTop: "7px", gap: "7px" }}
+                              >
                                 <h5 className="mb-0 ">Location :</h5>
                                 <div
                                   className="row m-0 "
-                                  style={{ gap: "12px" }}>
+                                  style={{ gap: "12px" }}
+                                >
                                   <p className="mb-0 ">
                                     {getSingleCity(
                                       selectedJob.jobskkers_detail.city_id
@@ -760,7 +793,8 @@ function EmployeeBrowsecandidates() {
                             .resume_score_percentage ? (
                             <div
                               className="row m-0  align-items-center "
-                              style={{ gap: "7px" }}>
+                              style={{ gap: "7px" }}
+                            >
                               <h5 className="mb-0 ">Resume Score:</h5>
                               <p className="mb-0">
                                 {
@@ -775,7 +809,8 @@ function EmployeeBrowsecandidates() {
                             .jobsMyResumeData.profileSummaryValue ? (
                             <div
                               className="d-flex flex-column  "
-                              style={{ gap: "7px" }}>
+                              style={{ gap: "7px" }}
+                            >
                               <h5 className="mb-0">Profile Summary</h5>
                               <p className="mb-0 ">
                                 {
@@ -791,18 +826,21 @@ function EmployeeBrowsecandidates() {
                             .jobsMyResumeData.educationData ? (
                             <div
                               className="d-flex flex-column "
-                              style={{ gap: "12px" }}>
+                              style={{ gap: "12px" }}
+                            >
                               <h5 className="mb-0 ">Education</h5>
                               <div
                                 className="d-flex flex-column "
-                                style={{ gap: "7px" }}>
+                                style={{ gap: "7px" }}
+                              >
                                 {selectedJob.jobskkers_detail.ai_resume_parse_data.jobsMyResumeData.educationData.map(
                                   (item, index) => {
                                     return (
                                       <div
                                         key={index}
                                         className="d-flex flex-column "
-                                        style={{ gap: "4px" }}>
+                                        style={{ gap: "4px" }}
+                                      >
                                         <h6 className="mb-0">
                                           {item.education}
                                         </h6>
@@ -821,18 +859,21 @@ function EmployeeBrowsecandidates() {
                             .jobsMyResumeData.employmentData ? (
                             <div
                               className="d-flex flex-column "
-                              style={{ gap: "12px" }}>
+                              style={{ gap: "12px" }}
+                            >
                               <h5 className="mb-0 ">Education</h5>
                               <div
                                 className="d-flex flex-column "
-                                style={{ gap: "7px" }}>
+                                style={{ gap: "7px" }}
+                              >
                                 {selectedJob.jobskkers_detail.ai_resume_parse_data.jobsMyResumeData.employmentData.map(
                                   (item, index) => {
                                     return (
                                       <div
                                         key={index}
                                         className="d-flex flex-column "
-                                        style={{ gap: "4px" }}>
+                                        style={{ gap: "4px" }}
+                                      >
                                         <h6 className="mb-0">
                                           {item.jobTitle}, {item.company}
                                         </h6>

@@ -11,6 +11,7 @@ import india from "../../images/WhatsApp_Image_2024-05-11_at_19.51.05-removebg-p
 //import logo from "../../images/logo-full-white.png";
 import loginbg from "./../../images/bg6.jpg";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 // import logo2 from './../../images/logo-white2.png';
 
 function EmployeesCompanyLogin(props) {
@@ -59,6 +60,8 @@ function EmployeesCompanyLogin(props) {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
   return (
@@ -68,7 +71,8 @@ function EmployeesCompanyLogin(props) {
         style={{
           backgroundImage: "url(" + loginbg + ")",
           backgroundSize: "cover",
-        }}>
+        }}
+      >
         <div className="section-full">
           <div className="container">
             <div className="row">
@@ -171,12 +175,14 @@ function EmployeesCompanyLogin(props) {
                       <div className="text-center">
                         <button
                           onClick={handlePostRequest}
-                          className="site-button float-left">
+                          className="site-button float-left"
+                        >
                           login
                         </button>
                         <Link
                           to="register-2"
-                          className="site-button-link forget-pass m-t15 float-right">
+                          className="site-button-link forget-pass m-t15 float-right"
+                        >
                           <i className="fa fa-unlock-alt"></i> Sign up
                         </Link>
                       </div>

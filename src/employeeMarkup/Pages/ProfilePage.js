@@ -4,6 +4,7 @@ import "../../css/Profile.css";
 import Header2 from "../Layout/Header2";
 import Footer from "../Layout/Footer";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import { useEffect } from "react";
 import coverImg from "../../images/blue.jpg";
 import moment from "moment";

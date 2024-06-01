@@ -6,6 +6,7 @@ import {
   signupAction,
 } from "../../store/actions/AuthActions";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 var bnr = require("./../../images/background/bg6.jpg");
 
 function EmployeeCompanyRegister(props) {

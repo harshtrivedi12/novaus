@@ -6,6 +6,7 @@ import {
   signupAction,
 } from "../../store/actions/AuthActions";
 import axios from "axios";
+import { showToastError } from "../../utils/toastify";
 import processVid from "../../gif process.mp4";
 import { DNA, InfinitySpin, MutatingDots } from "react-loader-spinner";
 import validator from "validator";
@@ -124,8 +125,8 @@ function Register2(props) {
         console.log(resumeUrl, res, res.data.data[0].file_path);
       })
       .catch((error) => {
-        alert("error");
-        console.error(error);
+        console.log(error.response.data.message);
+        showToastError(error?.response?.data?.message);
       });
   }
 
@@ -143,27 +144,24 @@ function Register2(props) {
       password: registerValues.password,
     };
     console.log(body);
-    try {
-      axios({
-        url: "https://novajobs.us/api/jobseeker/auth/signup",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "post",
-        data: body,
-      })
-        .then((res) => {
-          console.log(res);
-          localStorage.setItem("jobSeekerLoginToken", res.data.data.token);
+    axios({
+      url: "https://novajobs.us/api/jobseeker/auth/signup",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "post",
+      data: body,
+    })
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem("jobSeekerLoginToken", res.data.data.token);
 
-          setShowUpload(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } catch (error) {
-      console.log(error);
-    }
+        setShowUpload(false);
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
+      });
   }
 
   const runAi = async (e) => {
@@ -191,6 +189,8 @@ function Register2(props) {
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.data.message);
+        showToastError(err?.response?.data?.message);
       });
   };
   return (
