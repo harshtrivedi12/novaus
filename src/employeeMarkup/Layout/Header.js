@@ -4,6 +4,7 @@ import { Modal } from "react-bootstrap";
 import Logout from "./Logout";
 
 import logo2 from "./../../images/logo.png";
+import { ToastContainer } from "react-toastify";
 var bnr3 = require("./../../images/background/bg3.jpg");
 
 class EmployeeHeader extends Component {
@@ -55,6 +56,7 @@ class EmployeeHeader extends Component {
     return (
       <>
         <header className="site-header mo-left header fullwidth">
+          <ToastContainer />
           <div className="sticky-header main-bar-wraper navbar-expand-lg">
             <div className="main-bar clearfix">
               <div className="container clearfix">
@@ -76,7 +78,8 @@ class EmployeeHeader extends Component {
                   data-target="#navbarNavDropdown"
                   aria-controls="navbarNavDropdown"
                   aria-expanded="false"
-                  aria-label="Toggle navigation">
+                  aria-label="Toggle navigation"
+                >
                   <span></span>
                   <span></span>
                   <span></span>
@@ -96,7 +99,8 @@ class EmployeeHeader extends Component {
 
                 <div
                   className="header-nav navbar-collapse collapse myNavbar justify-content-start"
-                  id="navbarNavDropdown">
+                  id="navbarNavDropdown"
+                >
                   <div className="logo-header mostion d-md-block d-lg-none">
                     <Link to={"/"} className="dez-page">
                       <img src={logo2} alt="" />
@@ -188,7 +192,8 @@ class EmployeeHeader extends Component {
                         <li>
                           <Link
                             to={"/employee/company-profile"}
-                            className="dez-page">
+                            className="dez-page"
+                          >
                             Company Profile{" "}
                             <span className="new-page">New</span>
                           </Link>
@@ -196,7 +201,8 @@ class EmployeeHeader extends Component {
                         <li>
                           <Link
                             to={"/employee/company-resume"}
-                            className="dez-page">
+                            className="dez-page"
+                          >
                             Employer Resume{" "}
                             <span className="new-page">New</span>
                           </Link>
@@ -212,7 +218,8 @@ class EmployeeHeader extends Component {
                         <li>
                           <Link
                             to={"/employee/company-transactions"}
-                            className="dez-page">
+                            className="dez-page"
+                          >
                             Transactions <span className="new-page">New</span>
                           </Link>
                         </li>
@@ -222,7 +229,8 @@ class EmployeeHeader extends Component {
                             className="dez-page"
                             onClick={() => {
                               localStorage.removeItem("profession_title");
-                            }}>
+                            }}
+                          >
                             Browse Candidates
                           </Link>
                         </li>
@@ -484,13 +492,15 @@ class EmployeeHeader extends Component {
           className=" lead-form-modal"
           show={this.state.show}
           onHide={this.handleClose}
-          centered>
+          centered
+        >
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <button
                 type="button"
                 className="close"
-                onClick={this.handleClose}>
+                onClick={this.handleClose}
+              >
                 <span aria-hidden="true">&times;</span>
               </button>
               <div className="modal-body row m-a0 clearfix">
@@ -500,7 +510,8 @@ class EmployeeHeader extends Component {
                     backgroundImage: "url(" + bnr3 + ")",
                     backgroundPosition: "center",
                     backgroundSize: "cover",
-                  }}>
+                  }}
+                >
                   <div className="form-info text-white align-self-center">
                     <h3 className="m-b15">Login To You Now</h3>
                     <p className="m-b15">
@@ -552,7 +563,8 @@ class EmployeeHeader extends Component {
                       <div className="clearfix">
                         <button
                           type="button"
-                          className="btn-primary site-button btn-block">
+                          className="btn-primary site-button btn-block"
+                        >
                           Submit{" "}
                         </button>
                       </div>

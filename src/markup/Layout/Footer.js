@@ -1,10 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SBELogo from "../../assests/SBE-Logo.png";
-import NewDBELogo from '../../assests/New-dbe-logo.png';
-
+import NewDBELogo from "../../assests/New-dbe-logo.png";
+import { showToastError, showToastSuccess } from "../../utils/toastify";
 import india from "../../images/WhatsApp_Image_2024-05-11_at_19.51.05-removebg-preview.png";
+import axios from "axios";
 function Footer() {
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+
+    // Email validation regex
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(value)) {
+      setEmailError("Please enter a valid email address.");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (emailError) {
+      return;
+    }
+
+    axios({
+      method: "POST",
+      url: "https://novajobs.us/api/jobseeker/user-subscribe",
+      data: { email },
+    })
+      .then((res) => {
+        console.log(res?.data?.message);
+        showToastSuccess(res?.data?.message);
+        setEmail("");
+      })
+      .catch((err) => {
+        console.log(err);
+        showToastError(err?.response?.data?.message);
+      });
+  };
   return (
     <footer className="site-footer">
       <div className="footer-top">
@@ -25,56 +64,63 @@ function Footer() {
                 </p>
                 <div className="subscribe-form m-b20">
                   <form
+                    onSubmit={handleSubmit}
                     className="dzSubscribe"
                     action="script/mailchamp.php"
-                    method="post">
+                    method="post"
+                  >
                     <div className="dzSubscribeMsg"></div>
                     <div className="input-group">
                       <input
-                        name="dzEmail"
-                        required="required"
+                        type="email"
+                        name="email"
+                        id="email"
+                        onChange={handleChange}
+                        value={email}
+                        required
                         className="form-control"
                         placeholder="Your Email Address"
-                        type="email"
+                        style={{ color: "#1c2957" }}
                       />
                       <span className="input-group-btn">
-                        <button
-                          name="submit"
-                          value="Submit"
-                          type="submit"
-                          className="site-button radius-xl">
+                        <button type="submit" className="site-button radius-xl">
                           Subscribe
                         </button>
                       </span>
                     </div>
+                    {emailError && <p style={{ color: "red" }}>{emailError}</p>}
                   </form>
                 </div>
                 <ul className="list-inline m-a0">
                   <li>
                     <Link
                       to={""}
-                      className="site-button white facebook circle ">
+                      className="site-button white facebook circle "
+                    >
                       <i className="fa fa-facebook"></i>
                     </Link>
                   </li>
                   <li>
                     <Link
                       to={""}
-                      className="site-button white google-plus circle ">
+                      className="site-button white google-plus circle "
+                    >
                       <i className="fa fa-google-plus"></i>
                     </Link>
                   </li>
                   <li>
                     <Link
                       to={""}
-                      className="site-button white linkedin circle ">
+                      className="site-button white linkedin circle "
+                    >
                       <i className="fa fa-linkedin"></i>
                     </Link>
                   </li>
                   <li>
                     <Link
                       to={""}
-                      className="site-button white instagram circle ">
+                      className="site-button white instagram circle "
+                    >
                       <i className="fa fa-instagram"></i>
                     </Link>
                   </li>
@@ -164,7 +210,8 @@ function Footer() {
                         <Link
                           to={
                             "/employee/international-transfer-of-personal-information"
-                          }>
+                          }
+                        >
                           International Transfer
                         </Link>
                       </li>
@@ -180,7 +227,8 @@ function Footer() {
                       </li>
                       <li>
                         <Link
-                          to={"/employee/retention-period-resume-visibility"}>
+                          to={"/employee/retention-period-resume-visibility"}
+                        >
                           Retention Period
                         </Link>
                       </li>
@@ -196,7 +244,8 @@ function Footer() {
                       </li>
                       <li>
                         <Link
-                          to={"/employee/security-center-account-management"}>
+                          to={"/employee/security-center-account-management"}
+                        >
                           Security Center Account Management
                         </Link>
                       </li>
@@ -350,8 +399,20 @@ function Footer() {
                 Hyper V Solutions | All Rights Reserved
               </span>
               <span className="float-right">
-              <span className="m-2"><img src={SBELogo} alt="SBE Logo" style={{height:'50px'}}/></span>
-              <span className="m-2"><img src={NewDBELogo} alt="SBE Logo" style={{height:'50px'}}/></span>
+                <span className="m-2">
+                  <img
+                    src={SBELogo}
+                    alt="SBE Logo"
+                    style={{ height: "50px" }}
+                  />
+                </span>
+                <span className="m-2">
+                  <img
+                    src={NewDBELogo}
+                    alt="SBE Logo"
+                    style={{ height: "50px" }}
+                  />
+                </span>
               </span>
             </div>
           </div>

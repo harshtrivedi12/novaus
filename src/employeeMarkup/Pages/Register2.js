@@ -11,7 +11,7 @@ import processVid from "../../gif process.mp4";
 // var bnr = require("./../../images/background/bg6.jpg");
 import bnr from "../../images/login/loginbg.jpeg";
 import validator from "validator";
-
+import Footer from "../Layout/Footer";
 function EmployeeRegister2(props) {
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
@@ -511,6 +511,7 @@ function EmployeeRegister2(props) {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

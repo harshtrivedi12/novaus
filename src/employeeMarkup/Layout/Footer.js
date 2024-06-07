@@ -1,7 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import india from "../../images/WhatsApp_Image_2024-05-11_at_19.51.05-removebg-preview.png";
+import axios from "axios";
+import { showToastError, showToastSuccess } from "../../utils/toastify";
 function EmployeerFooter() {
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(value)) {
+      setEmailError("Please enter a valid email address.");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (emailError) {
+      return;
+    }
+
+    axios({
+      method: "POST",
+      url: "https://novajobs.us/api/jobseeker/user-subscribe",
+      data: { email },
+    })
+      .then((res) => {
+        console.log(res?.data?.message);
+        showToastSuccess(res?.data?.message);
+        setEmail("");
+      })
+      .catch((err) => {
+        console.log(err);
+        showToastError(err?.response?.data?.message);
+      });
+  };
   return (
     <footer className="site-footer">
       <div className="footer-top">
@@ -22,6 +61,7 @@ function EmployeerFooter() {
                 </p>
                 <div className="subscribe-form m-b20">
                   <form
+                    onSubmit={handleSubmit}
                     className="dzSubscribe"
                     action="script/mailchamp.php"
                     method="post"
@@ -29,23 +69,23 @@ function EmployeerFooter() {
                     <div className="dzSubscribeMsg"></div>
                     <div className="input-group">
                       <input
-                        name="dzEmail"
-                        required="required"
+                        type="email"
+                        name="email"
+                        id="email"
+                        onChange={handleChange}
+                        value={email}
+                        required
                         className="form-control"
                         placeholder="Your Email Address"
-                        type="email"
+                        style={{ color: "#1c2957" }}
                       />
                       <span className="input-group-btn">
-                        <button
-                          name="submit"
-                          value="Submit"
-                          type="submit"
-                          className="site-button radius-xl"
-                        >
+                        <button type="submit" className="site-button radius-xl">
                           Subscribe
                         </button>
                       </span>
                     </div>
+                    {emailError && <p style={{ color: "red" }}>{emailError}</p>}
                   </form>
                 </div>
                 <ul className="list-inline m-a0">

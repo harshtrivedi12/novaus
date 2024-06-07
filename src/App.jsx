@@ -140,7 +140,7 @@ function App() {
         <Route path="" element={<Homepage />} />
         <Route path="login" element={<Loginpage2 />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
-        <Route path="reset-password" element={<ResetPassword />} />
+        <Route path="reset-password/:token" element={<ResetPassword />} />
         <Route path="register" element={<Register1 />} />
         <Route path="register-2" element={<Register2 />} />
         <Route
@@ -810,7 +810,7 @@ function App() {
           path="resume-security"
           element={
             // <EmployeePrivateRoute>
-              <ResumeSecurity />
+            <ResumeSecurity />
             // </EmployeePrivateRoute>
           }
         />
@@ -852,7 +852,7 @@ function App() {
           path="information-novaus-jobs"
           element={
             // <EmployeePrivateRoute>
-              <InformationNovaUsJobs />
+            <InformationNovaUsJobs />
             // </EmployeePrivateRoute>
           }
         />
@@ -861,7 +861,7 @@ function App() {
           path="retention-period-resume-visibility"
           element={
             // <EmployeePrivateRoute>
-              <RetentionPeriod />
+            <RetentionPeriod />
             // </EmployeePrivateRoute>
           }
         />
@@ -886,7 +886,7 @@ function App() {
           path="international-transfer-of-personal-information"
           element={
             // <EmployeePrivateRoute>
-              <InternationalTransfer />
+            <InternationalTransfer />
             // </EmployeePrivateRoute>
           }
         />
@@ -902,7 +902,7 @@ function App() {
           path="security-center-account-management"
           element={
             // <EmployeePrivateRoute>
-              <SecurityCenterAccountManagement />
+            <SecurityCenterAccountManagement />
             // </EmployeePrivateRoute>
           }
         />
@@ -918,7 +918,7 @@ function App() {
           path="online-interview-scams"
           element={
             // <EmployeePrivateRoute>
-              <OnlineInterviewScams />
+            <OnlineInterviewScams />
             // </EmployeePrivateRoute>
           }
         />
@@ -926,7 +926,7 @@ function App() {
           path="security-bug-reporting"
           element={
             // <EmployeePrivateRoute>
-              <SecurityBugReporting />
+            <SecurityBugReporting />
             // </EmployeePrivateRoute>
           }
         />

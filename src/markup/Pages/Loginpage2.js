@@ -11,7 +11,7 @@ import axios from "axios";
 import { showToastError } from "../../utils/toastify";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 import { toast, ToastContainer } from "react-toastify";
-
+import Footer from "../Layout/Footer";
 function Login(props) {
   const [email, setEmail] = useState("demo@example.com");
   let errorsObj = { email: "", password: "" };
@@ -263,7 +263,7 @@ function Login(props) {
             </div>
           </div>
         </div>
-        <footer className="login-footer">
+        {/* <footer className="login-footer">
           <div className="container">
             <div className="row">
               <div className="col-lg-12 text-center">
@@ -295,8 +295,9 @@ function Login(props) {
             </div>
           </div>
           {html && <div dangerouslySetInnerHTML={{ __html: html }}></div>}
-        </footer>
+        </footer> */}
       </div>
+      <Footer />
     </div>
   );
 }

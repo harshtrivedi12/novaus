@@ -12,7 +12,7 @@ import { DNA, InfinitySpin, MutatingDots } from "react-loader-spinner";
 import validator from "validator";
 // var bnr = require("./../../images/background/bg6.jpg");
 import bnr from "../../images/login/loginbg.jpeg";
-
+import Footer from "../Layout/Footer";
 function Register2(props) {
   const [errors, setErrors] = useState({});
   const [email, setEmail] = useState("");
@@ -506,6 +506,7 @@ function Register2(props) {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

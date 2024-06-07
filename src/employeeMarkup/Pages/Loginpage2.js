@@ -13,7 +13,7 @@ import axios from "axios";
 import { showToastError } from "../../utils/toastify";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Footer from "../Layout/Footer";
 function EmployeeLogin(props) {
   const [email, setEmail] = useState("demo@example.com");
   let errorsObj = { email: "", password: "" };
@@ -279,7 +279,7 @@ function EmployeeLogin(props) {
             </div>
           </div>
         </div>
-        <footer className="login-footer">
+        {/* <footer className="login-footer">
           <div className="container">
             <div className="row">
               <div className="col-lg-12 text-center text-white">
@@ -302,8 +302,9 @@ function EmployeeLogin(props) {
               </div>
             </div>
           </div>
-        </footer>
+        </footer> */}
       </div>
+      <Footer />
     </div>
   );
 }

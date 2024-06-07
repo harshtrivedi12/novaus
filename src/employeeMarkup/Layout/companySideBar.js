@@ -1,5 +1,5 @@
 import axios from "axios";
-import { showToastError } from "../../utils/toastify";
+import { showToastError, showToastSuccess } from "../../utils/toastify";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import {
   setSkillsData,
 } from "../../store/reducers/postAJobSlice";
 import { fetchCompanyInfo } from "../../store/thunkFunctions/companyFunction";
+import { ToastContainer } from "react-toastify";
 
 const CompanySideBar = ({ active }) => {
   const token = localStorage.getItem("employeeLoginToken");
@@ -59,7 +60,6 @@ const CompanySideBar = ({ active }) => {
           Authorization: token,
         },
       });
-
       setLogo(`https://novajobs.us${response.data.data.company_detail.logo}`); // This is the resolved value used as action.payload
     } catch (error) {
       // Using rejectWithValue to return a custom error payload
@@ -70,25 +70,69 @@ const CompanySideBar = ({ active }) => {
     getLogo();
   }, []);
 
+  console.log(logo, "lavi");
+
   const companyData = useSelector(
     (state) => state.companyDataSlice.companyData
   );
+  let companyDetail = companyData?.company_detail;
 
+  const [file, setFile] = useState([]);
+  const handleImageChange = (e) => {
+    const img = e.target.files[0];
+    const url = URL.createObjectURL(img);
+    setFile({
+      file: img,
+      url: url,
+    });
+  };
+  const formData = new FormData();
+  formData.append("logo", file?.file);
+  const handleUpdateCompanyLogo = (e) => {
+    e.preventDefault();
+    axios({
+      method: "PUT",
+      url: "https://novajobs.us/api/employeer/company-logo",
+      headers: {
+        Authorization: token,
+      },
+      data: formData,
+    })
+      .then((res) => {
+        console.log(res);
+        showToastSuccess(res?.data?.message);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="col-xl-3 col-lg-4 m-b30">
+      <ToastContainer />
       <div className="sticky-top">
         <div className="candidate-info company-info">
           <div className="candidate-detail text-center">
             <div className="canditate-des">
               <Link to={"#"}>
-                <img
-                  alt=""
-                  src={logo}
-                  style={{
-                    width: "100%",
-                    aspectRatio: 1,
-                  }}
-                />
+                {file?.url ? (
+                  <img
+                    alt=""
+                    src={file?.url}
+                    style={{
+                      width: "100%",
+                      aspectRatio: 1,
+                    }}
+                  />
+                ) : (
+                  <img
+                    alt=""
+                    src={logo}
+                    style={{
+                      width: "100%",
+                      aspectRatio: 1,
+                    }}
+                  />
+                )}
               </Link>
               <div
                 className="upload-link"
@@ -96,14 +140,28 @@ const CompanySideBar = ({ active }) => {
                 data-toggle="tooltip"
                 data-placement="right"
               >
-                <input type="file" className="update-flie" />
+                <input
+                  type="file"
+                  className="update-flie"
+                  name="file"
+                  id="file"
+                  onChange={handleImageChange}
+                />
                 <i className="fa fa-pencil"></i>
               </div>
             </div>
             <div className="candidate-title">
               <h4 className="m-b5">
-                <Link to={"#"}>@COMPANY</Link>
+                <Link to={"#"}>{companyDetail?.company_name}</Link>
               </h4>
+              {file?.url ? (
+                <button
+                  onClick={handleUpdateCompanyLogo}
+                  className="site-button"
+                >
+                  Update
+                </button>
+              ) : null}
             </div>
           </div>
           <ul>

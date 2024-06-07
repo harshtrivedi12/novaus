@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { Link, Redirect, useNavigate } from "react-router-dom";
+import { Link, Redirect, useNavigate, useParams } from "react-router-dom";
 import {
   loadingToggleAction,
   loginAction,
@@ -11,26 +11,19 @@ import axios from "axios";
 import { showToastError } from "../../utils/toastify";
 
 function ResetPassword(props) {
+  const { token } = useParams();
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
   const [password, setPassword] = useState("123456");
   const [confirmPassword, setConfirmPassword] = useState("123456");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const url =
-    "https://novajobs.us/user/forgot-password?token=34tuvm6z2Or1wuDnbQs0&email=abhishekdevpro@gmail.com";
-
-  const queryString = new URL(url).search;
-
-  const tokenValue = queryString.substring(queryString.indexOf("token=") + 6);
-
-  console.log("Full token value:", tokenValue);
 
   const handlePostRequest = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("token", tokenValue);
+    formData.append("token", token);
     formData.append("new_password", password);
     await axios({
       method: "POST",

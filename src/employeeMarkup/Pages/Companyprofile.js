@@ -17,6 +17,7 @@ function EmployeeCompanyprofile() {
     (state) => state.companyDataSlice.companyData
   );
   let companyDetail = companyData?.company_detail;
+  console.log(companyDetail, "lavi");
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -124,6 +125,18 @@ function EmployeeCompanyprofile() {
   }, []);
 
   const updateCompanyData = async (e) => {
+    if (
+      !companyName ||
+      !email ||
+      !industry ||
+      !selectedCountry ||
+      !selectedStates ||
+      !selectedCities
+    ) {
+      showToastError("Please fill out all required fields.");
+      return;
+    }
+
     axios({
       method: "put",
       url: `https://novajobs.us/api/employeer/company`,
@@ -132,11 +145,8 @@ function EmployeeCompanyprofile() {
       },
       data: {
         company_name: companyName,
-        // summery: "summery",
         about: description,
-        // company_size_id: 1,
         email: email,
-        // company_type_id: 1,
         tagline: tagline,
         user_id: 1,
         website_link: website,
@@ -145,13 +155,12 @@ function EmployeeCompanyprofile() {
         country_id: Number(selectedCountry),
         state_id: Number(selectedStates),
         city_id: Number(selectedCities),
-        // zip_code: "434",
         address: address,
         facebook_link: glassdoor,
         twitter_link: twitter,
         google_link: googleBusiness,
         linkedin_link: linkdin,
-        company_industry_id: industry,
+        company_industry_id: Number(industry),
       },
     })
       .then((res) => {
@@ -213,15 +222,18 @@ function EmployeeCompanyprofile() {
                       <div className="row m-b30">
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
-                            <label>Company Name</label>
+                            <label htmlFor="companyName">Company Name</label>
                             <input
                               type="text"
+                              id="companyName"
+                              name="companyName"
                               className="form-control"
                               placeholder="Enter Company Name"
                               onChange={(e) => {
                                 setCompanyName(e.target.value);
                               }}
                               value={companyName}
+                              required
                             />
                           </div>
                         </div>
@@ -236,6 +248,7 @@ function EmployeeCompanyprofile() {
                                 setTagline(e.target.value);
                               }}
                               value={tagline}
+                              required
                             />
                           </div>
                         </div>
@@ -250,6 +263,7 @@ function EmployeeCompanyprofile() {
                                 setEmail(e.target.value);
                               }}
                               value={email}
+                              required
                             />
                           </div>
                         </div>
@@ -264,6 +278,7 @@ function EmployeeCompanyprofile() {
                                 setWebsite(e.target.value);
                               }}
                               value={website}
+                              required
                             />
                           </div>
                         </div>
@@ -278,6 +293,7 @@ function EmployeeCompanyprofile() {
                                 setDate(e.target.value);
                               }}
                               value={foundedYear}
+                              required
                             />
                           </div>
                         </div>
@@ -293,6 +309,7 @@ function EmployeeCompanyprofile() {
                                   setIndustry(e.target.value);
                                 }}
                                 value={industry}
+                                required
                               >
                                 {industries.map((item, index) => {
                                   return (
@@ -315,6 +332,7 @@ function EmployeeCompanyprofile() {
                                 setDescription(e.target.value);
                               }}
                               value={description}
+                              required
                             ></textarea>
                           </div>
                         </div>
@@ -337,6 +355,7 @@ function EmployeeCompanyprofile() {
                                 setNumber(e.target.value);
                               }}
                               value={number}
+                              required
                             />
                           </div>
                         </div>
@@ -349,6 +368,7 @@ function EmployeeCompanyprofile() {
                               onChange={(e) =>
                                 setSelectedCountry(e.target.value)
                               }
+                              required
                             >
                               <option value="">{selectedCountry}</option>
                               {countries.map((item) => (
@@ -370,6 +390,7 @@ function EmployeeCompanyprofile() {
                                 onChange={(e) =>
                                   setSelectedState(e.target.value)
                                 }
+                                required
                               >
                                 <option value="">{selectedStates}</option>
                                 {states.map((item) => (
@@ -392,6 +413,7 @@ function EmployeeCompanyprofile() {
                                 onChange={(e) => {
                                   setSelectedCities(e.target.value);
                                 }}
+                                required
                               >
                                 <option value="">{selectedCities}</option>
 
@@ -445,6 +467,7 @@ function EmployeeCompanyprofile() {
                                 setAddress(e.target.value);
                               }}
                               value={address}
+                              required
                             />
                           </div>
                         </div>
@@ -481,6 +504,7 @@ function EmployeeCompanyprofile() {
                                 setlinkdin(e.target.value);
                               }}
                               value={linkdin}
+                              required
                             />
                           </div>
                         </div>
@@ -495,6 +519,7 @@ function EmployeeCompanyprofile() {
                                 setTwitter(e.target.value);
                               }}
                               value={twitter}
+                              required
                             />
                           </div>
                         </div>
@@ -509,6 +534,7 @@ function EmployeeCompanyprofile() {
                                 setGoogleBusiness(e.target.value);
                               }}
                               value={googleBusiness}
+                              required
                             />
                           </div>
                         </div>
@@ -523,6 +549,7 @@ function EmployeeCompanyprofile() {
                                 setGlassdor(e.target.value);
                               }}
                               value={glassdoor}
+                              required
                             />
                           </div>
                         </div>
