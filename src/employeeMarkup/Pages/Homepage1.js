@@ -63,7 +63,7 @@ function EmployeeHomepage() {
           <div className="container">
             <div className="section-head text-center text-white">
               <div className="two-box-container " style={{ color: "white" }}>
-                <div className="red-box">
+                <div className="bg-danger red-box">
                   <div
                     style={{
                       display: "flex",
@@ -107,7 +107,7 @@ function EmployeeHomepage() {
                       to={"/user/job-application"}
                       style={{ color: "white" }}
                     >
-                     <button type="button" className="btn text-white" style={{backgroundColor:"#080F3A"}}>Apply Now</button>
+                     <button type="button" className="btn text-white hoverlogo-3d" style={{backgroundColor:"#080F3A"}}>Apply Now</button>
                     </Link>
                   </div>
                 </div>
@@ -157,7 +157,7 @@ function EmployeeHomepage() {
                       to={"/employee/register-2"}
                       style={{ color: "white" }}
                     >
-                      <button type="button" class="btn btn-danger">Search Talent</button>
+                      <button type="button" class="btn btn-danger hoverlogo-3d">Search Talent</button>
                     </Link>
                   </div>
                 </div>

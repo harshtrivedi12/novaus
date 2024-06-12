@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
 import {
   loadingToggleAction,
   signupAction,
 } from "../../store/actions/AuthActions";
+import {  showToastSuccess } from "../../utils/toastify";
+import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 import { showToastError } from "../../utils/toastify";
 import processVid from "../../gif process.mp4";
@@ -132,37 +134,75 @@ function Register2(props) {
 
   const dispatch = useDispatch();
 
-  async function onSignUp(e) {
-    e.preventDefault();
-    const body = {
-      first_name: registerValues.firstName,
-      last_name: registerValues.lastName,
-      company_name: registerValues.company,
-      proffesional_title: registerValues.jobTitle,
-      email: registerValues.email,
-      phone: registerValues.phone,
-      password: registerValues.password,
+ const onSignUp = async (e) => {
+  e.preventDefault();
+  const body = {
+    first_name: registerValues.firstName,
+    last_name: registerValues.lastName,
+    company_name: registerValues.company,
+    email: registerValues.email,
+    phone: registerValues.phone,
+    password: registerValues.password,
+  };
+
+  try {
+    const res = await axios.post("https://novajobs.us/api/jobseeker/auth/signup", body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
+
+    localStorage.setItem("jobseeker", res.data.data);
+    showToastSuccess("Please check your email");
+
+    // Send confirmation email with verification link
+    await sendConfirmationEmail(registerValues.email, res.data.token);
+
+    setShowUpload(false);
+  } catch (err) {
+    console.log(err);
+    showToastError("user already registered from this email before");
+  }
+};
+
+// Function to send confirmation email with verification link
+const sendConfirmationEmail = async (email, token) => {
+  try {
+    const verificationLink = `https://novajobs.us/api/jobseeker/verify-account/${token}?email=${encodeURIComponent(email)}`;
+    const emailBody = {
+      to: email,
+      subject: "Confirm Your Email",
+      body: `Please click on the following link to confirm your email: ${verificationLink}`,
     };
-    console.log(body);
-    axios({
-      url: "https://novajobs.us/api/jobseeker/auth/signup",
+
+    await axios.post("YOUR_BACKEND_EMAIL_SENDING_ENDPOINT", emailBody, {
       headers: {
         "Content-Type": "application/json",
       },
-      method: "post",
-      data: body,
-    })
-      .then((res) => {
-        console.log(res);
-        localStorage.setItem("jobSeekerLoginToken", res.data.data.token);
-
-        setShowUpload(false);
-      })
-      .catch((err) => {
-        console.log(err.response.data.message);
-        showToastError(err?.response?.data?.message);
-      });
+    });
+    console.log("Email sent successfully");
+  } catch (error) {
+    console.error("Error sending email:", error);
   }
+};
+
+
+const verifyAccount = async () => {
+  try {
+    const response = await axios.get(`/api/user/verify-account/${token}`);
+    console.log("Account verified successfully:", response.data);
+    // Handle success, maybe show a success message or redirect the user
+  } catch (error) {
+    console.error("Error verifying account:", error);
+    // Handle error, maybe show an error message to the user
+  }
+};
+
+// Call verifyAccount when component mounts
+useEffect(() => {
+  verifyAccount();
+}, []);
 
   const runAi = async (e) => {
     setRunAiButton("Running Ai");
@@ -193,8 +233,11 @@ function Register2(props) {
         showToastError(err?.response?.data?.message);
       });
   };
+
+  
   return (
     <div className="page-wraper">
+      <ToastContainer />
       <div className="browse-job login-style3">
         <div
           className="bg-img-fix"
@@ -220,7 +263,7 @@ function Register2(props) {
                   </Link>
                 </div>
 
-                {showUpload ? (
+                
                   <div className="tab-content nav p-b30 tab">
                     <div id="login" className="tab-pane active ">
                       {props.errorMessage && (
@@ -403,7 +446,8 @@ function Register2(props) {
                       </form>
                     </div>
                   </div>
-                ) : (
+                
+                {/*{showUpload ? : (
                   <div>
                     {AiBtn ? (
                       <form onSubmit={handleSubmit}>
@@ -475,7 +519,7 @@ function Register2(props) {
                       </div>
                     )}
                   </div>
-                )}
+                )}*/}
                 <div className="bottom-footer clearfix m-t10 m-b20 row text-center">
                   <div className="col-lg-12 text-center">
                     <span>

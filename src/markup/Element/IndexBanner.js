@@ -65,7 +65,7 @@ class IndexBanner extends Component {
               >
                 
                 <div className="hover-3d">
-                  <h2>NovaJobs.US, An AI-Enabled 360 Degree Job Portal</h2>
+                  <h2> An AI-Enabled 360 Degree Job Portal</h2>
                 </div>
               </div>
               <h2>

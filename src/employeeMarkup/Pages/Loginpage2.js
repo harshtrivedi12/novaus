@@ -114,7 +114,7 @@ function EmployeeLogin(props) {
                       color: "white",
                     }}
                   >
-                    Welcome To One Stop Ai Powered Staffing Solution
+                    Welcome To One Stop AI Powered Staffing Solution
                   </p>
                   <ul
                     className="list-inline m-r10 text-white "
@@ -223,7 +223,7 @@ function EmployeeLogin(props) {
                       <div className="form-group text-center">
                         <Link
                           data-toggle="tab"
-                          to="#forgot-password"
+                          to={"/user/email-verification"}
                           className="forget-pass m-l5"
                         >
                           <i className="fa fa-unlock-alt"></i> Forgot Password

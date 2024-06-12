@@ -94,29 +94,29 @@ function Footer() {
                 <ul className="list-inline m-a0">
                   <li>
                     <Link
-                      to={""}
+                      to={"https://www.facebook.com/Novausjobs"}
                       className="site-button white facebook circle "
                     >
                       <i className="fa fa-facebook"></i>
                     </Link>
                   </li>
                   <li>
-                    <Link
+                    {/*<Link
                       to={""}
                       className="site-button white google-plus circle "
                     >
                       <i className="fa fa-google-plus"></i>
-                    </Link>
+                    </Link>*/}
                   </li>
                   <li>
                     <Link
-                      to={""}
+                      to={"https://www.linkedin.com/company/nova-us-jobs/"}
                       className="site-button white linkedin circle "
                     >
                       <i className="fa fa-linkedin"></i>
                     </Link>
                   </li>
-                  <li>
+                  {/*<li>
                     <Link
                       to={""}
                       className="site-button white instagram circle "
@@ -128,7 +128,7 @@ function Footer() {
                     <Link to={""} className="site-button white twitter circle ">
                       <i className="fa fa-twitter"></i>
                     </Link>
-                  </li>
+                  </li>*/}
                 </ul>
               </div>
             </div>
@@ -396,7 +396,7 @@ function Footer() {
                     width: "40px",
                   }}
                 />{" "}
-                Hyper V Solutions | All Rights Reserved
+                <strong style={{ color: "white", fontWeight: "bold" }}>Hyper V Solutions</strong> | All Rights Reserved
               </span>
               <span className="float-right">
                 <span className="m-2">

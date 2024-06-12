@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
 import {
@@ -6,11 +6,14 @@ import {
   signupAction,
 } from "../../store/actions/AuthActions";
 import axios from "axios";
-import { showToastError } from "../../utils/toastify";
+import { showToastError, showToastSuccess } from "../../utils/toastify";
 import processVid from "../../gif process.mp4";
 // var bnr = require("./../../images/background/bg6.jpg");
 import bnr from "../../images/login/loginbg.jpeg";
 import validator from "validator";
+import { toast, ToastContainer } from "react-toastify";
+
+
 import Footer from "../Layout/Footer";
 function EmployeeRegister2(props) {
   let errorsObj = { email: "", password: "" };
@@ -27,6 +30,7 @@ function EmployeeRegister2(props) {
   const [file, setFile] = useState();
   const [jobSeekerId, setJobSeekerId] = useState("");
   const token = localStorage.getItem("jobSeekerLoginToken");
+  console.log('itstoken',token)
   const [AiBtn, setAiBtn] = useState(true);
   const [showVideo, setShowVideo] = useState(true);
   const [showPercentage, setShowPercentage] = useState(false);
@@ -34,7 +38,7 @@ function EmployeeRegister2(props) {
   const navigate = useNavigate();
   const [resumeUrl, setResumeUrl] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+const notify = (data) => toast.warning(data);
   const [registerValues, setRegisterValues] = useState({
     firstName: "",
     lastName: "",
@@ -44,6 +48,7 @@ function EmployeeRegister2(props) {
     // jobTitle: "",
   });
   console.log(registerValues, "values");
+
   const handleRegisterChange = (e) => {
     const { name, value } = e.target;
     setRegisterValues({ ...registerValues, [name]: value });
@@ -93,6 +98,8 @@ function EmployeeRegister2(props) {
     }
   };
 
+  {
+    /*
   function handleChange(event) {
     setFile(event.target.files[0]);
   }
@@ -124,48 +131,80 @@ function EmployeeRegister2(props) {
         console.log(resumeUrl, res, res.data.data[0].file_path);
       })
       .catch((error) => {
-        alert("error");
+        alert("errorddd");
         console.error(error);
       });
-  }
+  } */}
 
   const dispatch = useDispatch();
 
-  async function onSignUp(e) {
+  const onSignUp = async (e) => {
     e.preventDefault();
     const body = {
       first_name: registerValues.firstName,
       last_name: registerValues.lastName,
       company_name: registerValues.company,
-      // jobtitle: registerValues.jobTitle,
       email: registerValues.email,
       phone: registerValues.phone,
       password: registerValues.password,
     };
-    console.log(body);
+
     try {
-      axios({
-        url: "https://novajobs.us/api/employeer/auth/signup",
+      const res = await axios.post("https://novajobs.us/api/employeer/auth/signup", body, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: token,
         },
-        method: "post",
-        data: body,
-      })
-        .then((res) => {
-          console.log(res);
-          localStorage.setItem("employeeLoginToken", res.data.data.token);
+      });
 
-          setShowUpload(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } catch (error) {
-      console.log(error);
+      localStorage.setItem("employeeLoginToken", res.data.data);
+      showToastSuccess("Please check your email");
+
+      // Send email to the user upon successful registration
+      await sendConfirmationEmail(registerValues.email);
+
+      setShowUpload(false);
+    } catch (err) {
+      console.log(err);
+      showToastError("Employee already registered from this email before");
     }
-  }
+  };
 
+  // Function to send confirmation email
+  const sendConfirmationEmail = async (email) => {
+    try {
+      await axios.post(
+        "YOUR_BACKEND_EMAIL_SENDING_ENDPOINT",
+        { email },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Email sent successfully");
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
+  };
+
+  const verifyAccount = async () => {
+    try {
+      const response = await axios.get(`/api/user/verify-account/${token}`);
+      console.log("Account verified successfully:", response.data);
+      // Handle success, maybe show a success message or redirect the user
+    } catch (error) {
+      console.error("Error verifying account:", error);
+      // Handle error, maybe show an error message to the user
+    }
+  };
+
+  // Call verifyAccount when component mounts
+  useEffect(() => {
+    verifyAccount();
+  }, []); 
+  {
+    /*
   const runAi = async (e) => {
     setRunAiButton("Running Ai");
     setShowVideo(true);
@@ -195,9 +234,11 @@ function EmployeeRegister2(props) {
         showToastError(err?.response?.data?.message);
       });
   };
+*/}
   return (
     <div className="page-wraper">
       <div className="browse-job login-style3">
+      <ToastContainer />
         <div
           className="bg-img-fix"
           style={{
@@ -222,7 +263,7 @@ function EmployeeRegister2(props) {
                   </Link>
                 </div>
 
-                {showUpload ? (
+                
                   <div className="tab-content nav p-b30 tab">
                     <div id="login" className="tab-pane active ">
                       {props.errorMessage && (
@@ -413,7 +454,7 @@ function EmployeeRegister2(props) {
                       </div> */}
                     </div>
                   </div>
-                ) : (
+                 { /*(
                   <div>
                     {AiBtn ? (
                       <form onSubmit={handleSubmit}>
@@ -480,7 +521,8 @@ function EmployeeRegister2(props) {
                       </div>
                     )}
                   </div>
-                )}
+                ) */}
+                
                 <div className="bottom-footer clearfix m-t10 m-b20 row text-center">
                   <div className="col-lg-12 text-center">
                     <span>

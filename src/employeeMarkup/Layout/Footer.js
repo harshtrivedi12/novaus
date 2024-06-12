@@ -91,29 +91,28 @@ function EmployeerFooter() {
                 <ul className="list-inline m-a0">
                   <li>
                     <Link
-                      to={""}
+                      to={"https://www.facebook.com/Novausjobs"}
                       className="site-button white facebook circle "
                     >
                       <i className="fa fa-facebook"></i>
                     </Link>
                   </li>
                   <li>
-                    <Link
+                    {/*<Link
                       to={""}
-                      className="site-button white google-plus circle "
-                    >
+                      className="site-button white google-plus circle ">
                       <i className="fa fa-google-plus"></i>
-                    </Link>
+                    </Link>*/}
                   </li>
                   <li>
                     <Link
-                      to={""}
+                      to={"https://www.linkedin.com/company/nova-us-jobs/"}
                       className="site-button white linkedin circle "
                     >
                       <i className="fa fa-linkedin"></i>
                     </Link>
                   </li>
-                  <li>
+                {/*  <li>
                     <Link
                       to={""}
                       className="site-button white instagram circle "
@@ -125,7 +124,7 @@ function EmployeerFooter() {
                     <Link to={""} className="site-button white twitter circle ">
                       <i className="fa fa-twitter"></i>
                     </Link>
-                  </li>
+                  </li>*/}
                 </ul>
               </div>
             </div>
@@ -380,25 +379,26 @@ function EmployeerFooter() {
       </div>
 
       <div className="footer-bottom">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12 text-center">
-              <span>
-                {" "}
-                © Copyright by{" "}
-                <img
-                  src={india}
-                  alt=""
-                  style={{
-                    width: "40px",
-                  }}
-                />{" "}
-                “Hyper V Solutions” | All Rights Reserved
-              </span>
-            </div>
-          </div>
-        </div>
+  <div className="container">
+    <div className="row">
+      <div className="col-lg-12 text-center">
+        <span style={{ color: "white" }}>
+          {" "}
+          © Copyright by{" "}
+          <img
+            src={india}
+            alt=""
+            style={{
+              width: "40px",
+            }}
+          />{" "}
+          <strong style={{ color: "white", fontWeight: "bold" }}>Hyper V Solutions</strong> | All Rights Reserved
+        </span>
       </div>
+    </div>
+  </div>
+</div>
+
     </footer>
   );
 }

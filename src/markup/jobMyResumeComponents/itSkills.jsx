@@ -10,6 +10,8 @@ import { FaEdit } from "react-icons/fa";
 
 const ITSkillsComponent = () => {
   const [itskills, setItSkills] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(""); // State to manage error message
+  const[resumeUploaded,setResumeUploaded]= useState("")
   const dispatch = useDispatch();
   const itSkillsData = useSelector(
     (state) => state.jobsMyResumeSlice.jobsMyResumeData.itSkillsData
@@ -21,6 +23,11 @@ const ITSkillsComponent = () => {
   const [editIndex, setEditIndex] = useState(-1);
 
   const updateItem = () => {
+    if (!resumeUploaded) {
+      setErrorMessage("Please upload resume");
+      return;
+    }
+
     if (editIndex === -1) return;
 
     const updatedFormData = [...itSkillsData];
@@ -39,6 +46,7 @@ const ITSkillsComponent = () => {
     );
     setItSkills(false);
     setEditIndex(-1);
+    setErrorMessage(""); // Clear error message on successful update
   };
 
   const editItem = (index) => {
@@ -60,14 +68,15 @@ const ITSkillsComponent = () => {
   };
 
   const handleAdd = () => {
-    if (editIndex !== -1) {
-      return;
-    }
-
     const trimmedSkills = itSkillsValue.skills.trim();
     const trimmedVersion = itSkillsValue.version.trim();
     const trimmedLastUsed = itSkillsValue.lastUsed.trim();
     const trimmedExperience = itSkillsValue.experience.trim();
+
+    if (!resumeUploaded) {
+      setErrorMessage("Please upload resume");
+      return;
+    }
 
     if (
       trimmedSkills &&
@@ -92,11 +101,21 @@ const ITSkillsComponent = () => {
         })
       );
       setItSkills(false);
+      setErrorMessage(""); // Clear error message on successful add
     }
   };
+
+  const handleResumeUpload = (e) => {
+    if (e.target.files.length > 0) {
+      setResumeUploaded(true);
+      setErrorMessage("");
+    } else {
+      setResumeUploaded(false);
+    }
+  };
+
   return (
     <div>
-      {" "}
       <div className="d-flex">
         <h5 className="m-b15">IT Skills</h5>
         <Link
@@ -171,6 +190,7 @@ const ITSkillsComponent = () => {
                   );
                   setItSkills(false);
                   setEditIndex(-1);
+                  setErrorMessage(""); // Clear error message on cancel
                 }}
               >
                 <span>&times;</span>
@@ -249,7 +269,7 @@ const ITSkillsComponent = () => {
                         value={itSkillsValue.experience}
                         className="form-control"
                       />
-                      {/* <div className="row">
+                       {/* <div className="row">
                         <div className="col-lg-12 col-12">
                             <label htmlFo></label>
                           <Form.Control as="select">
@@ -294,6 +314,11 @@ const ITSkillsComponent = () => {
                   </div>
                 </div>
               </form>
+              {errorMessage && (
+                <div className="alert alert-danger" role="alert">
+                  {errorMessage}
+                </div>
+              )}
             </div>
             <div className="modal-footer">
               <button
@@ -310,6 +335,7 @@ const ITSkillsComponent = () => {
                   );
                   setItSkills(false);
                   setEditIndex(-1);
+                  setErrorMessage(""); // Clear error message on cancel
                 }}
               >
                 Cancel

@@ -53,26 +53,26 @@ function EmployeeFooter() {
                 <ul className="list-inline m-a0">
                   <li>
                     <Link
-                      to={""}
+                      to={"https://www.facebook.com/Novausjobs"}
                       className="site-button white facebook circle ">
                       <i className="fa fa-facebook"></i>
                     </Link>
                   </li>
                   <li>
-                    <Link
+                    {/*<Link
                       to={""}
                       className="site-button white google-plus circle ">
                       <i className="fa fa-google-plus"></i>
-                    </Link>
+                    </Link>*/}
                   </li>
                   <li>
                     <Link
-                      to={""}
+                      to={"https://www.linkedin.com/company/nova-us-jobs/"}
                       className="site-button white linkedin circle ">
                       <i className="fa fa-linkedin"></i>
                     </Link>
                   </li>
-                  <li>
+                  {/*<li>
                     <Link
                       to={""}
                       className="site-button white instagram circle ">
@@ -83,7 +83,7 @@ function EmployeeFooter() {
                     <Link to={""} className="site-button white twitter circle ">
                       <i className="fa fa-twitter"></i>
                     </Link>
-                  </li>
+                  </li>*/}
                 </ul>
               </div>
             </div>

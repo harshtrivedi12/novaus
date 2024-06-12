@@ -120,7 +120,7 @@ function Login(props) {
                       fontSize: "20px",
                     }}
                   >
-                    Welcome To One Stop Ai Powered Staffing Solution
+                    Welcome To One Stop AI Powered Staffing Solution
                   </p>
                   <ul
                     className="list-inline m-r10 text-white "
@@ -130,7 +130,7 @@ function Login(props) {
                     }}
                   >
                     <li>
-                      <Link to={""} className="m-r10 text-white ">
+                      <Link to={"https://www.linkedin.com/company/nova-us-jobs/"} className="m-r10 text-white ">
                         <i className="fa fa-linkedin"></i>
                       </Link>
                     </li>

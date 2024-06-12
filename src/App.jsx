@@ -126,7 +126,7 @@ import ForgotPassword from "./markup/Pages/ForgotPassword";
 import ResetPassword from "./markup/Pages/ResetPassword";
 import ResumeSecurity from "./markup/Pages/ResumeSecurity";
 import LandingPage from "./employeeMarkup/Pages/LandingPage";
-
+import Verifyemail from "./markup/Pages/Verifyemail";
 function App() {
   const dispatch = useDispatch();
 
@@ -143,6 +143,7 @@ function App() {
         <Route path="reset-password/:token" element={<ResetPassword />} />
         <Route path="register" element={<Register1 />} />
         <Route path="register-2" element={<Register2 />} />
+        <Route path="verify" element={<Verifyemail />} />
         <Route
           path="jobs-profile"
           element={
@@ -414,6 +415,14 @@ function App() {
           element={
             <UserPrivateRoute>
               <Register2 />
+            </UserPrivateRoute>
+          }
+        />
+        <Route
+          path="verify"
+          element={
+            <UserPrivateRoute>
+              <Verifyemail/>
             </UserPrivateRoute>
           }
         />

@@ -111,7 +111,7 @@ function Homepage() {
                     <Link
                       to={"/user/job-application"}
                       style={{ color: "white" }}
-                    ><button type="button" className="btn text-white" style={{backgroundColor:"#080F3A"}}>Apply Now</button>
+                    ><button type="button" className="btn text-white hoverlogo-3d" style={{backgroundColor:"#080F3A"}}>Apply Now</button>
                       
                     </Link>
                   </div>
@@ -161,7 +161,7 @@ function Homepage() {
                     <Link
                       to={"/employee/register-2"}
                       style={{ color: "white" }}
-                    ><button type="button" class="btn btn-danger">Search Talent</button>
+                    ><button type="button" class="btn btn-danger hoverlogo-3d">Search Talent</button>
                       
                     </Link>
                   </div>
@@ -305,14 +305,14 @@ function Homepage() {
                           Jumpstart your AI Powered career transformation with
                           our free Plan, all at no cost.
                         </p>
-                       {/* <div className="m-t20">
+                        <div className="m-t20">
                           <Link
                             to={"/user/register-2"}
                             className="site-button radius-xl"
                           >
                             <span className="p-lr30">Sign Up</span>
                           </Link>
-                        </div>*/}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -335,14 +335,14 @@ function Homepage() {
                         <p>
                           Explore our freemium plan, with pay as you go option.
                         </p>
-                      {/*  <div className="m-t20">
+                        <div className="m-t20">
                           <Link
                             to={"/user/register-2"}
                             className="site-button white radius-xl"
                           >
                             <span className="text-primary p-lr30">Sign Up</span>
                           </Link>
-                        </div>*/}
+                        </div>
                       </div>
                     </div>
                   </div>

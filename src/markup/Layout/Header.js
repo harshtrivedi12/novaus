@@ -134,6 +134,10 @@ class UserHeader extends Component {
                         </li>
                       </ul> */}
                     </li>
+                    
+                    <li className="">
+                      <Link to={"/services"}>services </Link>
+                    </li>
                     <li
                       onClick={() => {
                         localStorage.removeItem("selectedLocation");
@@ -143,13 +147,10 @@ class UserHeader extends Component {
                     >
                       <Link to={"/user/job-application"}>Job Page</Link>
                     </li>
-                    <li className="">
-                      <Link to={"/services"}>services </Link>
-                    </li>
                     {localStorage.getItem("jobSeekerLoginToken") ? (
                       <li>
                         <Link to={"#"}>
-                          Dashborad <i className="fa fa-chevron-down"></i>
+                          Dashboard <i className="fa fa-chevron-down"></i>
                         </Link>
                         <ul className="sub-menu">
                           <li>

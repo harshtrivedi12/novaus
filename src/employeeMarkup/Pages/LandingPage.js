@@ -116,7 +116,7 @@ const LandingPage = () => {
       <div className="banner">
         <div className="banner-text">
           <h2>
-            Nova Jobs us <br /> Ai based job Portal
+            Nova Jobs us <br /> AI based job Portal
           </h2>
         </div>
         <div className="banner-img">

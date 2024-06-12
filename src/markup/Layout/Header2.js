@@ -2,30 +2,53 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import Logout from "./Logout";
+import axios from 'axios';
 
 var bnr3 = require("./../../images/background/bg3.jpg");
 
 class UserHeader2 extends Component {
   state = {
-    // initial state
     show: false,
+    resume: null,
   };
 
   handleClose = () => {
     this.setState({ show: false });
   };
+
   handleShow = () => {
     this.setState({ show: true });
   };
+
+  handleResumeChange = (event) => {
+    const resume = event.target.files[0];
+    if (resume) {
+      const formData = new FormData();
+      formData.append("resume", resume);
+
+      // Use your API endpoint here
+      axios.post("/api/upload-resumess", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        alert("Resume uploaded successfully");
+      })
+      .catch((error) => {
+        console.error("There was an error uploading the resume!", error);
+      });
+    }
+  };
+  
+
   componentDidMount() {
     // sidebar open/close
-
     var Navicon = document.querySelector(".navicon");
     var sidebarmenu = document.querySelector(".myNavbar ");
 
     function toggleFunc() {
       sidebarmenu.classList.toggle("show");
-      //   Navicon.classList.toggle('open');
     }
     Navicon.addEventListener("click", toggleFunc);
 
@@ -50,6 +73,7 @@ class UserHeader2 extends Component {
       }, 100);
     }
   }
+
   render() {
     return (
       <>
@@ -58,7 +82,6 @@ class UserHeader2 extends Component {
             <div className="main-bar clearfix">
               <div className="container clearfix">
                 <div className="logo-header mostion">
-                  {/* <Link to={"./"}><img src={require('./../../images/logo.png')} className="logo" alt="" /></Link> */}
                   <Link to={"/user"}>
                     <img
                       src={require("./../../images/logo/NovaUS.png")}
@@ -86,12 +109,24 @@ class UserHeader2 extends Component {
                     {localStorage.getItem("jobSeekerLoginToken") ? null : (
                       <Link to={"/user/register-2"} className="site-button">
                         <i className="fa fa-user"></i> Sign Up
-                        
                       </Link>
                     )}
-                    {/* <Link to={'#'} title="READ MORE" onClick={this.handleShow} className="site-button"><i className="fa fa-lock"></i> login </Link> */}
                     {localStorage.getItem("jobSeekerLoginToken") ? (
-                      <Logout />
+                      <>
+                        <button
+                          className="site-button"
+                          onClick={() => this.fileInput.click()}
+                        >
+                          <i className="fa fa-upload"></i> Upload Resume
+                        </button>
+                        <input
+                          type="file"
+                          style={{ display: "none" }}
+                          ref={(fileInput) => (this.fileInput = fileInput)}
+                          onChange={this.handleResumeChange}
+                        />
+                        <Logout />
+                      </>
                     ) : (
                       <Link to={"/user/login"} className="site-button">
                         <i className="fa fa-user"></i> Log in
@@ -172,9 +207,7 @@ class UserHeader2 extends Component {
                             <span className="new-page">New</span>
                           </Link>
                         </li>
-                      </ul>
-                    </li>
-                    {/* <li>
+                         {/* <li>
                       <Link to={"#"}>
                         For Employers <i className="fa fa-chevron-down"></i>
                       </Link>
@@ -459,6 +492,8 @@ class UserHeader2 extends Component {
                         </li>
                       </ul>
                     </li> */}
+                      </ul>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -525,7 +560,9 @@ class UserHeader2 extends Component {
                 <div className="col-lg-6 col-md-6 p-a0">
                   <div className="lead-form browse-job text-left">
                     <form>
-                      <h3 className="m-t0">Personal Details</h3>
+                      <h3 className="m-t0">
+                        Personal Details{" "}
+                      </h3>
                       <div className="form-group">
                         <input
                           value=""
@@ -554,7 +591,7 @@ class UserHeader2 extends Component {
             </div>
           </div>
         </Modal>
-        {/*  Model END */}
+        {/*  Model End */}
       </>
     );
   }

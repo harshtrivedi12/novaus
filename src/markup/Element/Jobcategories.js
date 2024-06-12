@@ -3,14 +3,21 @@ import { showToastError } from "../../utils/toastify";
 import React, { useEffect, useState } from "react";
 import {
   FaAccessibleIcon,
+  FaAddressCard,
   FaAppleAlt,
+  FaArtstation,
+  FaBuilding,
   FaCarSide,
   FaChartBar,
   FaChartLine,
   FaHatCowboy,
+  FaHotel,
+  FaPhone,
   FaStar,
+  FaTable,
+  FaWarehouse,
 } from "react-icons/fa";
-import { FaAppStore, FaBriefcase } from "react-icons/fa6";
+import { FaAppStore, FaBriefcase, FaHeartPulse } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 
 function Jobcategories() {
@@ -42,14 +49,15 @@ function Jobcategories() {
   }, []);
 
   const iconMap = {
-    1: FaStar,
-    2: FaHatCowboy,
+    1: FaArtstation,
+    2: FaAddressCard,
     3: FaChartBar,
-    4: FaCarSide,
-    5: FaAccessibleIcon,
-    6: FaAppStore,
-    7: FaChartLine,
-    8: FaBriefcase,
+    4: FaTable,
+    5: FaPhone,
+    6: FaHotel,
+    7: FaWarehouse,
+    8: FaHeartPulse,
+    9: FaBuilding,
   };
 
   return (
@@ -223,7 +231,11 @@ function Jobcategories() {
         </div>
       </div> */}
       <div className="col-lg-12 text-center m-t30">
-        <button className="site-button radius-xl">All Categories</button>
+        <button className="site-button radius-xl">
+          <Link to={"/user/job-application"} className="site-button">
+            All Categories
+          </Link>
+        </button>
       </div>
     </div>
   );

@@ -97,7 +97,8 @@ function Jobsection() {
               <h6 className="fw4 m-b0">20+ Recently Added Jobs</h6>
             </div>
             <div className="align-self-end">
-              <Link to={"/browse-job-list"} className="site-button button-sm">
+              
+              <Link to={"/user/job-application"} className="site-button button-sm">
                 Browse All Jobs <i className="fa fa-long-arrow-right"></i>
               </Link>
             </div>
