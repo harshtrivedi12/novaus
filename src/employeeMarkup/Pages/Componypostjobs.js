@@ -19,7 +19,8 @@ import {
 import ReactQuill from "react-quill";
 import QualificationSetting from "../Element/qualificationSettingsEditor";
 import axios from "axios";
-import { showToastError } from "../../utils/toastify";
+import { showToastError , showToastSuccess} from "../../utils/toastify";
+
 import { useEffect } from "react";
 import CompanySideBar from "../Layout/companySideBar";
 function EmployeeComponypostjobs() {
@@ -35,6 +36,7 @@ function EmployeeComponypostjobs() {
   const handleSuggestions = () => {
     setSuggestions(false);
   };
+  const [jobPostingStatus, setJobPostingStatus] = useState("pending");
 
   function renderSection(text) {
     const htmlText = text
@@ -368,6 +370,18 @@ function EmployeeComponypostjobs() {
     company: "",
   });
   console.log(countries, "ciosda");
+
+  const handlePostJob = async () => {
+    // Step 2: Update job posting status and perform necessary actions
+    setJobPostingStatus("under_review");
+    // Call your API to post the job here
+    try {
+      await postCompleted();
+      showToastSuccess("Your Job post is under review");
+    } catch (error) {
+      showToastError("Failed to post job");
+    }
+  };
   return (
     <>
       <Header2 />
@@ -402,6 +416,7 @@ function EmployeeComponypostjobs() {
                               name="jobTitle"
                               value={postAJobData.jobTitle}
                               onChange={handleChange}
+                              
                             />
                           </div>
                           {errors.jobTitle && (
@@ -418,6 +433,7 @@ function EmployeeComponypostjobs() {
                               id="company"
                               name="company"
                               value={postAJobData.company}
+                              disabled
                             />
                           </div>
                           {errors.company && (
@@ -667,15 +683,18 @@ function EmployeeComponypostjobs() {
                           If You want help with your job description, we will
                           use the information above and AI to suggest One.{" "}
                           <br />{" "}
-                          <span style={{ color: "#0a66c2", fontWeight: "600" }}>
+                          {/*<span style={{ color: "#0a66c2", fontWeight: "600" }}>
                             Learn More
-                          </span>
+                          </span>*/}
                         </p>
                         <p className="text-center ">
                           Limits may apply to free job posts.
+                          <Link to={"/employee/term-of-use-nova-jobs"}>
                           <span style={{ color: "#0a66c2", fontWeight: "600" }}>
                             View Our Policy
                           </span>
+                        </Link>
+                          
                         </p>
                       </div>
                     )}
@@ -713,6 +732,7 @@ function EmployeeComponypostjobs() {
                             id="check1"
                             class="custom-control-input selectAllCheckBox"
                             name="example1"
+                            disabled
                           />
                           <label
                             class="custom-control-label"
@@ -732,16 +752,26 @@ function EmployeeComponypostjobs() {
                         display: "flex",
                         gap: 10,
                       }}>
-                      <button
-                        onClick={postCompleted}
-                        className="site-button d-flex justify-content-center align-items-center">
-                        Pending
-                      </button>
-                      <button
-                        // onClick={handleAddSkill}
-                        className="site-button d-flex justify-content-center align-items-center">
-                        Pending
-                      </button>
+                       <div
+        style={{
+          display: "flex",
+          gap: 10,
+        }}>
+        {/* Step 3: Update UI based on job posting status */}
+        {jobPostingStatus === "pending" ? (
+          <button
+            onClick={handlePostJob}
+            className="site-button d-flex justify-content-center align-items-center">
+            Post job
+          </button>
+        ) : (
+          <button
+            // onClick={handleAddSkill}
+            className="site-button d-flex justify-content-center align-items-center">
+            Add Another Job
+          </button>
+        )}
+      </div>
                     </div>
                   </div>
                 </div>

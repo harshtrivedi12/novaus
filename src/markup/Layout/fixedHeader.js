@@ -2,13 +2,12 @@ import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import { Form } from "react-bootstrap";
-import { showToastSuccess } from "../../utils/toastify";
+import { showToastSuccess, showToastError } from "../../utils/toastify";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { setProfileImageValue } from "../../store/reducers/jobProfileSlice";
-import axios from "axios";
-import { showToastError } from "../../utils/toastify";
 import { setFixedHeaderValues } from "../../store/reducers/fixedHeaderSlice";
+import axios from "axios";
 import SimpleLoadingSkeleton from "../skeleton/simpleLoadingSkeleton";
 import processVid from "../../gif process.mp4";
 import { connect } from "react-redux";
@@ -21,11 +20,14 @@ const FixedHeader = () => {
   const [runAiButton, setRunAiButton] = useState("Run AI");
 
   const [file, setFile] = useState();
-  
   const [AiBtn, setAiBtn] = useState(true);
   const [showVideo, setShowVideo] = useState(true);
   const [showPercentage, setShowPercentage] = useState(false);
-  const [percentage, setPercentage] = useState();
+  const [percentage, setPercentage] = useState(() => {
+    // Retrieve percentage from localStorage if available
+    const storedPercentage = localStorage.getItem('resumePercentage');
+    return storedPercentage ? JSON.parse(storedPercentage) : null;
+  });
   const navigate = useNavigate();
   const [resumeUrl, setResumeUrl] = useState("");
   const [showSkeleton, setShowSkeleton] = useState(true);
@@ -33,6 +35,7 @@ const FixedHeader = () => {
   const [imgData, setImgData] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [spinner, setSpinner] = useState(false);
+  const [resumeId, setResumeId] = useState(0); // New state for resume ID
 
   const profileImageValue = useSelector(
     (state) => state.jobProfileSlice.profileImageValue
@@ -56,6 +59,13 @@ const FixedHeader = () => {
     (state) => state.jobProfileSlice.jobProfileValues
   );
 
+  useEffect(() => {
+    // Save percentage to localStorage whenever it changes
+    if (percentage !== null) {
+      localStorage.setItem('resumePercentage', JSON.stringify(percentage));
+    }
+  }, [percentage]);
+  
   const token = localStorage.getItem("jobSeekerLoginToken");
   useEffect(() => {
     axios({
@@ -80,6 +90,7 @@ const FixedHeader = () => {
             n_profile_strength: data.n_profile_strength,
           })
         );
+        setResumeId(data.job_seeker_resumes?.id || 0); // Set resume ID
         setShowSkeleton(false);
       })
       .catch((err) => {
@@ -169,13 +180,9 @@ const FixedHeader = () => {
 
   console.log(fullImageUrl);
 
-
-
   function handleChange(event) {
     setFile(event.target.files[0]);
   }
-
- 
 
   function handleSubmit(event) {
     setSpinner(true);
@@ -207,7 +214,7 @@ const FixedHeader = () => {
 
   const dispatch = useDispatch();
 
-  const runAi = async (e) => {
+const runAi = async (e) => {
     setRunAiButton("Running Ai");
     setShowVideo(true);
     e.preventDefault();
@@ -227,7 +234,7 @@ const FixedHeader = () => {
         console.log(res.data.data.content_acuracy_percentage);
         setShowPercentage(true);
         setPercentage(
-          `Your Ai Resume score is ${res.data.data.content_acuracy_percentage}`
+          `Your AI Resume score is ${res.data.data.content_acuracy_percentage}`
         );
       })
       .catch((err) => {
@@ -236,6 +243,7 @@ const FixedHeader = () => {
         showToastError(err?.response?.data?.message);
       });
   };
+
   return (
     <div
       className="overlay-black-dark profile-edit p-t50 p-b20"
@@ -243,7 +251,8 @@ const FixedHeader = () => {
     >
       <ToastContainer />
       <div className="container">
-        <div className="row">
+        <div className="d-flex justify-content-around">
+          <div className="m-">
           <div className="candidate-info">
             {showSkeleton === true ? (
               <SimpleLoadingSkeleton />
@@ -266,20 +275,6 @@ const FixedHeader = () => {
                         />
                       )}
                     </Link>
-
-                    {/* <div
-                    className="upload-link"
-                    title="update"
-                    data-toggle="tooltip"
-                    data-placement="right"
-                  >
-                    <input
-                      type="file"
-                      className="update-flie"
-                      onChange={handleImageChange}
-                    />
-                    <i className="fa fa-camera"></i>
-                  </div> */}
                   </div>
                   <div className="text-white browse-job text-left">
                     {fixedHeaderValues.first_name ||
@@ -299,49 +294,66 @@ const FixedHeader = () => {
                         {fixedHeaderValues.professional_title}
                       </p>
                     ) : null}
+
                     <ul className="clearfix">
-                      {fixedHeaderValues.country_id ||
-                      fixedHeaderValues.state_id ? (
+                      {fixedHeaderValues.email ? (
                         <li>
-                          <i className="ti-location-pin"></i>{" "}
-                          {getSingleCountry(fixedHeaderValues.country_id)}
-                          {getSingleState(fixedHeaderValues.state_id)}
+                          <i className="ti-email"></i>
+                          {fixedHeaderValues.email}
                         </li>
                       ) : null}
                       {fixedHeaderValues.phone ? (
                         <li>
-                          <i className="ti-mobile"></i>{" "}
+                          <i className="ti-mobile"></i>
                           {fixedHeaderValues.phone}
                         </li>
                       ) : null}
-                      {/* <li>
-                    <i className="ti-briefcase"></i> Fresher
-                  </li> */}
-                      {fixedHeaderValues.email ? (
+                      {fixedHeaderValues.country_id ? (
                         <li>
-                          <i className="ti-email"></i> {fixedHeaderValues.email}
+                          <i className="ti-location-pin"></i>
+                          {getSingleCountry(fixedHeaderValues.country_id)}{" "}
+                          {fixedHeaderValues.state_id ? (
+                            <>{`, ${getSingleState(fixedHeaderValues.state_id)}`}</>
+                          ) : (
+                            ""
+                          )}
                         </li>
                       ) : null}
                     </ul>
-                    <div className="progress-box m-t10">
-                      <div className="progress-info">
-                        Profile Strength (Average)
-                        <span>{fixedHeaderValues.n_profile_strength}</span>
-                      </div>
+
+                    <div className="progress-bx mb-5">
                       <div className="progress">
                         <div
-                          className="progress-bar bg-primary"
+                          className="progress-bar"
+                          role="progressbar"
                           style={{
                             width: `${fixedHeaderValues.n_profile_strength}%`,
                           }}
-                          role="progressbar"
+                          aria-valuenow={fixedHeaderValues.n_profile_strength}
+                          aria-valuemin="0"
+                          aria-valuemax="100"
                         ></div>
                       </div>
+                      <p className="font-12 m-b0">Profile Strength</p>
                     </div>
+
+                    
+
+                   
+
+                   
                   </div>
                 </div>
+                
+              </div>
+            )}
+          </div>
+          </div>
 
-                <div className="d-flex ml-5 pl-5">
+          <div className="ms-5 float-end">
+          {resumeId === 0 ? (
+                      <div>
+                        <div className="d-flex ml-5 pl-5">
                   <div
                     style={{
                       borderRight: "1px solid white",
@@ -400,7 +412,7 @@ const FixedHeader = () => {
                             </div>
                             {showPercentage ? (
                               <div>
-                                <p>{percentage}</p>
+                                <p className="text-white">{percentage}</p>
                                 <button
                                   className="site-button dz-xs-flex m-r5"
                                   onClick={(e) => {
@@ -426,191 +438,51 @@ const FixedHeader = () => {
                     }
                   </div>
                 </div>
-              </div>
-            )}
+                {console.log(percentage)}
+                      </div>
+                    ) : (
+                       <div>
+                            <div>
+                              <video
+                                width="200px"
+                                loop={showVideo}
+                                autoPlay={showVideo}
+                              >
+                                <source src={processVid} type="video/mp4" />
+                              </video>
+                            </div>
+                            {showPercentage ? (
+                              <div>
+                                <p className="text-white">{percentage}</p>
+                                <button
+                                  className="site-button dz-xs-flex m-r5"
+                                  onClick={(e) => {
+                                    navigate("/");
+                                  }}
+                                >
+                                  Go To Dashboard
+                                </button>
+                              </div>
+                            ) : ( <div>
+                            <p className="text-white">{percentage}</p>
+                                <button
+                                  className="site-button dz-xs-flex m-r5"
+                                  onClick={(e) => {
+                                    navigate("/");
+                                  }}
+                                >
+                                  Go To Dashboard
+                                </button>
+                              
+                               </div>
+                            )}
+                      </div>
+                    )}
           </div>
-          {/* pending actions commented out here */}
-          {/* <div className="col-lg-4 col-md-5">
-            <Link to={"#"}>
-              <div className="pending-info text-white p-a25">
-                <h5>Pending Action</h5>
-                <ul className="list-check secondry">
-                  <li>Verify Mobile Number</li>
-                  <li>Add Preferred Location</li>
-                  <li>Add Resume</li>
-                </ul>
-              </div>
-            </Link>
-          </div> */}
         </div>
       </div>
-      <Modal
-        className="modal fade browse-job modal-bx-info editor"
-        show={basicdetails}
-        onHide={setBasicDetails}
-      >
-        <div className="modal-dialog my-0" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="ProfilenameModalLongTitle">
-                Basic Details
-              </h5>
-              <button
-                type="button"
-                className="close"
-                onClick={() => setBasicDetails(false)}
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <form>
-                <div className="row">
-                  <div className="col-lg-12 col-md-12">
-                    <div className="form-group">
-                      <label>Your Name</label>
-                      <input
-                        type="email"
-                        className="form-control"
-                        placeholder="Enter Your Name"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-lg-12 col-md-12">
-                    <div className="form-group">
-                      <div className="row">
-                        <div className="col-lg-6 col-md-6 col-sm-6 col-6">
-                          <div className="custom-control custom-radio">
-                            <input
-                              type="radio"
-                              className="custom-control-input"
-                              id="fresher"
-                              name="example1"
-                            />
-                            <label
-                              className="custom-control-label"
-                              htmlFor="fresher"
-                            >
-                              Fresher
-                            </label>
-                          </div>
-                        </div>
-                        <div className="col-lg-6 col-md-6 col-sm-6 col-6">
-                          <div className="custom-control custom-radio">
-                            <input
-                              type="radio"
-                              className="custom-control-input"
-                              id="experienced"
-                              name="example1"
-                            />
-                            <label
-                              className="custom-control-label"
-                              htmlFor="experienced"
-                            >
-                              Experienced
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-6 col-md-6">
-                    <div className="form-group">
-                      <label>Select Your Country</label>
-                      <Form.Control as="select">
-                        <option>India</option>
-                        <option>Australia</option>
-                        <option>Bahrain</option>
-                        <option>China</option>
-                        <option>Dubai</option>
-                        <option>France</option>
-                        <option>Germany</option>
-                        <option>Hong Kong</option>
-                        <option>Kuwait</option>
-                      </Form.Control>
-                    </div>
-                  </div>
-                  <div className="col-lg-6 col-md-6">
-                    <div className="form-group">
-                      <label>Select Your Country</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Select Your Country"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-lg-12 col-md-12">
-                    <div className="form-group">
-                      <label>Select Your City</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Select Your City"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-lg-12 col-md-12">
-                    <div className="form-group">
-                      <label>Telephone Number</label>
-                      <div className="row">
-                        <div className="col-lg-4 col-md-4 col-sm-4 col-4">
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Country Code"
-                          />
-                        </div>
-                        <div className="col-lg-4 col-md-4 col-sm-4 col-4">
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Area Code"
-                          />
-                        </div>
-                        <div className="col-lg-4 col-md-4 col-sm-4 col-4">
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Phone Number"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-12 col-md-12">
-                    <div className="form-group">
-                      <label>Email Address</label>
-                      <h6 className="m-a0 font-14">info@example.com</h6>
-                      <Link to={"#"}>Change Email Address</Link>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="site-button"
-                onClick={() => setBasicDetails(false)}
-              >
-                Cancel
-              </button>
-              <button type="button" className="site-button">
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      </Modal>
     </div>
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    errorMessage: state.auth.errorMessage,
-    successMessage: state.auth.successMessage,
-    showLoading: state.auth.showLoading,
-  };
-};
-export default connect(mapStateToProps)(FixedHeader);
+
+export default FixedHeader;

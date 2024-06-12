@@ -77,16 +77,15 @@ function IndexBanner() {
             <h2>
               <TypeAnimation
                 sequence={[
-                  " Search Jobs",
+                  " Find Candidates",
                   1000,
-                  "Check Resume AI Score",
+                  "Write JD with AI",
                   1000,
-                  " Make AI Resume",
+                  "Post Free Jobs",
                   1000,
-                  "Connect with Employers",
+                  "Hire Candidates With Ease",
                   1000,
-                  "Get Hired..!!",
-                  1000,
+                  
                 ]}
                 wrapper="span"
                 speed={50}

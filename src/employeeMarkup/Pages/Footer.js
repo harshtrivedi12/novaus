@@ -13,12 +13,14 @@ function EmployeeFooter() {
             <div className="col-xl-5 col-lg-4 col-md-12 col-sm-12">
               <div className="widget">
                 {/* <img src={require("./../../images/logo-white.png")} width="180" className="m-b15" alt=""/> */}
+                <Link to={"https://novajobs.us/"}>
                 <img
                   src={require("./../../images/logo/NovaUS.png")}
                   width="180"
                   className="m-b15"
                   alt=""
                 />
+                  </Link>
                 <p className="text-capitalize m-b20">
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry has been the industry's standard dummy

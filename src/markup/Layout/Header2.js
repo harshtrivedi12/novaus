@@ -113,18 +113,7 @@ class UserHeader2 extends Component {
                     )}
                     {localStorage.getItem("jobSeekerLoginToken") ? (
                       <>
-                        <button
-                          className="site-button"
-                          onClick={() => this.fileInput.click()}
-                        >
-                          <i className="fa fa-upload"></i> Upload Resume
-                        </button>
-                        <input
-                          type="file"
-                          style={{ display: "none" }}
-                          ref={(fileInput) => (this.fileInput = fileInput)}
-                          onChange={this.handleResumeChange}
-                        />
+                       
                         <Logout />
                       </>
                     ) : (

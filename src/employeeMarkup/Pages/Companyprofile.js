@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
 import { Form } from "react-bootstrap";
-// import GoogleMaps from "simple-react-google-maps";
 import axios from "axios";
-import { showToastError } from "../../utils/toastify";
+import { showToastError, showToastSuccess } from "../../utils/toastify";
 import { fetchCompanyInfo } from "../../store/thunkFunctions/companyFunction";
 import { useDispatch, useSelector } from "react-redux";
-import { get } from "react-scroll/modules/mixins/scroller";
-import { useState } from "react";
 import CompanySideBar from "../Layout/companySideBar";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function EmployeeCompanyprofile() {
   const companyData = useSelector(
@@ -46,7 +45,6 @@ function EmployeeCompanyprofile() {
 
   useEffect(() => {
     console.log(selectedStates);
-    // setSelectedCities("");
     getCities();
   }, [selectedStates]);
 
@@ -165,9 +163,11 @@ function EmployeeCompanyprofile() {
     })
       .then((res) => {
         console.log(res, "data updated");
+        showToastSuccess("Company data updated successfully.");
       })
       .catch((error) => {
         console.log(error);
+        showToastError("Failed to update company data.");
       });
   };
 
@@ -187,7 +187,6 @@ function EmployeeCompanyprofile() {
     setSelectedCountry(companyDetail?.country?.name);
     setSelectedCities(companyDetail?.city?.name);
     setSelectedState(companyDetail?.state?.name);
-    // setIndustry(companyData.country.id)
     setNumber(companyDetail?.phone);
     setAddress(companyDetail?.address);
     setlinkdin(companyDetail?.linkedin_link);
@@ -284,11 +283,10 @@ function EmployeeCompanyprofile() {
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
-                            <label>Founded Year </label>
+                            <label>Founded Year</label>
                             <input
-                              type="text"
+                              type="date"
                               className="form-control"
-                              placeholder="17/12/2018"
                               onChange={(e) => {
                                 setDate(e.target.value);
                               }}
@@ -300,57 +298,47 @@ function EmployeeCompanyprofile() {
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
                             <label>Industry</label>
-                            {industries ? (
-                              <Form.Control
-                                as="select"
-                                custom
-                                className="custom-select"
-                                onChange={(e) => {
-                                  setIndustry(e.target.value);
-                                }}
-                                value={industry}
-                                required
-                              >
-                                {industries.map((item, index) => {
-                                  return (
-                                    <option key={index} value={item.id}>
-                                      {item.name}
-                                    </option>
-                                  );
-                                })}
-                              </Form.Control>
-                            ) : null}
+                            <Form.Control
+                              as="select"
+                              custom
+                              className="custom-select"
+                              value={industry}
+                              onChange={(e) => setIndustry(e.target.value)}
+                              required
+                            >
+                              <option value="">Select Industry</option>
+                              {industries.map((industry) => (
+                                <option
+                                  value={industry.id}
+                                  key={industry.id}
+                                >
+                                  {industry.industry}
+                                </option>
+                              ))}
+                            </Form.Control>
                           </div>
                         </div>
-
-                        <div className="col-lg-12 col-md-12">
+                        <div className="col-lg-6 col-md-6">
                           <div className="form-group">
-                            <label>Description:</label>
-                            <textarea
+                            <label>Description</label>
+                            <input
+                              type="text"
                               className="form-control"
+                              placeholder="Write About Company"
                               onChange={(e) => {
                                 setDescription(e.target.value);
                               }}
                               value={description}
-                              required
-                            ></textarea>
+                            />
                           </div>
                         </div>
-                      </div>
-
-                      <div className="job-bx-title clearfix">
-                        <h5 className="font-weight-700 pull-left text-uppercase">
-                          Contact Information
-                        </h5>
-                      </div>
-                      <div className="row m-b30">
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
-                            <label>Contact Number</label>
+                            <label>Phone</label>
                             <input
-                              type="text"
+                              type="number"
                               className="form-control"
-                              placeholder="+1 123 456 7890"
+                              placeholder="Contact Number"
                               onChange={(e) => {
                                 setNumber(e.target.value);
                               }}
@@ -362,107 +350,85 @@ function EmployeeCompanyprofile() {
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
                             <label>Country</label>
-                            <select
-                              className="form-control"
+                            <Form.Control
+                              as="select"
+                              custom
+                              className="custom-select"
                               value={selectedCountry}
-                              onChange={(e) =>
-                                setSelectedCountry(e.target.value)
-                              }
+                              onChange={(e) => {
+                                setSelectedCountry(e.target.value);
+                              }}
                               required
                             >
-                              <option value="">{selectedCountry}</option>
-                              {countries.map((item) => (
-                                <option key={item.id} value={item.id}>
-                                  {item.name}
+                              <option value="">Select Country</option>
+                              {countries.map((country) => (
+                                <option
+                                  value={country.id}
+                                  key={country.id}
+                                >
+                                  {country.name}
                                 </option>
                               ))}
-                            </select>
+                            </Form.Control>
                           </div>
                         </div>
-
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
                             <label>State</label>
-                            {states ? (
-                              <select
-                                className="form-control"
-                                value={selectedStates}
-                                onChange={(e) =>
-                                  setSelectedState(e.target.value)
-                                }
-                                required
-                              >
-                                <option value="">{selectedStates}</option>
-                                {states.map((item) => (
-                                  <option key={item.id} value={item.id}>
-                                    {item.name}
-                                  </option>
-                                ))}
-                              </select>
-                            ) : null}
-                          </div>
-                        </div>
-
-                        <div className="col-lg-6 col-md-6">
-                          <div className="form-group">
-                            <label>City</label>
-                            {cities ? (
-                              <select
-                                className="form-control"
-                                value={selectedCities}
-                                onChange={(e) => {
-                                  setSelectedCities(e.target.value);
-                                }}
-                                required
-                              >
-                                <option value="">{selectedCities}</option>
-
-                                {cities.map((item) => (
-                                  <option key={item.id} value={item.id}>
-                                    {item.name}
-                                  </option>
-                                ))}
-                              </select>
-                            ) : null}
-                          </div>
-                        </div>
-                        {/* <div className="col-lg-6 col-md-6">
-                          <div className="form-group">
-                            <label>Contry</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="India"
-                            />
+                            <Form.Control
+                              as="select"
+                              custom
+                              className="custom-select"
+                              value={selectedStates}
+                              onChange={(e) => {
+                                setSelectedState(e.target.value);
+                              }}
+                              required
+                            >
+                              <option value="">Select State</option>
+                              {states.map((state) => (
+                                <option
+                                  value={state.id}
+                                  key={state.id}
+                                >
+                                  {state.name}
+                                </option>
+                              ))}
+                            </Form.Control>
                           </div>
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
                             <label>City</label>
-                            <input
-                              type="email"
-                              className="form-control"
-                              placeholder="Delhi"
-                            />
+                            <Form.Control
+                              as="select"
+                              custom
+                              className="custom-select"
+                              value={selectedCities}
+                              onChange={(e) => {
+                                setSelectedCities(e.target.value);
+                              }}
+                              required
+                            >
+                              <option value="">Select City</option>
+                              {cities.map((city) => (
+                                <option
+                                  value={city.id}
+                                  key={city.id}
+                                >
+                                  {city.name}
+                                </option>
+                              ))}
+                            </Form.Control>
                           </div>
                         </div>
-                        <div className="col-lg-6 col-md-6">
-                          <div className="form-group">
-                            <label>Zip</label>
-                            <input
-                              type="email"
-                              className="form-control"
-                              placeholder="504030"
-                            />
-                          </div>
-                        </div> */}
-                        <div className="col-lg-12">
+                        <div className="col-lg-12 col-md-12">
                           <div className="form-group">
                             <label>Address</label>
                             <input
                               type="text"
                               className="form-control"
-                              placeholder="New york city"
+                              placeholder="Enter Address"
                               onChange={(e) => {
                                 setAddress(e.target.value);
                               }}
@@ -471,40 +437,17 @@ function EmployeeCompanyprofile() {
                             />
                           </div>
                         </div>
-
-                        <div className="col-lg-12">
-                          {/* <GoogleMaps
-                            apiKey={"AIzaSyBPDjB2qkV4Yxn9h0tGSk2X5uH6NKmssXw"}
-                            style={{
-                              height: "300px",
-                              width: "100%",
-                              border: "0",
-                            }}
-                            zoom={6}
-                            center={{ lat: 37.4224764, lng: -122.0842499 }}
-                            markers={{ lat: 37.4224764, lng: -122.0842499 }} //optional
-                          /> */}
-                        </div>
-                      </div>
-
-                      <div className="job-bx-title clearfix">
-                        <h5 className="font-weight-700 pull-left text-uppercase">
-                          Social link
-                        </h5>
-                      </div>
-                      <div className="row">
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
-                            <label>Connect Linkedin</label>
+                            <label>Linkdin</label>
                             <input
                               type="text"
                               className="form-control"
-                              placeholder="https://www.facebook.com/"
+                              placeholder="Enter Linkdin URL"
                               onChange={(e) => {
                                 setlinkdin(e.target.value);
                               }}
                               value={linkdin}
-                              required
                             />
                           </div>
                         </div>
@@ -514,27 +457,25 @@ function EmployeeCompanyprofile() {
                             <input
                               type="text"
                               className="form-control"
-                              placeholder="https://www.twitter.com/"
+                              placeholder="Enter Twitter URL"
                               onChange={(e) => {
                                 setTwitter(e.target.value);
                               }}
                               value={twitter}
-                              required
                             />
                           </div>
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
-                            <label>Google Business Link</label>
+                            <label>Google Business</label>
                             <input
                               type="text"
                               className="form-control"
-                              placeholder="https://www.google.com/"
+                              placeholder="Enter Google Business URL"
                               onChange={(e) => {
                                 setGoogleBusiness(e.target.value);
                               }}
                               value={googleBusiness}
-                              required
                             />
                           </div>
                         </div>
@@ -544,25 +485,21 @@ function EmployeeCompanyprofile() {
                             <input
                               type="text"
                               className="form-control"
-                              placeholder="https://www.linkedin.com/"
+                              placeholder="Enter Glassdoor URL"
                               onChange={(e) => {
                                 setGlassdor(e.target.value);
                               }}
                               value={glassdoor}
-                              required
                             />
                           </div>
                         </div>
                       </div>
                       <button
+                        type="button"
                         className="site-button m-b30"
-                        onClick={(e) => {
-                          e.preventDefault();
-
-                          updateCompanyData();
-                        }}
+                        onClick={updateCompanyData}
                       >
-                        Update Setting
+                        Upadte Setting
                       </button>
                     </form>
                   </div>
@@ -571,9 +508,11 @@ function EmployeeCompanyprofile() {
             </div>
           </div>
         </div>
+        <ToastContainer />
       </div>
       <Footer />
     </>
   );
 }
+
 export default EmployeeCompanyprofile;

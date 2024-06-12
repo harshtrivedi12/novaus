@@ -5,20 +5,16 @@ import { showToastError, showToastSuccess } from "../../utils/toastify";
 
 function VerifyEmail() {
   const navigate = useNavigate();
-  const { token, email } = useParams();
+  const { token} = useParams();
 
   useEffect(() => {
     const verifyEmail = async () => {
       try {
-        if (!token || !email) {
-          showToastError("Token or email not provided");
-          navigate("/user/login");
-          return;
-        }
+       
         
-        const response = await axios.get(`https://novajobs.us/api/jobseeker/verify-account/${token}?email=${email}`);
+        const response = await axios.post(`https://novajobs.us/api/jobseeker/verify-account/${token}`);
         console.log(response)
-        if (response.data.success) {
+        if (response.data.success.token) {
           showToastSuccess(response,"Email verified successfully");
           navigate("/");
         } else {
@@ -33,7 +29,7 @@ function VerifyEmail() {
     };
 
     verifyEmail();
-  }, [token, email, navigate]);
+  }, [token, navigate]);
 
   return (
     <div>Verifying...</div>

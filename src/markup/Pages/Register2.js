@@ -169,7 +169,10 @@ function Register2(props) {
 // Function to send confirmation email with verification link
 const sendConfirmationEmail = async (email, token) => {
   try {
-    const verificationLink = `https://novajobs.us/api/jobseeker/verify-account/${token}?email=${encodeURIComponent(email)}`;
+    const encodedEmail = encodeURIComponent(email); // Encode email
+    const encodedToken = encodeURIComponent(token); // Encode token
+
+    const verificationLink = `https://novajobs.us/api/jobseeker/verify-account/${encodedToken}?email=${encodedEmail}`;
     const emailBody = {
       to: email,
       subject: "Confirm Your Email",
@@ -186,6 +189,7 @@ const sendConfirmationEmail = async (email, token) => {
     console.error("Error sending email:", error);
   }
 };
+
 
 
 const verifyAccount = async () => {
