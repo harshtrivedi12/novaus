@@ -94,20 +94,20 @@ class UserHeader extends Component {
                 </div>
                       )}
                     </div> */}
-                    <div>
-                      {localStorage.getItem("jobSeekerLoginToken") ? (
-                          null 
-                      ) : (
-                        <div className="extra-nav">
-                  <button
-                    style={{ color: "white" }}
-                    className="site-button"
-                  >
-                    Partner With Us
-                  </button>
+                <div>
+                  {localStorage.getItem("jobSeekerLoginToken") ? null : (
+                    <Link to={"https://nova-admin-panel-main.vercel.app/"}>
+                      <div className="extra-nav">
+                        <button
+                          style={{ color: "white" }}
+                          className="site-button"
+                        >
+                          Partner With Us
+                        </button>
+                      </div>
+                    </Link>
+                  )}
                 </div>
-                      )}
-                    </div>
 
                 <div
                   className="header-nav navbar-collapse collapse myNavbar justify-content-start"
@@ -134,7 +134,7 @@ class UserHeader extends Component {
                         </li>
                       </ul> */}
                     </li>
-                    
+
                     <li className="">
                       <Link to={"/services"}>services </Link>
                     </li>
@@ -255,16 +255,14 @@ class UserHeader extends Component {
                         ""
                       ) : (
                         <Link
-                        style={{ color: "white" }}
-                        to={"/employee/login"}
-                        className="site-button"
-                      >
-                        Employers / Post Job
-                      </Link>
+                          style={{ color: "white" }}
+                          to={"/employee/login"}
+                          className="site-button"
+                        >
+                          Employers / Post Job
+                        </Link>
                       )}
                     </li>
-                    
-                    
                   </ul>
                 </div>
               </div>
