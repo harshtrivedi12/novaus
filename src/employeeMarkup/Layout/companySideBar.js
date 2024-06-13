@@ -190,7 +190,7 @@ const CompanySideBar = ({ active }) => {
                 to={"/employee/company-transactions"}
               >
                 <i className="fa fa-random" aria-hidden="true"></i>
-                <span>Transactions</span>
+                <span>Wallet</span>
               </Link>
             </li>
             <li>
@@ -208,8 +208,19 @@ const CompanySideBar = ({ active }) => {
                 className={active === "company-resume" ? "active" : null}
               >
                 <i className="fa fa-id-card-o" aria-hidden="true"></i>
-                <span>Resume</span>
+                <span>Applicants</span>
               </Link>
+            </li>
+            <li>
+            <Link
+  to={"/employee/browse-candidates"}
+  target="_blank"
+  rel="noopener noreferrer"
+  className={active ===  "active" }
+>
+  <i className="fa fa-user-o" aria-hidden="true"></i>
+  <span>Browse Candidates</span>
+</Link>
             </li>
             <li>
               <Link
@@ -221,7 +232,7 @@ const CompanySideBar = ({ active }) => {
               </Link>
             </li>
             <li>
-              <Link to={"./"}>
+              <Link to={"/"}>
                 <i className="fa fa-sign-out" aria-hidden="true"></i>
                 <span>Log Out</span>
               </Link>

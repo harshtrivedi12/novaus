@@ -18,7 +18,7 @@ function EmployeeCompanytransactions() {
                   <div className="job-bx table-job-bx clearfix">
                     <div className="job-bx-title clearfix">
                       <h5 className="font-weight-700 pull-left text-uppercase">
-                        Transaction History
+                      Wallet History
                       </h5>
                       <Link
                         to={"/employee/company-post-jobs"}
@@ -27,6 +27,10 @@ function EmployeeCompanytransactions() {
                         Back
                       </Link>
                     </div>
+                    <div className="d-flex justify-content-center"
+                    ><h1>🚧  Wallet Section coming soon</h1></div>
+
+                   {/*
                     <div className="row ">
 
                       <div className="col-lg-8 col-sm-12 col-12 col-md-8">
@@ -43,7 +47,7 @@ function EmployeeCompanytransactions() {
                                 <div><h1>+</h1></div>
                                 <div><h1>+</h1></div>
                               </div>
-                              <h6 className="card-title">3445  6545  4545  3434</h6>
+                              <h6 className="card-title">3445 6545 4545 3434</h6>
                               <p className="card-text d-flex justify-content-between align-items-center">
                                 <div>
                                   <p className="mb-0 " style={{ fontSize: '12px' }}>CARD HOLDER NAME</p>
@@ -116,7 +120,7 @@ function EmployeeCompanytransactions() {
                     </div>
 
                     <ul className="post-job-bx browse-job mt-4">
-                      <h4 className="mt-4">Yesterday Transactions</h4>
+                      <h4 className="mt-4">Yesterday Wallet</h4>
 
                       <li >
                         <div className="post-bx d-flex w-100 justify-content-between ">
@@ -180,6 +184,7 @@ function EmployeeCompanytransactions() {
                       </li>
 
                     </ul>
+                   */}
                   </div>
                 </div>
               </div>

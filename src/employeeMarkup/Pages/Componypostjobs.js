@@ -25,7 +25,9 @@ import { useEffect } from "react";
 import CompanySideBar from "../Layout/companySideBar";
 function EmployeeComponypostjobs() {
   const postAJobData = useSelector((state) => state.postAJobSlice.postAJobData);
+
   const postAJobSkills = useSelector((state) => state.postAJobSlice.skillsData);
+  const [jobCategories, setJobCategories] = useState([]);
   const [description, setDescription] = useState(false);
   const selelctedQuestions = useSelector(
     (state) =>
@@ -65,6 +67,7 @@ function EmployeeComponypostjobs() {
     );
     setDescription(false);
   }
+// Fetch job categories from API
 
   // const renderSection = (section) => {
   //   if (section.startsWith("**")) {
@@ -119,10 +122,40 @@ function EmployeeComponypostjobs() {
       name: "",
     },
   ]);
+  
   const token = localStorage.getItem("employeeLoginToken");
   const [jobType, setJobType] = useState([]);
   const [workplaceType, setWorkplaceType] = useState([]);
   const { id } = useParams();
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: "https://novajobs.us/api/employeer/job-categories",
+      headers: {
+        Authorization: token,
+      },
+    })
+     .then((res) => {
+        setJobCategories(res.data.data); 
+        console.log('console h',res.data.data)// Update jobCategories state here
+      })
+      .catch((err) => {
+        console.log("Error fetching job categories:", err);
+      });
+  }, [token]);
+  
+  
+  // Function to render job categories as dropdown options
+  const renderJobCategories = () => {
+    return jobCategories.map((category) => (
+      <option key={category.id} value={category.id}>
+        {category.name}
+      </option>
+    ));
+  };
+  
+  
 
   const getJob = async () => {
     await axios({
@@ -188,6 +221,7 @@ function EmployeeComponypostjobs() {
         Authorization: token,
       },
       data: {
+        job_category_id: Number(postAJobData.jobCategory),
         job_title: postAJobData.jobTitle,
         job_description: postAJobData.description,
         workplace_type_id: Number(postAJobData.workplaceType),
@@ -199,12 +233,14 @@ function EmployeeComponypostjobs() {
           screen_question_keywords: selelctedQuestions,
         },
         skills: postAJobSkills,
+        
       },
     }).then((res) => {
       console.log(res);
     });
   };
 
+  
   const getJobTyes = async () => {
     await axios({
       url: "https://novajobs.us/api/employeer/job-types",
@@ -345,26 +381,37 @@ function EmployeeComponypostjobs() {
   const dispatch = useDispatch();
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    dispatch(setPostAJobData({ ...postAJobData, [name]: value }));
-
+  
+    let updatedErrors = { ...errors };
+  
     if (name === "jobTitle") {
-      // Validate  allow only characters
+      // Validate allow only characters
       if (!/^[a-zA-Z\s]*$/.test(value)) {
-        setErrors({ ...errors, jobTitle: "Please add only characters." });
+        updatedErrors = { ...errors, jobTitle: "Please add only characters." };
       } else {
-        setErrors({ ...errors, jobTitle: "" });
+        updatedErrors = { ...errors, jobTitle: "" };
       }
     } else if (name === "company") {
+      // Validate allow only characters
       if (!/^[a-zA-Z\s]*$/.test(value)) {
-        setErrors({ ...errors, company: "Please add only characters." });
+        updatedErrors = { ...errors, company: "Please add only characters." };
       } else {
-        setErrors({ ...errors, company: "" });
+        updatedErrors = { ...errors, company: "" };
+      }
+    } else if (name === "jobCategory") {
+      // Validate job category (assuming it should not be empty)
+      if (value.trim() === "") {
+        updatedErrors = { ...errors, jobCategory: "Job category is required." };
+      } else {
+        updatedErrors = { ...errors, jobCategory: "" };
       }
     }
-
-    dispatch(setPostAJobData({ ...postAJobData, [name]: value }));
+  
+    setErrors(updatedErrors); // Update errors state first
+  
+    dispatch(setPostAJobData({ ...postAJobData, [name]: value })); // Then update postAJobData state
   };
+  
   const [errors, setErrors] = useState({
     jobTitle: "",
     company: "",
@@ -459,34 +506,46 @@ function EmployeeComponypostjobs() {
                             />
                           </div>
                         </div> */}
-                        <div className="col-12">
+                        <div className="ccol-lg-6 col-md-6">
                           <div className="form-group">
                             <label htmlFor="workplaceType">
                               Workplace type
                             </label>
                             {workplaceType ? (
-                              <Form.Control
-                                as="select"
-                                custom
-                                className="custom-select"
-                                onChange={handleChange}
-                                name="workplaceType"
-                                id="workplaceType"
-                                value={postAJobData.workplaceType}>
-                                {workplaceType.map(
-                                  (item) => (
-                                    console.log(item),
-                                    (
-                                      <option value={item.id}>
-                                        {item.name}
-                                      </option>
-                                    )
-                                  )
-                                )}
-                              </Form.Control>
+                             <Form.Control
+                             as="select"
+                             custom
+                             value={postAJobData.workplaceType}
+                             onChange={handleChange}
+                             name="workplaceType"
+                           >
+                             {workplaceType.map((item) => (
+                               <option key={item.id} value={item.id}>
+                                 {item.name}
+                               </option>
+                             ))}
+                           </Form.Control>
+                           
                             ) : null}
                           </div>
                         </div>
+                        <div className="col-lg-6 col-md-6">
+  <div className="form-group">
+    <label htmlFor="jobCategory">Job Category</label>
+    <Form.Control
+  as="select"
+  custom
+  name="jobCategory"
+  id="jobCategory"
+  value={postAJobData.jobCategory}
+  onChange={handleChange}
+>
+  {renderJobCategories()}
+</Form.Control>
+
+  </div>
+</div>
+
 
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">

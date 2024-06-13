@@ -2,24 +2,64 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header2 from "./../Layout/Header2";
 import Footer from "./../Layout/Footer";
+import axios from "axios";
+import { ToastContainer } from "react-toastify";
 import CompanySideBar from "../Layout/companySideBar";
+import { showToastError, showToastSuccess } from "../../utils/toastify";
+import 'react-toastify/dist/ReactToastify.css'; 
 
-function EmployeeChangepasswordpage() {
+function Changepasswordpage() {
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [changePassword, setChangePassword] = useState({
     old_password: "",
-    new_password: "", 
+    new_password: "",
     confirm_password: "",
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setChangePassword({ ...changePassword, [name]: value });
   };
+
+  const token = localStorage.getItem("employeeLoginToken");
+  const requestBody = {
+    old_password: changePassword.old_password,
+    new_password: changePassword.new_password,
+    confirm_password: changePassword.confirm_password,
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios({
+      method: "POST",
+      url: "https://novajobs.us/api/employeer/change-password",
+      headers: {
+        Authorization: token,
+        "Content-type": "application/json",
+      },
+      data: requestBody,
+    })
+      .then((response) => {
+        console.log(response);
+        showToastSuccess("Password updated successfully.");
+        setChangePassword({
+          old_password: "",
+          new_password: "",
+          confirm_password: "",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        showToastError("Failed to update password.");
+      });
+  };
+
   return (
     <>
       <Header2 />
+      <ToastContainer />
       <div className="page-content bg-white">
         <div className="content-block">
           <div className="section-full bg-white browse-job p-t50 p-b20">
@@ -33,8 +73,9 @@ function EmployeeChangepasswordpage() {
                         Change Password
                       </h5>
                       <Link
-                        to={"/employee/jobs-cv-manager"}
-                        className="site-button right-arrow button-sm float-right">
+                        to={"/user/jobs-cv-manager"}
+                        className="site-button right-arrow button-sm float-right"
+                      >
                         Back
                       </Link>
                     </div>
@@ -43,7 +84,6 @@ function EmployeeChangepasswordpage() {
                         <div className="col-lg-12">
                           <div className="form-group">
                             <label htmlFor="old_password">Old Password</label>
-
                             <div className="input-group d-flex align-items-center">
                               <span
                                 className="input-group-addon position-absolute"
@@ -55,23 +95,26 @@ function EmployeeChangepasswordpage() {
                                   right: "0px",
                                   zIndex: "11",
                                   position: "absolute",
-                                }}>
+                                }}
+                              >
                                 <i
                                   className={
                                     showOldPassword
                                       ? "fa fa-eye-slash"
                                       : "fa fa-eye"
-                                  }></i>
+                                  }
+                                ></i>
                               </span>
                               <input
                                 type={showOldPassword ? "text" : "password"}
                                 style={{ marginRight: "0px" }}
-                                required
                                 className="form-control position-relative "
                                 onChange={handleChange}
                                 id="old_password"
                                 name="old_password"
                                 autoComplete="false"
+                                value={changePassword.old_password}
+                                required
                               />
                             </div>
                           </div>
@@ -90,23 +133,26 @@ function EmployeeChangepasswordpage() {
                                   right: "0px",
                                   zIndex: "11",
                                   position: "absolute",
-                                }}>
+                                }}
+                              >
                                 <i
                                   className={
                                     showNewPassword
                                       ? "fa fa-eye-slash"
                                       : "fa fa-eye"
-                                  }></i>
+                                  }
+                                ></i>
                               </span>
                               <input
                                 type={showNewPassword ? "text" : "password"}
-                                required
                                 style={{ marginRight: "0px" }}
                                 className="form-control position-relative "
                                 onChange={handleChange}
                                 id="new_password"
                                 name="new_password"
                                 autoComplete="false"
+                                value={changePassword.new_password}
+                                required
                               />
                             </div>
                           </div>
@@ -127,13 +173,15 @@ function EmployeeChangepasswordpage() {
                                   right: "0px",
                                   zIndex: "11",
                                   position: "absolute",
-                                }}>
+                                }}
+                              >
                                 <i
                                   className={
                                     showConfirmPassword
                                       ? "fa fa-eye-slash"
                                       : "fa fa-eye"
-                                  }></i>
+                                  }
+                                ></i>
                               </span>
                               <input
                                 type={showConfirmPassword ? "text" : "password"}
@@ -143,13 +191,17 @@ function EmployeeChangepasswordpage() {
                                 id="confirm_password"
                                 name="confirm_password"
                                 autoComplete="false"
+                                value={changePassword.confirm_password}
                                 required
                               />
                             </div>
                           </div>
                         </div>
                         <div className="col-lg-12 m-b10">
-                          <button className="site-button">
+                          <button
+                            onClick={handleSubmit}
+                            className="site-button"
+                          >
                             Update Password
                           </button>
                         </div>
@@ -166,4 +218,5 @@ function EmployeeChangepasswordpage() {
     </>
   );
 }
-export default EmployeeChangepasswordpage;
+
+export default Changepasswordpage;

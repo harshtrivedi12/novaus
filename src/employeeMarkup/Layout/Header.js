@@ -93,7 +93,7 @@ class EmployeeHeader extends Component {
                     )}
                     {/* <Link to ={'#'} title="READ MORE" onClick={this.handleShow}  className="site-button"><i className="fa fa-lock"></i> login </Link> */}
 
-                    <Logout />
+                    
                   </div>
                 </div>
 
@@ -184,63 +184,68 @@ class EmployeeHeader extends Component {
                         </li>
                       </ul>
                     </li> */}
-                    <li>
-                      <Link to={"#"}>
-                        Dashboard <i className="fa fa-chevron-down"></i>
-                      </Link>
-                      <ul className="sub-menu">
-                        <li>
-                          <Link
-                            to={"/employee/company-profile"}
-                            className="dez-page"
-                          >
-                            Company Profile{" "}
-                            <span className="new-page">New</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            to={"/employee/company-resume"}
-                            className="dez-page"
-                          >
-                            Employer Resume{" "}
-                            <span className="new-page">New</span>
-                          </Link>
-                        </li>
-
-                        {/* <li>
-                          <Link
-                            to={"/employee/company-manage-job"}
-                            className="dez-page">
-                            Manage jobs <span className="new-page">New</span>
-                          </Link>
-                        </li> */}
-                        <li>
-                          <Link
-                            to={"/employee/company-transactions"}
-                            className="dez-page"
-                          >
-                            Transactions <span className="new-page">New</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            to={"/employee/browse-candidates"}
-                            className="dez-page"
-                            onClick={() => {
-                              localStorage.removeItem("profession_title");
-                            }}
-                          >
-                            Browse Candidates
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={"/employee/messages"} className="dez-page">
-                            Messages
-                          </Link>
-                        </li>
-                      </ul>
-                    </li>
+                    {localStorage.getItem("employeeLoginToken") ? (
+                       <li>
+                       <Link to={"#"}>
+                         Dashboard <i className="fa fa-chevron-down"></i>
+                       </Link>
+                       <ul className="sub-menu">
+                         <li>
+                           <Link
+                             to={"/employee/company-profile"}
+                             className="dez-page"
+                           >
+                             Company Profile{" "}
+                             <span className="new-page">New</span>
+                           </Link>
+                         </li>
+                         <li>
+                           <Link
+                             to={"/employee/company-resume"}
+                             className="dez-page"
+                           >
+                             Employer Resume{" "}
+                             <span className="new-page">New</span>
+                           </Link>
+                         </li>
+ 
+                         {/* <li>
+                           <Link
+                             to={"/employee/company-manage-job"}
+                             className="dez-page">
+                             Manage jobs <span className="new-page">New</span>
+                           </Link>
+                         </li> */}
+                         <li>
+                           <Link
+                             to={"/employee/company-transactions"}
+                             className="dez-page"
+                           >
+                             Transactions <span className="new-page">New</span>
+                           </Link>
+                         </li>
+                         <li>
+                           <Link
+                             to={"/employee/browse-candidates"}
+                             className="dez-page"
+                             onClick={() => {
+                               localStorage.removeItem("profession_title");
+                             }}
+                           >
+                             Browse Candidates
+                           </Link>
+                         </li>
+                         <li>
+                           <Link to={"/employee/messages"} className="dez-page">
+                             Messages
+                           </Link>
+                         </li>
+                       </ul>
+                     </li>
+                    ) : (
+                      ''
+                    )}
+                   
                     {/* <li>
                       <Link to={"#"}>
                         Pages <i className="fa fa-chevron-down"></i>

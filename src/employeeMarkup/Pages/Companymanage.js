@@ -19,26 +19,12 @@ function EmployeeCompanymanage() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const [btn, setBtn] = useState("");
+
   useEffect(() => {
-    axios({
-      method: "GET",
-      url: "https://novajobs.us/api/employeer/job-lists?is_publish=0",
-      headers: {
-        Authorization: token,
-      },
-    })
-      .then((response) => {
-        console.log(response.data.data, "draft");
-        setData(response.data.data);
-        setSkeleton(false);
-        setBtn("View");
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response.data.message);
-        showToastError(err?.response?.data?.message);
-      });
+    fetchPublishedJobs();
   }, []);
+
+
   const fetchDraftJobs = () => {
     axios({
       method: "GET",
@@ -71,7 +57,7 @@ function EmployeeCompanymanage() {
       .then((response) => {
         console.log(response.data.data, "published");
         setData(response.data.data);
-        setBtn("Published");
+        setBtn("Edit Job");
         setSkeleton(false);
       })
       .catch((err) => {
@@ -150,13 +136,13 @@ function EmployeeCompanymanage() {
                           style={{ gap: "7px" }}
                           className="d-flex align-items-center justify-content-center "
                         >
-                          <button
-                            onClick={fetchDraftJobs}
-                            className="site-button"
-                            style={{ fontSize: "14px" }}
-                          >
-                            Draft
-                          </button>
+                        {/*<button
+                          onClick={fetchDraftJobs}
+                          className="site-button"
+                          style={{ fontSize: "14px" }}
+                        >
+                          Draft
+                        </button>*/}
                           <button
                             onClick={fetchPublishedJobs}
                             className="site-button"
@@ -174,11 +160,12 @@ function EmployeeCompanymanage() {
                         {data.map((item, index) => {
                           const formattedDate = moment(
                             item.job_detail.created_at
-                          ).format("YYYY-MM-DD");
+                          ).format("MMMM-DD-YYYY");
                           return (
                             <li key={index} className="position-relative">
                               <div className="post-bx d-flex w-100 justify-content-between ">
                                 <div className="job-post-info m-a0">
+                                {console.log('yehi h console',item.job_detail)}
                                   {item.job_detail.job_title ? (
                                     <h4 className="mb-0">
                                       <a href="/react/demo/job-detail">
@@ -191,17 +178,27 @@ function EmployeeCompanymanage() {
                                   item.job_workplace_types.name ? (
                                     <div className="row">
                                       {item.job_category.name ? (
-                                        <p>
+                                        <p className="ml-3">
                                           {item.job_category.name}
-                                          {" | "}{" "}
+                                          {" |"}{" "}
                                         </p>
                                       ) : null}
                                       {item.job_type.name ? (
-                                        <p>
+                                        <p className="ml-3">
                                           {item.job_type.name}
-                                          {" | "}{" "}
+                                          {"| "}{" "}
                                         </p>
                                       ) : null}{" "}
+                                     {item.job_detail.skills_arr ? (
+                                       <div className="mx-1">
+                                            {item.job_detail.skills_arr.map((skill, index) => (
+                                                   <span key={index} className="badge badge-primary mr-1 mb-1">
+                                                            {skill}
+                                                                </span>  ))}
+                                                                </div>
+                                                              ) : null}{" | "}
+
+                                    {" "}
                                       {item.job_workplace_types.name ? (
                                         <p>{item.job_workplace_types.name}</p>
                                       ) : null}
@@ -218,7 +215,7 @@ function EmployeeCompanymanage() {
                                   item.countries.name ? (
                                     <p
                                       style={{ color: "#232323" }}
-                                      className="mb-2"
+                                      className="mb-2 "
                                     >
                                       {" "}
                                       <i className="fa fa-map-marker"></i>{" "}
@@ -241,8 +238,8 @@ function EmployeeCompanymanage() {
                                   {item.job_detail.created_at ? (
                                     <p className="mb-0">
                                       {" "}
-                                      <span className="text-black ">
-                                        Draft *
+                                      <span className="text-black mr-2">
+                                        Posted on* 
                                       </span>
                                       {formattedDate}
                                     </p>
@@ -252,6 +249,7 @@ function EmployeeCompanymanage() {
                                   className="d-flex flex-row justify-content-center align-items-center "
                                   style={{ gap: "12px" }}
                                 >
+                                   
                                   <button
                                     onClick={() => {
                                       // handlePutReq(item.job_detail.id);
@@ -261,22 +259,27 @@ function EmployeeCompanymanage() {
                                     }}
                                     className="px-3 py-2 site-button text-white border-0"
                                     style={{
-                                      borderRadius: "7px",
+                                      
                                       cursor: "pointer",
                                     }}
                                   >
                                     {btn}
                                   </button>
+                                  
                                   {showOptions === index ? (
                                     <FaX
                                       onClick={() => handleShowOptions(index)}
                                       style={{ cursor: "pointer" }}
                                     />
                                   ) : (
-                                    <HiOutlineDotsVertical
-                                      onClick={() => handleShowOptions(index)}
-                                      style={{ cursor: "pointer" }}
-                                    />
+                                    
+                                    <Link
+                                    to={"/employee/company-resume"}
+                                    className="px-3 py-2 site-button text-white border-0"
+                                  >
+                                    <i className="fa fa-id-card-o mr-1" aria-hidden="true"></i>
+                                    <span>Applicants</span>
+                                  </Link>
                                   )}
                                   {/* <button
                                   className="px-3 site-button py-2  text-white border-0"
@@ -289,7 +292,9 @@ function EmployeeCompanymanage() {
                                   Draft
                                 </button> */}
                                 </div>
+                                
                               </div>
+                              
                               {showOptions === index ? (
                                 <div
                                   style={{
@@ -358,11 +363,26 @@ function EmployeeCompanymanage() {
                                     Schedule Interview
                                   </p>
                                 </div>
+                                
                               ) : null}
+                              <button
+                                    
+                                    className="px-3 py-2 site-button text-white border-0 float-right mb-2"
+                                    style={{
+                                      
+                                      cursor: "pointer",
+                                    }}
+                                  >
+                                    Share
+                                  </button>
                             </li>
+                            
                           );
+                          
                         })}
+                        
                       </ul>
+                      
                     )}
 
                     <div className="pagination-bx m-t30 float-right">

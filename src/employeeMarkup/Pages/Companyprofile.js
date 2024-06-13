@@ -16,19 +16,19 @@ function EmployeeCompanyprofile() {
     (state) => state.companyDataSlice.companyData
   );
   let companyDetail = companyData?.company_detail;
-  console.log(companyDetail, "lavi");
+
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(null);
-  const [selectedStates, setSelectedState] = useState(null);
+  const [selectedStates, setSelectedStates] = useState(null);
   const [selectedCities, setSelectedCities] = useState(null);
   const [companyName, setCompanyName] = useState("");
   const [tagline, setTagline] = useState("");
   const [email, setEmail] = useState("");
   const [website, setWebsite] = useState("");
   const [foundedYear, setDate] = useState("");
-  const [industry, setIndustry] = useState("");
+  const [industry, setIndustry] = useState(""); // State variable to hold selected industry ID
   const [description, setDescription] = useState("");
   const [number, setNumber] = useState("");
   const [address, setAddress] = useState("");
@@ -37,100 +37,32 @@ function EmployeeCompanyprofile() {
   const [googleBusiness, setGoogleBusiness] = useState("");
   const [glassdoor, setGlassdor] = useState("");
 
-  useEffect(() => {
-    console.log(selectedCountry);
-    setSelectedState("");
-    getState();
-  }, [selectedCountry]);
-
-  useEffect(() => {
-    console.log(selectedStates);
-    getCities();
-  }, [selectedStates]);
+  const [industries, setIndustries] = useState([]);
 
   const token = localStorage.getItem("employeeLoginToken");
 
-  const getCountry = async () => {
-    axios({
-      method: "get",
-      url: "https://novajobs.us/api/employeer/countries",
-      headers: {
-        Authorization: token,
-      },
-    })
-      .then((res) => {
-        setCountries(res.data.data);
-        console.log(res.data.data, "country");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const getState = async () => {
-    axios({
-      method: "get",
-      url: `https://novajobs.us/api/employeer/stats/${selectedCountry}`,
-      headers: {
-        Authorization: token,
-      },
-    })
-      .then((res) => {
-        setStates(res.data.data);
-        console.log(res.data.data, "state");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  const getCities = async () => {
-    axios({
-      method: "get",
-      url: `https://novajobs.us/api/employeer/cities/${selectedStates}`,
-      headers: {
-        Authorization: token,
-      },
-    })
-      .then((res) => {
-        console.log(selectedStates);
-        setCities(res.data.data);
-        console.log(res.data.data, "cities");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const [industries, setIndustries] = useState([]);
-
   useEffect(() => {
+    // Fetch industries from API
     axios({
       method: "GET",
       url: "https://novajobs.us/api/employeer/company-industry",
       headers: {
-        Authorization: token,
+        Authorization: token, // Assuming you have token stored
       },
     })
       .then((res) => {
-        console.log(res.data.data, "industry");
-        setIndustries(res.data.data);
+        setIndustries(res.data.data); // Set fetched industries to state
       })
       .catch((err) => {
         console.log(err);
-        console.log(err.response.data.message);
         showToastError(err?.response?.data?.message);
       });
-  }, []);
+  }, [token]); // Added token as dependency to ensure useEffect runs on token change
 
-  const updateCompanyData = async (e) => {
-    if (
-      !companyName ||
-      !email ||
-      !industry ||
-      !selectedCountry ||
-      !selectedStates ||
-      !selectedCities
-    ) {
+  // Function to update company data
+  const updateCompanyData = async () => {
+    // Ensure required fields are filled
+    if (!companyName || !email || !industry || !selectedCountry || !selectedStates || !selectedCities) {
       showToastError("Please fill out all required fields.");
       return;
     }
@@ -158,7 +90,7 @@ function EmployeeCompanyprofile() {
         twitter_link: twitter,
         google_link: googleBusiness,
         linkedin_link: linkdin,
-        company_industry_id: Number(industry),
+        company_industry_id: Number(industry), // Pass selected industry ID
       },
     })
       .then((res) => {
@@ -172,28 +104,92 @@ function EmployeeCompanyprofile() {
   };
 
   const dispatch = useDispatch();
+
   useEffect(() => {
-    getCountry();
     dispatch(fetchCompanyInfo());
   }, [dispatch]);
 
   useEffect(() => {
-    setCompanyName(companyDetail?.company_name);
-    setTagline(companyDetail?.tagline);
-    setEmail(companyDetail?.email);
-    setWebsite(companyDetail?.website_link);
-    setDate(companyDetail?.founded_date);
-    setDescription(companyDetail?.about);
-    setSelectedCountry(companyDetail?.country?.name);
-    setSelectedCities(companyDetail?.city?.name);
-    setSelectedState(companyDetail?.state?.name);
-    setNumber(companyDetail?.phone);
-    setAddress(companyDetail?.address);
-    setlinkdin(companyDetail?.linkedin_link);
-    setTwitter(companyDetail?.twitter_link);
-    setGoogleBusiness(companyDetail?.google_link);
-    setGlassdor(companyDetail?.facebook_link);
+    setCompanyName(companyDetail?.company_name || "");
+    setTagline(companyDetail?.tagline || "");
+    setEmail(companyDetail?.email || "");
+    setWebsite(companyDetail?.website_link || "");
+    setDate(companyDetail?.founded_date || "");
+    setDescription(companyDetail?.about || "");
+    setSelectedCountry(companyDetail?.country?.id || null);
+    setSelectedStates(companyDetail?.state?.id || null);
+    setSelectedCities(companyDetail?.city?.id || null);
+    setNumber(companyDetail?.phone || "");
+    setAddress(companyDetail?.address || "");
+    setlinkdin(companyDetail?.linkedin_link || "");
+    setTwitter(companyDetail?.twitter_link || "");
+    setGoogleBusiness(companyDetail?.google_link || "");
+    setGlassdor(companyDetail?.facebook_link || "");
+    setIndustry(companyDetail?.company_industry?.id || ""); // Set industry ID if available
   }, [companyData]);
+
+  const getCountry = async () => {
+    axios({
+      method: "get",
+      url: "https://novajobs.us/api/employeer/countries",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        setCountries(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getState = async () => {
+    axios({
+      method: "get",
+      url: `https://novajobs.us/api/employeer/stats/${selectedCountry}`,
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        setStates(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getCities = async () => {
+    axios({
+      method: "get",
+      url: `https://novajobs.us/api/employeer/cities/${selectedStates}`,
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => {
+        setCities(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getCountry();
+  }, []);
+
+  useEffect(() => {
+    console.log(selectedCountry);
+   
+    getState();
+  }, [selectedCountry]);
+
+  useEffect(() => {
+    console.log(selectedStates);
+    getCities();
+  }, [selectedStates]);
 
   return (
     <>
@@ -217,7 +213,10 @@ function EmployeeCompanyprofile() {
                         Back
                       </Link>
                     </div>
-                    <form>
+                    <form onSubmit={(e) => {
+                      e.preventDefault();
+                      updateCompanyData();
+                    }}>
                       <div className="row m-b30">
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
@@ -228,9 +227,7 @@ function EmployeeCompanyprofile() {
                               name="companyName"
                               className="form-control"
                               placeholder="Enter Company Name"
-                              onChange={(e) => {
-                                setCompanyName(e.target.value);
-                              }}
+                              onChange={(e) => setCompanyName(e.target.value)}
                               value={companyName}
                               required
                             />
@@ -243,9 +240,7 @@ function EmployeeCompanyprofile() {
                               type="text"
                               className="form-control"
                               placeholder="Enter Company Tagline"
-                              onChange={(e) => {
-                                setTagline(e.target.value);
-                              }}
+                              onChange={(e) => setTagline(e.target.value)}
                               value={tagline}
                               required
                             />
@@ -258,9 +253,7 @@ function EmployeeCompanyprofile() {
                               type="email"
                               className="form-control"
                               placeholder="info@gmail.com"
-                              onChange={(e) => {
-                                setEmail(e.target.value);
-                              }}
+                              onChange={(e) => setEmail(e.target.value)}
                               value={email}
                               required
                             />
@@ -273,9 +266,7 @@ function EmployeeCompanyprofile() {
                               type="text"
                               className="form-control"
                               placeholder="Website Link"
-                              onChange={(e) => {
-                                setWebsite(e.target.value);
-                              }}
+                              onChange={(e) => setWebsite(e.target.value)}
                               value={website}
                               required
                             />
@@ -287,11 +278,9 @@ function EmployeeCompanyprofile() {
                             <input
                               type="date"
                               className="form-control"
-                              onChange={(e) => {
-                                setDate(e.target.value);
-                              }}
+                              onChange={(e) => setDate(e.target.value)}
                               value={foundedYear}
-                              required
+                              aria-required
                             />
                           </div>
                         </div>
@@ -301,18 +290,18 @@ function EmployeeCompanyprofile() {
                             <Form.Control
                               as="select"
                               custom
-                              className="custom-select"
-                              value={industry}
+                                                            className="custom-select"
                               onChange={(e) => setIndustry(e.target.value)}
+                              value={industry}
                               required
                             >
                               <option value="">Select Industry</option>
                               {industries.map((industry) => (
                                 <option
-                                  value={industry.id}
                                   key={industry.id}
+                                  value={industry.id}
                                 >
-                                  {industry.industry}
+                                  {industry.name}
                                 </option>
                               ))}
                             </Form.Control>
@@ -320,28 +309,25 @@ function EmployeeCompanyprofile() {
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
-                            <label>Description</label>
+                            <label>Company Description</label>
                             <input
-                              type="text"
                               className="form-control"
-                              placeholder="Write About Company"
-                              onChange={(e) => {
-                                setDescription(e.target.value);
-                              }}
+                              placeholder="Company Description"
+                              onChange={(e) => setDescription(e.target.value)}
                               value={description}
+                              rows="3"
+                              required
                             />
                           </div>
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
-                            <label>Phone</label>
+                            <label>Phone Number</label>
                             <input
-                              type="number"
+                              type="text"
                               className="form-control"
-                              placeholder="Contact Number"
-                              onChange={(e) => {
-                                setNumber(e.target.value);
-                              }}
+                              placeholder="Phone Number"
+                              onChange={(e) => setNumber(e.target.value)}
                               value={number}
                               required
                             />
@@ -353,18 +339,17 @@ function EmployeeCompanyprofile() {
                             <Form.Control
                               as="select"
                               custom
-                              className="custom-select"
+                              onChange={(e) =>
+                                setSelectedCountry(e.target.value)
+                              }
                               value={selectedCountry}
-                              onChange={(e) => {
-                                setSelectedCountry(e.target.value);
-                              }}
                               required
                             >
                               <option value="">Select Country</option>
                               {countries.map((country) => (
                                 <option
-                                  value={country.id}
                                   key={country.id}
+                                  value={country.id}
                                 >
                                   {country.name}
                                 </option>
@@ -378,18 +363,17 @@ function EmployeeCompanyprofile() {
                             <Form.Control
                               as="select"
                               custom
-                              className="custom-select"
+                              onChange={(e) =>
+                                setSelectedStates(e.target.value)
+                              }
                               value={selectedStates}
-                              onChange={(e) => {
-                                setSelectedState(e.target.value);
-                              }}
                               required
                             >
                               <option value="">Select State</option>
                               {states.map((state) => (
                                 <option
-                                  value={state.id}
                                   key={state.id}
+                                  value={state.id}
                                 >
                                   {state.name}
                                 </option>
@@ -403,18 +387,17 @@ function EmployeeCompanyprofile() {
                             <Form.Control
                               as="select"
                               custom
-                              className="custom-select"
+                              onChange={(e) =>
+                                setSelectedCities(e.target.value)
+                              }
                               value={selectedCities}
-                              onChange={(e) => {
-                                setSelectedCities(e.target.value);
-                              }}
                               required
                             >
                               <option value="">Select City</option>
                               {cities.map((city) => (
                                 <option
-                                  value={city.id}
                                   key={city.id}
+                                  value={city.id}
                                 >
                                   {city.name}
                                 </option>
@@ -429,78 +412,75 @@ function EmployeeCompanyprofile() {
                               type="text"
                               className="form-control"
                               placeholder="Enter Address"
-                              onChange={(e) => {
-                                setAddress(e.target.value);
-                              }}
+                              onChange={(e) => setAddress(e.target.value)}
                               value={address}
                               required
                             />
                           </div>
                         </div>
+                        
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
-                            <label>Linkdin</label>
+                            <label>LinkedIn Link</label>
                             <input
                               type="text"
                               className="form-control"
-                              placeholder="Enter Linkdin URL"
-                              onChange={(e) => {
-                                setlinkdin(e.target.value);
-                              }}
+                              placeholder="LinkedIn Link"
+                              onChange={(e) => setlinkdin(e.target.value)}
                               value={linkdin}
                             />
                           </div>
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
-                            <label>Twitter</label>
+                            <label>Twitter Link</label>
                             <input
                               type="text"
                               className="form-control"
-                              placeholder="Enter Twitter URL"
-                              onChange={(e) => {
-                                setTwitter(e.target.value);
-                              }}
+                              placeholder="Twitter Link"
+                              onChange={(e) => setTwitter(e.target.value)}
                               value={twitter}
                             />
                           </div>
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
-                            <label>Google Business</label>
+                            <label>Google Business Link</label>
                             <input
                               type="text"
                               className="form-control"
-                              placeholder="Enter Google Business URL"
-                              onChange={(e) => {
-                                setGoogleBusiness(e.target.value);
-                              }}
+                              placeholder="Google Business Link"
+                              onChange={(e) =>
+                                setGoogleBusiness(e.target.value)
+                              }
                               value={googleBusiness}
                             />
                           </div>
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="form-group">
-                            <label>Glassdoor</label>
+                            <label>Glassdoor Link</label>
                             <input
                               type="text"
                               className="form-control"
-                              placeholder="Enter Glassdoor URL"
-                              onChange={(e) => {
-                                setGlassdor(e.target.value);
-                              }}
+                              placeholder="Glassdoor Link"
+                              onChange={(e) => setGlassdor(e.target.value)}
                               value={glassdoor}
                             />
                           </div>
                         </div>
+                       
+                        <div className="col-lg-12 col-md-12">
+                          <div className="clearfix font-bold">
+                            <button
+                              type="submit"
+                              className="site-button button-sm px-4 py-2 text-bolder"
+                            >
+                              Save
+                            </button>
+                          </div>
+                        </div>
                       </div>
-                      <button
-                        type="button"
-                        className="site-button m-b30"
-                        onClick={updateCompanyData}
-                      >
-                        Upadte Setting
-                      </button>
                     </form>
                   </div>
                 </div>
@@ -508,11 +488,13 @@ function EmployeeCompanyprofile() {
             </div>
           </div>
         </div>
-        <ToastContainer />
       </div>
       <Footer />
+      <ToastContainer />
     </>
   );
 }
 
 export default EmployeeCompanyprofile;
+
+
