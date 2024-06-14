@@ -54,7 +54,7 @@
     "vercelb": "export NODE_OPTIONS=--openssl-legacy-provider &&  react-scripts build",
     "startserver": "export NODE_OPTIONS=--openssl-legacy-provider &&  react-scripts start",
     "start": "react-scripts --max-old-space-size=4096 start",
-    "build": "SET NODE_OPTIONS=--openssl-legacy-provider &&  react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
